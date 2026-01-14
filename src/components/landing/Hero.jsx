@@ -146,17 +146,28 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.3, type: "spring" }}
           >
             <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-3xl opacity-10 blur-3xl"
-              animate={{ scale: [1, 1.1, 1] }}
-              transition={{ duration: 4, repeat: Infinity }}
+              className="absolute inset-0 bg-gradient-to-r from-sky-400 via-blue-500 to-sky-300 rounded-3xl opacity-20 blur-3xl"
+              animate={{ scale: [1, 1.05, 1], opacity: [0.18, 0.3, 0.18] }}
+              transition={{ duration: 6, repeat: Infinity }}
             />
             <motion.div
-              className="relative bg-white rounded-3xl shadow-2xl p-8"
+              className="relative bg-slate-950 rounded-3xl shadow-2xl p-8 border border-slate-800 overflow-hidden"
               whileHover={{
-                boxShadow: "0 25px 50px -12px rgba(37, 99, 235, 0.3)",
+                boxShadow: "0 30px 60px -15px rgba(15, 23, 42, 0.8)",
+                y: -4,
               }}
             >
-              <DataAnalyticsSVG className="w-full h-auto" />
+              <motion.div
+                className="absolute -top-16 -right-10 w-40 h-40 rounded-full bg-sky-500/30 blur-3xl"
+                animate={{ y: [0, 10, -4, 0], opacity: [0.2, 0.35, 0.25, 0.2] }}
+                transition={{ duration: 7, repeat: Infinity }}
+              />
+              <motion.div
+                className="absolute -bottom-10 -left-10 w-36 h-36 rounded-full bg-yellow-400/20 blur-3xl"
+                animate={{ y: [0, -8, 6, 0], opacity: [0.15, 0.3, 0.22, 0.15] }}
+                transition={{ duration: 6.5, repeat: Infinity, delay: 0.7 }}
+              />
+              <DataAnalyticsSVG className="w-full h-auto relative z-10" />
             </motion.div>
 
             {/* Floating cards */}
@@ -184,13 +195,11 @@ const Hero = () => {
               whileHover={{ scale: 1.1 }}
             >
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-br from-sky-400 to-blue-600 rounded-lg flex items-center justify-center">
                   <Zap className="text-white w-6 h-6" />
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-purple-600">
-                    12.8%
-                  </div>
+                  <div className="text-2xl font-bold text-blue-600">12.8%</div>
                   <div className="text-xs text-gray-600">Conversion Rate</div>
                 </div>
               </div>
