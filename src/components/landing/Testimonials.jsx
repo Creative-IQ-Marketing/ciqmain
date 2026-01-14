@@ -115,13 +115,12 @@ const Testimonials = () => {
           </motion.p>
         </motion.div>
 
-        {/* Stats Bar */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="grid grid-cols-3 gap-8 mb-20 max-w-4xl mx-auto"
+          className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-20 max-w-4xl mx-auto"
         >
           <motion.div
             whileHover={{ scale: 1.05 }}
@@ -156,13 +155,12 @@ const Testimonials = () => {
           </motion.div>
         </motion.div>
 
-        {/* Testimonials Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-20"
         >
           {testimonials.map((testimonial, index) => (
             <motion.div
@@ -172,7 +170,7 @@ const Testimonials = () => {
                 y: -8,
                 boxShadow: "0 25px 50px -12px rgba(37, 99, 235, 0.15)",
               }}
-              className="group bg-gradient-to-br from-white to-blue-50 rounded-2xl p-8 shadow-lg border border-blue-100"
+              className="group bg-gradient-to-br from-white to-blue-50 rounded-2xl p-8 shadow-lg border border-blue-100 min-h-[320px] flex flex-col justify-between"
             >
               {/* Stars */}
               <div className="flex mb-6 gap-1">

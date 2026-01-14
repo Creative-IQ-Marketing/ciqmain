@@ -14,6 +14,19 @@ const Header = () => {
     { name: "Contact", href: "#contact" },
   ];
 
+  const handleNavClick = (event, href) => {
+    event.preventDefault();
+    const targetId = href.replace("#", "");
+    const element = document.getElementById(targetId);
+    if (!element) return;
+    const headerOffset = 80;
+    const elementPosition =
+      element.getBoundingClientRect().top + window.scrollY;
+    const offsetPosition = elementPosition - headerOffset;
+    window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+    setIsMenuOpen(false);
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm border-b border-blue-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -48,6 +61,7 @@ const Header = () => {
               <motion.a
                 key={link.name}
                 href={link.href}
+                onClick={(event) => handleNavClick(event, link.href)}
                 className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 relative group"
                 whileHover={{ y: -2 }}
                 initial={{ opacity: 0, y: -10 }}
@@ -119,7 +133,7 @@ const Header = () => {
               <motion.a
                 key={link.name}
                 href={link.href}
-                onClick={() => setIsMenuOpen(false)}
+                onClick={(event) => handleNavClick(event, link.href)}
                 className="text-gray-700 hover:text-blue-600 font-medium transition-colors px-2 py-2 hover:bg-gray-50 rounded-lg"
                 initial={{ opacity: 0, x: -10 }}
                 animate={

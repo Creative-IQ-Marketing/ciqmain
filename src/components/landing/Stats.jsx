@@ -25,7 +25,7 @@ const Stats = () => {
       delay: 0.3,
     },
     {
-      value: "50+",
+      value: "500+",
       label: "Happy Clients",
       icon: Users,
       color: "from-indigo-500 to-purple-700",
