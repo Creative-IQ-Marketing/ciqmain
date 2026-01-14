@@ -26,16 +26,16 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 via-white to-indigo-50 relative overflow-hidden"
+      className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-slate-50 to-white relative overflow-hidden"
     >
       {/* Animated background elements */}
       <motion.div
-        className="absolute top-20 right-10 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20"
+        className="absolute top-20 right-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-10"
         animate={{ y: [0, 50, 0], x: [0, 30, 0] }}
         transition={{ duration: 8, repeat: Infinity }}
       />
       <motion.div
-        className="absolute bottom-20 left-10 w-72 h-72 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20"
+        className="absolute bottom-20 left-10 w-72 h-72 bg-slate-400 rounded-full mix-blend-multiply filter blur-3xl opacity-5"
         animate={{ y: [0, -50, 0], x: [0, -30, 0] }}
         transition={{ duration: 8, repeat: Infinity, delay: 0.5 }}
       />
@@ -50,7 +50,7 @@ const Hero = () => {
             animate="visible"
           >
             <motion.div
-              className="inline-flex items-center space-x-2 px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold"
+              className="inline-flex items-center space-x-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-semibold border border-blue-200"
               variants={itemVariants}
             >
               <motion.span
@@ -96,7 +96,6 @@ const Hero = () => {
                 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <Zap className="w-5 h-5 group-hover:animate-pulse" />
                 Get Free Strategy Session
               </motion.a>
               <motion.a

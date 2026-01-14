@@ -67,7 +67,7 @@ const About = () => {
   return (
     <section
       id="about"
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-blue-50"
+      className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-50 to-white"
     >
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-16 items-center">
@@ -80,7 +80,7 @@ const About = () => {
             transition={{ duration: 0.8, type: "spring" }}
           >
             <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-blue-200 to-indigo-200 rounded-3xl opacity-20 blur-2xl"
+              className="absolute inset-0 bg-gradient-to-r from-blue-300 to-slate-400 rounded-3xl opacity-10 blur-2xl"
               animate={{ scale: [1, 1.1, 1] }}
               transition={{ duration: 4, repeat: Infinity }}
             />

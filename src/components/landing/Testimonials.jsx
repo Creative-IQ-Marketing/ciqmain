@@ -124,10 +124,10 @@ const Testimonials = () => {
         >
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="text-center p-8 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl"
+            className="text-center p-8 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl shadow-xl"
           >
-            <div className="text-5xl font-bold text-blue-600 mb-3">4.9/5</div>
-            <div className="text-gray-700 font-semibold mb-3">
+            <div className="text-5xl font-bold text-white mb-3">4.9/5</div>
+            <div className="text-blue-100 font-semibold mb-3">
               Average Rating
             </div>
             <div className="flex justify-center gap-1">
@@ -141,17 +141,17 @@ const Testimonials = () => {
           </motion.div>
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="text-center p-8 bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-2xl"
+            className="text-center p-8 bg-gradient-to-br from-slate-700 to-slate-800 rounded-2xl shadow-xl"
           >
-            <div className="text-5xl font-bold text-emerald-600 mb-3">500+</div>
-            <div className="text-gray-700 font-semibold">Happy Clients</div>
+            <div className="text-5xl font-bold text-white mb-3">500+</div>
+            <div className="text-slate-200 font-semibold">Happy Clients</div>
           </motion.div>
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="text-center p-8 bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl"
+            className="text-center p-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl shadow-xl"
           >
-            <div className="text-5xl font-bold text-purple-600 mb-3">98%</div>
-            <div className="text-gray-700 font-semibold">Retention Rate</div>
+            <div className="text-5xl font-bold text-white mb-3">98%</div>
+            <div className="text-blue-100 font-semibold">Retention Rate</div>
           </motion.div>
         </motion.div>
 

@@ -7,28 +7,28 @@ const Stats = () => {
       value: "+300%",
       label: "Average Traffic Increase",
       icon: TrendingUp,
-      color: "from-blue-500 to-blue-700",
+      color: "from-blue-600 to-blue-800",
       delay: 0.1,
     },
     {
       value: "4.9/5",
       label: "Average Client Rating",
       icon: Star,
-      color: "from-amber-500 to-orange-500",
+      color: "from-slate-700 to-slate-900",
       delay: 0.2,
     },
     {
       value: "98%",
       label: "Client Retention Rate",
       icon: Target,
-      color: "from-emerald-500 to-teal-600",
+      color: "from-blue-500 to-blue-700",
       delay: 0.3,
     },
     {
       value: "500+",
       label: "Happy Clients",
       icon: Users,
-      color: "from-indigo-500 to-purple-700",
+      color: "from-slate-600 to-slate-800",
       delay: 0.4,
     },
   ];
@@ -54,10 +54,10 @@ const Stats = () => {
   };
 
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 relative overflow-hidden">
+    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900 to-slate-950 relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute -top-40 right-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-blob"></div>
+        <div className="absolute -bottom-40 left-1/3 w-96 h-96 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-blob animation-delay-2000"></div>
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -78,16 +78,16 @@ const Stats = () => {
                 className="text-center group"
               >
                 <motion.div
-                  className={`mb-6 inline-block p-4 rounded-2xl bg-gradient-to-br ${stat.color} shadow-xl`}
+                  className={`mb-6 inline-block p-4 rounded-2xl bg-gradient-to-br ${stat.color} shadow-2xl`}
                   whileHover={{ rotate: 12, scale: 1.1 }}
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 >
                   <IconComponent className="w-8 h-8 text-white" />
                 </motion.div>
-                <motion.div className="text-4xl md:text-5xl font-bold text-white mb-3 group-hover:text-blue-100 transition-colors">
+                <motion.div className="text-4xl md:text-5xl font-bold text-white mb-3 transition-colors">
                   {stat.value}
                 </motion.div>
-                <div className="text-blue-100 text-sm md:text-base font-medium">
+                <div className="text-blue-200 text-sm md:text-base font-medium">
                   {stat.label}
                 </div>
               </motion.div>

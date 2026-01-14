@@ -34,28 +34,28 @@ const Contact = () => {
       icon: MapPin,
       title: "Office Location",
       content: "Dallas, Texas, USA",
-      color: "from-blue-500 to-blue-700",
+      color: "from-blue-600 to-blue-700",
     },
     {
       icon: Phone,
       title: "Phone",
       content: "(804) 651-2531",
       link: "tel:8046512531",
-      color: "from-emerald-500 to-teal-600",
+      color: "from-blue-500 to-slate-600",
     },
     {
       icon: Mail,
       title: "Email",
       content: "[email protected]",
       link: "mailto:[email protected]",
-      color: "from-indigo-500 to-purple-700",
+      color: "from-slate-700 to-slate-800",
     },
     {
       icon: Clock,
       title: "Business Hours",
       content: "Mon - Fri: 9AM - 6PM",
       subContent: "Sat: 10AM - 4PM",
-      color: "from-amber-500 to-orange-600",
+      color: "from-blue-600 to-slate-700",
     },
   ];
 
@@ -82,11 +82,11 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 via-white to-blue-50 relative overflow-hidden"
+      className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 via-white to-slate-50 relative overflow-hidden"
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob"></div>
+        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-slate-300 rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-blob animation-delay-2000"></div>
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">

@@ -39,7 +39,7 @@ const Services = () => {
         "Bid Management",
         "Performance Tracking",
       ],
-      color: "from-indigo-500 to-purple-700",
+      color: "from-blue-600 to-slate-700",
       illustration: DigitalMarketingSVG,
     },
     {
@@ -53,7 +53,7 @@ const Services = () => {
         "Paid Social",
         "Influencer Marketing",
       ],
-      color: "from-cyan-500 to-blue-600",
+      color: "from-slate-600 to-slate-800",
       illustration: GrowthChartSVG,
     },
     {
@@ -66,7 +66,7 @@ const Services = () => {
         "Email Automation",
         "Pipeline Management",
       ],
-      color: "from-emerald-500 to-teal-600",
+      color: "from-blue-500 to-slate-700",
     },
     {
       icon: MapPin,
@@ -78,7 +78,7 @@ const Services = () => {
         "Local SEO",
         "Post Management",
       ],
-      color: "from-amber-500 to-orange-600",
+      color: "from-slate-700 to-slate-900",
     },
     {
       icon: Code,
@@ -91,7 +91,7 @@ const Services = () => {
         "E-commerce Solutions",
         "Performance Optimization",
       ],
-      color: "from-violet-500 to-purple-700",
+      color: "from-blue-600 to-slate-800",
     },
   ];
 
@@ -118,11 +118,11 @@ const Services = () => {
   return (
     <section
       id="services"
-      className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 via-white to-blue-50 relative overflow-hidden"
+      className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-slate-50 to-white relative overflow-hidden"
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-0 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-        <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute top-20 right-0 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob"></div>
+        <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-slate-300 rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-blob animation-delay-2000"></div>
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -168,9 +168,9 @@ const Services = () => {
                 variants={itemVariants}
                 whileHover={{
                   y: -8,
-                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)",
+                  boxShadow: "0 25px 50px -12px rgba(37, 99, 235, 0.15)",
                 }}
-                className="group bg-white rounded-2xl shadow-lg overflow-hidden"
+                className="group glass rounded-2xl overflow-hidden shadow-xl"
               >
                 <div className="p-8">
                   <motion.div className="mb-6 h-48 flex items-center justify-center overflow-hidden">
