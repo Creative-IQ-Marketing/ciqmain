@@ -70,7 +70,7 @@ const About = () => {
       className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-50 to-white"
     >
       <div className="max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-16 items-center">
+        <div className="grid md:grid-cols-2 gap-16 items-center text-center md:text-left">
           {/* Left - Illustration */}
           <motion.div
             className="relative order-2 md:order-1"

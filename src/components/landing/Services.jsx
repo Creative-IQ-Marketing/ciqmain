@@ -170,7 +170,7 @@ const Services = () => {
                   y: -8,
                   boxShadow: "0 25px 50px -12px rgba(37, 99, 235, 0.15)",
                 }}
-                className="group glass rounded-2xl overflow-hidden shadow-xl"
+                className="group glass rounded-2xl overflow-hidden shadow-xl text-center md:text-left"
               >
                 <div className="p-8">
                   <motion.div className="mb-6 h-48 flex items-center justify-center overflow-hidden">
@@ -243,7 +243,7 @@ const Services = () => {
                   y: -8,
                   boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)",
                 }}
-                className="group bg-white rounded-2xl p-8 shadow-lg"
+                className="group bg-white rounded-2xl p-8 shadow-lg text-center md:text-left"
               >
                 <motion.div
                   className={`text-4xl mb-6 inline-block p-4 bg-gradient-to-br ${service.color} rounded-2xl shadow-lg`}

@@ -70,13 +70,13 @@ const Footer = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16"
+          className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 text-center md:text-left"
         >
           {/* Company Info */}
           <motion.div variants={itemVariants}>
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="flex items-center space-x-3 mb-6"
+              className="flex flex-col md:flex-row items-center md:items-start space-y-3 md:space-y-0 md:space-x-3 mb-6"
             >
               <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-lg">
                 <img
@@ -93,7 +93,7 @@ const Footer = () => {
               Your trusted partner in digital marketing excellence. Helping
               ambitious businesses dominate their markets for 8+ years.
             </p>
-            <div className="flex space-x-3">
+            <div className="flex justify-center md:justify-start space-x-3">
               {socialLinks.map((social, index) => {
                 const Icon = social.icon;
                 return (
@@ -114,8 +114,8 @@ const Footer = () => {
 
           {/* Services */}
           <motion.div variants={itemVariants}>
-            <h4 className="text-lg font-bold mb-6 flex items-center gap-2">
-              <div className="w-1 h-6 bg-gradient-to-b from-blue-400 to-blue-600 rounded-full"></div>
+            <h4 className="text-lg font-bold mb-6 flex flex-col md:flex-row items-center md:items-start gap-2">
+              <div className="w-1 h-6 bg-gradient-to-b from-blue-400 to-blue-600 rounded-full hidden md:block"></div>
               Our Services
             </h4>
             <ul className="space-y-3">
@@ -127,9 +127,9 @@ const Footer = () => {
                 >
                   <a
                     href="#services"
-                    className="text-gray-300 hover:text-blue-300 transition-colors inline-flex items-center gap-2 group"
+                    className="text-gray-300 hover:text-blue-300 transition-colors inline-flex items-center justify-center md:justify-start gap-2 group"
                   >
-                    <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block" />
                     {service}
                   </a>
                 </motion.li>
@@ -139,8 +139,8 @@ const Footer = () => {
 
           {/* Quick Links */}
           <motion.div variants={itemVariants}>
-            <h4 className="text-lg font-bold mb-6 flex items-center gap-2">
-              <div className="w-1 h-6 bg-gradient-to-b from-blue-400 to-blue-600 rounded-full"></div>
+            <h4 className="text-lg font-bold mb-6 flex flex-col md:flex-row items-center md:items-start gap-2">
+              <div className="w-1 h-6 bg-gradient-to-b from-blue-400 to-blue-600 rounded-full hidden md:block"></div>
               Quick Links
             </h4>
             <ul className="space-y-3">
@@ -152,9 +152,9 @@ const Footer = () => {
                 >
                   <a
                     href={link.href}
-                    className="text-gray-300 hover:text-blue-300 transition-colors inline-flex items-center gap-2 group"
+                    className="text-gray-300 hover:text-blue-300 transition-colors inline-flex items-center justify-center md:justify-start gap-2 group"
                   >
-                    <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block" />
                     {link.name}
                   </a>
                 </motion.li>
@@ -164,18 +164,18 @@ const Footer = () => {
 
           {/* Contact Info */}
           <motion.div variants={itemVariants}>
-            <h4 className="text-lg font-bold mb-6 flex items-center gap-2">
-              <div className="w-1 h-6 bg-gradient-to-b from-blue-400 to-blue-600 rounded-full"></div>
+            <h4 className="text-lg font-bold mb-6 flex flex-col md:flex-row items-center md:items-start gap-2">
+              <div className="w-1 h-6 bg-gradient-to-b from-blue-400 to-blue-600 rounded-full hidden md:block"></div>
               Contact Us
             </h4>
             <ul className="space-y-4">
-              <motion.li className="flex items-start gap-3 group cursor-pointer">
+              <motion.li className="flex flex-col md:flex-row items-center md:items-start gap-3 group cursor-pointer">
                 <MapPin className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
                 <span className="text-gray-300 group-hover:text-blue-300 transition-colors">
-                  Dallas, Texas, USA
+                  San Antonio, Texas, USA
                 </span>
               </motion.li>
-              <motion.li className="flex items-start gap-3 group">
+              <motion.li className="flex flex-col md:flex-row items-center md:items-start gap-3 group">
                 <Phone className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
                 <a
                   href="tel:8046512531"
@@ -184,16 +184,16 @@ const Footer = () => {
                   (804) 651-2531
                 </a>
               </motion.li>
-              <motion.li className="flex items-start gap-3 group">
+              <motion.li className="flex flex-col md:flex-row items-center md:items-start gap-3 group">
                 <Mail className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
                 <a
-                  href="mailto:[email protected]"
+                  href="mailto:CiQ@creativeiq.marketing"
                   className="text-gray-300 hover:text-blue-300 transition-colors"
                 >
-                  [email protected]
+                  CiQ@creativeiq.marketing
                 </a>
               </motion.li>
-              <motion.li className="flex items-start gap-3">
+              <motion.li className="flex flex-col md:flex-row items-center md:items-start gap-3">
                 <Clock className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
                 <span className="text-gray-300">
                   Mon-Fri: 9AM-6PM

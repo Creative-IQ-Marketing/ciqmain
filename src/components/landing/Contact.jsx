@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { motion } from "framer-motion";
 import {
@@ -8,6 +9,7 @@ import {
   CheckCircle,
   ArrowRight,
 } from "lucide-react";
+import { submitToGHL } from "../../services/ghl";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -16,24 +18,52 @@ const Contact = () => {
     phone: "",
     service: "",
     message: "",
+    consent: false,
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === "checkbox" ? checked : value,
+    });
+    setError(null);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
-    alert("Thank you for your message! We will get back to you soon.");
+    setLoading(true);
+    setError(null);
+    setSuccess(false);
+
+    try {
+      await submitToGHL(formData);
+      setSuccess(true);
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        service: "",
+        message: "",
+        consent: false,
+      });
+      setTimeout(() => setSuccess(false), 5000);
+    } catch (err) {
+      setError(err.message || "Failed to submit form. Please try again.");
+      console.error("Form submission error:", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const contactInfo = [
     {
       icon: MapPin,
       title: "Office Location",
-      content: "Dallas, Texas, USA",
+      content: "San Antonio, Texas, USA",
       color: "from-blue-600 to-blue-700",
     },
     {
@@ -46,8 +76,8 @@ const Contact = () => {
     {
       icon: Mail,
       title: "Email",
-      content: "[email protected]",
-      link: "mailto:[email protected]",
+      content: "CiQ@creativeiq.marketing",
+      link: "mailto:CiQ@creativeiq.marketing",
       color: "from-slate-700 to-slate-800",
     },
     {
@@ -129,7 +159,7 @@ const Contact = () => {
               whileHover={{
                 boxShadow: "0 25px 50px -12px rgba(37, 99, 235, 0.3)",
               }}
-              className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 rounded-2xl p-8 text-white shadow-xl"
+              className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 rounded-2xl p-8 text-white shadow-xl text-center md:text-left"
             >
               <h3 className="text-3xl font-bold mb-3">
                 Free Digital Marketing Audit
@@ -170,7 +200,7 @@ const Contact = () => {
                       y: -8,
                       boxShadow: "0 20px 40px -10px rgba(37, 99, 235, 0.2)",
                     }}
-                    className="bg-white rounded-2xl p-6 shadow-lg border border-blue-100"
+                    className="bg-white rounded-2xl p-6 shadow-lg border border-blue-100 text-center md:text-left"
                   >
                     <motion.div
                       className={`text-3xl mb-4 inline-block p-4 bg-gradient-to-br ${info.color} rounded-xl shadow-lg`}
@@ -294,7 +324,7 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:outline-none transition-all duration-200 font-medium"
-                  placeholder="[email protected]"
+                  placeholder="vivacreativeiq@gmail.com"
                 />
               </div>
 
@@ -364,6 +394,25 @@ const Contact = () => {
                 />
               </div>
 
+              <div className="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  id="consent"
+                  name="consent"
+                  checked={formData.consent}
+                  onChange={handleChange}
+                  className="w-14 h-14 border-2 border-gray-200 rounded focus:outline-none cursor-pointer mt-1 accent-black"
+                />
+                <label
+                  htmlFor="consent"
+                  className="text-sm text-gray-700 cursor-pointer"
+                >
+                  I consent to receive marketing messages, updates, and
+                  promotional communications from CreativeIQ via email, phone,
+                  or SMS.
+                </label>
+              </div>
+
               <motion.button
                 whileHover={{
                   scale: 1.02,
@@ -371,11 +420,34 @@ const Contact = () => {
                 }}
                 whileTap={{ scale: 0.98 }}
                 type="submit"
-                className="w-full px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-bold rounded-xl transition-all duration-200 text-lg flex items-center justify-center gap-2"
+                disabled={loading}
+                className="w-full px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-bold rounded-xl transition-all duration-200 text-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Send Message
+                {loading ? "Sending..." : "Send Message"}
                 <ArrowRight className="w-5 h-5" />
               </motion.button>
+
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-4 bg-red-50 border border-red-200 rounded-lg"
+                >
+                  <p className="text-red-700 font-medium">{error}</p>
+                </motion.div>
+              )}
+
+              {success && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-4 bg-emerald-50 border border-emerald-200 rounded-lg"
+                >
+                  <p className="text-emerald-700 font-medium">
+                    Message sent successfully! We'll be in touch soon.
+                  </p>
+                </motion.div>
+              )}
 
               <motion.p
                 initial={{ opacity: 0 }}

@@ -41,7 +41,7 @@ const Hero = () => {
       />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-12 items-center text-center md:text-left">
           {/* Left Content */}
           <motion.div
             className="space-y-8"
@@ -50,7 +50,7 @@ const Hero = () => {
             animate="visible"
           >
             <motion.div
-              className="inline-flex items-center space-x-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-semibold border border-blue-200"
+              className="inline-flex items-center space-x-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-semibold border border-blue-200 mx-auto md:mx-0"
               variants={itemVariants}
             >
               <motion.span
@@ -75,7 +75,7 @@ const Hero = () => {
             </motion.h1>
 
             <motion.p
-              className="text-xl text-gray-600 leading-relaxed max-w-xl"
+              className="text-xl text-gray-600 leading-relaxed max-w-xl mx-auto md:mx-0"
               variants={itemVariants}
             >
               We help ambitious brands dominate their competition with
@@ -84,7 +84,7 @@ const Hero = () => {
             </motion.p>
 
             <motion.div
-              className="flex flex-col sm:flex-row gap-4"
+              className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
               variants={itemVariants}
             >
               <motion.a
@@ -110,7 +110,7 @@ const Hero = () => {
 
             {/* Stats */}
             <motion.div
-              className="flex flex-wrap gap-8 pt-8"
+              className="flex flex-wrap gap-8 pt-8 justify-center md:justify-start"
               variants={itemVariants}
             >
               {[

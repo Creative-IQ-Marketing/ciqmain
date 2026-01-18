@@ -170,10 +170,10 @@ const Testimonials = () => {
                 y: -8,
                 boxShadow: "0 25px 50px -12px rgba(37, 99, 235, 0.15)",
               }}
-              className="group bg-gradient-to-br from-white to-blue-50 rounded-2xl p-8 shadow-lg border border-blue-100 min-h-[320px] flex flex-col justify-between"
+              className="group bg-gradient-to-br from-white to-blue-50 rounded-2xl p-8 shadow-lg border border-blue-100 min-h-[320px] flex flex-col justify-between text-center md:text-left"
             >
               {/* Stars */}
-              <div className="flex mb-6 gap-1">
+              <div className="flex mb-6 gap-1 justify-center md:justify-start">
                 {[...Array(testimonial.rating)].map((_, i) => (
                   <Star
                     key={i}
@@ -188,12 +188,12 @@ const Testimonials = () => {
               </motion.p>
 
               {/* Author */}
-              <div className="flex items-center">
+              <div className="flex flex-col md:flex-row items-center md:items-start">
                 <motion.img
                   whileHover={{ scale: 1.1 }}
                   src={testimonial.image}
                   alt={testimonial.name}
-                  className="w-14 h-14 rounded-full object-cover mr-4 ring-2 ring-blue-200"
+                  className="w-14 h-14 rounded-full object-cover mb-3 md:mb-0 md:mr-4 ring-2 ring-blue-200"
                 />
                 <div>
                   <div className="font-bold text-gray-900 text-lg">
