@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+/* eslint-disable no-unused-vars */
 import {
   Search,
   MousePointerClick,
@@ -9,15 +9,31 @@ import {
   CheckCircle,
   ArrowRight,
 } from "lucide-react";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import SEOOptimizationSVG from "../svgs/SEOOptimizationSVG";
 import DigitalMarketingSVG from "../svgs/DigitalMarketingSVG";
 import GrowthChartSVG from "../svgs/GrowthChartSVG";
 
 const Services = () => {
+  const navigate = useNavigate();
+
+  const handleServiceClick = (serviceValue) => {
+    navigate(`/?service=${serviceValue}#contact`);
+
+    setTimeout(() => {
+      const contactSection = document.getElementById("contact");
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 100);
+  };
+
   const services = [
     {
       icon: Search,
       title: "Search Engine Optimization",
+      value: "seo",
       description:
         "Boost your organic visibility with comprehensive SEO strategies.",
       features: [
@@ -28,10 +44,12 @@ const Services = () => {
       ],
       color: "from-blue-500 to-blue-700",
       illustration: SEOOptimizationSVG,
+      featured: true,
     },
     {
       icon: MousePointerClick,
       title: "Pay-Per-Click Advertising",
+      value: "ppc",
       description: "Maximize ROI with data-driven PPC campaigns that convert.",
       features: [
         "Campaign Setup",
@@ -41,10 +59,12 @@ const Services = () => {
       ],
       color: "from-blue-600 to-slate-700",
       illustration: DigitalMarketingSVG,
+      featured: true,
     },
     {
       icon: MessageSquare,
       title: "Social Media Marketing",
+      value: "social",
       description:
         "Build meaningful connections with your audience across all platforms.",
       features: [
@@ -55,10 +75,12 @@ const Services = () => {
       ],
       color: "from-slate-600 to-slate-800",
       illustration: GrowthChartSVG,
+      featured: true,
     },
     {
       icon: Database,
       title: "CRM & Automation",
+      value: "crm",
       description: "Streamline your processes and nurture leads automatically.",
       features: [
         "CRM Setup & Training",
@@ -67,10 +89,12 @@ const Services = () => {
         "Pipeline Management",
       ],
       color: "from-blue-500 to-slate-700",
+      featured: false,
     },
     {
       icon: MapPin,
       title: "Google My Business",
+      value: "gmb",
       description: "Optimize your local presence and attract nearby customers.",
       features: [
         "Profile Optimization",
@@ -79,10 +103,12 @@ const Services = () => {
         "Post Management",
       ],
       color: "from-slate-700 to-slate-900",
+      featured: false,
     },
     {
       icon: Code,
       title: "Web Development",
+      value: "web",
       description:
         "Create stunning, high-performing websites that drive results.",
       features: [
@@ -92,8 +118,12 @@ const Services = () => {
         "Performance Optimization",
       ],
       color: "from-blue-600 to-slate-800",
+      featured: false,
     },
   ];
+
+  const featuredServices = services.filter((s) => s.featured);
+  const additionalServices = services.filter((s) => !s.featured);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -118,7 +148,7 @@ const Services = () => {
   return (
     <section
       id="services"
-      className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-slate-50 to-white relative overflow-hidden"
+      className="py-24 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-white via-slate-50 to-white relative overflow-hidden"
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 right-0 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob"></div>
@@ -136,7 +166,7 @@ const Services = () => {
         >
           <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
             Complete Digital Marketing{" "}
-            <span className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-blue-600 via-blue-700 to-blue-800 bg-clip-text text-transparent">
               Solutions
             </span>
           </h2>
@@ -159,7 +189,7 @@ const Services = () => {
           viewport={{ once: true, amount: 0.1 }}
           className="grid md:grid-cols-3 gap-8 mb-16"
         >
-          {services.slice(0, 3).map((service, index) => {
+          {featuredServices.map((service, index) => {
             const IconComponent = service.icon;
             const IllustrationComponent = service.illustration;
             return (
@@ -170,7 +200,7 @@ const Services = () => {
                   y: -8,
                   boxShadow: "0 25px 50px -12px rgba(37, 99, 235, 0.15)",
                 }}
-                className="group glass rounded-2xl overflow-hidden shadow-xl"
+                className="group glass rounded-2xl overflow-hidden shadow-xl text-center md:text-left"
               >
                 <div className="p-8">
                   <motion.div className="mb-6 h-48 flex items-center justify-center overflow-hidden">
@@ -182,7 +212,7 @@ const Services = () => {
                     </motion.div>
                   </motion.div>
                   <motion.div
-                    className={`text-4xl mb-6 inline-block p-4 bg-gradient-to-br ${service.color} rounded-2xl shadow-lg`}
+                    className={`text-4xl mb-6 inline-block p-4 bg-linear-to-br ${service.color} rounded-2xl shadow-lg`}
                     whileHover={{ rotate: 12, scale: 1.1 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   >
@@ -203,20 +233,21 @@ const Services = () => {
                         transition={{ delay: idx * 0.1 }}
                         className="flex items-center text-gray-700 font-medium"
                       >
-                        <CheckCircle className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" />
+                        <CheckCircle className="w-5 h-5 text-blue-600 mr-3 shrink-0" />
                         {feature}
                       </motion.li>
                     ))}
                   </ul>
                   <motion.button
+                    onClick={() => handleServiceClick(service.value)}
                     whileHover={{
                       scale: 1.02,
                       boxShadow: "0 10px 25px -5px rgba(37, 99, 235, 0.3)",
                     }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold rounded-xl transition-all duration-200 flex items-center justify-center gap-2 group"
+                    className="w-full py-4 bg-linear-to-r from-blue-600 to-blue-800 text-white font-semibold rounded-xl transition-all duration-200 flex items-center justify-center gap-2 group"
                   >
-                    Explore Service
+                    Book this Service
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </motion.button>
                 </div>
@@ -233,7 +264,7 @@ const Services = () => {
           viewport={{ once: true, amount: 0.1 }}
           className="grid md:grid-cols-3 gap-8 mb-20"
         >
-          {services.slice(3).map((service, index) => {
+          {additionalServices.map((service, index) => {
             const IconComponent = service.icon;
             return (
               <motion.div
@@ -243,10 +274,10 @@ const Services = () => {
                   y: -8,
                   boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)",
                 }}
-                className="group bg-white rounded-2xl p-8 shadow-lg"
+                className="group bg-white rounded-2xl p-8 shadow-lg text-center md:text-left"
               >
                 <motion.div
-                  className={`text-4xl mb-6 inline-block p-4 bg-gradient-to-br ${service.color} rounded-2xl shadow-lg`}
+                  className={`text-4xl mb-6 inline-block p-4 bg-linear-to-br ${service.color} rounded-2xl shadow-lg`}
                   whileHover={{ rotate: 12, scale: 1.1 }}
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 >
@@ -267,11 +298,23 @@ const Services = () => {
                       transition={{ delay: idx * 0.1 }}
                       className="flex items-center text-gray-700 font-medium text-sm"
                     >
-                      <CheckCircle className="w-4 h-4 text-blue-600 mr-3 flex-shrink-0" />
+                      <CheckCircle className="w-4 h-4 text-blue-600 mr-3 shrink-0" />
                       {feature}
                     </motion.li>
                   ))}
                 </ul>
+                <motion.button
+                  onClick={() => handleServiceClick(service.value)}
+                  whileHover={{
+                    scale: 1.02,
+                    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)",
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full py-4 bg-linear-to-r from-blue-600 to-blue-800 text-white font-semibold rounded-xl transition-all duration-200 flex items-center justify-center gap-2 group"
+                >
+                  Book this Service
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </motion.button>
               </motion.div>
             );
           })}
@@ -283,7 +326,7 @@ const Services = () => {
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 rounded-3xl p-12 shadow-2xl relative overflow-hidden"
+          className="bg-linear-to-r from-blue-600 via-blue-700 to-blue-800 rounded-3xl p-12 shadow-2xl relative overflow-hidden"
         >
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute -top-40 -right-40 w-80 h-80 bg-white rounded-full mix-blend-screen filter blur-xl opacity-10"></div>
@@ -299,6 +342,13 @@ const Services = () => {
             </p>
             <motion.a
               href="#contact"
+              onClick={() =>
+                trackButtonClick(
+                  "Get Your Free Strategy",
+                  "services_cta_btn",
+                  "Services",
+                )
+              }
               whileHover={{
                 scale: 1.05,
                 boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.3)",

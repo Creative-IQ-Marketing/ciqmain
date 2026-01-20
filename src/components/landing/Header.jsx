@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Menu, X, Phone, Sparkles } from "lucide-react";
 import mainLogo from "../../assets/mainLogo.png";
+import { trackButtonClick, trackOutboundLink } from "../../services/analytics";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,8 +16,11 @@ const Header = () => {
     { name: "Contact", href: "#contact" },
   ];
 
-  const handleNavClick = (event, href) => {
+  const handleNavClick = (event, href, name) => {
     event.preventDefault();
+
+    trackButtonClick(name || href, "nav_link", "Header");
+
     const targetId = href.replace("#", "");
     const element = document.getElementById(targetId);
     if (!element) return;
@@ -61,7 +66,7 @@ const Header = () => {
               <motion.a
                 key={link.name}
                 href={link.href}
-                onClick={(event) => handleNavClick(event, link.href)}
+                onClick={(event) => handleNavClick(event, link.href, link.name)}
                 className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 relative group"
                 whileHover={{ y: -2 }}
                 initial={{ opacity: 0, y: -10 }}
@@ -83,6 +88,9 @@ const Header = () => {
           >
             <motion.a
               href="tel:8046512531"
+              onClick={() =>
+                trackOutboundLink("tel:8046512531", "header_phone_click")
+              }
               className="text-gray-700 hover:text-blue-600 font-medium transition-colors flex items-center gap-2"
               whileHover={{ scale: 1.05 }}
             >
@@ -91,6 +99,9 @@ const Header = () => {
             </motion.a>
             <motion.a
               href="#contact"
+              onClick={() =>
+                trackButtonClick("Free Audit", "header_cta_btn", "Header")
+              }
               className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold rounded-lg shadow-md hover:shadow-xl transition-all duration-200"
               whileHover={{
                 scale: 1.05,
@@ -128,48 +139,60 @@ const Header = () => {
           transition={{ duration: 0.3 }}
           className="md:hidden overflow-hidden border-t border-gray-100"
         >
-          <nav className="flex flex-col space-y-4 py-4">
+          <nav className="flex flex-col space-y-4 py-4 px-2">
             {navLinks.map((link, index) => (
-              <motion.a
+              <a
                 key={link.name}
                 href={link.href}
                 onClick={(event) => handleNavClick(event, link.href)}
-                className="text-gray-700 hover:text-blue-600 font-medium transition-colors px-2 py-2 hover:bg-gray-50 rounded-lg"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors px-2 py-2 hover:bg-gray-50 rounded-lg block"
+              >
+                <motion.span
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={
+                    isMenuOpen ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }
+                  }
+                  transition={{ duration: 0.2, delay: index * 0.05 }}
+                  className="block"
+                >
+                  {link.name}
+                </motion.span>
+              </a>
+            ))}
+            <a
+              href="tel:8046512531"
+              className="text-gray-700 hover:text-blue-600 font-medium transition-colors px-2 py-2 hover:bg-gray-50 rounded-lg flex items-center gap-2"
+            >
+              <motion.span
                 initial={{ opacity: 0, x: -10 }}
                 animate={
                   isMenuOpen ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }
                 }
-                transition={{ duration: 0.2, delay: index * 0.05 }}
+                transition={{ duration: 0.2, delay: 0.25 }}
+                className="flex items-center gap-2"
               >
-                {link.name}
-              </motion.a>
-            ))}
-            <motion.a
-              href="tel:8046512531"
-              className="text-gray-700 hover:text-blue-600 font-medium transition-colors px-2 py-2 hover:bg-gray-50 rounded-lg flex items-center gap-2"
-              initial={{ opacity: 0, x: -10 }}
-              animate={
-                isMenuOpen ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }
-              }
-              transition={{ duration: 0.2, delay: 0.25 }}
-            >
-              <Phone className="w-4 h-4" />
-              (804) 651-2531
-            </motion.a>
-            <motion.a
+                <Phone className="w-4 h-4" />
+                (804) 651-2531
+              </motion.span>
+            </a>
+            <a
               href="#contact"
-              onClick={() => setIsMenuOpen(false)}
-              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold rounded-lg hover:shadow-lg text-center"
-              initial={{ opacity: 0, x: -10 }}
-              animate={
-                isMenuOpen ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }
+              onClick={(event) =>
+                handleNavClick(event, "#contact", "Free Audit")
               }
-              transition={{ duration: 0.2, delay: 0.3 }}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold rounded-lg hover:shadow-lg text-center block"
             >
-              Free Audit
-            </motion.a>
+              <motion.span
+                initial={{ opacity: 0, x: -10 }}
+                animate={
+                  isMenuOpen ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }
+                }
+                transition={{ duration: 0.2, delay: 0.3 }}
+                className="block"
+              >
+                Free Audit
+              </motion.span>
+            </a>
           </nav>
         </motion.div>
       </div>

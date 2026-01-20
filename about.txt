@@ -1,6 +1,6 @@
 About CreativeIQ Marketing Website
 Overview
-CreativeIQ Marketing is a digital marketing agency based in Dallas, Texas, USA, specializing in SEO, PPC, social media marketing, CRM, web development, and more. The website serves as a platform to showcase their services, client testimonials, and contact information. It emphasizes data-driven strategies, proven results, and client growth, with a focus on helping businesses dominate their competition through measurable digital marketing solutions. The site features a clean, modern design with sections for services, about, testimonials, and contact. Key claims include being the #1 Digital Marketing Agency, with 8+ years of experience and 500+ happy clients.
+CreativeIQ Marketing is a digital marketing agency based in San Antonio, Texas, USA, specializing in SEO, PPC, social media marketing, CRM, web development, and more. The website serves as a platform to showcase their services, client testimonials, and contact information. It emphasizes data-driven strategies, proven results, and client growth, with a focus on helping businesses dominate their competition through measurable digital marketing solutions. The site features a clean, modern design with sections for services, about, testimonials, and contact. Key claims include being the #1 Digital Marketing Agency, with 8+ years of experience and 500+ happy clients.
 Main Page Details
 The homepage acts as the central hub, highlighting growth statistics like +45% monthly growth and 12.8% conversion rate. It includes a hero banner with the headline "Grow Your Business with Digital Excellence" and a description: "We help ambitious brands dominate their competition with data-driven digital marketing strategies that deliver measurable results."
 Services Overview on Main Page
@@ -21,13 +21,13 @@ Features select testimonials:
 Kassandra Ramirez (Business Owner): "Partnering with Creative IQ marketing team has been a game changer for my business. Their creativity, strategy, and passion has taken my business to the next level. Truly the best decision I've made!" ★★★★★
 Fernando Jesus (Entrepreneur): "Had an awesome experience working with Vilma! She's super friendly, easy to work with, and really knows her stuff. The whole process was smooth, and the final recording came out better than I expected." ★★★★★
 Sarah Mitchell (CEO, TechFlow Inc.): "The results have been incredible. Our organic traffic has increased by 300% and we're seeing consistent growth month over month. Highly recommend CreativeIQ!" ★★★★★
-Overall: 4.9/5 Average Rating, 500+ Happy Clients, 98% Retention Rate.
+Overall: 5/5 Average Rating, 500+ Happy Clients, 98% Retention Rate.
 
 Contact Info on Main Page
 
-Office: Dallas, Texas, USA
+Office: San Antonio, Texas, USA
 Phone: (804) 651-2531 (Monday - Friday 9AM - 5PM)
-Email: [email protected]
+Email: CiQ@creativeiq.marketing
 Hours: Mon - Fri: 9AM - 6PM, Sat: 10AM - 4PM
 Offers a Free Digital Marketing Audit for performance analysis.
 
@@ -131,14 +131,14 @@ Michael Chen (Marketing Director): "Their social media management has completely
 Emily Davis (Founder, SystemHub): "The team at CreativeIQ truly understands our business goals. They've been instrumental in helping us scale and reach new markets effectively." ★★★★★
 David Rodriguez (VP Marketing): "Outstanding service and results! The ROI on our campaigns has exceeded all expectations. Professional, responsive, and results-driven." ★★★★★
 
-Overall: 4.9/5 Average Rating, 500+ Happy Clients, 98% Retention Rate.
+Overall: 5/5 Average Rating, 500+ Happy Clients, 98% Retention Rate.
 Contact Page
 Focused on "Get in Touch" with the prompt: "Ready to Grow Your Business? Let's discuss your digital marketing goals and create a custom strategy that drives real results for your business."
 Contact Details
 
-Office Location (📍): Dallas, Texas, USA
+Office Location (📍): San Antonio, Texas, USA
 Phone Number (📞): (804) 651-2531, Monday - Friday 9AM - 5PM
-Email Address (✉️): [email protected]
+Email Address (✉️): CiQ@creativeiq.marketing
 Business Hours (🕒): Mon - Fri: 9AM - 6PM, Sat: 10AM - 4PM
 
 Offers: Free Digital Marketing Audit - Comprehensive analysis of current performance and growth opportunities.

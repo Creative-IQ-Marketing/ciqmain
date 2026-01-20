@@ -1,8 +1,13 @@
+/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import { TrendingUp, Zap } from "lucide-react";
 import DataAnalyticsSVG from "../svgs/DataAnalyticsSVG";
 
 const Hero = () => {
+  const statArray = [
+    { value: "8+", label: "Years Experience" },
+    { value: "+300%", label: "Average Traffic Increase" },
+  ];
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -41,7 +46,7 @@ const Hero = () => {
       />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-12 items-center text-center md:text-left">
           {/* Left Content */}
           <motion.div
             className="space-y-8"
@@ -50,7 +55,7 @@ const Hero = () => {
             animate="visible"
           >
             <motion.div
-              className="inline-flex items-center space-x-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-semibold border border-blue-200"
+              className="inline-flex items-center space-x-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-semibold border border-blue-200 mx-auto md:mx-0"
               variants={itemVariants}
             >
               <motion.span
@@ -75,7 +80,7 @@ const Hero = () => {
             </motion.h1>
 
             <motion.p
-              className="text-xl text-gray-600 leading-relaxed max-w-xl"
+              className="text-xl text-gray-600 leading-relaxed max-w-xl mx-auto md:mx-0"
               variants={itemVariants}
             >
               We help ambitious brands dominate their competition with
@@ -84,7 +89,7 @@ const Hero = () => {
             </motion.p>
 
             <motion.div
-              className="flex flex-col sm:flex-row gap-4"
+              className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
               variants={itemVariants}
             >
               <motion.a
@@ -100,6 +105,13 @@ const Hero = () => {
               </motion.a>
               <motion.a
                 href="#services"
+                onClick={() =>
+                  trackButtonClick(
+                    "View Our Services",
+                    "hero_services_btn",
+                    "Hero",
+                  )
+                }
                 className="px-8 py-4 bg-white border-2 border-blue-600 text-blue-600 font-semibold rounded-lg text-center"
                 whileHover={{ scale: 1.05, backgroundColor: "#F0F9FF" }}
                 whileTap={{ scale: 0.98 }}
@@ -110,14 +122,10 @@ const Hero = () => {
 
             {/* Stats */}
             <motion.div
-              className="flex flex-wrap gap-8 pt-8"
+              className="flex flex-wrap gap-8 pt-8 justify-center md:justify-start"
               variants={itemVariants}
             >
-              {[
-                { value: "8+", label: "Years Experience" },
-                { value: "500+", label: "Happy Clients" },
-                { value: "98%", label: "Retention Rate" },
-              ].map((stat, index) => (
+              {statArray.map((stat, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, scale: 0.5 }}

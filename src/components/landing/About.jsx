@@ -9,6 +9,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import TeamCollaborationSVG from "../svgs/TeamCollaborationSVG";
+import { trackButtonClick } from "../../services/analytics";
 
 const About = () => {
   const features = [
@@ -70,7 +71,7 @@ const About = () => {
       className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-50 to-white"
     >
       <div className="max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-16 items-center">
+        <div className="grid md:grid-cols-2 gap-16 items-center text-center md:text-left">
           {/* Left - Illustration */}
           <motion.div
             className="relative order-2 md:order-1"
@@ -161,6 +162,13 @@ const About = () => {
             <motion.div className="pt-4" variants={itemVariants}>
               <motion.a
                 href="#contact"
+                onClick={() =>
+                  trackButtonClick(
+                    "Schedule Free Consultation",
+                    "about_cta_btn",
+                    "About",
+                  )
+                }
                 className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold rounded-lg shadow-lg group"
                 whileHover={{
                   scale: 1.05,
