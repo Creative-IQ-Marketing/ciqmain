@@ -116,46 +116,6 @@ const Testimonials = () => {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-20 max-w-4xl mx-auto"
-        >
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="text-center p-8 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl shadow-xl"
-          >
-            <div className="text-5xl font-bold text-white mb-3">4.9/5</div>
-            <div className="text-blue-100 font-semibold mb-3">
-              Average Rating
-            </div>
-            <div className="flex justify-center gap-1">
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  className="w-5 h-5 text-amber-400 fill-amber-400"
-                />
-              ))}
-            </div>
-          </motion.div>
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="text-center p-8 bg-gradient-to-br from-slate-700 to-slate-800 rounded-2xl shadow-xl"
-          >
-            <div className="text-5xl font-bold text-white mb-3">500+</div>
-            <div className="text-slate-200 font-semibold">Happy Clients</div>
-          </motion.div>
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="text-center p-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl shadow-xl"
-          >
-            <div className="text-5xl font-bold text-white mb-3">98%</div>
-            <div className="text-blue-100 font-semibold">Retention Rate</div>
-          </motion.div>
-        </motion.div>
-
-        <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"

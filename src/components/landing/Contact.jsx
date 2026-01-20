@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   MapPin,
@@ -12,6 +13,7 @@ import {
 import { submitToGHL } from "../../services/ghl";
 
 const Contact = () => {
+  const [searchParams] = useSearchParams();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,6 +25,70 @@ const Contact = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [servicePulse, setServicePulse] = useState(false);
+
+  const SERVICES_LIST = [
+    {
+      value: "seo",
+      label: "Search Engine Optimization",
+    },
+    {
+      value: "ppc",
+      label: "Pay-Per-Click Advertising",
+    },
+    {
+      value: "social",
+      label: "Social Media Marketing",
+    },
+    {
+      value: "crm",
+      label: "CRM & Automation",
+    },
+    {
+      value: "gmb",
+      label: "Google My Business",
+    },
+    {
+      value: "web",
+      label: "Web Development",
+    },
+    {
+      value: "other",
+      label: "Other / Multiple Services",
+    },
+  ];
+
+  const getServiceLabel = (serviceValue) => {
+    const service = SERVICES_LIST.find((s) => s.value === serviceValue);
+    return service ? service.label : serviceValue;
+  };
+
+  useEffect(() => {
+    const serviceParam = searchParams.get("service");
+
+    if (serviceParam) {
+      console.log("Setting service from URL parameter:", serviceParam);
+
+      setFormData((prev) => ({
+        ...prev,
+        service: serviceParam,
+      }));
+
+      setServicePulse(true);
+
+      setTimeout(() => {
+        const serviceSelect = document.getElementById("service");
+        if (serviceSelect) {
+          console.log("Focusing service select");
+          serviceSelect.focus();
+        }
+      }, 800);
+
+      setTimeout(() => {
+        setServicePulse(false);
+      }, 3000);
+    }
+  }, [searchParams]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -40,7 +106,11 @@ const Contact = () => {
     setSuccess(false);
 
     try {
-      await submitToGHL(formData);
+      const formDataWithFullService = {
+        ...formData,
+        service: getServiceLabel(formData.service),
+      };
+      await submitToGHL(formDataWithFullService);
       setSuccess(true);
       setFormData({
         name: "",
@@ -112,7 +182,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 via-white to-slate-50 relative overflow-hidden"
+      className="py-24 px-4 sm:px-6 lg:px-8 bg-linear-to-br from-slate-50 via-white to-slate-50 relative overflow-hidden"
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob"></div>
@@ -120,7 +190,6 @@ const Contact = () => {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -130,7 +199,7 @@ const Contact = () => {
         >
           <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
             Let's Grow Your Business{" "}
-            <span className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-blue-600 via-blue-700 to-blue-800 bg-clip-text text-transparent">
               Together
             </span>
           </h2>
@@ -146,7 +215,6 @@ const Contact = () => {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Info */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -159,7 +227,7 @@ const Contact = () => {
               whileHover={{
                 boxShadow: "0 25px 50px -12px rgba(37, 99, 235, 0.3)",
               }}
-              className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 rounded-2xl p-8 text-white shadow-xl text-center md:text-left"
+              className="bg-linear-to-br from-blue-600 via-blue-700 to-blue-800 rounded-2xl p-8 text-white shadow-xl text-center md:text-left"
             >
               <h3 className="text-3xl font-bold mb-3">
                 Free Digital Marketing Audit
@@ -182,7 +250,7 @@ const Contact = () => {
                     transition={{ delay: idx * 0.1 }}
                     className="flex items-center font-medium"
                   >
-                    <CheckCircle className="w-5 h-5 mr-3 flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 mr-3 shrink-0" />
                     {item}
                   </motion.li>
                 ))}
@@ -203,7 +271,7 @@ const Contact = () => {
                     className="bg-white rounded-2xl p-6 shadow-lg border border-blue-100 text-center md:text-left"
                   >
                     <motion.div
-                      className={`text-3xl mb-4 inline-block p-4 bg-gradient-to-br ${info.color} rounded-xl shadow-lg`}
+                      className={`text-3xl mb-4 inline-block p-4 bg-linear-to-br ${info.color} rounded-xl shadow-lg`}
                       whileHover={{ scale: 1.1, rotate: 12 }}
                       transition={{
                         type: "spring",
@@ -241,45 +309,8 @@ const Contact = () => {
                 );
               })}
             </motion.div>
-
-            {/* Social Proof */}
-            <motion.div
-              variants={itemVariants}
-              whileHover={{
-                boxShadow: "0 20px 40px -10px rgba(37, 99, 235, 0.2)",
-              }}
-              className="bg-white rounded-2xl p-8 shadow-lg border border-blue-100"
-            >
-              <div className="grid grid-cols-3 gap-6 text-center">
-                <div>
-                  <motion.div className="text-4xl font-bold text-blue-600 mb-2">
-                    500+
-                  </motion.div>
-                  <div className="text-gray-600 font-medium text-sm">
-                    Businesses Transformed
-                  </div>
-                </div>
-                <div>
-                  <motion.div className="text-4xl font-bold text-emerald-600 mb-2">
-                    300%
-                  </motion.div>
-                  <div className="text-gray-600 font-medium text-sm">
-                    Avg. Traffic Increase
-                  </div>
-                </div>
-                <div>
-                  <motion.div className="text-4xl font-bold text-purple-600 mb-2">
-                    98%
-                  </motion.div>
-                  <div className="text-gray-600 font-medium text-sm">
-                    Client Retention
-                  </div>
-                </div>
-              </div>
-            </motion.div>
           </motion.div>
 
-          {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -347,7 +378,7 @@ const Contact = () => {
                 />
               </div>
 
-              <div>
+              <div className="relative">
                 <label
                   htmlFor="service"
                   className="block text-sm font-bold text-gray-900 mb-3"
@@ -356,21 +387,39 @@ const Contact = () => {
                 </label>
                 <motion.select
                   whileFocus={{ boxShadow: "0 0 0 3px rgba(37, 99, 235, 0.1)" }}
+                  animate={
+                    servicePulse
+                      ? {
+                          boxShadow: [
+                            "0 0 0 0px rgba(37, 99, 235, 0.7)",
+                            "0 0 0 8px rgba(37, 99, 235, 0)",
+                            "0 0 0 0px rgba(37, 99, 235, 0)",
+                          ],
+                        }
+                      : {}
+                  }
+                  transition={{
+                    duration: 1.5,
+                    repeat: servicePulse ? 2 : 0,
+                    ease: "easeOut",
+                  }}
                   id="service"
                   name="service"
                   required
                   value={formData.service}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:outline-none transition-all duration-200 font-medium"
+                  className={`w-full px-4 py-3 border-2 rounded-lg focus:border-blue-600 focus:outline-none transition-all duration-200 font-medium ${
+                    servicePulse
+                      ? "border-blue-600 bg-blue-50"
+                      : "border-gray-200"
+                  }`}
                 >
                   <option value="">Select a service</option>
-                  <option value="seo">Search Engine Optimization</option>
-                  <option value="ppc">Pay-Per-Click Advertising</option>
-                  <option value="social">Social Media Marketing</option>
-                  <option value="crm">CRM & Automation</option>
-                  <option value="gmb">Google My Business</option>
-                  <option value="web">Web Development</option>
-                  <option value="other">Other / Multiple Services</option>
+                  {SERVICES_LIST.map((service) => (
+                    <option key={service.value} value={service.value}>
+                      {service.label}
+                    </option>
+                  ))}
                 </motion.select>
               </div>
 
@@ -401,7 +450,7 @@ const Contact = () => {
                   name="consent"
                   checked={formData.consent}
                   onChange={handleChange}
-                  className="w-14 h-14 border-2 border-gray-200 rounded focus:outline-none cursor-pointer mt-1 accent-black"
+                  className="w-7 h-7 border-2 border-gray-200 rounded focus:outline-none cursor-pointer mt-1 accent-black"
                 />
                 <label
                   htmlFor="consent"
@@ -421,7 +470,7 @@ const Contact = () => {
                 whileTap={{ scale: 0.98 }}
                 type="submit"
                 disabled={loading}
-                className="w-full px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-bold rounded-xl transition-all duration-200 text-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full px-8 py-4 bg-linear-to-r from-blue-600 to-blue-800 text-white font-bold rounded-xl transition-all duration-200 text-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? "Sending..." : "Send Message"}
                 <ArrowRight className="w-5 h-5" />

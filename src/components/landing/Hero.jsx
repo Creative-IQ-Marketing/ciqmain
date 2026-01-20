@@ -1,8 +1,13 @@
+/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import { TrendingUp, Zap } from "lucide-react";
 import DataAnalyticsSVG from "../svgs/DataAnalyticsSVG";
 
 const Hero = () => {
+  const statArray = [
+    { value: "8+", label: "Years Experience" },
+    { value: "+300%", label: "Average Traffic Increase" },
+  ];
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -113,11 +118,7 @@ const Hero = () => {
               className="flex flex-wrap gap-8 pt-8 justify-center md:justify-start"
               variants={itemVariants}
             >
-              {[
-                { value: "8+", label: "Years Experience" },
-                { value: "500+", label: "Happy Clients" },
-                { value: "98%", label: "Retention Rate" },
-              ].map((stat, index) => (
+              {statArray.map((stat, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, scale: 0.5 }}
