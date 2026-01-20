@@ -11,6 +11,11 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { submitToGHL } from "../../services/ghl";
+import {
+  trackFormSubmission,
+  trackFormEvent,
+  trackServiceSelection,
+} from "../../services/analytics";
 
 const Contact = () => {
   const [searchParams] = useSearchParams();
@@ -68,6 +73,7 @@ const Contact = () => {
 
     if (serviceParam) {
       console.log("Setting service from URL parameter:", serviceParam);
+      trackServiceSelection(serviceParam);
 
       setFormData((prev) => ({
         ...prev,
@@ -101,6 +107,7 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    trackFormSubmission("contact_form");
     setLoading(true);
     setError(null);
     setSuccess(false);
@@ -328,6 +335,11 @@ const Contact = () => {
                 </label>
                 <motion.input
                   whileFocus={{ boxShadow: "0 0 0 3px rgba(37, 99, 235, 0.1)" }}
+                  onFocus={(e) =>
+                    trackFormEvent("contact_form", "focus", {
+                      field: e.target.name,
+                    })
+                  }
                   type="text"
                   id="name"
                   name="name"
@@ -348,6 +360,11 @@ const Contact = () => {
                 </label>
                 <motion.input
                   whileFocus={{ boxShadow: "0 0 0 3px rgba(37, 99, 235, 0.1)" }}
+                  onFocus={(e) =>
+                    trackFormEvent("contact_form", "focus", {
+                      field: e.target.name,
+                    })
+                  }
                   type="email"
                   id="email"
                   name="email"
@@ -432,6 +449,11 @@ const Contact = () => {
                 </label>
                 <motion.textarea
                   whileFocus={{ boxShadow: "0 0 0 3px rgba(37, 99, 235, 0.1)" }}
+                  onFocus={(e) =>
+                    trackFormEvent("contact_form", "focus", {
+                      field: e.target.name,
+                    })
+                  }
                   id="message"
                   name="message"
                   required

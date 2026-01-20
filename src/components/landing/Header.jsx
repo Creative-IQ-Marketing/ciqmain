@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Menu, X, Phone, Sparkles } from "lucide-react";
 import mainLogo from "../../assets/mainLogo.png";
+import { trackButtonClick, trackOutboundLink } from "../../services/analytics";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,8 +16,11 @@ const Header = () => {
     { name: "Contact", href: "#contact" },
   ];
 
-  const handleNavClick = (event, href) => {
+  const handleNavClick = (event, href, name) => {
     event.preventDefault();
+
+    trackButtonClick(name || href, "nav_link", "Header");
+
     const targetId = href.replace("#", "");
     const element = document.getElementById(targetId);
     if (!element) return;
@@ -62,7 +66,7 @@ const Header = () => {
               <motion.a
                 key={link.name}
                 href={link.href}
-                onClick={(event) => handleNavClick(event, link.href)}
+                onClick={(event) => handleNavClick(event, link.href, link.name)}
                 className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 relative group"
                 whileHover={{ y: -2 }}
                 initial={{ opacity: 0, y: -10 }}
@@ -84,6 +88,9 @@ const Header = () => {
           >
             <motion.a
               href="tel:8046512531"
+              onClick={() =>
+                trackOutboundLink("tel:8046512531", "header_phone_click")
+              }
               className="text-gray-700 hover:text-blue-600 font-medium transition-colors flex items-center gap-2"
               whileHover={{ scale: 1.05 }}
             >
@@ -92,6 +99,9 @@ const Header = () => {
             </motion.a>
             <motion.a
               href="#contact"
+              onClick={() =>
+                trackButtonClick("Free Audit", "header_cta_btn", "Header")
+              }
               className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold rounded-lg shadow-md hover:shadow-xl transition-all duration-200"
               whileHover={{
                 scale: 1.05,
@@ -167,7 +177,9 @@ const Header = () => {
             </a>
             <a
               href="#contact"
-              onClick={(event) => handleNavClick(event, "#contact")}
+              onClick={(event) =>
+                handleNavClick(event, "#contact", "Free Audit")
+              }
               className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold rounded-lg hover:shadow-lg text-center block"
             >
               <motion.span

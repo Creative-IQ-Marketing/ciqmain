@@ -11,6 +11,7 @@ import {
   Clock,
 } from "lucide-react";
 import mainLogo from "../../assets/mainLogo.png";
+import { trackOutboundLink, trackButtonClick } from "../../services/analytics";
 
 const Footer = () => {
   const services = [
@@ -152,6 +153,9 @@ const Footer = () => {
                 >
                   <a
                     href={link.href}
+                    onClick={() =>
+                      trackButtonClick(link.name, "footer_quick_link", "Footer")
+                    }
                     className="text-gray-300 hover:text-blue-300 transition-colors inline-flex items-center justify-center md:justify-start gap-2 group"
                   >
                     <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block" />
@@ -228,7 +232,7 @@ const Footer = () => {
                   >
                     {item}
                   </motion.a>
-                )
+                ),
               )}
             </div>
           </div>

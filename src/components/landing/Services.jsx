@@ -342,6 +342,13 @@ const Services = () => {
             </p>
             <motion.a
               href="#contact"
+              onClick={() =>
+                trackButtonClick(
+                  "Get Your Free Strategy",
+                  "services_cta_btn",
+                  "Services",
+                )
+              }
               whileHover={{
                 scale: 1.05,
                 boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.3)",

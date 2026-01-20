@@ -105,6 +105,13 @@ const Hero = () => {
               </motion.a>
               <motion.a
                 href="#services"
+                onClick={() =>
+                  trackButtonClick(
+                    "View Our Services",
+                    "hero_services_btn",
+                    "Hero",
+                  )
+                }
                 className="px-8 py-4 bg-white border-2 border-blue-600 text-blue-600 font-semibold rounded-lg text-center"
                 whileHover={{ scale: 1.05, backgroundColor: "#F0F9FF" }}
                 whileTap={{ scale: 0.98 }}
