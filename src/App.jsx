@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Header from "./components/landing/Header";
 import Hero from "./components/landing/Hero";
+import Clients from "./components/landing/Clients";
 import Stats from "./components/landing/Stats";
 import About from "./components/landing/About";
 import Services from "./components/landing/Services";
@@ -22,6 +23,7 @@ function App() {
       <StructuredData />
       <Header />
       <Hero />
+      <Clients />
       <Stats />
       <About />
       <Services />
