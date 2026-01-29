@@ -14,8 +14,8 @@ const Clients = () => {
   return (
     <section className="py-12 bg-white border-y border-slate-100 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 text-center">
-        <p className="text-sm font-semibold text-blue-600 tracking-widest uppercase">
-          Brands we have worked with
+        <p className="text-sm font-semibold text-slate-600 tracking-widest uppercase">
+          proud partners
         </p>
       </div>
 
@@ -46,7 +46,7 @@ const Clients = () => {
                 <img
                   src={client.src}
                   alt={client.alt}
-                  className="max-w-full max-h-full object-contain filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-110 cursor-pointer"
+                  className="max-w-full max-h-full object-contain transition-all duration-500 ease-out transform group-hover:scale-125 group-hover:drop-shadow-xl"
                 />
               </div>
             ))}
@@ -55,32 +55,31 @@ const Clients = () => {
       </div>
 
       <div className="block md:hidden px-4">
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-3">
           {clients.map((client, index) => (
             <motion.div
               key={client.id}
-              className="relative w-full h-20 rounded-xl border border-slate-200 bg-white/80 backdrop-blur flex items-center justify-center overflow-hidden"
+              className="relative w-full h-24 rounded-xl border border-slate-100 bg-white shadow-sm flex items-center justify-center overflow-hidden"
               initial={{ y: 0, rotate: 0, scale: 1 }}
               animate={{
-                y: [0, -6, 0, 6, 0],
-                rotate: [-2, 0, 2, 0, -2],
-                scale: [1, 1.02, 1, 1.03, 1],
+                y: [0, -4, 0, 4, 0],
+                rotate: [-1, 0, 1, 0, -1],
+                scale: [1, 1.05, 1, 1.05, 1],
               }}
               transition={{
-                duration: 6,
+                duration: 5,
                 repeat: Infinity,
                 ease: "easeInOut",
-                delay: (index % 12) * 0.1,
+                delay: (index % 5) * 0.2, // Staggered effect
               }}
             >
-              <div className="absolute inset-0 opacity-25">
-                <div className="absolute -top-6 -left-6 w-16 h-16 rounded-full bg-gradient-to-br from-blue-300 to-slate-300 blur-2xl" />
-                <div className="absolute -bottom-6 -right-6 w-16 h-16 rounded-full bg-gradient-to-br from-blue-200 to-slate-200 blur-2xl" />
+              <div className="absolute inset-0 opacity-10">
+                <div className="absolute -top-6 -left-6 w-20 h-20 rounded-full bg-gradient-to-br from-blue-400 to-indigo-400 blur-2xl" />
               </div>
               <img
                 src={client.src}
                 alt={client.alt}
-                className="max-w-[85%] max-h-[85%] object-contain filter grayscale opacity-70 transition-all duration-300"
+                className="max-w-[80%] max-h-[80%] object-contain transition-all duration-300"
               />
             </motion.div>
           ))}
