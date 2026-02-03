@@ -4,6 +4,15 @@ import { Star, ArrowRight } from "lucide-react";
 const Testimonials = () => {
   const testimonials = [
     {
+      name: "Fernando Jesus",
+      role: "Entrepreneur",
+      image:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+      content:
+        "Had an awesome experience working with Vilma! She's super friendly, easy to work with, and really knows her stuff. The whole process was smooth, and the final recording came out better than I expected. If you're looking for someone to help with digital marketing, I'd definitely recommend her.",
+      rating: 5,
+    },
+    {
       name: "Kassandra Ramirez",
       role: "Business Owner",
       image:
@@ -13,48 +22,48 @@ const Testimonials = () => {
       rating: 5,
     },
     {
-      name: "Fernando Jesus",
-      role: "Entrepreneur",
+      name: "Miguel Febus",
+      role: "Client",
       image:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+        "https://images.unsplash.com/photo-1545996124-1b2b6f1d2d7d?w=400&h=400&fit=crop",
       content:
-        "Had an awesome experience working with Vilma! She's super friendly, easy to work with, and really knows her stuff. The whole process was smooth, and the final recording came out better than I expected.",
+        "Very smart and hard working company that care about there customers!!",
       rating: 5,
     },
     {
-      name: "Sarah Mitchell",
-      role: "CEO, TechFlow Inc.",
+      name: "Roderick Murdock",
+      role: "Local Guide / Client",
       image:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop",
+        "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&h=400&fit=crop",
       content:
-        "The results have been incredible. Our organic traffic has increased by 300% and we're seeing consistent growth month over month. Highly recommend CreativeIQ!",
+        "I have had the opportunity to work with Creative IQ and Vilma. They have gone above and beyond to help to scale businesses' digital presence and produce tangible results. Vilma is great at making marketing clear to understand.",
       rating: 5,
     },
     {
-      name: "Michael Chen",
-      role: "Marketing Director",
+      name: "Arnold Rodriguez",
+      role: "Client",
+      image:
+        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop",
+      content:
+        "Where do I start, this company has gone way beyond my expectations. They are extremely friendly and very knowledgeable in their processes. I will definitely use them with future project. Thank you creativeIQ for an excellent job.",
+      rating: 5,
+    },
+    {
+      name: "Jonathan Barragan",
+      role: "Local Guide / Client",
       image:
         "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
       content:
-        "Outstanding service and exceptional results. The team is professional, responsive, and truly invested in our success. Our ROI has never been better.",
+        "Amazing working with Vilma and her team! I have not only made more leads but also learned more from her in regard to marketing. Most of it goes over my head so that's why I let her handle things. Amazing and talented.",
       rating: 5,
     },
     {
-      name: "Jessica Williams",
-      role: "E-commerce Owner",
+      name: "Roger Guerrero",
+      role: "Client",
       image:
-        "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop",
+        "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=400&h=400&fit=crop",
       content:
-        "CreativeIQ transformed our online presence. Their strategic approach to SEO and paid advertising has doubled our revenue in just 6 months.",
-      rating: 5,
-    },
-    {
-      name: "David Thompson",
-      role: "Startup Founder",
-      image:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop",
-      content:
-        "Best digital marketing agency we've worked with. They understand our business goals and deliver campaigns that actually drive results. Highly professional!",
+        "We had a website created that was done quickly and efficiently. Change orders and updates to my satisfaction. Great Job Vilma!",
       rating: 5,
     },
   ];
