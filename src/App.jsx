@@ -6,6 +6,7 @@ import Stats from "./components/landing/Stats";
 import About from "./components/landing/About";
 import Services from "./components/landing/Services";
 import Testimonials from "./components/landing/Testimonials";
+import Booking from "./components/landing/Booking";
 import Contact from "./components/landing/Contact";
 import Footer from "./components/landing/Footer";
 import SEO from "./components/SEO";
@@ -28,6 +29,7 @@ function App() {
       <About />
       <Services />
       <Testimonials />
+      <Booking />
       <Contact />
       <Footer />
     </div>
