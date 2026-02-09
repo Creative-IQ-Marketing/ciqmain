@@ -11,6 +11,7 @@ import Contact from "./components/landing/Contact";
 import Footer from "./components/landing/Footer";
 import SEO from "./components/SEO";
 import StructuredData from "./components/StructuredData";
+import ContactPopup from "./components/ContactPopup";
 import { initializeAnalytics } from "./services/analytics";
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
       <Booking />
       <Contact />
       <Footer />
+      <ContactPopup />
     </div>
   );
 }
