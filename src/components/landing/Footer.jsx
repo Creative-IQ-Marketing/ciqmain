@@ -182,10 +182,10 @@ const Footer = () => {
               <motion.li className="flex flex-col md:flex-row items-center md:items-start gap-3 group">
                 <Phone className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
                 <a
-                  href="tel:8046512531"
+                  href="tel:2108380177"
                   className="text-gray-300 hover:text-blue-300 transition-colors"
                 >
-                  (804) 651-2531
+                  210-838-0177
                 </a>
               </motion.li>
               <motion.li className="flex flex-col md:flex-row items-center md:items-start gap-3 group">

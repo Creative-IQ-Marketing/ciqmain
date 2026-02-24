@@ -62,7 +62,7 @@ const ContactPopup = () => {
 
               <div className="space-y-4 mb-6">
                 <a 
-                  href="tel:8046512531" 
+                  href="tel:2108380177" 
                   className="flex items-center p-3 rounded-xl bg-blue-50 hover:bg-blue-100 transition-colors group"
                 >
                   <div className="bg-white p-2 rounded-lg text-blue-600 shadow-sm group-hover:scale-110 transition-transform">
@@ -70,7 +70,7 @@ const ContactPopup = () => {
                   </div>
                   <div className="ml-3">
                     <p className="text-xs text-gray-500 font-medium">Call Us</p>
-                    <p className="text-sm font-bold text-gray-900">(804) 651-2531</p>
+                    <p className="text-sm font-bold text-gray-900">210-838-0177</p>
                   </div>
                 </a>
 

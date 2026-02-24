@@ -87,16 +87,16 @@ const Header = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <motion.a
-              href="tel:8046512531"
-              onClick={() =>
-                trackOutboundLink("tel:8046512531", "header_phone_click")
-              }
-              className="text-gray-700 hover:text-blue-600 font-medium transition-colors flex items-center gap-2"
-              whileHover={{ scale: 1.05 }}
-            >
-              <Phone className="w-4 h-4" />
-              (804) 651-2531
-            </motion.a>
+            href="tel:2108380177"
+            onClick={() =>
+              trackOutboundLink("tel:2108380177", "header_phone_click")
+            }
+            className="text-gray-700 hover:text-blue-600 font-medium transition-colors flex items-center gap-2"
+            whileHover={{ scale: 1.05 }}
+          >
+            <Phone className="w-4 h-4" />
+            210-838-0177
+          </motion.a>
             <motion.a
               href="#contact"
               onClick={() =>
@@ -160,7 +160,7 @@ const Header = () => {
               </a>
             ))}
             <a
-              href="tel:8046512531"
+              href="tel:2108380177"
               className="text-gray-700 hover:text-blue-600 font-medium transition-colors px-2 py-2 hover:bg-gray-50 rounded-lg flex items-center gap-2"
             >
               <motion.span
@@ -172,7 +172,7 @@ const Header = () => {
                 className="flex items-center gap-2"
               >
                 <Phone className="w-4 h-4" />
-                (804) 651-2531
+                210-838-0177
               </motion.span>
             </a>
             <a

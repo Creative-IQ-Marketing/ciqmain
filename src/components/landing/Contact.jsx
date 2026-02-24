@@ -146,8 +146,8 @@ const Contact = () => {
     {
       icon: Phone,
       title: "Phone",
-      content: "(804) 651-2531",
-      link: "tel:8046512531",
+      content: "210-838-0177",
+      link: "tel:2108380177",
       color: "from-blue-500 to-slate-600",
     },
     {
