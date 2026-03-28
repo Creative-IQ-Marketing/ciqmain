@@ -11,10 +11,11 @@ import {
   Clock,
 } from "lucide-react";
 import mainLogo from "../../assets/mainLogo.png";
-import { trackOutboundLink, trackButtonClick } from "../../services/analytics";
+import { trackButtonClick } from "../../services/analytics";
 
 const Footer = () => {
   const services = [
+    "AI Search + AI Agents",
     "Search Engine Optimization",
     "Pay-Per-Click Advertising",
     "Social Media Marketing",
@@ -67,6 +68,59 @@ const Footer = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
         <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mb-14 border border-white/10 bg-white/5 backdrop-blur rounded-3xl p-6 md:p-10"
+        >
+          <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
+            <div className="lg:col-span-5">
+              <div className="text-xs font-semibold uppercase tracking-widest text-blue-200/80">
+                Built for AI Discovery
+              </div>
+              <div className="mt-3 text-3xl md:text-4xl font-bold text-white leading-tight">
+                Show up on AI platforms, then convert.
+              </div>
+              <div className="mt-4 text-gray-300 leading-relaxed">
+                If you’re not surfacing in AI search engines like ChatGPT, Gemini,
+                Claude, and Perplexity, you’re already behind.
+              </div>
+              <motion.a
+                href="#contact"
+                onClick={() =>
+                  trackButtonClick("Footer Consultation", "footer_cta_btn", "Footer")
+                }
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.99 }}
+                className="mt-6 inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 px-6 py-3 font-semibold text-white shadow-lg"
+              >
+                Set a Consultation
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </motion.a>
+            </div>
+
+            <div className="lg:col-span-7">
+              <div className="grid gap-3 sm:grid-cols-2">
+                {[
+                  "Are you showing up where your customers are actually searching—on AI platforms, not just Google?",
+                  "Is your website built to convert visitors into qualified leads, or just exist online?",
+                  "Does your chat experience feel like real, high-level customer service—or a missed opportunity?",
+                  "Is your social media positioning your brand as the obvious choice, or just adding noise?",
+                ].map((q) => (
+                  <div
+                    key={q}
+                    className="border border-white/10 bg-white/5 rounded-2xl p-4 text-sm text-gray-200 leading-relaxed"
+                  >
+                    {q}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -91,8 +145,8 @@ const Footer = () => {
               </span>
             </motion.div>
             <p className="text-gray-300 mb-6 leading-relaxed">
-              Your trusted partner in digital marketing excellence. Helping
-              ambitious businesses dominate their markets for 8+ years.
+              We don’t just “do marketing”—we engineer digital ecosystems built
+              for AI-driven discovery, search dominance, and real conversions.
             </p>
             <div className="flex justify-center md:justify-start space-x-3">
               {socialLinks.map((social, index) => {

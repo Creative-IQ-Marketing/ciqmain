@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Menu, X, Phone, Sparkles } from "lucide-react";
 import mainLogo from "../../assets/mainLogo.png";
@@ -7,6 +7,14 @@ import { trackButtonClick, trackOutboundLink } from "../../services/analytics";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const navLinks = [
     { name: "Home", href: "#home" },
@@ -33,7 +41,14 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-200/50">
+    <header
+      className={[
+        "fixed top-0 left-0 right-0 z-50 border-b transition",
+        isScrolled
+          ? "border-slate-200/70 bg-white/90 backdrop-blur-md shadow-sm"
+          : "border-transparent bg-transparent",
+      ].join(" ")}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}

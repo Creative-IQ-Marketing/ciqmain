@@ -114,13 +114,13 @@ const About = () => {
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
                 Your Growth Partner in the{" "}
                 <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                  Digital Age
+                  AI Era
                 </span>
               </h2>
               <p className="text-xl text-gray-600 leading-relaxed">
-                With over 8 years of experience, we've helped hundreds of
-                businesses transform their online presence and achieve
-                sustainable growth through strategic digital marketing.
+                We build digital ecosystems designed for AI-driven discovery:
+                SEO architecture, conversion-focused websites, chat experiences,
+                and CRM automation that turns traffic into qualified leads.
               </p>
             </motion.div>
 

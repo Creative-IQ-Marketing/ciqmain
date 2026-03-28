@@ -83,6 +83,39 @@ const Stats = () => {
             );
           })}
         </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className="mt-12 max-w-4xl mx-auto"
+        >
+          <div className="text-center">
+            <div className="text-xs font-semibold uppercase tracking-widest text-blue-200/80">
+              AI + SEO Fun Facts
+            </div>
+            <h3 className="mt-3 text-2xl md:text-3xl font-bold text-white">
+              Search is being rebuilt around AI
+            </h3>
+          </div>
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            {[
+              "Over 60% of search experiences are now influenced by AI-generated results (snippets, voice search, predictive answers).",
+              "Google’s AI ranks based on intent and structure—not just keywords—so most traditional SEO is outdated.",
+              "Websites built with proper SEO architecture are up to 3× more likely to surface in AI-powered results.",
+              "Teams combining SEO with ad data + AI insights can reduce cost per lead by 30–50%.",
+            ].map((fact) => (
+              <div
+                key={fact}
+                className="rounded-xl border border-blue-500/20 bg-slate-800/40 p-5 text-sm text-blue-100/90 leading-relaxed"
+              >
+                {fact}
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

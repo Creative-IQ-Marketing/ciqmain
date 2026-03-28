@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 
 export default function SEO({
-  title = "CreativeIQ Marketing - Digital Marketing Agency in San Antonio",
-  description = "Award-winning digital marketing agency in San Antonio, TX with 8+ years experience. Specializing in SEO, PPC, Social Media Marketing, CRM solutions, and Web Development for 500+ satisfied clients.",
-  keywords = "digital marketing San Antonio, SEO agency, PPC advertising, social media marketing, web development, CRM solutions, digital marketing agency Texas, marketing services, SEO company, paid advertising, local SEO, content marketing, CreativeIQ, San Antonio marketing",
+  title = "CreativeIQ Digital Marketing | AI SEO, Websites, CRM Automation",
+  description = "Are you showing up on AI platforms—not just Google? Is your website converting leads? Does your chat + social positioning help you win? CreativeIQ builds AI-ready SEO ecosystems.",
+  keywords = "AI SEO, AI search optimization, ChatGPT SEO, Gemini SEO, Claude SEO, Perplexity SEO, search engine optimization, technical SEO, conversion rate optimization, website development, landing pages, CRM automation, email marketing, social media marketing, PPC advertising, Google Business Profile optimization, digital marketing agency",
   ogImage = "/og-image.jpg",
   canonical = "",
   pageType = "website",

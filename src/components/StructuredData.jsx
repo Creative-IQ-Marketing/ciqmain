@@ -11,7 +11,7 @@ export default function StructuredData() {
       logo: "https://creativeiq.marketing/logo.png",
       image: "https://creativeiq.marketing/og-image.jpg",
       description:
-        "Award-winning digital marketing agency specializing in SEO, PPC, social media marketing, CRM solutions, and web development with 8+ years of experience serving 500+ clients in San Antonio, Texas",
+        "CreativeIQ Digital Marketing engineers AI-ready SEO, conversion-focused websites, chat experiences, and CRM automation designed for AI-driven discovery and real conversions.",
       foundingDate: "2016",
       slogan: "Elevate Your Digital Presence",
       telephone: "+1-804-651-2531",
@@ -47,7 +47,7 @@ export default function StructuredData() {
       name: "CreativeIQ Marketing",
       image: "https://creativeiq.marketing/og-image.jpg",
       description:
-        "Digital marketing agency in San Antonio specializing in SEO, PPC, social media marketing, CRM solutions, and web development. 8+ years of experience with 500+ satisfied clients.",
+        "Digital marketing agency specializing in AI-ready SEO, conversion websites, chat experiences, and CRM automation that turns visitors into qualified leads.",
       url: "https://creativeiq.marketing",
       telephone: "+1-804-651-2531",
       email: "CiQ@creativeiq.marketing",
@@ -81,9 +81,13 @@ export default function StructuredData() {
       },
       knowsAbout: [
         "Search Engine Optimization (SEO)",
+        "AI Search Optimization",
+        "Technical SEO",
+        "Conversion Rate Optimization (CRO)",
         "Pay-Per-Click (PPC) Advertising",
         "Social Media Marketing",
         "Customer Relationship Management (CRM)",
+        "Marketing Automation",
         "Web Development",
         "Digital Marketing Strategy",
         "Content Marketing",
@@ -99,7 +103,7 @@ export default function StructuredData() {
       url: "https://creativeiq.marketing",
       image: "https://creativeiq.marketing/og-image.jpg",
       description:
-        "Professional digital marketing services agency specializing in SEO, PPC, social media marketing, and web development",
+        "Professional digital marketing services specializing in AI-ready SEO, PPC, social media, conversion websites, and CRM automation.",
       telephone: "+1-804-651-2531",
       email: "CiQ@creativeiq.marketing",
       address: {
@@ -221,7 +225,7 @@ export default function StructuredData() {
       servicesSchema,
     ];
 
-    schemas.forEach((schema, index) => {
+    schemas.forEach((schema) => {
       let script = document.querySelector(
         `script[data-schema-type="${schema["@type"]}"]`,
       );

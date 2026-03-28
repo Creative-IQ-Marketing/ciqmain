@@ -3,6 +3,7 @@ import {
   Search,
   MousePointerClick,
   MessageSquare,
+  Bot,
   Database,
   MapPin,
   Code,
@@ -14,6 +15,8 @@ import { useNavigate } from "react-router-dom";
 import SEOOptimizationSVG from "../svgs/SEOOptimizationSVG";
 import DigitalMarketingSVG from "../svgs/DigitalMarketingSVG";
 import GrowthChartSVG from "../svgs/GrowthChartSVG";
+import DataAnalyticsSVG from "../svgs/DataAnalyticsSVG";
+import { trackButtonClick } from "../../services/analytics";
 
 const Services = () => {
   const navigate = useNavigate();
@@ -31,14 +34,31 @@ const Services = () => {
 
   const services = [
     {
+      icon: Bot,
+      title: "AI Search + AI Agents",
+      value: "ai",
+      description:
+        "Get discovered across AI platforms and turn attention into leads with custom AI agents.",
+      features: [
+        "AI Search Visibility (ChatGPT/Gemini/Claude/Perplexity)",
+        "AI Agent Chat + Lead Capture",
+        "Knowledge Base + SOP Ingestion",
+        "Conversation Analytics",
+      ],
+      color: "from-blue-600 to-slate-800",
+      illustration: DataAnalyticsSVG,
+      featured: true,
+    },
+    {
       icon: Search,
       title: "Search Engine Optimization",
       value: "seo",
       description:
-        "Boost your organic visibility with comprehensive SEO strategies.",
+        "SEO built for AI indexing + long-term authority (not just keywords).",
       features: [
         "Keyword Research",
         "On-Page Optimization",
+        "AI-Ready Site Structure",
         "Link Building",
         "Technical SEO",
       ],
@@ -176,8 +196,9 @@ const Services = () => {
             transition={{ delay: 0.2 }}
             className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
           >
-            From strategy to execution, we provide everything you need to
-            dominate your competition online
+            Everything works together as one system—visibility, conversion, and
+            automation—so you get found on Google and AI platforms, then turn
+            attention into qualified leads.
           </motion.p>
         </motion.div>
 
