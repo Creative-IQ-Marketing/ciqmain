@@ -44,7 +44,7 @@ const Header = () => {
     <header
       className={[
         "fixed top-0 left-0 right-0 z-50 border-b transition",
-        isScrolled
+        isScrolled || isMenuOpen
           ? "border-slate-200/70 bg-white/90 backdrop-blur-md shadow-sm"
           : "border-transparent bg-transparent",
       ].join(" ")}
@@ -102,16 +102,16 @@ const Header = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <motion.a
-            href="tel:2108380177"
-            onClick={() =>
-              trackOutboundLink("tel:2108380177", "header_phone_click")
-            }
-            className="text-gray-700 hover:text-blue-600 font-medium transition-colors flex items-center gap-2"
-            whileHover={{ scale: 1.05 }}
-          >
-            <Phone className="w-4 h-4" />
-            210-838-0177
-          </motion.a>
+              href="tel:2108380177"
+              onClick={() =>
+                trackOutboundLink("tel:2108380177", "header_phone_click")
+              }
+              className="text-gray-700 hover:text-blue-600 font-medium transition-colors flex items-center gap-2"
+              whileHover={{ scale: 1.05 }}
+            >
+              <Phone className="w-4 h-4" />
+              210-838-0177
+            </motion.a>
             <motion.a
               href="#contact"
               onClick={() =>
