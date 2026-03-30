@@ -217,7 +217,22 @@ export default function StructuredData() {
       ],
     };
 
+    // WebSite Schema for Sitelinks Search Box and AI understanding
+    const websiteSchema = {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "CreativeIQ Marketing",
+      url: "https://creativeiq.marketing",
+      description: "AI-ready SEO, conversion-focused websites, and CRM automation designed for modern digital discovery.",
+      potentialAction: {
+        "@type": "SearchAction",
+        target: "https://creativeiq.marketing/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    };
+
     const schemas = [
+      websiteSchema,
       organizationSchema,
       localBusinessSchema,
       professionalServiceSchema,

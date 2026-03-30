@@ -20,8 +20,13 @@ export default function SEO({
         content:
           "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
       },
-      { name: "googlebot", content: "index, follow" },
-      { name: "bingbot", content: "index, follow" },
+      { name: "googlebot", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
+      { name: "bingbot", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
+      // AI Agent Specific Allowances
+      { name: "OAI-SearchBot", content: "index, follow" },
+      { name: "CCBot", content: "index, follow" },
+      { name: "PerplexityBot", content: "index, follow" },
+      { name: "ClaudeBot", content: "index, follow" },
       { name: "revisit-after", content: "7 days" },
       { name: "rating", content: "general" },
       { name: "geo.region", content: "US-TX" },
@@ -36,6 +41,8 @@ export default function SEO({
       { property: "og:description", content: description },
       { property: "og:type", content: pageType },
       { property: "og:image", content: window.location.origin + ogImage },
+      { property: "og:image:secure_url", content: window.location.origin + ogImage },
+      { property: "og:image:type", content: "image/jpeg" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
       { property: "og:image:alt", content: title },
@@ -44,7 +51,7 @@ export default function SEO({
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
       { name: "twitter:image", content: window.location.origin + ogImage },
-      { name: "twitter:domain", content: "creativeiq.marketing" },
+      { name: "twitter:domain", content: window.location.hostname },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       {
         name: "apple-mobile-web-app-status-bar-style",
