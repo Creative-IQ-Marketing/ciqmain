@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 const logoModules = import.meta.glob("../../assets/brands/*.webp", {
   eager: true,
@@ -11,11 +12,19 @@ const clients = Object.entries(logoModules).map(([path, mod], index) => ({
 }));
 
 const Clients = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % clients.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
   return (
     <section className="py-12 bg-white border-y border-slate-100 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 text-center">
         <p className="text-sm font-semibold text-slate-600 tracking-widest uppercase">
-          proud partners
+          Satisfied Clients
         </p>
       </div>
 
@@ -55,34 +64,48 @@ const Clients = () => {
       </div>
 
       <div className="block md:hidden px-4">
-        <div className="grid grid-cols-3 gap-3">
-          {clients.map((client, index) => (
+        <div className="relative w-full">
+          {/* Main Carousel */}
+          <div className="relative h-32 rounded-2xl overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200 shadow-sm">
+            {/* Background gradient effect */}
+            <div className="absolute inset-0 opacity-30">
+              <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-gradient-to-br from-blue-400 to-indigo-400 blur-3xl" />
+              <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 blur-3xl" />
+            </div>
+
+            {/* Carousel Items */}
             <motion.div
-              key={client.id}
-              className="relative w-full h-24 rounded-xl border border-slate-100 bg-white shadow-sm flex items-center justify-center overflow-hidden"
-              initial={{ y: 0, rotate: 0, scale: 1 }}
-              animate={{
-                y: [0, -4, 0, 4, 0],
-                rotate: [-1, 0, 1, 0, -1],
-                scale: [1, 1.05, 1, 1.05, 1],
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: (index % 5) * 0.2, // Staggered effect
-              }}
+              className="relative w-full h-full flex items-center justify-center"
+              key={currentIndex}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
             >
-              <div className="absolute inset-0 opacity-10">
-                <div className="absolute -top-6 -left-6 w-20 h-20 rounded-full bg-gradient-to-br from-blue-400 to-indigo-400 blur-2xl" />
-              </div>
               <img
-                src={client.src}
-                alt={client.alt}
-                className="max-w-[80%] max-h-[80%] object-contain transition-all duration-300"
+                src={clients[currentIndex].src}
+                alt={clients[currentIndex].alt}
+                className="max-w-[70%] max-h-[70%] object-contain drop-shadow-lg"
               />
             </motion.div>
-          ))}
+          </div>
+
+          {/* Indicators */}
+          <div className="flex justify-center items-center gap-2 mt-6">
+            {clients.map((_, index) => (
+              <motion.button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`rounded-full transition-all duration-300 ${
+                  index === currentIndex
+                    ? "bg-blue-600 w-3 h-3"
+                    : "bg-slate-300 w-2 h-2 hover:bg-slate-400"
+                }`}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -122,6 +121,8 @@ const Contact = () => {
       setFormData({
         name: "",
         email: "",
+        businessName: "",
+        businessWebsite: "",
         phone: "",
         service: "",
         message: "",
@@ -373,6 +374,44 @@ const Contact = () => {
                   onChange={handleChange}
                   className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:outline-none transition-all duration-200 font-medium"
                   placeholder="vivacreativeiq@gmail.com"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="businessName"
+                  className="block text-sm font-bold text-gray-900 mb-3"
+                >
+                  Business Name
+                </label>
+                <motion.input
+                  whileFocus={{ boxShadow: "0 0 0 3px rgba(37, 99, 235, 0.1)" }}
+                  type="text"
+                  id="businessName"
+                  name="businessName"
+                  value={formData.businessName}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:outline-none transition-all duration-200 font-medium"
+                  placeholder="Your Company LLC"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="businessWebsite"
+                  className="block text-sm font-bold text-gray-900 mb-3"
+                >
+                  Business Website
+                </label>
+                <motion.input
+                  whileFocus={{ boxShadow: "0 0 0 3px rgba(37, 99, 235, 0.1)" }}
+                  type="url"
+                  id="businessWebsite"
+                  name="businessWebsite"
+                  value={formData.businessWebsite}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:outline-none transition-all duration-200 font-medium"
+                  placeholder="https://www.yourbusiness.com"
                 />
               </div>
 

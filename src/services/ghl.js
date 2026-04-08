@@ -1,16 +1,16 @@
 const GHL_API_KEY = import.meta.env.VITE_GHL_API_KEY;
 const GHL_LOCATION_ID = import.meta.env.VITE_GHL_LOCATION_ID;
-const GHL_API_BASE = 'https://services.leadconnectorhq.com';
+const GHL_API_BASE = "https://services.leadconnectorhq.com";
 
-async function makeGHLRequest(endpoint, method = 'GET', body = null) {
+async function makeGHLRequest(endpoint, method = "GET", body = null) {
   try {
     const options = {
       method,
       headers: {
-        'Authorization': `Bearer ${GHL_API_KEY}`,
-        'Content-Type': 'application/json',
-        'Version': '2021-07-28'
-      }
+        Authorization: `Bearer ${GHL_API_KEY}`,
+        "Content-Type": "application/json",
+        Version: "2021-07-28",
+      },
     };
 
     if (body) {
@@ -21,19 +21,21 @@ async function makeGHLRequest(endpoint, method = 'GET', body = null) {
     const data = await response.json();
 
     if (!response.ok) {
-      const traceId = response.headers.get('x-trace-id') || 'No trace ID';
-      console.error('GHL API Error:', {
+      const traceId = response.headers.get("x-trace-id") || "No trace ID";
+      console.error("GHL API Error:", {
         status: response.status,
         statusText: response.statusText,
         traceId,
-        data
+        data,
       });
-      throw new Error(`GHL API error: ${response.status} - ${data.message || 'Unknown error'} (Trace ID: ${traceId})`);
+      throw new Error(
+        `GHL API error: ${response.status} - ${data.message || "Unknown error"} (Trace ID: ${traceId})`,
+      );
     }
 
     return data;
   } catch (error) {
-    console.error('GHL request failed:', error);
+    console.error("GHL request failed:", error);
     throw error;
   }
 }
@@ -43,9 +45,9 @@ async function makeGHLRequest(endpoint, method = 'GET', body = null) {
  */
 export async function submitToGHL(formData) {
   try {
-    const editedTags = ['website_form']
+    const editedTags = ["website_form"];
     if (formData.consent) {
-      editedTags.push('consent_given');
+      editedTags.push("consent_given");
     }
     const contactData = {
       name: formData.name,
@@ -55,20 +57,20 @@ export async function submitToGHL(formData) {
       tags: editedTags,
       customFields: [
         {
-          key: 'service',
-          field_value: formData.service
+          key: "service",
+          field_value: `${formData.service} for ${formData.businessName} (${formData.businessWebsite})`,
         },
         {
-          key: 'message',
-          field_value: formData.message
+          key: "message",
+          field_value: formData.message,
         },
-      ]
+      ],
     };
 
-    const data = await makeGHLRequest('/contacts/upsert', 'POST', contactData);
+    const data = await makeGHLRequest("/contacts/upsert", "POST", contactData);
     return { success: true, contact: data.contact || data };
   } catch (error) {
-    console.error('GHL submission failed:', error);
+    console.error("GHL submission failed:", error);
     throw error;
   }
 }
