@@ -2,12 +2,15 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Menu, X, Phone, Sparkles } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
 import mainLogo from "../../assets/mainLogo.png";
 import { trackButtonClick, trackOutboundLink } from "../../services/analytics";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 12);
@@ -17,17 +20,33 @@ const Header = () => {
   }, []);
 
   const navLinks = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Services", href: "#services" },
-    { name: "Testimonials", href: "#testimonials" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "#home", route: "/" },
+    { name: "Services", href: "/services", route: "/services" },
+    { name: "Contact", href: "#contact", route: "/" },
   ];
 
   const handleNavClick = (event, href, name) => {
     event.preventDefault();
-
     trackButtonClick(name || href, "nav_link", "Header");
+    setIsMenuOpen(false);
+
+    // External route navigation
+    if (!href.startsWith("#")) {
+      navigate(href);
+      return;
+    }
+
+    // If we're not on the home page, navigate there first then scroll
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        const targetId = href.replace("#", "");
+        const element = document.getElementById(targetId);
+        if (!element) return;
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 300);
+      return;
+    }
 
     const targetId = href.replace("#", "");
     const element = document.getElementById(targetId);
@@ -37,7 +56,6 @@ const Header = () => {
       element.getBoundingClientRect().top + window.scrollY;
     const offsetPosition = elementPosition - headerOffset;
     window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-    setIsMenuOpen(false);
   };
 
   return (

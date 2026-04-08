@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import Header from "./components/landing/Header";
 import Hero from "./components/landing/Hero";
 import Clients from "./components/landing/Clients";
@@ -12,13 +13,10 @@ import Footer from "./components/landing/Footer";
 import SEO from "./components/SEO";
 import StructuredData from "./components/StructuredData";
 import ContactPopup from "./components/ContactPopup";
+import ServicesPage from "./pages/ServicesPage";
 import { initializeAnalytics } from "./services/analytics";
 
-function App() {
-  useEffect(() => {
-    initializeAnalytics();
-  }, []);
-
+function HomePage() {
   return (
     <div className="min-h-screen bg-white">
       <SEO />
@@ -35,6 +33,19 @@ function App() {
       <Footer />
       <ContactPopup />
     </div>
+  );
+}
+
+function App() {
+  useEffect(() => {
+    initializeAnalytics();
+  }, []);
+
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/services" element={<ServicesPage />} />
+    </Routes>
   );
 }
 
