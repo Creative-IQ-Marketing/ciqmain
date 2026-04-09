@@ -1,13 +1,25 @@
-import { TrendingUp, Star, BarChart3, Zap } from "lucide-react";
+import { TrendingUp, Star, Globe, DollarSign } from "lucide-react";
 import { motion } from "framer-motion";
 
 const Stats = () => {
   const stats = [
     {
-      value: "+300%",
-      label: "Traffic Increase",
-      icon: TrendingUp,
+      value: "400+",
+      label: "Websites Built",
+      icon: Globe,
       color: "from-blue-600 to-blue-800",
+    },
+    {
+      value: "$300K+",
+      label: "Ad Spend Managed",
+      icon: DollarSign,
+      color: "from-slate-600 to-slate-800",
+    },
+    {
+      value: "8+",
+      label: "Years Experience",
+      icon: TrendingUp,
+      color: "from-blue-700 to-blue-900",
     },
     {
       value: "5/5",
@@ -32,9 +44,9 @@ const Stats = () => {
 
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900 to-slate-950 relative overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 right-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-blob"></div>
-        <div className="absolute -bottom-40 left-1/3 w-96 h-96 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-blob animation-delay-2000"></div>
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 right-1/4 w-96 h-96 bg-blue-800/20 rounded-full filter blur-2xl"></div>
+        <div className="absolute -bottom-40 left-1/3 w-96 h-96 bg-blue-900/20 rounded-full filter blur-2xl"></div>
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -60,7 +72,7 @@ const Stats = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto"
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
         >
           {stats.map((stat, index) => {
             const IconComponent = stat.icon;

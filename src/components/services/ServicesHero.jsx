@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 
 const STATS = [
-  { value: "3", label: "Growth Systems" },
-  { value: "5", label: "Elite Tiers" },
+  { value: "400+", label: "Websites Built" },
+  { value: "$300K+", label: "Ad Spend Managed" },
   { value: "8+", label: "Years Experience" },
   { value: "300%", label: "Avg Traffic Lift" },
 ];
@@ -21,10 +21,10 @@ export default function ServicesHero() {
 
   return (
     <section className="relative min-h-[85vh] flex flex-col justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 overflow-hidden">
-      {/* Background orbs */}
+      {/* Background — lightweight gradients only for mobile perf */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-32 left-1/4 w-[600px] h-[600px] bg-blue-600 rounded-full mix-blend-multiply filter blur-[120px] opacity-10" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-blue-500 rounded-full mix-blend-multiply filter blur-[100px] opacity-8" />
+        <div className="absolute -top-32 left-1/4 w-[400px] h-[400px] bg-blue-900/30 rounded-full filter blur-[80px]" />
+        <div className="absolute bottom-0 right-1/4 w-[300px] h-[300px] bg-blue-800/20 rounded-full filter blur-[60px]" />
       </div>
 
       {/* Grid overlay */}
@@ -45,7 +45,7 @@ export default function ServicesHero() {
         >
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-500/40 bg-blue-500/10 text-blue-300 text-sm font-medium mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-            Growth Infrastructure for HR &amp; Staffing Brands
+            Growth Infrastructure for brands seeking innovative solutions
           </span>
 
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-6">
@@ -80,21 +80,6 @@ export default function ServicesHero() {
               Talk to Our Team
             </motion.button>
           </div>
-        </motion.div>
-
-        {/* Stats row */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="mt-20 grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-3xl mx-auto"
-        >
-          {STATS.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <p className="text-3xl font-bold text-white">{stat.value}</p>
-              <p className="text-sm text-slate-400 mt-1">{stat.label}</p>
-            </div>
-          ))}
         </motion.div>
 
         {/* Scroll cue */}

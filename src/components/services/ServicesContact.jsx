@@ -75,8 +75,8 @@ export default function ServicesContact() {
       id="services-contact"
       className="py-24 bg-gradient-to-b from-slate-900 to-slate-950 relative overflow-hidden"
     >
-      {/* Orb */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600 rounded-full filter blur-[150px] opacity-5 pointer-events-none" />
+      {/* Orb — lightweight for mobile */}
+      <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-blue-800/30 rounded-full filter blur-[80px] opacity-60 pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-start">

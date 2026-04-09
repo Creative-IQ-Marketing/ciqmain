@@ -42,8 +42,8 @@ const OFFERS = [
       "A/B test landing pages monthly",
       "Rewrite messaging using psychology triggers",
       "Optimize booking funnels",
-      "Improve CRM follow-ups (GHL goldmine)",
-      "Analyze behavior data → adjust strategy",
+      "Improve CRM workflows and follow-up sequences",
+      "Analyze behavior data and adjust strategy",
     ],
     example: {
       client: "Roofing Client",
@@ -66,9 +66,9 @@ const OFFERS = [
     name: "High-Level Consulting",
     price: "$5K – $20K",
     tagline:
-      "I audit and rebuild your entire customer acquisition system so every dollar you spend works harder.",
+      "We audit and rebuild your entire customer acquisition system so every dollar you spend works harder.",
     pitch: [
-      "Fix the entire customer journey end-to-end",
+      "Full customer journey audit end-to-end",
       "Align ads, website, CRM, and messaging",
       "Train your team on conversion thinking",
       "Strategic system architecture review",
@@ -145,7 +145,7 @@ export default function HighLevelOffers() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className="flex flex-col rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm hover:border-blue-500/40 transition-colors duration-300"
+                className="flex flex-col rounded-2xl overflow-hidden border border-white/10 bg-white/5 hover:border-blue-500/40 transition-colors duration-300"
               >
                 {/* Card header */}
                 <div className={`bg-gradient-to-br ${offer.accent} p-7`}>

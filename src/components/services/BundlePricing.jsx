@@ -18,14 +18,14 @@ const BUNDLES = [
       "border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white",
     features: [
       "SEO-Coded Website (1 Page)",
-      "Website Maintenance — $199/m",
-      "HR SEO PRO PLAN — $599/m",
-      "Starter Social Media — 8 posts/mo",
+      "Website Maintenance",
+      "HR SEO PRO PLAN",
+      "Starter Social Media (8 posts/mo)",
       "2 platforms",
       "1 carousel + 1 reel / week",
       "Insights + repurposing strategy",
     ],
-    bestFor: "Teams who need stronger visibility before automating HR.",
+    bestFor: "Teams building visibility and credibility before automating HR.",
   },
   {
     badge: "MOST POPULAR",
@@ -42,15 +42,16 @@ const BUNDLES = [
     btnClass: "bg-white text-blue-700 hover:bg-blue-50 font-bold",
     features: [
       "Everything in Essential Visibility",
-      "CORE HR CRM System — $299/m",
+      "CORE HR CRM System",
       "Applicant Tracking & Pipelines",
       "Interview Scheduling + Reminders",
       "Onboarding Automations",
-      "Growth Social Media — 12 posts/mo",
-      "3 platforms, 1 story + carousel + reel/wk",
+      "Growth Social Media (12 posts/mo)",
+      "3 platforms — story + carousel + reel/wk",
       "Analytics + content calendar",
     ],
-    bestFor: "Teams wanting visibility AND organized hiring systems.",
+    bestFor:
+      "Teams wanting visibility and organized hiring systems running together.",
   },
   {
     badge: null,
@@ -72,13 +73,14 @@ const BUNDLES = [
       "AI Chat Widget ★",
       "AI HR Automation Suite ★",
       "Email Marketing Automation ★",
-      "Elite Social Media — 24 posts/mo",
-      "4 platforms, 2 reels + carousels/wk",
+      "Elite Social Media (24 posts/mo)",
+      "4 platforms — 2 reels + 2 carousels/wk",
       "Social SEO (metadata + alt-text)",
       "Automated DMs + Hashtag rotation",
       "Advanced analytics dashboard",
     ],
-    bestFor: "Teams who want max visibility + a fully automated HR ecosystem.",
+    bestFor:
+      "Teams ready for maximum visibility and a fully automated HR ecosystem.",
   },
 ];
 

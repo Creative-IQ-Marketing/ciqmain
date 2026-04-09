@@ -177,12 +177,11 @@ export default function GrowthInfra() {
           className="max-w-3xl mx-auto mb-16 p-5 rounded-2xl bg-blue-600 text-white text-center"
         >
           <p className="font-semibold text-lg">
-            Right now you sell services. We&apos;re going to sell growth
-            infrastructure.
+            Most agencies sell services. We build growth infrastructure.
           </p>
           <p className="text-blue-100 text-sm mt-1">
-            Average client value: $1,200/mo → $5,000–$12,000/mo. That&apos;s how
-            agencies scale to 7 figures.
+            Average client value moves from $1,200/mo to $5,000–$12,000/mo.
+            That&apos;s how agencies scale to 7 figures.
           </p>
         </motion.div>
 
