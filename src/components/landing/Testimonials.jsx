@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { Quote, ArrowLeft, ArrowRight, Star } from "lucide-react";
 import { motion as Motion, AnimatePresence } from "framer-motion";
 
