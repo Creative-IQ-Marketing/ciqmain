@@ -3,8 +3,8 @@ import { ArrowUpRight } from "lucide-react";
 
 const ease = [0.22, 1, 0.36, 1];
 
-const YOUTUBE_CHANNEL = "https://www.youtube.com/@CreativeIQMarketing";
-const FEATURED_VIDEO_ID = "dQw4w9WgXcQ"; // swap for real video ID
+const YOUTUBE_CHANNEL = "https://www.youtube.com/@CreativeIQdigitalmarketing";
+const FEATURED_VIDEO_ID = "Mj1u1oMow9U";
 
 export default function YoutubeSection() {
   return (
