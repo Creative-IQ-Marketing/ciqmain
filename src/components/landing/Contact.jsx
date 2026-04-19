@@ -199,10 +199,9 @@ const Contact = () => {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={false}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
           className="text-center mb-20"
         >
           <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
@@ -212,8 +211,8 @@ const Contact = () => {
             </span>
           </h2>
           <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={false}
+            animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
             className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
           >
@@ -225,9 +224,8 @@ const Contact = () => {
         <div className="grid lg:grid-cols-2 gap-12">
           <motion.div
             variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
+            initial={false}
+            animate="visible"
             className="space-y-8"
           >
             <motion.div
@@ -253,8 +251,8 @@ const Contact = () => {
                 ].map((item, idx) => (
                   <motion.li
                     key={idx}
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={false}
+                    animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: idx * 0.1 }}
                     className="flex items-center font-medium"
                   >
@@ -320,10 +318,9 @@ const Contact = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={false}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
             className="bg-white rounded-2xl shadow-2xl p-8 border border-blue-100"
           >
             <form onSubmit={handleSubmit} className="space-y-6">

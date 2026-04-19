@@ -27,9 +27,8 @@ export default function YoutubeSection() {
       >
         {/* LEFT — text */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          initial={false}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease }}
           style={{ flex: "0 0 auto", width: "clamp(260px, 34%, 360px)" }}
         >
@@ -97,9 +96,8 @@ export default function YoutubeSection() {
 
         {/* RIGHT — embed */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          initial={false}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1, ease }}
           style={{
             flex: 1,

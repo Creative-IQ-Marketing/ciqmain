@@ -1,6 +1,14 @@
-﻿import { motion, AnimatePresence } from "framer-motion";
+﻿import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+  useSpring,
+} from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import MagneticButton from "../primitives/MagneticButton";
+import { trackButtonClick } from "../../services/analytics";
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -15,6 +23,26 @@ const PHOTOS = [
 export default function Hero() {
   const [active, setActive] = useState(0);
   const timerRef = useRef(null);
+  const sectionRef = useRef(null);
+
+  // Scroll progress from section top-start to section top-at-top-of-viewport
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  // Spring only on background position (smooth parallax), NOT on opacity
+  const bgSpring = useSpring(scrollYProgress, {
+    stiffness: 60,
+    damping: 20,
+    restDelta: 0.001,
+  });
+  const bgY = useTransform(bgSpring, [0, 1], ["0%", "28%"]);
+
+  // Content uses DIRECT scrollYProgress — no spring lag, so scroll-back works perfectly
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
+  const scrollHintOpacity = useTransform(scrollYProgress, [0, 0.07], [1, 0]);
 
   const go = (i) => {
     setActive(i);
@@ -40,64 +68,101 @@ export default function Hero() {
         .f-disp { font-family: 'Bricolage Grotesque', sans-serif; }
         .f-body { font-family: 'Inter', sans-serif; }
         @keyframes panLR {
-          0%   { transform: scale(1.08) translateX(-3%); }
-          100% { transform: scale(1.08) translateX(3%); }
+          0%   { transform: scale(1.12) translateX(-3%); }
+          100% { transform: scale(1.12) translateX(3%); }
         }
-        .pan-lr { animation: panLR 8s ease-in-out infinite alternate; }
+        .pan-lr { animation: panLR 9s ease-in-out infinite alternate; }
+        @keyframes scrollBounce {
+          0%, 100% { transform: translateY(0); }
+          50%       { transform: translateY(6px); }
+        }
+        .scroll-bounce { animation: scrollBounce 1.6s ease-in-out infinite; }
+        @media (max-width: 480px) {
+          .hero-stats { gap: 1.2rem !important; padding: 14px 1rem !important; }
+          .hero-ctas { flex-direction: column !important; align-items: stretch !important; }
+          .hero-ctas a { text-align: center; }
+        }
       `}</style>
 
       <section
+        ref={sectionRef}
         style={{ position: "relative", height: "100svh", overflow: "hidden" }}
       >
-        {/* Background: cross-fading photos, each panning left→right */}
-        <AnimatePresence>
-          {PHOTOS.map((src, i) =>
-            i === active ? (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 1.2, ease: "easeInOut" }}
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  zIndex: 0,
-                  overflow: "hidden",
-                }}
-              >
-                <img
-                  src={src}
-                  alt=""
-                  className="pan-lr"
+        {/* Background: parallax wrapper — moves slower than the viewport on scroll */}
+        <motion.div
+          style={{
+            y: bgY,
+            position: "absolute",
+            inset: "-15% 0",
+            zIndex: 0,
+          }}
+        >
+          <AnimatePresence>
+            {PHOTOS.map((src, i) =>
+              i === active ? (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 1.2, ease: "easeInOut" }}
                   style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    display: "block",
-                    transformOrigin: "center center",
+                    position: "absolute",
+                    inset: 0,
+                    zIndex: 0,
+                    overflow: "hidden",
                   }}
-                />
-              </motion.div>
-            ) : null,
-          )}
-        </AnimatePresence>
+                >
+                  <img
+                    src={src}
+                    alt=""
+                    className="pan-lr"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      display: "block",
+                      transformOrigin: "center center",
+                    }}
+                  />
+                </motion.div>
+              ) : null,
+            )}
+          </AnimatePresence>
+        </motion.div>
 
-        {/* Overlay: dark gradient, heavier at bottom */}
+        {/* Overlay: light wash — text-side heavy, photo-side lighter */}
         <div
           style={{
             position: "absolute",
             inset: 0,
             zIndex: 1,
-            background: "rgba(0, 0, 0, 0.85)",
+            background:
+              "linear-gradient(105deg, rgba(247,246,241,0.94) 0%, rgba(247,246,241,0.82) 45%, rgba(247,246,241,0.45) 72%, rgba(247,246,241,0.12) 100%)",
           }}
         />
 
-        {/* Content — centered */}
+        {/* Grain overlay */}
         <div
           style={{
-            position: "relative",
+            position: "absolute",
+            inset: 0,
             zIndex: 2,
+            pointerEvents: "none",
+            opacity: 0.04,
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+            backgroundSize: "180px 180px",
+          }}
+        />
+
+        {/* Content — scroll-driven exit: drifts up and fades as user scrolls */}
+        <motion.div
+          style={{
+            y: contentY,
+            opacity: contentOpacity,
+            position: "relative",
+            zIndex: 3,
             height: "100%",
             display: "flex",
             flexDirection: "column",
@@ -116,52 +181,112 @@ export default function Hero() {
             style={{
               fontSize: 11,
               fontWeight: 500,
-              color: "rgba(255,255,255,0.55)",
+              color: "rgba(0,0,0,0.45)",
               letterSpacing: "0.22em",
               textTransform: "uppercase",
-              marginBottom: 24,
+              marginBottom: 28,
             }}
           >
             San Antonio, TX · Full-service digital agency
           </motion.p>
 
-          {/* Main headline */}
-          <div style={{ overflow: "hidden", marginBottom: 8 }}>
-            <motion.h1
-              className="f-disp"
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              transition={{ duration: 0.85, delay: 0.08, ease }}
+          {/* Headline — word-by-word cinematic build */}
+          <motion.div
+            style={{ marginBottom: 32 }}
+            initial="hidden"
+            animate="show"
+            variants={{
+              show: {
+                transition: { staggerChildren: 0.11, delayChildren: 0.06 },
+              },
+            }}
+          >
+            {/* Line 1 */}
+            <div
               style={{
-                margin: 0,
-                fontSize: "clamp(3rem, 7vw, 6.5rem)",
-                fontWeight: 800,
-                letterSpacing: "-0.04em",
-                lineHeight: 1.0,
-                color: "#ffffff",
+                overflow: "hidden",
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                gap: "0.25em",
+                marginBottom: "0.12em",
               }}
             >
-              We grow businesses
-            </motion.h1>
-          </div>
-          <div style={{ overflow: "hidden", marginBottom: 28 }}>
-            <motion.h1
-              className="f-disp"
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              transition={{ duration: 0.85, delay: 0.14, ease }}
+              {["We", "grow", "businesses"].map((word) => (
+                <span
+                  key={word}
+                  style={{ overflow: "hidden", display: "inline-block" }}
+                >
+                  <motion.span
+                    style={{ display: "inline-block" }}
+                    variants={{
+                      hidden: { y: "110%", opacity: 0 },
+                      show: {
+                        y: 0,
+                        opacity: 1,
+                        transition: { duration: 0.75, ease },
+                      },
+                    }}
+                    className="f-disp"
+                  >
+                    <span
+                      style={{
+                        fontSize: "clamp(3rem, 7.5vw, 7rem)",
+                        fontWeight: 800,
+                        letterSpacing: "-0.04em",
+                        lineHeight: 1.0,
+                        color: "#0d0d14",
+                      }}
+                    >
+                      {word}
+                    </span>
+                  </motion.span>
+                </span>
+              ))}
+            </div>
+            {/* Line 2 — accent color, slight delay */}
+            <div
               style={{
-                margin: 0,
-                fontSize: "clamp(3rem, 7vw, 6.5rem)",
-                fontWeight: 800,
-                letterSpacing: "-0.04em",
-                lineHeight: 1.0,
-                color: "#3B6FF0",
+                overflow: "hidden",
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                gap: "0.25em",
               }}
             >
-              that mean business.
-            </motion.h1>
-          </div>
+              {["that", "mean", "business."].map((word) => (
+                <span
+                  key={word}
+                  style={{ overflow: "hidden", display: "inline-block" }}
+                >
+                  <motion.span
+                    style={{ display: "inline-block" }}
+                    variants={{
+                      hidden: { y: "110%", opacity: 0 },
+                      show: {
+                        y: 0,
+                        opacity: 1,
+                        transition: { duration: 0.75, ease },
+                      },
+                    }}
+                    className="f-disp"
+                  >
+                    <span
+                      style={{
+                        fontSize: "clamp(3rem, 7.5vw, 7rem)",
+                        fontWeight: 800,
+                        letterSpacing: "-0.04em",
+                        lineHeight: 1.0,
+                        color: "#3B6FF0",
+                      }}
+                    >
+                      {word}
+                    </span>
+                  </motion.span>
+                </span>
+              ))}
+            </div>
+          </motion.div>
 
           {/* Sub-copy */}
           <motion.p
@@ -171,7 +296,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.3, ease }}
             style={{
               fontSize: "clamp(0.92rem, 1.3vw, 1.05rem)",
-              color: "rgba(255,255,255,0.55)",
+              color: "rgba(0,0,0,0.5)",
               maxWidth: 500,
               lineHeight: 1.65,
               marginBottom: 44,
@@ -186,6 +311,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.42, ease }}
+            className="hero-ctas"
             style={{
               display: "flex",
               gap: 12,
@@ -212,7 +338,7 @@ export default function Hero() {
                 gap: 7,
               }}
             >
-              Start a project <ArrowUpRight size={15} />
+              Start a project
             </motion.a>
             <motion.a
               href="#services"
@@ -221,9 +347,9 @@ export default function Hero() {
               className="f-body"
               style={{
                 fontSize: 14,
-                color: "rgba(255,255,255,0.85)",
-                border: "1px solid rgba(255,255,255,0.25)",
-                background: "rgba(255,255,255,0.08)",
+                color: "#0d0d14",
+                border: "1px solid rgba(0,0,0,0.15)",
+                background: "rgba(255,255,255,0.6)",
                 backdropFilter: "blur(12px)",
                 padding: "14px 30px",
                 borderRadius: 99,
@@ -247,33 +373,71 @@ export default function Hero() {
                   width: i === active ? 22 : 6,
                   height: 6,
                   borderRadius: 3,
-                  background:
-                    i === active ? "#3B6FF0" : "rgba(255,255,255,0.35)",
+                  background: i === active ? "#3B6FF0" : "rgba(0,0,0,0.18)",
                   transition: "all 0.32s ease",
                 }}
               />
             ))}
           </div>
-        </div>
+
+          {/* Scroll indicator */}
+          <motion.div
+            style={{
+              opacity: scrollHintOpacity,
+              position: "absolute",
+              bottom: 90,
+              left: "50%",
+              transform: "translateX(-50%)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 6,
+              pointerEvents: "none",
+            }}
+          >
+            <span
+              className="f-body"
+              style={{
+                fontSize: 9,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color: "rgba(0,0,0,0.3)",
+              }}
+            >
+              Scroll
+            </span>
+            <div
+              className="scroll-bounce"
+              style={{
+                width: 1,
+                height: 28,
+                background:
+                  "linear-gradient(to bottom, rgba(59,111,240,0.6), transparent)",
+              }}
+            />
+          </motion.div>
+        </motion.div>
 
         {/* Bottom stats strip */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.55, ease }}
+          className="hero-stats"
           style={{
             position: "absolute",
             bottom: 0,
             left: 0,
             right: 0,
-            zIndex: 3,
-            borderTop: "1px solid rgba(255,255,255,0.1)",
-            background: "rgba(0,0,0,0.35)",
+            zIndex: 4,
+            borderTop: "1px solid rgba(0,0,0,0.07)",
+            background: "rgba(247,246,241,0.88)",
             backdropFilter: "blur(16px)",
             display: "flex",
             justifyContent: "center",
             gap: "clamp(2rem, 6vw, 6rem)",
             padding: "18px clamp(1.5rem, 5vw, 4rem)",
+            flexWrap: "wrap",
           }}
         >
           {[
@@ -289,7 +453,7 @@ export default function Hero() {
                   fontSize: "clamp(1.4rem, 2vw, 1.8rem)",
                   fontWeight: 800,
                   letterSpacing: "-0.03em",
-                  color: "#fff",
+                  color: "#0d0d14",
                 }}
               >
                 {st.val}
@@ -299,7 +463,7 @@ export default function Hero() {
                 style={{
                   margin: "2px 0 0",
                   fontSize: 11,
-                  color: "rgba(255,255,255,0.45)",
+                  color: "rgba(0,0,0,0.4)",
                   letterSpacing: "0.1em",
                   textTransform: "uppercase",
                 }}

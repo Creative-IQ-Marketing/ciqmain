@@ -5,6 +5,9 @@ import Hero from "./components/landing/Hero";
 import Clients from "./components/landing/Clients";
 import About from "./components/landing/About";
 import Services from "./components/landing/Services";
+import Stats from "./components/landing/Stats";
+import GHLValueTable from "./components/landing/GHLValueTable";
+import Process from "./components/landing/Process";
 import Testimonials from "./components/landing/Testimonials";
 import YoutubeSection from "./components/landing/YoutubeSection";
 import Booking from "./components/landing/Booking";
@@ -28,7 +31,7 @@ function Layout() {
       <Header />
       <Outlet />
       <Footer />
-      <ContactPopup />
+      {/* <ContactPopup /> */}
     </div>
   );
 }
@@ -42,6 +45,9 @@ function HomePage() {
       <Clients />
       <About />
       <Services />
+      <Stats />
+      <GHLValueTable />
+      <Process />
       <Testimonials />
       <YoutubeSection />
       <Booking />

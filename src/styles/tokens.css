@@ -1,0 +1,65 @@
+/* ============================================================
+   CreativeIQ — Design System Tokens
+   All CSS custom properties live here. Every component reads
+   from these tokens. Never hardcode a design value elsewhere.
+   ============================================================ */
+
+:root {
+  /* ── Colors ──────────────────────────────────────────────── */
+  --c-base: #f7f6f1;
+  --c-surface: #ffffff;
+  --c-surface-2: #f0f0f9;
+  --c-accent: #3b82f6;
+  --c-accent-dim: rgba(59, 130, 246, 0.1);
+  --c-glow: rgba(59, 130, 246, 0.18);
+
+  --c-text-primary: #0d0d14;
+  --c-text-secondary: #6b7280;
+  --c-text-ghost: rgba(59, 130, 246, 0.05);
+
+  --c-border: rgba(0, 0, 0, 0.07);
+  --c-border-bright: rgba(59, 130, 246, 0.4);
+
+  /* ── Typography ──────────────────────────────────────────── */
+  --font-display: "Syne", sans-serif;
+  --font-body: "DM Sans", sans-serif;
+
+  --size-hero: clamp(3.2rem, 8vw, 7.5rem);
+  --size-section-title: clamp(2rem, 4vw, 3.5rem);
+  --size-label: 0.7rem;
+  --tracking-label: 0.2em;
+
+  /* ── Easing ──────────────────────────────────────────────── */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  /* ── Durations ───────────────────────────────────────────── */
+  --dur-fast: 400ms;
+  --dur-base: 700ms;
+  --dur-slow: 1200ms;
+
+  /* ── Spacing ─────────────────────────────────────────────── */
+  --section-pad: clamp(5rem, 10vw, 9rem);
+  --container-max: 1200px;
+  --container-pad: clamp(1.5rem, 5vw, 5rem);
+
+  /* ── Radii ───────────────────────────────────────────────── */
+  --radius-card: 16px;
+  --radius-pill: 999px;
+}
+
+/* ── Global resets for accent sections ───────────────────── */
+.ciq-dark {
+  background-color: var(--c-base);
+  color: var(--c-text-primary);
+}
+
+/* ── Grain filter reference (SVG defined in index.html) ───── */
+.grain-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  filter: url(#grain);
+  background: #fff;
+}

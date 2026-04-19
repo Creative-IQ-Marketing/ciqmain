@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import FadeUp from "../primitives/FadeUp";
 
 const logoModules = import.meta.glob("../../assets/brands/*.webp", {
   eager: true,
@@ -13,6 +14,7 @@ const clients = Object.entries(logoModules).map(([path, mod], index) => ({
 
 const Clients = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const sectionRef = useRef(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -21,10 +23,14 @@ const Clients = () => {
     return () => clearInterval(interval);
   }, []);
   return (
-    <section className="py-12 bg-white border-y border-slate-100 relative overflow-hidden">
+    <FadeUp
+      as="section"
+      ref={sectionRef}
+      className="py-12 bg-white border-y border-slate-100 relative overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 text-center">
         <p className="text-sm font-semibold text-slate-600 tracking-widest uppercase">
-          Satisfied Clients
+          Created For
         </p>
       </div>
 
@@ -108,7 +114,7 @@ const Clients = () => {
           </div>
         </div>
       </div>
-    </section>
+    </FadeUp>
   );
 };
 

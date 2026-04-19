@@ -18,10 +18,9 @@ const Booking = () => {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={false}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
@@ -34,10 +33,9 @@ const Booking = () => {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={false}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
           className="bg-white rounded-3xl shadow-2xl overflow-hidden max-w-5xl mx-auto border border-slate-100 relative"
         >
           {/* Loading State */}

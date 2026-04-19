@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { trackButtonClick } from "../../services/analytics";
+import StaggerContainer, { StaggerItem } from "../primitives/StaggerContainer";
+import ParallaxLayer from "../primitives/ParallaxLayer";
+import FadeUp from "../primitives/FadeUp";
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -29,10 +32,17 @@ const POINTS = [
 
 export default function About() {
   return (
-    <section id="about" style={{ background: "#fff", padding: "96px 0" }}>
+    <FadeUp
+      as="section"
+      id="about"
+      style={{ background: "#fff", padding: "96px 0", overflow: "hidden" }}
+    >
       <style>{`
         .f-disp { font-family: 'Bricolage Grotesque', sans-serif; }
         .f-body { font-family: 'Inter', sans-serif; }
+        @media (max-width: 640px) {
+          .about-left { width: 100% !important; flex: 1 1 100% !important; }
+        }
       `}</style>
 
       <div
@@ -47,137 +57,150 @@ export default function About() {
         }}
       >
         {/* LEFT */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease }}
+        <ParallaxLayer
+          speed={-20}
+          className="about-left"
           style={{ flex: "0 0 auto", width: "clamp(260px, 36%, 400px)" }}
         >
-          <p
-            className="f-body"
-            style={{
-              fontSize: 11,
-              fontWeight: 500,
-              color: "#3B6FF0",
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
-              marginBottom: 18,
-            }}
-          >
-            About CreativeIQ
-          </p>
-          <h2
-            className="f-disp"
-            style={{
-              margin: "0 0 20px",
-              fontSize: "clamp(2.2rem, 3.8vw, 3.4rem)",
-              fontWeight: 800,
-              letterSpacing: "-0.04em",
-              lineHeight: 1.0,
-              color: "#0d0d0d",
-            }}
-          >
-            Your growth
-            <br />
-            partner in
-            <br />
-            <span style={{ color: "#3B6FF0" }}>the AI era.</span>
-          </h2>
-          <p
-            className="f-body"
-            style={{
-              fontSize: 14,
-              color: "rgba(0,0,0,0.42)",
-              lineHeight: 1.7,
-              marginBottom: 36,
-              maxWidth: 340,
-            }}
-          >
-            CreativeIQ is a full-service digital agency based in San Antonio,
-            TX. We build digital ecosystems designed for AI-driven discovery �
-            SEO, web design, CRM automation, and social media all engineered to
-            grow your revenue.
-          </p>
-          <motion.a
-            href="#contact"
-            onClick={() => trackButtonClick("About CTA", "about_cta", "About")}
-            whileHover={{ x: 4 }}
-            whileTap={{ scale: 0.97 }}
-            className="f-body"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 6,
-              fontSize: 14,
-              fontWeight: 500,
-              color: "#0d0d0d",
-              textDecoration: "none",
-            }}
-          >
-            Schedule a free consultation <ArrowUpRight size={15} />
-          </motion.a>
-        </motion.div>
-
-        {/* RIGHT � numbered rows */}
-        <div style={{ flex: 1, minWidth: 260 }}>
-          {POINTS.map((p, i) => (
-            <motion.div
-              key={p.num}
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.08, ease }}
+          <div>
+            <p
+              className="f-body"
               style={{
-                display: "flex",
-                alignItems: "flex-start",
-                gap: 20,
-                padding: "24px 0",
-                borderBottom:
-                  i < POINTS.length - 1 ? "1px solid rgba(0,0,0,0.06)" : "none",
+                fontSize: 11,
+                fontWeight: 500,
+                color: "#3B6FF0",
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                marginBottom: 18,
               }}
             >
-              <span
-                className="f-disp"
+              About CreativeIQ
+            </p>
+            <h2
+              className="f-disp"
+              style={{
+                margin: "0 0 20px",
+                lineHeight: 1.05,
+                overflow: "hidden",
+              }}
+            >
+              {[
+                { text: "Your growth", color: "#0d0d0d" },
+                { text: "partner in", color: "#0d0d0d" },
+                { text: "the AI era.", color: "#3B6FF0" },
+              ].map(({ text, color }, lineIdx) => (
+                <div key={lineIdx} style={{ overflow: "hidden" }}>
+                  <span
+                    style={{
+                      display: "block",
+                      fontSize: "clamp(2.2rem, 3.8vw, 3.4rem)",
+                      fontWeight: 800,
+                      letterSpacing: "-0.04em",
+                      color,
+                    }}
+                    className="f-disp"
+                  >
+                    {text}
+                  </span>
+                </div>
+              ))}
+            </h2>
+            <p
+              className="f-body"
+              style={{
+                fontSize: 14,
+                color: "rgba(0,0,0,0.42)",
+                lineHeight: 1.7,
+                marginBottom: 36,
+                maxWidth: 340,
+              }}
+            >
+              CreativeIQ is a full-service digital agency based in San Antonio,
+              TX. We build digital ecosystems designed for AI-driven discovery �
+              SEO, web design, CRM automation, and social media all engineered
+              to grow your revenue.
+            </p>
+            <motion.a
+              href="#contact"
+              onClick={() =>
+                trackButtonClick("About CTA", "about_cta", "About")
+              }
+              whileHover={{ x: 4 }}
+              whileTap={{ scale: 0.97 }}
+              className="f-body"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                fontSize: 14,
+                fontWeight: 500,
+                color: "#0d0d0d",
+                textDecoration: "none",
+              }}
+            >
+              Schedule a free consultation <ArrowUpRight size={15} />
+            </motion.a>
+          </div>
+        </ParallaxLayer>
+
+        {/* RIGHT — numbered rows with coordinated stagger */}
+        <StaggerContainer stagger={0.09} style={{ flex: 1, minWidth: 260 }}>
+          {POINTS.map((p, i) => (
+            <StaggerItem key={p.num}>
+              <div
                 style={{
-                  fontSize: 11,
-                  fontWeight: 700,
-                  color: "#3B6FF0",
-                  letterSpacing: "0.08em",
-                  flexShrink: 0,
-                  marginTop: 3,
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: 20,
+                  padding: "24px 0",
+                  borderBottom:
+                    i < POINTS.length - 1
+                      ? "1px solid rgba(0,0,0,0.06)"
+                      : "none",
                 }}
               >
-                {p.num}
-              </span>
-              <div>
-                <p
-                  className="f-body"
+                <span
+                  className="f-disp"
                   style={{
-                    margin: "0 0 5px",
-                    fontSize: 15,
-                    fontWeight: 500,
-                    color: "#0d0d0d",
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: "#3B6FF0",
+                    letterSpacing: "0.08em",
+                    flexShrink: 0,
+                    marginTop: 3,
                   }}
                 >
-                  {p.title}
-                </p>
-                <p
-                  className="f-body"
-                  style={{
-                    margin: 0,
-                    fontSize: 14,
-                    color: "rgba(0,0,0,0.4)",
-                    lineHeight: 1.65,
-                  }}
-                >
-                  {p.body}
-                </p>
+                  {p.num}
+                </span>
+                <div>
+                  <p
+                    className="f-body"
+                    style={{
+                      margin: "0 0 5px",
+                      fontSize: 15,
+                      fontWeight: 500,
+                      color: "#0d0d0d",
+                    }}
+                  >
+                    {p.title}
+                  </p>
+                  <p
+                    className="f-body"
+                    style={{
+                      margin: 0,
+                      fontSize: 14,
+                      color: "rgba(0,0,0,0.4)",
+                      lineHeight: 1.65,
+                    }}
+                  >
+                    {p.body}
+                  </p>
+                </div>
               </div>
-            </motion.div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
-    </section>
+    </FadeUp>
   );
 }
