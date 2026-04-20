@@ -88,8 +88,8 @@ export default function Header() {
     <>
       <div className="fixed top-5 left-0 right-0 z-50 flex justify-center px-4 sm:px-6">
         <motion.div
-          initial={{ y: -24, opacity: 0 }}
-          animate={{ y: visible ? 0 : -120, opacity: visible ? 1 : 0 }}
+          initial={{ y: -240 }}
+          animate={{ y: visible ? 0 : -120, opacity: visible ? 1 : 1 }}
           transition={{ duration: 0.45, ease }}
           className="w-full max-w-6xl"
         >
@@ -134,7 +134,7 @@ export default function Header() {
                   key={n.label}
                   href={n.href}
                   onClick={(e) => handleNav(e, n.href)}
-                  initial={{ opacity: 0, y: -5 }}
+                  initial={{ opacity: 1, y: -5 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.08 + i * 0.04, duration: 0.4, ease }}
                   whileHover={{ color: "#3B6FF0" }}
@@ -150,8 +150,6 @@ export default function Header() {
             <div className="hidden md:flex items-center gap-2.5 shrink-0 ml-auto pl-4">
               <motion.a
                 href="tel:2108380177"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
                 transition={{ delay: 0.36 }}
                 className="px-7 py-3.5 text-[0.9rem] font-semibold rounded-full bg-[#3B6FF0] text-white hover:bg-[#3B6FF0] transition-colors duration-250 shadow-sm"
               >
@@ -166,7 +164,7 @@ export default function Header() {
                   trackButtonClick("Free Audit", "header_cta", "Header");
                   handleNav(e, "#contact");
                 }}
-                initial={{ opacity: 0, scale: 0.88 }}
+                initial={{ opacity: 1, scale: 0.88 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{
                   delay: 0.44,
@@ -196,9 +194,9 @@ export default function Header() {
             {open && (
               <motion.div
                 key="mobile-menu"
-                initial={{ opacity: 0, y: -10, scale: 0.97 }}
+                initial={{ opacity: 1, y: -10, scale: 0.97 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -10, scale: 0.97 }}
+                exit={{ opacity: 1, y: -10, scale: 0.97 }}
                 transition={{ duration: 0.22, ease }}
                 className="mt-2 rounded-3xl bg-white/97 backdrop-blur-2xl border border-black/[0.06] shadow-[0_12px_48px_rgba(0,0,0,0.14)] overflow-hidden"
               >
@@ -208,7 +206,7 @@ export default function Header() {
                       key={n.label}
                       href={n.href}
                       onClick={(e) => handleNav(e, n.href)}
-                      initial={{ opacity: 0, x: -8 }}
+                      initial={{ opacity: 1, x: -8 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.04, ease }}
                       className="py-3.5 text-[0.95rem] font-medium text-slate-600 hover:text-[#3B6FF0] border-b border-slate-50 last:border-0 transition-colors"
