@@ -75,14 +75,52 @@ export default function Hero() {
           50%       { transform: translateY(6px); }
         }
         .scroll-bounce { animation: scrollBounce 1.6s ease-in-out infinite; }
-        @media (max-width: 480px) {
-          .hero-stats { gap: 1.2rem !important; padding: 14px 1rem !important; }
+        .hero-stat-val {
+          font-size: clamp(1.2rem, 2vw, 1.8rem);
+          font-weight: 800;
+          margin: 0;
+          letter-spacing: -0.03em;
+          color: #0d0d14;
+        }
+        .hero-stat-label {
+          margin: 2px 0 0;
+          font-size: clamp(9px, 1.2vw, 11px);
+          color: rgba(0,0,0,0.4);
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+        }
+        @media (max-width: 640px) {
+          .hero-stats { 
+            gap: 0.8rem !important; 
+            padding: 10px 0.75rem !important;
+            flex-wrap: nowrap !important;
+          }
+          .hero-stats > div {
+            flex: 1;
+            min-width: 0;
+          }
+          .hero-stat-val {
+            font-size: 0.9rem !important;
+          }
+          .hero-stat-label {
+            font-size: 8px !important;
+            margin-top: 1px !important;
+          }
           .hero-ctas { flex-direction: column !important; align-items: stretch !important; }
           .hero-ctas a { text-align: center; }
-          .hero-content-safe { padding-top: 120px !important; }
+          .hero-content-safe { padding-top: 80px !important; padding-bottom: 48px !important; }
         }
-        @media (min-width: 481px) and (max-width: 768px) {
-          .hero-content-safe { padding-top: 110px !important; }
+        @media (min-width: 641px) and (max-width: 920px) {
+          .hero-stats { 
+            gap: 1rem !important; 
+            padding: 12px 1rem !important;
+          }
+          .hero-ctas { flex-direction: column !important; align-items: stretch !important; }
+          .hero-ctas a { text-align: center; }
+          .hero-content-safe { padding-top: 100px !important; padding-bottom: 120px !important; }
+        }
+        @media (min-width: 921px) {
+          .hero-content-safe { padding-bottom: 0 !important; }
         }
       `}</style>
 
@@ -386,7 +424,7 @@ export default function Hero() {
             style={{
               opacity: scrollHintOpacity,
               position: "absolute",
-              bottom: 90,
+              bottom: "max(90px, 10%)",
               left: "50%",
               transform: "translateX(-50%)",
               display: "flex",
@@ -446,30 +484,8 @@ export default function Hero() {
             { val: "50+", label: "Brands scaled" },
           ].map((st) => (
             <div key={st.label} style={{ textAlign: "center" }}>
-              <p
-                className="f-disp"
-                style={{
-                  margin: 0,
-                  fontSize: "clamp(1.4rem, 2vw, 1.8rem)",
-                  fontWeight: 800,
-                  letterSpacing: "-0.03em",
-                  color: "#0d0d14",
-                }}
-              >
-                {st.val}
-              </p>
-              <p
-                className="f-body"
-                style={{
-                  margin: "2px 0 0",
-                  fontSize: 11,
-                  color: "rgba(0,0,0,0.4)",
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                }}
-              >
-                {st.label}
-              </p>
+              <p className="f-disp hero-stat-val">{st.val}</p>
+              <p className="f-body hero-stat-label">{st.label}</p>
             </div>
           ))}
         </motion.div>
