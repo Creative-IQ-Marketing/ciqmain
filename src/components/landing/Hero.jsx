@@ -79,12 +79,16 @@ export default function Hero() {
           .hero-stats { gap: 1.2rem !important; padding: 14px 1rem !important; }
           .hero-ctas { flex-direction: column !important; align-items: stretch !important; }
           .hero-ctas a { text-align: center; }
+          .hero-content-safe { padding-top: 120px !important; }
+        }
+        @media (min-width: 481px) and (max-width: 768px) {
+          .hero-content-safe { padding-top: 110px !important; }
         }
       `}</style>
 
       <section
         ref={sectionRef}
-        style={{ position: "relative", height: "100svh", overflow: "hidden" }}
+        style={{ position: "relative", height: "100dvh", overflow: "hidden" }}
       >
         {/* Background: parallax wrapper — moves slower than the viewport on scroll */}
         <motion.div
@@ -155,6 +159,7 @@ export default function Hero() {
 
         {/* Content — drifts up gently on scroll; section exits viewport naturally */}
         <motion.div
+          className="hero-content-safe"
           style={{
             y: contentY,
             position: "relative",
