@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import FadeUp from "../primitives/FadeUp";
 
@@ -15,13 +15,20 @@ const clients = Object.entries(logoModules).map(([path, mod], index) => ({
 const Clients = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const sectionRef = useRef(null);
+  const inView = useInView(sectionRef, {
+    margin: "-15% 0px -15% 0px",
+  });
 
   useEffect(() => {
+    if (!inView) {
+      return undefined;
+    }
+
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % clients.length);
     }, 4000);
     return () => clearInterval(interval);
-  }, []);
+  }, [inView]);
   return (
     <FadeUp
       as="section"
@@ -35,15 +42,19 @@ const Clients = () => {
       </div>
 
       <div className="relative w-full overflow-hidden hidden md:block">
-        <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-white to-transparent z-10" />
-        <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-white to-transparent z-10" />
+        <div className="absolute top-0 left-0 w-24 h-full bg-white/90 z-10 backdrop-blur-sm" />
+        <div className="absolute top-0 right-0 w-24 h-full bg-white/90 z-10 backdrop-blur-sm" />
 
         <div className="flex">
           <motion.div
             className="flex space-x-16 items-center flex-nowrap"
-            animate={{
-              x: ["0%", "-50%"],
-            }}
+            animate={
+              inView
+                ? {
+                    x: ["0%", "-50%"],
+                  }
+                : { x: "0%" }
+            }
             transition={{
               x: {
                 repeat: Infinity,
@@ -72,18 +83,17 @@ const Clients = () => {
       <div className="block md:hidden px-4">
         <div className="relative w-full">
           {/* Main Carousel */}
-          <div className="relative h-32 rounded-2xl overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200 shadow-sm">
-            {/* Background gradient effect */}
+          <div className="relative h-32 rounded-2xl overflow-hidden bg-slate-50 border border-slate-200 shadow-sm">
             <div className="absolute inset-0 opacity-30">
-              <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-gradient-to-br from-blue-400 to-indigo-400 blur-3xl" />
-              <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 blur-3xl" />
+              <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-blue-200 blur-3xl" />
+              <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full bg-slate-200 blur-3xl" />
             </div>
 
             {/* Carousel Items */}
             <motion.div
               className="relative w-full h-full flex items-center justify-center"
               key={currentIndex}
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={false}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.5, ease: "easeInOut" }}

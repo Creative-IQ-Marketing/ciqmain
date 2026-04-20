@@ -6,8 +6,6 @@
   useSpring,
 } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import MagneticButton from "../primitives/MagneticButton";
 import { trackButtonClick } from "../../services/analytics";
 
 const ease = [0.22, 1, 0.36, 1];
@@ -39,9 +37,8 @@ export default function Hero() {
   });
   const bgY = useTransform(bgSpring, [0, 1], ["0%", "28%"]);
 
-  // Content uses DIRECT scrollYProgress — no spring lag, so scroll-back works perfectly
+  // Content parallax — drifts up slightly as you scroll (no opacity gate; section exits naturally)
   const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
   const scrollHintOpacity = useTransform(scrollYProgress, [0, 0.07], [1, 0]);
 
   const go = (i) => {
@@ -64,8 +61,9 @@ export default function Hero() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500&display=swap');
         .f-disp { font-family: 'Bricolage Grotesque', sans-serif; }
+        .f-hero { font-family: 'Manrope', sans-serif; }
         .f-body { font-family: 'Inter', sans-serif; }
         @keyframes panLR {
           0%   { transform: scale(1.12) translateX(-3%); }
@@ -131,14 +129,13 @@ export default function Hero() {
           </AnimatePresence>
         </motion.div>
 
-        {/* Overlay: light wash — text-side heavy, photo-side lighter */}
+        {/* Overlay: flat wash for legibility without gradients */}
         <div
           style={{
             position: "absolute",
             inset: 0,
             zIndex: 1,
-            background:
-              "linear-gradient(105deg, rgba(247,246,241,0.94) 0%, rgba(247,246,241,0.82) 45%, rgba(247,246,241,0.45) 72%, rgba(247,246,241,0.12) 100%)",
+            background: "rgba(247,246,241,0.7)",
           }}
         />
 
@@ -156,11 +153,10 @@ export default function Hero() {
           }}
         />
 
-        {/* Content — scroll-driven exit: drifts up and fades as user scrolls */}
+        {/* Content — drifts up gently on scroll; section exits viewport naturally */}
         <motion.div
           style={{
             y: contentY,
-            opacity: contentOpacity,
             position: "relative",
             zIndex: 3,
             height: "100%",
@@ -175,7 +171,7 @@ export default function Hero() {
           {/* Label */}
           <motion.p
             className="f-body"
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 1, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease }}
             style={{
@@ -190,7 +186,7 @@ export default function Hero() {
             San Antonio, TX · Full-service digital agency
           </motion.p>
 
-          {/* Headline — word-by-word cinematic build */}
+          {/* Headline */}
           <motion.div
             style={{ marginBottom: 32 }}
             initial="hidden"
@@ -227,14 +223,14 @@ export default function Hero() {
                         transition: { duration: 0.75, ease },
                       },
                     }}
-                    className="f-disp"
+                    className="f-hero"
                   >
                     <span
                       style={{
-                        fontSize: "clamp(3rem, 7.5vw, 7rem)",
-                        fontWeight: 800,
-                        letterSpacing: "-0.04em",
-                        lineHeight: 1.0,
+                        fontSize: "clamp(2.9rem, 7vw, 6.1rem)",
+                        fontWeight: 700,
+                        letterSpacing: "-0.05em",
+                        lineHeight: 1.06,
                         color: "#0d0d14",
                       }}
                     >
@@ -269,14 +265,14 @@ export default function Hero() {
                         transition: { duration: 0.75, ease },
                       },
                     }}
-                    className="f-disp"
+                    className="f-hero"
                   >
                     <span
                       style={{
-                        fontSize: "clamp(3rem, 7.5vw, 7rem)",
-                        fontWeight: 800,
-                        letterSpacing: "-0.04em",
-                        lineHeight: 1.0,
+                        fontSize: "clamp(2.9rem, 7vw, 6.1rem)",
+                        fontWeight: 700,
+                        letterSpacing: "-0.05em",
+                        lineHeight: 1.06,
                         color: "#3B6FF0",
                       }}
                     >
@@ -291,7 +287,7 @@ export default function Hero() {
           {/* Sub-copy */}
           <motion.p
             className="f-body"
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 1, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3, ease }}
             style={{
@@ -308,7 +304,7 @@ export default function Hero() {
 
           {/* CTAs */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 1, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.42, ease }}
             className="hero-ctas"
@@ -411,8 +407,7 @@ export default function Hero() {
               style={{
                 width: 1,
                 height: 28,
-                background:
-                  "linear-gradient(to bottom, rgba(59,111,240,0.6), transparent)",
+                background: "rgba(59,111,240,0.42)",
               }}
             />
           </motion.div>
@@ -420,7 +415,7 @@ export default function Hero() {
 
         {/* Bottom stats strip */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 1, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.55, ease }}
           className="hero-stats"

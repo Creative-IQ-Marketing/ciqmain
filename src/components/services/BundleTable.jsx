@@ -126,11 +126,7 @@ const ROWS = [
 
 const TIER_COLORS = ["text-slate-700", "text-blue-700", "text-blue-600"];
 
-const TIER_BG = [
-  "bg-white",
-  "bg-blue-50",
-  "bg-gradient-to-b from-blue-600 to-blue-800",
-];
+const TIER_BG = ["bg-white", "bg-blue-50", "bg-blue-700"];
 
 const TIER_TEXT = ["text-slate-900", "text-blue-900", "text-white"];
 

@@ -27,7 +27,7 @@ const OFFERS = [
       result:
         '"Look refreshed in under 30 minutes—no downtime, natural results" → conversions increased.',
     },
-    accent: "from-slate-900 to-slate-800",
+    accent: "bg-slate-900",
     iconBg: "bg-blue-500/20",
     iconColor: "text-blue-400",
   },
@@ -56,7 +56,7 @@ const OFFERS = [
       result:
         "Instant SMS + urgency emails added → lead-to-appointment rate doubled.",
     },
-    accent: "from-blue-700 to-blue-900",
+    accent: "bg-blue-700",
     iconBg: "bg-blue-400/20",
     iconColor: "text-blue-300",
   },
@@ -75,7 +75,7 @@ const OFFERS = [
       "Executive-level KPI reporting",
     ],
     example: null,
-    accent: "from-slate-800 to-slate-900",
+    accent: "bg-slate-800",
     iconBg: "bg-blue-500/20",
     iconColor: "text-blue-400",
   },
@@ -100,14 +100,14 @@ export default function HighLevelOffers() {
   return (
     <section
       id="high-level"
-      className="py-24 bg-gradient-to-b from-slate-950 to-slate-900 relative overflow-hidden"
+      className="py-24 bg-slate-950 relative overflow-hidden"
     >
       {/* subtle grid */}
       <div
         className="absolute inset-0 opacity-[0.03]"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,.4) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.4) 1px,transparent 1px)",
+            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath d='M0 0H48V48' fill='none' stroke='rgba(255,255,255,0.2)' stroke-width='1'/%3E%3C/svg%3E\")",
           backgroundSize: "48px 48px",
         }}
       />
@@ -148,7 +148,7 @@ export default function HighLevelOffers() {
                 className="flex flex-col rounded-2xl overflow-hidden border border-white/10 bg-white/5 hover:border-blue-500/40 transition-colors duration-300"
               >
                 {/* Card header */}
-                <div className={`bg-gradient-to-br ${offer.accent} p-7`}>
+                <div className={`${offer.accent} p-7`}>
                   <div className="flex items-start justify-between mb-4">
                     <div
                       className={`w-11 h-11 rounded-xl flex items-center justify-center ${offer.iconBg}`}

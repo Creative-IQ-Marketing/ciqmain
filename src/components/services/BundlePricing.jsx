@@ -36,7 +36,7 @@ const BUNDLES = [
     biweekly: "$1,122",
     oneTime: "$699",
     color: "border-blue-600",
-    headerBg: "bg-gradient-to-br from-blue-600 to-blue-800",
+    headerBg: "bg-blue-700",
     headerText: "text-white",
     subText: "text-blue-100",
     btnClass: "bg-white text-blue-700 hover:bg-blue-50 font-bold",

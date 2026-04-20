@@ -1,78 +1,55 @@
-﻿import { useRef } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-
-const ease = [0.22, 1, 0.36, 1];
 
 const STEPS = [
   {
     num: "01",
-    name: "Audit",
-    tag: "Discovery",
-    body: "We dissect your current digital presence  gaps, wins, missed revenue. No assumptions, just data and sharp eyes.",
-    detail: [
-      "Deep-dive competitor analysis",
-      "Traffic & conversion audit",
-      "Messaging + positioning review",
-      "Revenue leak identification",
-    ],
-    proof: "Revenue leaks found in 72 hrs",
-    proofSub: "avg. opportunities uncovered",
-    orbColor: "#3B6FF0",
-    accentRgb: "59,111,240",
-    bars: [0.38, 0.61, 0.45],
+    tag: "Diagnose",
+    title: "Audit what is blocking growth",
+    body: "We review your website, search visibility, paid traffic, messaging, and follow-up flow to find the exact places revenue is leaking.",
+    outputs: ["traffic audit", "offer clarity", "tracking plan"],
+    stat: "48-72 hour audit",
+    accent: "#2563EB",
+    accentRgb: "37,99,235",
+    surface: "rgba(232,240,255,0.92)",
   },
   {
     num: "02",
-    name: "Architect",
-    tag: "Strategy",
-    body: "We map the exact growth system your business needs. Every channel, every dollar, every sequence  engineered before a single pixel moves.",
-    detail: [
-      "90-day growth blueprint",
-      "Channel stack selection",
-      "Funnel & automation design",
-      "KPI framework + forecasting",
-    ],
-    proof: "90-day roadmap delivered",
-    proofSub: "with full channel blueprint",
-    orbColor: "#5B4FE9",
-    accentRgb: "91,79,233",
-    bars: [0.62, 0.78, 0.54],
+    tag: "Architect",
+    title: "Build the right marketing system",
+    body: "We turn the findings into a focused acquisition plan across SEO, paid media, content, CRM, and conversion paths that actually support each other.",
+    outputs: ["90-day roadmap", "channel priorities", "crm logic"],
+    stat: "Roadmap approved fast",
+    accent: "#1D4ED8",
+    accentRgb: "29,78,216",
+    surface: "rgba(238,244,255,0.95)",
   },
   {
     num: "03",
-    name: "Execute",
-    tag: "Build",
-    body: "We build, deploy, and integrate at speed. No hand-holding required. Craft at every layer  from code to copy to campaign.",
-    detail: [
-      "Website + landing pages",
-      "Ad campaigns live",
-      "CRM + automation wired",
-      "Content engine launched",
-    ],
-    proof: "Live & converting in 14 days",
-    proofSub: "from kickoff to first lead",
-    orbColor: "#7C3AED",
-    accentRgb: "124,58,237",
-    bars: [0.8, 0.65, 0.88],
+    tag: "Launch",
+    title: "Ship assets that move revenue",
+    body: "Pages, campaigns, automations, reporting, and follow-up get launched as one connected system instead of separate deliverables that never talk.",
+    outputs: ["site live", "ads active", "automation live"],
+    stat: "Launch in 14 days",
+    accent: "#0F172A",
+    accentRgb: "15,23,42",
+    surface: "rgba(244,246,249,0.96)",
   },
   {
     num: "04",
-    name: "Compound",
-    tag: "Scale",
-    body: "We optimize relentlessly. Month after month, results compound. Your growth engine runs 24/7  we keep tuning the dials.",
-    detail: [
-      "A/B test every touch point",
-      "Monthly strategy reviews",
-      "Expand to new channels",
-      "Revenue forecasting updates",
-    ],
-    proof: "3x average ROI in 6 months",
-    proofSub: "across active clients",
-    orbColor: "#2563EB",
-    accentRgb: "37,99,235",
-    bars: [0.92, 0.85, 0.95],
+    tag: "Optimize",
+    title: "Scale what is already winning",
+    body: "Once the system is live, we tighten the message, reallocate spend, improve conversion points, and expand what is producing the best return.",
+    outputs: ["weekly testing", "clear reporting", "budget shifts"],
+    stat: "Monthly compounding gains",
+    accent: "#1E40AF",
+    accentRgb: "30,64,175",
+    surface: "rgba(233,241,255,0.92)",
   },
 ];
+
+const DOT_PATTERN =
+  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E%3Ccircle cx='1.5' cy='1.5' r='1.1' fill='rgba(15,23,42,0.16)'/%3E%3C/svg%3E\")";
 
 export default function Process() {
   const sectionRef = useRef(null);
@@ -82,894 +59,779 @@ export default function Process() {
   });
 
   return (
-    <div ref={sectionRef} style={{ height: "500vh", position: "relative" }}>
+    <section
+      id="process"
+      ref={sectionRef}
+      style={{
+        position: "relative",
+        height: "330vh",
+        background: "#f5f1e8",
+      }}
+    >
       <div
-        id="process"
         style={{
           position: "sticky",
           top: 0,
-          height: "100vh",
+          minHeight: "100vh",
           overflow: "hidden",
-          background: "#f7f6f1",
-          display: "flex",
-          flexDirection: "column",
         }}
       >
         <style>{`
-          @keyframes proc-float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
+          .proc-shell {
+            display: grid;
+            grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+            gap: clamp(1.5rem, 4vw, 3rem);
+            align-items: start;
           }
-          @keyframes proc-pulse-ring {
-            0% { transform: scale(1); opacity: 0.6; }
-            100% { transform: scale(1.8); opacity: 0; }
+          .proc-card-stack,
+          .proc-system-panel {
+            position: relative;
+            min-height: clamp(460px, 62vh, 620px);
           }
-          .proc-proof-card { animation: proc-float 4s ease-in-out infinite; }
-          .proc-stage-rail,
-          .proc-visual-cluster,
-          .proc-scene-frame {
-            display: block;
+          @media (max-width: 920px) {
+            .proc-shell {
+              grid-template-columns: 1fr;
+            }
+            .proc-card-stack,
+            .proc-system-panel {
+              min-height: 420px;
+            }
           }
-          .proc-step-detail { display: none !important; }
-          @media (max-width: 600px) {
-            .proc-body-cols { flex-direction: column !important; gap: 1.5rem !important; }
-            .proc-proof-card { display: none !important; }
-            .proc-stage-rail,
-            .proc-visual-cluster,
-            .proc-scene-frame { display: none !important; }
+          @media (max-width: 640px) {
+            .proc-card-stack,
+            .proc-system-panel {
+              min-height: 380px;
+            }
           }
         `}</style>
 
-        <PerspectiveGrid scrollYProgress={scrollYProgress} />
-        <GlowOrb scrollYProgress={scrollYProgress} />
-        <GhostNumber scrollYProgress={scrollYProgress} />
-        <SceneFrame />
+        <BackdropOrbs scrollYProgress={scrollYProgress} />
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            opacity: 0.45,
+            backgroundImage: DOT_PATTERN,
+            backgroundSize: "18px 18px",
+            pointerEvents: "none",
+          }}
+        />
 
         <div
           style={{
-            flex: 1,
-            display: "flex",
-            flexDirection: "column",
-            maxWidth: 1100,
-            margin: "0 auto",
-            width: "100%",
-            padding: "0 clamp(1.5rem, 5vw, 5rem)",
             position: "relative",
             zIndex: 2,
+            maxWidth: 1200,
+            margin: "0 auto",
+            padding:
+              "clamp(2.5rem, 6vw, 5rem) clamp(1.25rem, 4vw, 4rem) clamp(2rem, 4vw, 3rem)",
+            minHeight: "100vh",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
           }}
         >
-          <StepRail scrollYProgress={scrollYProgress} />
-
           <div
             style={{
               display: "flex",
-              alignItems: "center",
               justifyContent: "space-between",
-              paddingTop: "clamp(2rem, 5vh, 3.5rem)",
-              paddingBottom: "clamp(1.5rem, 3vh, 2.5rem)",
-              borderBottom: "1px solid rgba(0,0,0,0.07)",
-              marginBottom: "clamp(1.5rem, 3vh, 2rem)",
+              alignItems: "end",
+              gap: 20,
+              flexWrap: "wrap",
+              marginBottom: "clamp(1.75rem, 4vw, 2.5rem)",
             }}
           >
+            <div style={{ maxWidth: 740 }}>
+              <p
+                style={{
+                  margin: 0,
+                  fontFamily: "Inter, sans-serif",
+                  fontSize: "0.68rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.22em",
+                  textTransform: "uppercase",
+                  color: "#2563EB",
+                }}
+              >
+                How we work
+              </p>
+              <h2
+                style={{
+                  margin: "14px 0 0",
+                  fontFamily: "Bricolage Grotesque, sans-serif",
+                  fontSize: "clamp(2rem, 4.4vw, 4.35rem)",
+                  fontWeight: 800,
+                  letterSpacing: "-0.05em",
+                  lineHeight: 0.96,
+                  color: "#101828",
+                  maxWidth: 760,
+                }}
+              >
+                Every service layer earns its place.
+              </h2>
+            </div>
+
             <p
               style={{
-                fontFamily: "Inter, sans-serif",
-                fontSize: "0.68rem",
-                fontWeight: 600,
-                color: "#3B6FF0",
-                letterSpacing: "0.22em",
-                textTransform: "uppercase",
                 margin: 0,
+                maxWidth: 360,
+                fontFamily: "Inter, sans-serif",
+                fontSize: "0.95rem",
+                lineHeight: 1.72,
+                color: "rgba(16,24,40,0.62)",
               }}
             >
-              How we work
+              We do not sell disconnected tasks. We build one operating system
+              for search, ads, website conversion, CRM follow-up, and reporting.
             </p>
-            <ProgressDots
-              scrollYProgress={scrollYProgress}
-              steps={STEPS.length}
-            />
           </div>
 
-          <div style={{ flex: 1, position: "relative" }}>
-            {STEPS.map((step, i) => (
-              <StepPanel
+          <div className="proc-shell">
+            <div className="proc-card-stack">
+              {STEPS.map((step, index) => (
+                <StepCard
+                  key={step.num}
+                  step={step}
+                  index={index}
+                  total={STEPS.length}
+                  scrollYProgress={scrollYProgress}
+                />
+              ))}
+            </div>
+
+            <div className="proc-system-panel">
+              <SystemPanel scrollYProgress={scrollYProgress} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function BackdropOrbs({ scrollYProgress }) {
+  const blueX = useTransform(scrollYProgress, [0, 1], ["12%", "56%"]);
+  const blueY = useTransform(scrollYProgress, [0, 1], ["18%", "58%"]);
+  const darkX = useTransform(scrollYProgress, [0, 1], ["78%", "46%"]);
+  const darkY = useTransform(scrollYProgress, [0, 1], ["74%", "30%"]);
+
+  return (
+    <>
+      <motion.div
+        style={{
+          position: "absolute",
+          left: blueX,
+          top: blueY,
+          width: "clamp(220px, 30vw, 390px)",
+          height: "clamp(220px, 30vw, 390px)",
+          borderRadius: "50%",
+          background: "rgba(37,99,235,0.12)",
+          filter: "blur(92px)",
+          translateX: "-50%",
+          translateY: "-50%",
+          pointerEvents: "none",
+        }}
+      />
+      <motion.div
+        style={{
+          position: "absolute",
+          left: darkX,
+          top: darkY,
+          width: "clamp(210px, 28vw, 340px)",
+          height: "clamp(210px, 28vw, 340px)",
+          borderRadius: "50%",
+          background: "rgba(15,23,42,0.08)",
+          filter: "blur(84px)",
+          translateX: "-50%",
+          translateY: "-50%",
+          pointerEvents: "none",
+        }}
+      />
+    </>
+  );
+}
+
+function StepCard({ step, index, total, scrollYProgress }) {
+  const start = index / total;
+  const mid = start + 0.13;
+  const end = (index + 1) / total;
+  const baseY = index * 76;
+  const y = useTransform(
+    scrollYProgress,
+    [start, mid, end],
+    [baseY + 86, baseY, baseY - 18],
+  );
+  const scale = useTransform(
+    scrollYProgress,
+    [start, mid, end],
+    [0.95, 1, 0.975],
+  );
+  const rotate = useTransform(
+    scrollYProgress,
+    [start, mid, end],
+    [index % 2 === 0 ? -7 : 7, 0, index % 2 === 0 ? -2 : 2],
+  );
+  const opacity = useTransform(
+    scrollYProgress,
+    [start, mid, end],
+    [0.5, 1, 0.76],
+  );
+
+  return (
+    <motion.article
+      style={{
+        position: "absolute",
+        inset: 0,
+        y,
+        scale,
+        rotate,
+        opacity,
+        zIndex: total - index,
+        padding: "clamp(1.25rem, 2.3vw, 1.9rem)",
+        borderRadius: 26,
+        border: `1px solid rgba(${step.accentRgb}, 0.16)`,
+        background: step.surface,
+        boxShadow:
+          "0 24px 56px rgba(16,24,40,0.1), inset 0 1px 0 rgba(255,255,255,0.72)",
+        backdropFilter: "blur(14px)",
+        WebkitBackdropFilter: "blur(14px)",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "start",
+          gap: 12,
+          marginBottom: 22,
+        }}
+      >
+        <div>
+          <p
+            style={{
+              margin: 0,
+              fontFamily: "Inter, sans-serif",
+              fontSize: "0.72rem",
+              fontWeight: 700,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: step.accent,
+            }}
+          >
+            {step.tag}
+          </p>
+          <h3
+            style={{
+              margin: "10px 0 0",
+              fontFamily: "Bricolage Grotesque, sans-serif",
+              fontSize: "clamp(1.45rem, 2.1vw, 2.15rem)",
+              fontWeight: 800,
+              letterSpacing: "-0.04em",
+              lineHeight: 1.02,
+              color: "#101828",
+              maxWidth: 430,
+            }}
+          >
+            {step.title}
+          </h3>
+        </div>
+
+        <div
+          style={{
+            minWidth: 64,
+            textAlign: "right",
+            fontFamily: "Bricolage Grotesque, sans-serif",
+            fontSize: "1rem",
+            fontWeight: 800,
+            color: "rgba(16,24,40,0.28)",
+          }}
+        >
+          {step.num}
+        </div>
+      </div>
+
+      <p
+        style={{
+          margin: 0,
+          maxWidth: 520,
+          fontFamily: "Inter, sans-serif",
+          fontSize: "0.95rem",
+          lineHeight: 1.76,
+          color: "rgba(16,24,40,0.66)",
+        }}
+      >
+        {step.body}
+      </p>
+
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 10,
+          marginTop: 24,
+        }}
+      >
+        {step.outputs.map((item) => (
+          <span
+            key={item}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "9px 12px",
+              borderRadius: 999,
+              background: "rgba(255,255,255,0.74)",
+              border: `1px solid rgba(${step.accentRgb}, 0.14)`,
+              fontFamily: "Inter, sans-serif",
+              fontSize: "0.74rem",
+              fontWeight: 600,
+              color: "#101828",
+              letterSpacing: "0.02em",
+            }}
+          >
+            <span
+              style={{
+                width: 7,
+                height: 7,
+                borderRadius: "50%",
+                background: step.accent,
+                boxShadow: `0 0 0 5px rgba(${step.accentRgb}, 0.08)`,
+              }}
+            />
+            {item}
+          </span>
+        ))}
+      </div>
+
+      <div
+        style={{
+          marginTop: 28,
+          paddingTop: 18,
+          borderTop: "1px solid rgba(16,24,40,0.08)",
+          display: "flex",
+          justifyContent: "space-between",
+          gap: 12,
+          flexWrap: "wrap",
+          alignItems: "center",
+        }}
+      >
+        <span
+          style={{
+            fontFamily: "Inter, sans-serif",
+            fontSize: "0.75rem",
+            fontWeight: 700,
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+            color: "rgba(16,24,40,0.42)",
+          }}
+        >
+          system milestone
+        </span>
+        <span
+          style={{
+            fontFamily: "Bricolage Grotesque, sans-serif",
+            fontSize: "1rem",
+            fontWeight: 800,
+            color: step.accent,
+            letterSpacing: "-0.03em",
+          }}
+        >
+          {step.stat}
+        </span>
+      </div>
+    </motion.article>
+  );
+}
+
+function SystemPanel({ scrollYProgress }) {
+  const frameY = useTransform(scrollYProgress, [0, 1], [0, -16]);
+
+  return (
+    <motion.div
+      style={{
+        y: frameY,
+        position: "relative",
+        height: "100%",
+        borderRadius: 32,
+        padding: "clamp(1.25rem, 2.2vw, 2rem)",
+        background: "rgba(255,255,255,0.72)",
+        border: "1px solid rgba(16,24,40,0.08)",
+        boxShadow: "0 26px 72px rgba(16,24,40,0.1)",
+        overflow: "hidden",
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: DOT_PATTERN,
+          backgroundSize: "18px 18px",
+          opacity: 0.22,
+          pointerEvents: "none",
+        }}
+      />
+
+      <div
+        style={{
+          position: "relative",
+          zIndex: 1,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: 18,
+          gap: 16,
+          flexWrap: "wrap",
+        }}
+      >
+        <div>
+          <p
+            style={{
+              margin: 0,
+              fontFamily: "Inter, sans-serif",
+              fontSize: "0.66rem",
+              fontWeight: 700,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: "rgba(16,24,40,0.45)",
+            }}
+          >
+            system state
+          </p>
+          <p
+            style={{
+              margin: "10px 0 0",
+              fontFamily: "Bricolage Grotesque, sans-serif",
+              fontSize: "clamp(1.35rem, 2vw, 1.8rem)",
+              fontWeight: 800,
+              letterSpacing: "-0.04em",
+              color: "#101828",
+            }}
+          >
+            One connected growth engine.
+          </p>
+        </div>
+
+        <ProgressLedger scrollYProgress={scrollYProgress} />
+      </div>
+
+      <div
+        style={{
+          position: "relative",
+          height: "calc(100% - 110px)",
+          minHeight: 280,
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            inset: "6% 7% 4%",
+            borderRadius: 30,
+            background: "rgba(16,24,40,0.05)",
+            border: "1px solid rgba(16,24,40,0.06)",
+          }}
+        />
+
+        {STEPS.map((step, index) => (
+          <SystemCard
+            key={step.num}
+            step={step}
+            index={index}
+            total={STEPS.length}
+            scrollYProgress={scrollYProgress}
+          />
+        ))}
+
+        <div
+          style={{
+            position: "absolute",
+            left: "7%",
+            right: "7%",
+            bottom: "8%",
+            height: "44%",
+            borderRadius: 28,
+            background: "rgba(16,24,40,0.96)",
+            boxShadow: "0 24px 60px rgba(16,24,40,0.3)",
+            overflow: "hidden",
+          }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "rgba(37,99,235,0.08)",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              left: 20,
+              right: 20,
+              top: 18,
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              color: "rgba(255,255,255,0.85)",
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "Inter, sans-serif",
+                fontSize: "0.66rem",
+                fontWeight: 700,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+              }}
+            >
+              CIQ system
+            </span>
+            <span
+              style={{
+                fontFamily: "Bricolage Grotesque, sans-serif",
+                fontSize: "0.95rem",
+                fontWeight: 800,
+              }}
+            >
+              4 aligned layers
+            </span>
+          </div>
+
+          <div
+            style={{
+              position: "absolute",
+              left: 20,
+              right: 20,
+              bottom: 20,
+              display: "grid",
+              gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+              gap: 8,
+            }}
+          >
+            {STEPS.map((step) => (
+              <div
                 key={step.num}
-                step={step}
-                index={i}
-                total={STEPS.length}
-                scrollYProgress={scrollYProgress}
+                style={{
+                  height: 10,
+                  borderRadius: 999,
+                  background: `rgba(${step.accentRgb}, 0.24)`,
+                }}
               />
             ))}
           </div>
         </div>
-
-        <ProgressBar scrollYProgress={scrollYProgress} />
       </div>
-    </div>
-  );
-}
-
-function PerspectiveGrid({ scrollYProgress }) {
-  const gridY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  return (
-    <motion.div
-      style={{
-        y: gridY,
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: "55%",
-        pointerEvents: "none",
-        zIndex: 0,
-        opacity: 0.22,
-        backgroundImage:
-          "linear-gradient(rgba(59,111,240,0.18) 1px, transparent 1px), linear-gradient(90deg, rgba(59,111,240,0.18) 1px, transparent 1px)",
-        backgroundSize: "clamp(40px,6vw,80px) clamp(40px,6vw,80px)",
-        maskImage:
-          "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%)",
-        WebkitMaskImage:
-          "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%)",
-        transform: "perspective(600px) rotateX(55deg)",
-        transformOrigin: "bottom center",
-      }}
-    />
-  );
-}
-
-function GlowOrb({ scrollYProgress }) {
-  const colors = STEPS.map((s) => s.orbColor);
-  const orbX = useTransform(
-    scrollYProgress,
-    [0, 0.33, 0.66, 1],
-    ["15%", "55%", "75%", "30%"],
-  );
-  const orbY = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    ["60%", "40%", "55%"],
-  );
-  const color1 = useTransform(scrollYProgress, [0, 0.33, 0.66, 1], colors);
-
-  return (
-    <motion.div
-      style={{
-        position: "absolute",
-        left: orbX,
-        top: orbY,
-        width: "clamp(260px, 35vw, 480px)",
-        height: "clamp(260px, 35vw, 480px)",
-        borderRadius: "50%",
-        background: color1,
-        filter: "blur(clamp(60px, 10vw, 120px))",
-        opacity: 0.09,
-        pointerEvents: "none",
-        zIndex: 0,
-        translateX: "-50%",
-        translateY: "-50%",
-      }}
-    />
-  );
-}
-
-function GhostNumber({ scrollYProgress }) {
-  const num = useTransform(scrollYProgress, [0, 0.99], [1, 4]);
-  const skewX = useTransform(
-    scrollYProgress,
-    [0, 0.33, 0.66, 1],
-    [-10, 4, -4, 10],
-  );
-  const translateX = useTransform(scrollYProgress, [0, 1], ["0%", "6%"]);
-  const opacity = useTransform(
-    scrollYProgress,
-    [0, 0.06, 0.94, 1],
-    [0, 0.1, 0.1, 0],
-  );
-  return (
-    <motion.div
-      style={{
-        position: "absolute",
-        right: "-3vw",
-        top: "50%",
-        translateY: "-50%",
-        translateX,
-        skewX,
-        opacity,
-        fontFamily: "Bricolage Grotesque, sans-serif",
-        fontSize: "clamp(14rem, 30vw, 28rem)",
-        fontWeight: 900,
-        lineHeight: 1,
-        color: "transparent",
-        WebkitTextStroke: "2px rgba(0,0,0,0.08)",
-        textShadow:
-          "4px 4px 0px rgba(59,111,240,0.05), 8px 8px 0px rgba(59,111,240,0.03), 12px 12px 0px rgba(59,111,240,0.02)",
-        userSelect: "none",
-        pointerEvents: "none",
-        zIndex: 0,
-        letterSpacing: "-0.06em",
-      }}
-    >
-      <Counter value={num} />
     </motion.div>
   );
 }
 
-function Counter({ value }) {
-  const display = useTransform(value, (v) =>
-    String(Math.min(4, Math.max(1, Math.round(v)))),
+function SystemCard({ step, index, total, scrollYProgress }) {
+  const start = index / total;
+  const mid = start + 0.16;
+  const end = (index + 1) / total;
+  const x = useTransform(scrollYProgress, [start, mid, end], [46, 0, -10]);
+  const y = useTransform(
+    scrollYProgress,
+    [start, mid, end],
+    [30 + index * 14, -10 - index * 8, -20 - index * 6],
   );
-  return <motion.span>{display}</motion.span>;
-}
-
-function ProgressDots({ scrollYProgress, steps }) {
-  return (
-    <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-      {Array.from({ length: steps }).map((_, i) => {
-        const from = i / steps;
-        const to = (i + 1) / steps;
-        return (
-          <ProgressDot
-            key={i}
-            scrollYProgress={scrollYProgress}
-            from={from}
-            to={to}
-          />
-        );
-      })}
-    </div>
+  const rotate = useTransform(
+    scrollYProgress,
+    [start, mid, end],
+    [10 - index * 2, 0, -2],
   );
-}
+  const opacity = useTransform(
+    scrollYProgress,
+    [start, mid, end],
+    [0.42, 1, 0.72],
+  );
+  const scale = useTransform(
+    scrollYProgress,
+    [start, mid, end],
+    [0.9, 1, 0.98],
+  );
 
-function ProgressDot({ scrollYProgress, from, to }) {
-  const width = useTransform(scrollYProgress, [from, to], [6, 22]);
-  const opacity = useTransform(scrollYProgress, [from, to], [0.3, 1]);
   return (
     <motion.div
       style={{
-        width,
-        height: 6,
-        borderRadius: 3,
-        background: "#3B6FF0",
+        position: "absolute",
+        left: "11%",
+        right: "11%",
+        top: `${14 + index * 6}%`,
+        height: "31%",
+        x,
+        y,
+        rotate,
+        scale,
         opacity,
-      }}
-    />
-  );
-}
-
-function ProgressBar({ scrollYProgress }) {
-  const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  return (
-    <div
-      style={{
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: 3,
-        background: "rgba(0,0,0,0.06)",
-        zIndex: 10,
+        zIndex: total - index,
+        borderRadius: 24,
+        background: step.surface,
+        border: `1px solid rgba(${step.accentRgb}, 0.22)`,
+        boxShadow: "0 18px 40px rgba(16,24,40,0.12)",
+        padding: "1rem 1rem 0.95rem",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
       }}
     >
-      <motion.div
-        style={{
-          scaleX,
-          transformOrigin: "left",
-          height: "100%",
-          background: "linear-gradient(90deg, #3B6FF0, #7C3AED)",
-          boxShadow: "0 0 12px rgba(59,111,240,0.5)",
-        }}
-      />
-    </div>
-  );
-}
-
-function SceneFrame() {
-  return (
-    <div
-      className="proc-scene-frame"
-      style={{
-        position: "absolute",
-        inset: "clamp(2rem, 5vw, 3.5rem)",
-        border: "1px solid rgba(59,111,240,0.08)",
-        borderRadius: 28,
-        pointerEvents: "none",
-        zIndex: 1,
-      }}
-    >
-      {[
-        { top: 20, left: 20 },
-        { top: 20, right: 20 },
-        { bottom: 20, left: 20 },
-        { bottom: 20, right: 20 },
-      ].map((corner, index) => (
-        <div
-          key={index}
+      <div
+        style={{ display: "flex", justifyContent: "space-between", gap: 10 }}
+      >
+        <div>
+          <p
+            style={{
+              margin: 0,
+              fontFamily: "Inter, sans-serif",
+              fontSize: "0.62rem",
+              fontWeight: 700,
+              letterSpacing: "0.16em",
+              textTransform: "uppercase",
+              color: step.accent,
+            }}
+          >
+            {step.tag}
+          </p>
+          <p
+            style={{
+              margin: "8px 0 0",
+              fontFamily: "Bricolage Grotesque, sans-serif",
+              fontSize: "clamp(1rem, 1.4vw, 1.2rem)",
+              fontWeight: 800,
+              letterSpacing: "-0.03em",
+              color: "#101828",
+            }}
+          >
+            {step.title}
+          </p>
+        </div>
+        <span
           style={{
-            position: "absolute",
-            width: 28,
-            height: 28,
-            borderTop:
-              corner.top !== undefined
-                ? "1px solid rgba(59,111,240,0.28)"
-                : "none",
-            borderLeft:
-              corner.left !== undefined
-                ? "1px solid rgba(59,111,240,0.28)"
-                : "none",
-            borderRight:
-              corner.right !== undefined
-                ? "1px solid rgba(59,111,240,0.28)"
-                : "none",
-            borderBottom:
-              corner.bottom !== undefined
-                ? "1px solid rgba(59,111,240,0.28)"
-                : "none",
-            ...corner,
+            fontFamily: "Bricolage Grotesque, sans-serif",
+            fontSize: "0.9rem",
+            fontWeight: 800,
+            color: "rgba(16,24,40,0.32)",
           }}
+        >
+          {step.num}
+        </span>
+      </div>
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+          gap: 6,
+        }}
+      >
+        {step.outputs.map((item) => (
+          <div
+            key={item}
+            style={{
+              borderRadius: 999,
+              background: "rgba(255,255,255,0.72)",
+              border: `1px solid rgba(${step.accentRgb}, 0.14)`,
+              padding: "7px 8px",
+              fontFamily: "Inter, sans-serif",
+              fontSize: "0.63rem",
+              fontWeight: 700,
+              color: "rgba(16,24,40,0.7)",
+              textAlign: "center",
+              textTransform: "uppercase",
+              letterSpacing: "0.08em",
+            }}
+          >
+            {item}
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+function ProgressLedger({ scrollYProgress }) {
+  return (
+    <div
+      style={{
+        display: "grid",
+        gap: 8,
+        minWidth: 180,
+      }}
+    >
+      {STEPS.map((step, index) => (
+        <LedgerRow
+          key={step.num}
+          step={step}
+          index={index}
+          total={STEPS.length}
+          scrollYProgress={scrollYProgress}
         />
       ))}
     </div>
   );
 }
 
-function StepRail({ scrollYProgress }) {
-  return (
-    <div
-      className="proc-stage-rail"
-      style={{
-        position: "absolute",
-        left: "-0.5rem",
-        top: "50%",
-        transform: "translateY(-50%)",
-        zIndex: 3,
-        pointerEvents: "none",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 14,
-          padding: "14px 10px",
-          borderRadius: 999,
-          background: "rgba(255,255,255,0.52)",
-          backdropFilter: "blur(14px)",
-          WebkitBackdropFilter: "blur(14px)",
-          border: "1px solid rgba(59,111,240,0.1)",
-          boxShadow: "0 12px 30px rgba(13,13,20,0.06)",
-        }}
-      >
-        {STEPS.map((step, index) => (
-          <RailNode
-            key={step.num}
-            scrollYProgress={scrollYProgress}
-            step={step}
-            index={index}
-            total={STEPS.length}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function RailNode({ scrollYProgress, step, index, total }) {
-  const start = index / total;
-  const mid = start + 1 / (total * 2);
-  const scale = useTransform(
-    scrollYProgress,
-    [start, mid, start + 1 / total],
-    [0.9, 1.2, 0.9],
-  );
-  const opacity = useTransform(
-    scrollYProgress,
-    [start, mid, start + 1 / total],
-    [0.35, 1, 0.45],
-  );
-
-  return (
-    <motion.div
-      style={{
-        width: 12,
-        height: 12,
-        borderRadius: "50%",
-        background: step.orbColor,
-        boxShadow: `0 0 0 4px rgba(${step.accentRgb},0.08)`,
-        scale,
-        opacity,
-      }}
-    />
-  );
-}
-
-function ProofCard({ step, accentRgb }) {
-  return (
-    <div
-      className="proc-proof-card"
-      style={{
-        position: "absolute",
-        right: "clamp(1rem, 8vw, 6rem)",
-        bottom: "clamp(4rem, 10vh, 7rem)",
-        background: "rgba(255,255,255,0.78)",
-        backdropFilter: "blur(18px)",
-        WebkitBackdropFilter: "blur(18px)",
-        border: "1px solid rgba(" + accentRgb + ",0.18)",
-        borderRadius: 16,
-        padding: "18px 24px",
-        boxShadow:
-          "0 24px 60px rgba(" +
-          accentRgb +
-          ",0.14), 0 4px 16px rgba(0,0,0,0.06)",
-        minWidth: 220,
-        maxWidth: 260,
-        zIndex: 3,
-      }}
-    >
-      <div
-        style={{
-          position: "relative",
-          display: "inline-block",
-          marginBottom: 10,
-        }}
-      >
-        <div
-          style={{
-            width: 10,
-            height: 10,
-            borderRadius: "50%",
-            background: "rgba(" + accentRgb + ",1)",
-            position: "relative",
-            zIndex: 1,
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            borderRadius: "50%",
-            border: "1.5px solid rgba(" + accentRgb + ",0.5)",
-            animation: "proc-pulse-ring 1.8s ease-out infinite",
-          }}
-        />
-      </div>
-      <p
-        style={{
-          fontFamily: "Bricolage Grotesque, sans-serif",
-          fontSize: "clamp(0.9rem, 1.3vw, 1.05rem)",
-          fontWeight: 800,
-          color: "#0d0d14",
-          letterSpacing: "-0.02em",
-          margin: "0 0 4px",
-          lineHeight: 1.2,
-        }}
-      >
-        {step.proof}
-      </p>
-      <p
-        style={{
-          fontFamily: "Inter, sans-serif",
-          fontSize: "0.68rem",
-          color: "rgba(0,0,0,0.38)",
-          margin: 0,
-          letterSpacing: "0.02em",
-        }}
-      >
-        {step.proofSub}
-      </p>
-    </div>
-  );
-}
-
-function StepPanel({ step, index, total, scrollYProgress }) {
+function LedgerRow({ step, index, total, scrollYProgress }) {
   const start = index / total;
   const end = (index + 1) / total;
-
-  const opacity = useTransform(
-    scrollYProgress,
-    [
-      Math.max(0, start - 0.02),
-      start + 0.04,
-      end - 0.04,
-      Math.min(1, end + 0.01),
-    ],
-    [0, 1, 1, index === total - 1 ? 1 : 0],
-  );
-  const y = useTransform(
-    scrollYProgress,
-    [Math.max(0, start - 0.03), start + 0.05],
-    [50, 0],
-  );
-  const scale = useTransform(
-    scrollYProgress,
-    [Math.max(0, start - 0.03), start + 0.05],
-    [0.97, 1],
-  );
-  const tagY = useTransform(
-    scrollYProgress,
-    [Math.max(0, start - 0.01), start + 0.06],
-    [24, 0],
-  );
-  const cardOpacity = useTransform(
-    scrollYProgress,
-    [start + 0.05, start + 0.12, end - 0.08, end],
-    [0, 1, 1, index === total - 1 ? 1 : 0],
-  );
-  const cardY = useTransform(
-    scrollYProgress,
-    [start + 0.05, start + 0.12],
-    [30, 0],
-  );
-  const clusterOpacity = useTransform(
-    scrollYProgress,
-    [start + 0.02, start + 0.1, end - 0.08, end],
-    [0, 1, 1, index === total - 1 ? 1 : 0],
-  );
-  const clusterX = useTransform(
-    scrollYProgress,
-    [start + 0.03, start + 0.1],
-    [24, 0],
-  );
+  const scaleX = useTransform(scrollYProgress, [start, end], [0.35, 1]);
+  const opacity = useTransform(scrollYProgress, [start, end], [0.4, 1]);
 
   return (
-    <motion.div
-      style={{
-        opacity,
-        y,
-        scale,
-        position: "absolute",
-        inset: 0,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        paddingBottom: "clamp(1rem, 3vh, 2rem)",
-        pointerEvents: "none",
-      }}
-    >
-      <motion.div style={{ y: tagY }}>
-        <div
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 8,
-            marginBottom: "clamp(0.8rem, 2vh, 1.5rem)",
-          }}
-        >
-          <span
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: 28,
-              height: 28,
-              borderRadius: "50%",
-              background: "rgba(" + step.accentRgb + ",0.1)",
-              border: "1px solid rgba(" + step.accentRgb + ",0.25)",
-              fontFamily: "Inter, sans-serif",
-              fontSize: "0.58rem",
-              fontWeight: 800,
-              color: step.orbColor,
-              letterSpacing: "0.06em",
-              flexShrink: 0,
-            }}
-          >
-            {step.num}
-          </span>
-          <span
-            style={{
-              width: 28,
-              height: 1,
-              background: "rgba(" + step.accentRgb + ",0.25)",
-              display: "inline-block",
-            }}
-          />
-          <span
-            style={{
-              fontFamily: "Inter, sans-serif",
-              fontSize: "0.62rem",
-              fontWeight: 600,
-              color: "rgba(0,0,0,0.3)",
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-            }}
-          >
-            {step.tag}
-          </span>
-        </div>
-      </motion.div>
-
+    <div>
       <div
-        style={{
-          overflow: "hidden",
-          marginBottom: "clamp(0.8rem, 2vh, 1.5rem)",
-        }}
-      >
-        <motion.h2
-          style={{
-            fontFamily: "Bricolage Grotesque, sans-serif",
-            fontSize: "clamp(3.5rem, 9vw, 8rem)",
-            fontWeight: 800,
-            letterSpacing: "-0.05em",
-            lineHeight: 0.95,
-            color: "#0d0d14",
-            margin: 0,
-            textShadow: "2px 6px 24px rgba(" + step.accentRgb + ",0.12)",
-          }}
-        >
-          {step.name}
-        </motion.h2>
-      </div>
-
-      <div
-        className="proc-body-cols"
         style={{
           display: "flex",
-          gap: "clamp(2rem, 6vw, 6rem)",
-          alignItems: "flex-start",
-          flexWrap: "wrap",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: 6,
+          gap: 10,
         }}
       >
-        <p
+        <span
           style={{
             fontFamily: "Inter, sans-serif",
-            fontSize: "clamp(0.88rem, 1.25vw, 1.02rem)",
-            color: "rgba(0,0,0,0.42)",
-            lineHeight: 1.75,
-            maxWidth: 380,
-            margin: 0,
-            flex: "0 1 380px",
+            fontSize: "0.66rem",
+            fontWeight: 700,
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            color: "rgba(16,24,40,0.55)",
           }}
         >
-          {step.body}
-        </p>
-        <ul
-          className="proc-step-detail"
+          {step.tag}
+        </span>
+        <span
           style={{
-            listStyle: "none",
-            padding: 0,
-            margin: 0,
-            flex: "1 1 220px",
+            fontFamily: "Bricolage Grotesque, sans-serif",
+            fontSize: "0.8rem",
+            fontWeight: 800,
+            color: step.accent,
           }}
         >
-          {step.detail.map((d) => (
-            <li
-              key={d}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 10,
-                fontFamily: "Inter, sans-serif",
-                fontSize: "clamp(0.78rem, 1vw, 0.88rem)",
-                color: "rgba(0,0,0,0.5)",
-                lineHeight: 1.5,
-                marginBottom: 8,
-              }}
-            >
-              <span
-                style={{
-                  width: 5,
-                  height: 5,
-                  borderRadius: "50%",
-                  background: step.orbColor,
-                  flexShrink: 0,
-                  boxShadow: "0 0 6px " + step.orbColor + "88",
-                }}
-              />
-              {d}
-            </li>
-          ))}
-        </ul>
+          {step.num}
+        </span>
       </div>
-
-      <motion.div
-        className="proc-visual-cluster"
-        style={{
-          opacity: clusterOpacity,
-          x: clusterX,
-          position: "absolute",
-          right: "clamp(1rem, 7vw, 5rem)",
-          top: "clamp(8rem, 18vh, 10rem)",
-          width: "clamp(230px, 26vw, 320px)",
-          height: "clamp(230px, 28vw, 340px)",
-          pointerEvents: "none",
-        }}
-      >
-        <VisualCluster
-          step={step}
-          scrollYProgress={scrollYProgress}
-          start={start}
-          end={end}
-        />
-      </motion.div>
-
-      <motion.div
-        style={{
-          opacity: cardOpacity,
-          y: cardY,
-          position: "absolute",
-          inset: 0,
-          pointerEvents: "none",
-        }}
-      >
-        <ProofCard step={step} accentRgb={step.accentRgb} />
-      </motion.div>
-    </motion.div>
-  );
-}
-
-function AnimatedBar({
-  targetWidth,
-  scrollYProgress,
-  start,
-  end,
-  accentRgb,
-  delay,
-}) {
-  const clampedEnd = Math.min(end, 1);
-  const pct = useTransform(
-    scrollYProgress,
-    [Math.max(0, start), Math.min(clampedEnd, start + 0.18)],
-    ["0%", `${targetWidth * 100}%`],
-  );
-  return (
-    <div
-      style={{
-        height: 7,
-        borderRadius: 999,
-        background: `rgba(${accentRgb},0.1)`,
-        overflow: "hidden",
-      }}
-    >
-      <motion.div
-        style={{
-          width: pct,
-          height: "100%",
-          borderRadius: 999,
-          background: `linear-gradient(90deg, rgba(${accentRgb},0.95), rgba(${accentRgb},0.16))`,
-        }}
-      />
-    </div>
-  );
-}
-
-function VisualCluster({ step, scrollYProgress, start, end }) {
-  return (
-    <>
       <div
         style={{
-          position: "absolute",
-          inset: "18% 8% 8% 18%",
-          borderRadius: 22,
-          background: "rgba(255,255,255,0.52)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
-          border: `1px solid rgba(${step.accentRgb},0.14)`,
-          boxShadow: `0 24px 70px rgba(${step.accentRgb},0.1), 0 8px 24px rgba(13,13,20,0.06)`,
+          height: 9,
+          borderRadius: 999,
+          background: "rgba(16,24,40,0.08)",
           overflow: "hidden",
         }}
       >
-        <div
+        <motion.div
           style={{
-            position: "absolute",
-            inset: 0,
-            backgroundImage: `linear-gradient(rgba(${step.accentRgb},0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(${step.accentRgb},0.08) 1px, transparent 1px)`,
-            backgroundSize: "22px 22px",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            left: "12%",
-            top: "14%",
-            width: "46%",
-            height: "38%",
-            borderRadius: "50%",
-            border: `1px solid rgba(${step.accentRgb},0.2)`,
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            left: "19%",
-            top: "21%",
-            width: "32%",
-            height: "24%",
-            borderRadius: "50%",
-            border: `1px solid rgba(${step.accentRgb},0.3)`,
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            right: "12%",
-            top: "18%",
-            width: 48,
-            height: 48,
-            borderRadius: 14,
-            background: `linear-gradient(135deg, rgba(${step.accentRgb},0.18), rgba(255,255,255,0.5))`,
-            border: `1px solid rgba(${step.accentRgb},0.2)`,
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            left: "12%",
-            right: "12%",
-            bottom: "16%",
-            display: "grid",
-            gap: 10,
-          }}
-        >
-          {step.bars.map((targetWidth, index) => (
-            <AnimatedBar
-              key={index}
-              targetWidth={targetWidth}
-              scrollYProgress={scrollYProgress}
-              start={start}
-              end={end}
-              accentRgb={step.accentRgb}
-              delay={index * 0.08}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div
-        style={{
-          position: "absolute",
-          left: 0,
-          top: "16%",
-          width: "34%",
-          height: "28%",
-          borderRadius: 20,
-          background: "rgba(255,255,255,0.72)",
-          backdropFilter: "blur(16px)",
-          WebkitBackdropFilter: "blur(16px)",
-          border: `1px solid rgba(${step.accentRgb},0.14)`,
-          boxShadow: `0 18px 50px rgba(${step.accentRgb},0.08)`,
-          display: "grid",
-          placeItems: "center",
-        }}
-      >
-        <div
-          style={{
-            width: 44,
-            height: 44,
-            borderRadius: "50%",
-            background: `radial-gradient(circle, rgba(${step.accentRgb},0.95) 0%, rgba(${step.accentRgb},0.18) 58%, transparent 72%)`,
+            scaleX,
+            opacity,
+            transformOrigin: "left",
+            height: "100%",
+            borderRadius: 999,
+            background: step.accent,
+            boxShadow: `0 0 18px rgba(${step.accentRgb}, 0.24)`,
           }}
         />
       </div>
-
-      <div
-        style={{
-          position: "absolute",
-          right: 0,
-          bottom: "8%",
-          width: "28%",
-          height: "22%",
-          borderRadius: 18,
-          background: "rgba(255,255,255,0.7)",
-          backdropFilter: "blur(16px)",
-          WebkitBackdropFilter: "blur(16px)",
-          border: `1px solid rgba(${step.accentRgb},0.14)`,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 8,
-        }}
-      >
-        {[0.45, 0.8, 0.6].map((height, index) => (
-          <div
-            key={index}
-            style={{
-              width: 10,
-              height: `${height * 44}px`,
-              borderRadius: 999,
-              background: `rgba(${step.accentRgb},${0.28 + index * 0.18})`,
-            }}
-          />
-        ))}
-      </div>
-    </>
+    </div>
   );
 }

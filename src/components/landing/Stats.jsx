@@ -97,8 +97,8 @@ export default function Stats() {
           height: "70vw",
           maxWidth: 700,
           maxHeight: 700,
-          background:
-            "radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%)",
+          background: "rgba(59,130,246,0.1)",
+          filter: "blur(80px)",
           zIndex: 1,
           pointerEvents: "none",
         }}
@@ -146,10 +146,7 @@ export default function Stats() {
             Results that{" "}
             <span
               style={{
-                background: "linear-gradient(120deg, #93c5fd, #3b82f6)",
-                backgroundClip: "text",
-                WebkitBackgroundClip: "text",
-                color: "transparent",
+                color: "#3b82f6",
               }}
             >
               compound.

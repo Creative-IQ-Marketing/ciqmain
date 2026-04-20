@@ -8,7 +8,7 @@ const containerVariants = (stagger) => ({
 });
 
 const childVariants = {
-  hidden: { opacity: 0, y: 32, filter: "blur(4px)" },
+  hidden: { opacity: 1, y: 26, filter: "blur(0px)" },
   show: {
     opacity: 1,
     y: 0,
@@ -17,7 +17,7 @@ const childVariants = {
   },
 };
 
-/** Wraps children in a stagger-entry sequence on mount. Always visible. */
+/** Starts its stagger when the container enters view without hiding content. */
 export default function StaggerContainer({
   children,
   stagger = 0.1,
@@ -27,8 +27,9 @@ export default function StaggerContainer({
   return (
     <motion.div
       variants={containerVariants(stagger)}
-      initial={false}
-      animate="show"
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.14, margin: "0px 0px -10% 0px" }}
       className={className}
       style={style}
     >

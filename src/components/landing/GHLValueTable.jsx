@@ -1,5 +1,5 @@
 ﻿import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { Check } from "lucide-react";
 
 const ease = [0.22, 1, 0.36, 1];
@@ -94,7 +94,8 @@ const TOTAL = 13050;
 
 function useReveal(margin) {
   const ref = useRef(null);
-  return [ref, true]; // always visible — no scroll-gate
+  const visible = useInView(ref, { once: true, margin });
+  return [ref, visible];
 }
 
 function ToolPill({ name, color, dark }) {
@@ -126,8 +127,8 @@ function TableRow({ service, tools, cost, index }) {
     <motion.div
       ref={ref}
       className="ciq-table-row"
-      initial={{ opacity: 0, y: 10 }}
-      animate={visible ? { opacity: 1, y: 0 } : {}}
+      initial={{ opacity: 1, y: 14 }}
+      animate={visible ? { opacity: 1, y: 0 } : { opacity: 1, y: 14 }}
       transition={{ duration: 0.45, delay: index * 0.04, ease }}
       style={{
         alignItems: "center",
@@ -212,8 +213,7 @@ export default function CIQValueTable() {
       style={{
         position: "relative",
         overflow: "hidden",
-        background:
-          "linear-gradient(155deg, #0b1525 0%, #0e1e38 50%, #080e1a 100%)",
+        background: "#0d1624",
         padding: "clamp(5rem, 10vw, 9rem) 0",
       }}
     >
@@ -228,8 +228,8 @@ export default function CIQValueTable() {
           height: "60vw",
           maxWidth: 700,
           maxHeight: 700,
-          background:
-            "radial-gradient(circle, rgba(59,130,246,0.09) 0%, transparent 65%)",
+          background: "rgba(59,130,246,0.09)",
+          filter: "blur(90px)",
           pointerEvents: "none",
         }}
       />
@@ -332,8 +332,10 @@ export default function CIQValueTable() {
           }}
         >
           <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={headerVisible ? { opacity: 1, y: 0 } : {}}
+            initial={{ opacity: 1, y: 14 }}
+            animate={
+              headerVisible ? { opacity: 1, y: 0 } : { opacity: 1, y: 14 }
+            }
             transition={{ duration: 0.55, ease }}
             style={{
               fontFamily: "Inter, sans-serif",
@@ -349,8 +351,8 @@ export default function CIQValueTable() {
           </motion.p>
           <div style={{ overflow: "hidden", marginBottom: 16 }}>
             <motion.h2
-              initial={{ y: "100%" }}
-              animate={headerVisible ? { y: 0 } : {}}
+              initial={{ y: "22%" }}
+              animate={headerVisible ? { y: 0 } : { y: "22%" }}
               transition={{ duration: 0.8, delay: 0.07, ease }}
               style={{
                 fontFamily: "Bricolage Grotesque, sans-serif",
@@ -365,11 +367,7 @@ export default function CIQValueTable() {
               One team.{" "}
               <span
                 style={{
-                  background:
-                    "linear-gradient(120deg, #60a5fa 20%, #3b82f6 80%)",
-                  backgroundClip: "text",
-                  WebkitBackgroundClip: "text",
-                  color: "transparent",
+                  color: "#60a5fa",
                 }}
               >
                 Everything included.
@@ -377,8 +375,8 @@ export default function CIQValueTable() {
             </motion.h2>
           </div>
           <motion.p
-            initial={{ opacity: 0 }}
-            animate={headerVisible ? { opacity: 1 } : {}}
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.22, ease }}
             style={{
               fontFamily: "Inter, sans-serif",
@@ -397,8 +395,8 @@ export default function CIQValueTable() {
         {/* Column headers */}
         <motion.div
           className="ciq-table-header"
-          initial={{ opacity: 0 }}
-          animate={headerVisible ? { opacity: 1 } : {}}
+          initial={{ opacity: 1, y: 12 }}
+          animate={headerVisible ? { opacity: 1, y: 0 } : { opacity: 1, y: 12 }}
           transition={{ duration: 0.45, delay: 0.3, ease }}
           style={{
             gap: 12,
@@ -441,8 +439,8 @@ export default function CIQValueTable() {
         <motion.div
           ref={totalRef}
           className="ciq-table-total"
-          initial={{ opacity: 0, y: 14 }}
-          animate={totalVisible ? { opacity: 1, y: 0 } : {}}
+          initial={{ opacity: 1, y: 16 }}
+          animate={totalVisible ? { opacity: 1, y: 0 } : { opacity: 1, y: 16 }}
           transition={{ duration: 0.6, ease }}
           style={{
             alignItems: "center",
@@ -506,7 +504,7 @@ export default function CIQValueTable() {
                 display: "inline-flex",
                 flexDirection: "column",
                 alignItems: "center",
-                background: "linear-gradient(135deg, #3b82f6, #2563eb)",
+                background: "#2563eb",
                 borderRadius: 8,
                 padding: "7px 10px",
                 boxShadow: "0 8px 24px rgba(59,130,246,0.3)",
@@ -543,8 +541,8 @@ export default function CIQValueTable() {
 
         {/* CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={totalVisible ? { opacity: 1, y: 0 } : {}}
+          initial={{ opacity: 1, y: 16 }}
+          animate={totalVisible ? { opacity: 1, y: 0 } : { opacity: 1, y: 16 }}
           transition={{ duration: 0.55, delay: 0.18, ease }}
           style={{ textAlign: "center", marginTop: "clamp(2rem, 4vw, 3.5rem)" }}
         >

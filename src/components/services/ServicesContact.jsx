@@ -73,7 +73,7 @@ export default function ServicesContact() {
   return (
     <section
       id="services-contact"
-      className="py-24 bg-gradient-to-b from-slate-900 to-slate-950 relative overflow-hidden"
+      className="py-24 bg-slate-950 relative overflow-hidden"
     >
       {/* Orb — lightweight for mobile */}
       <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-blue-800/30 rounded-full filter blur-[80px] opacity-60 pointer-events-none" />
@@ -264,7 +264,7 @@ export default function ServicesContact() {
                   disabled={loading}
                   whileHover={{ scale: loading ? 1 : 1.02 }}
                   whileTap={{ scale: loading ? 1 : 0.98 }}
-                  className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold text-sm flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-blue-900/40 transition-all disabled:opacity-60"
+                  className="w-full py-4 rounded-xl bg-blue-700 text-white font-bold text-sm flex items-center justify-center gap-2 hover:bg-blue-600 transition-all disabled:opacity-60"
                 >
                   {loading ? (
                     <span className="flex items-center gap-2">
