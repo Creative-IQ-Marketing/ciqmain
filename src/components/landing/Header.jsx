@@ -94,7 +94,10 @@ export default function Header() {
           className="w-full max-w-6xl"
         >
           {/* Pill */}
-          <div className="flex items-center h-[82px] px-6 rounded-full bg-white/95 backdrop-blur-2xl border border-black/[0.07] shadow-[0_8px_56px_rgba(0,0,0,0.14)]">
+          <div
+            className="flex items-center h-[82px] md:h-[82px] px-5 md:px-6 rounded-full bg-white/95 backdrop-blur-2xl border border-black/[0.07] shadow-[0_8px_56px_rgba(0,0,0,0.14)]"
+            style={{ height: "clamp(60px, 12vw, 82px)" }}
+          >
             {/* Logo */}
             <a
               href="/"
@@ -105,10 +108,17 @@ export default function Header() {
                 src={mainLogo}
                 alt="CreativeIQ"
                 className="w-11 h-11 object-contain"
+                style={{
+                  width: "clamp(40px, 8vw, 44px)",
+                  height: "clamp(40px, 8vw, 44px)",
+                }}
               />
               <span
-                className="text-[1.5rem] font-bold text-slate-900"
-                style={{ letterSpacing: "-0.04em" }}
+                className="font-bold text-slate-900"
+                style={{
+                  letterSpacing: "-0.04em",
+                  fontSize: "clamp(1.1rem, 2.5vw, 1.5rem)",
+                }}
               >
                 Creative<span className="text-[#3B6FF0]">IQ</span>
               </span>
@@ -128,7 +138,8 @@ export default function Header() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.08 + i * 0.04, duration: 0.4, ease }}
                   whileHover={{ color: "#3B6FF0" }}
-                  className="px-5 py-3 text-[1.1rem] font-medium text-slate-500"
+                  className="px-5 py-3 font-medium text-slate-500"
+                  style={{ fontSize: "clamp(0.95rem, 1.5vw, 1.1rem)" }}
                 >
                   {n.label}
                 </motion.a>

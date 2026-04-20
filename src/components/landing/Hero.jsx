@@ -108,7 +108,7 @@ export default function Hero() {
           }
           .hero-ctas { flex-direction: column !important; align-items: stretch !important; }
           .hero-ctas a { text-align: center; }
-          .hero-content-safe { padding-top: 80px !important; padding-bottom: 48px !important; }
+          .hero-content-safe { padding-top: 62px !important; padding-bottom: 48px !important; }
         }
         @media (min-width: 641px) and (max-width: 920px) {
           .hero-stats { 
@@ -218,7 +218,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease }}
             style={{
-              fontSize: 11,
+              fontSize: "clamp(9px, 2vw, 11px)",
               fontWeight: 500,
               color: "rgba(0,0,0,0.45)",
               letterSpacing: "0.22em",
@@ -270,7 +270,7 @@ export default function Hero() {
                   >
                     <span
                       style={{
-                        fontSize: "clamp(2.9rem, 7vw, 6.1rem)",
+                        fontSize: "clamp(2.2rem, 6vw, 6.1rem)",
                         fontWeight: 700,
                         letterSpacing: "-0.05em",
                         lineHeight: 1.06,
