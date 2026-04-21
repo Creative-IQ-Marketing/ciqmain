@@ -521,7 +521,7 @@ export default function CIQValueTable() {
                   whiteSpace: "nowrap",
                 }}
               >
-                from $1.8K
+                from $999
               </span>
               <span
                 style={{
@@ -585,7 +585,7 @@ export default function CIQValueTable() {
               letterSpacing: "0.04em",
             }}
           >
-            Growth Engine from $3,500/mo Foundation from $1,800/mo
+            Growth Engine from $3,500/mo Foundation from $999/mo
           </p>
         </motion.div>
       </div>

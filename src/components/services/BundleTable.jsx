@@ -120,7 +120,7 @@ const ROWS = [
   {
     group: "Social Media",
     label: "Hashtag Rotation + Story Highlights",
-    values: [false, false, true],
+    values: [false, false, false, true],
   },
 ];
 
@@ -248,7 +248,7 @@ export default function BundleTable() {
                 </td>
                 {[
                   {
-                    monthly: "$1,777/m",
+                    monthly: "$999/m",
                     oneTime: "$699 one-time",
                     bg: "bg-slate-900",
                   },

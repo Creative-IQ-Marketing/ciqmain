@@ -62,9 +62,9 @@ Team Logins & Permissions
 ✔
 ✔
 Monthly Social Media Content
-Starter(8 posts/mo)
-Growth(12 posts/mo)
-Elite(24 posts/mo)
+Starter (8 posts/mo)
+Growth (12 posts/mo)
+Elite (24 posts/mo)
 
 # of Platforms
 
@@ -102,6 +102,7 @@ Automated DM Sequences
 Hashtag Rotation + Story Highlights
 —
 —
+—
 ✔
 BEST FOR
 Visibility & credibility
@@ -114,7 +115,7 @@ MONTHLY TOTAL
 AFTER AI SETUP
 ONE-TIME
 1 — Essential Visibility
-$1,777/m
+$999/m
 Same
 $699
 2 — Growth Operations
@@ -142,8 +143,8 @@ Includes
 • Insights + repurposing strategy
 • Optional LinkedIn blog
 
-MONTHLY TOTAL: $1,777/m
-BI WEEKLY: $888.50
+MONTHLY TOTAL: $999/m
+BI WEEKLY: $499.50
 ONE-TIME: $699
 
 ⚡ BUNDLE 2 — GROWTH OPERATIONS SYSTEM
