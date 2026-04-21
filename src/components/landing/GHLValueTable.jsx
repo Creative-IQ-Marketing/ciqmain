@@ -272,7 +272,7 @@ export default function GHLValueTable() {
               lineHeight: 1.1,
             }}
           >
-            What&apos;s included with HighLevel
+            What&apos;s included with CIQ&apos;s CRM
           </motion.h2>
         </div>
 
@@ -334,7 +334,7 @@ export default function GHLValueTable() {
               textAlign: "center",
             }}
           >
-            HighLevel
+            CIQ&apos;s CRM
           </span>
         </div>
 
