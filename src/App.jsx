@@ -47,7 +47,7 @@ function HomePage() {
       <Services />
       <Stats />
       <GHLValueTable />
-      {/* <Process /> */}
+      <Process />
       <Testimonials />
       <YoutubeSection />
       <Booking />

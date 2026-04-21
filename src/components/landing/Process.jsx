@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 const STEPS = [
@@ -53,10 +53,18 @@ const DOT_PATTERN =
 
 export default function Process() {
   const sectionRef = useRef(null);
+  const stickyRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
   });
+
+  // Fix iOS Safari 100vh — set exact pixel height on mount
+  useEffect(() => {
+    if (stickyRef.current) {
+      stickyRef.current.style.height = `${window.innerHeight}px`;
+    }
+  }, []);
 
   return (
     <section
@@ -64,145 +72,127 @@ export default function Process() {
       ref={sectionRef}
       style={{
         position: "relative",
-        height: "330vh",
+        height: "500vh",
         background: "#f5f1e8",
       }}
     >
       <div
+        ref={stickyRef}
         style={{
           position: "sticky",
           top: 0,
-          minHeight: "100vh",
+          height: "100vh",
           overflow: "hidden",
+          display: "flex",
+          flexDirection: "column",
         }}
       >
-        <style>{`
-          .proc-shell {
-            display: grid;
-            grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
-            gap: clamp(1.5rem, 4vw, 3rem);
-            align-items: start;
-          }
-          .proc-card-stack,
-          .proc-system-panel {
-            position: relative;
-            min-height: clamp(460px, 62vh, 620px);
-          }
-          @media (max-width: 920px) {
-            .proc-shell {
-              grid-template-columns: 1fr;
-            }
-            .proc-card-stack,
-            .proc-system-panel {
-              min-height: 420px;
-            }
-          }
-          @media (max-width: 640px) {
-            .proc-card-stack,
-            .proc-system-panel {
-              min-height: 380px;
-            }
-          }
-        `}</style>
-
-        <BackdropOrbs scrollYProgress={scrollYProgress} />
+        {/* Dot pattern */}
         <div
           style={{
             position: "absolute",
             inset: 0,
-            opacity: 0.45,
+            opacity: 0.4,
             backgroundImage: DOT_PATTERN,
             backgroundSize: "18px 18px",
             pointerEvents: "none",
+            zIndex: 0,
           }}
         />
 
+        <BackdropOrbs scrollYProgress={scrollYProgress} />
+
+        {/* Header */}
         <div
           style={{
             position: "relative",
             zIndex: 2,
-            maxWidth: 1200,
-            margin: "0 auto",
+            flexShrink: 0,
+            textAlign: "center",
             padding:
-              "clamp(2.5rem, 6vw, 5rem) clamp(1.25rem, 4vw, 4rem) clamp(2rem, 4vw, 3rem)",
-            minHeight: "100vh",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
+              "clamp(2.5rem, 5vh, 4.5rem) clamp(1rem, 4vw, 3rem) clamp(1rem, 2.5vh, 2rem)",
+          }}
+        >
+          <p
+            style={{
+              margin: 0,
+              fontFamily: "Inter, sans-serif",
+              fontSize: "0.68rem",
+              fontWeight: 700,
+              letterSpacing: "0.22em",
+              textTransform: "uppercase",
+              color: "#2563EB",
+            }}
+          >
+            How we work
+          </p>
+          <h2
+            style={{
+              margin: "12px 0 0",
+              fontFamily: "Bricolage Grotesque, sans-serif",
+              fontSize: "clamp(1.75rem, 4vw, 3.75rem)",
+              fontWeight: 800,
+              letterSpacing: "-0.05em",
+              lineHeight: 1.08,
+              color: "#101828",
+            }}
+          >
+            Every service layer earns its place.
+          </h2>
+        </div>
+
+        {/* 3D Card Stage — flex: 1 fills space between header and progress */}
+        <div
+          style={{
+            position: "relative",
+            flex: 1,
+            overflow: "hidden",
+            zIndex: 3,
           }}
         >
           <div
             style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "end",
-              gap: 20,
-              flexWrap: "wrap",
-              marginBottom: "clamp(1.75rem, 4vw, 2.5rem)",
+              position: "absolute",
+              inset: 0,
+              perspective: "1400px",
+              perspectiveOrigin: "50% 50%",
             }}
           >
-            <div style={{ maxWidth: 740 }}>
-              <p
-                style={{
-                  margin: 0,
-                  fontFamily: "Inter, sans-serif",
-                  fontSize: "0.68rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.22em",
-                  textTransform: "uppercase",
-                  color: "#2563EB",
-                }}
-              >
-                How we work
-              </p>
-              <h2
-                style={{
-                  margin: "14px 0 0",
-                  fontFamily: "Bricolage Grotesque, sans-serif",
-                  fontSize: "clamp(2rem, 4.4vw, 4.35rem)",
-                  fontWeight: 800,
-                  letterSpacing: "-0.05em",
-                  lineHeight: 0.96,
-                  color: "#101828",
-                  maxWidth: 760,
-                }}
-              >
-                Every service layer earns its place.
-              </h2>
-            </div>
-
-            <p
-              style={{
-                margin: 0,
-                maxWidth: 360,
-                fontFamily: "Inter, sans-serif",
-                fontSize: "0.95rem",
-                lineHeight: 1.72,
-                color: "rgba(16,24,40,0.62)",
-              }}
-            >
-              We do not sell disconnected tasks. We build one operating system
-              for search, ads, website conversion, CRM follow-up, and reporting.
-            </p>
+            {STEPS.map((step, index) => (
+              <SliderCard
+                key={step.num}
+                step={step}
+                index={index}
+                total={STEPS.length}
+                scrollYProgress={scrollYProgress}
+              />
+            ))}
           </div>
+        </div>
 
-          <div className="proc-shell">
-            <div className="proc-card-stack">
-              {STEPS.map((step, index) => (
-                <StepCard
-                  key={step.num}
-                  step={step}
-                  index={index}
-                  total={STEPS.length}
-                  scrollYProgress={scrollYProgress}
-                />
-              ))}
-            </div>
-
-            <div className="proc-system-panel">
-              <SystemPanel scrollYProgress={scrollYProgress} />
-            </div>
-          </div>
+        {/* Step progress dots */}
+        <div
+          style={{
+            position: "relative",
+            zIndex: 4,
+            flexShrink: 0,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "clamp(1.5rem, 4vw, 3rem)",
+            padding:
+              "clamp(1.25rem, 3vh, 2rem) 1rem clamp(1.75rem, 4vh, 3rem)",
+          }}
+        >
+          {STEPS.map((step, index) => (
+            <StepDot
+              key={step.num}
+              step={step}
+              index={index}
+              total={STEPS.length}
+              scrollYProgress={scrollYProgress}
+            />
+          ))}
         </div>
       </div>
     </section>
@@ -210,195 +200,191 @@ export default function Process() {
 }
 
 function BackdropOrbs({ scrollYProgress }) {
-  const blueX = useTransform(scrollYProgress, [0, 1], ["12%", "56%"]);
-  const blueY = useTransform(scrollYProgress, [0, 1], ["18%", "58%"]);
-  const darkX = useTransform(scrollYProgress, [0, 1], ["78%", "46%"]);
-  const darkY = useTransform(scrollYProgress, [0, 1], ["74%", "30%"]);
+  const blueX = useTransform(scrollYProgress, [0, 1], [0, 180]);
+  const blueY = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const darkX = useTransform(scrollYProgress, [0, 1], [0, -140]);
+  const darkY = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   return (
     <>
       <motion.div
         style={{
           position: "absolute",
-          left: blueX,
-          top: blueY,
-          width: "clamp(220px, 30vw, 390px)",
-          height: "clamp(220px, 30vw, 390px)",
+          left: "12%",
+          top: "22%",
+          x: blueX,
+          y: blueY,
+          width: "clamp(220px, 32vw, 420px)",
+          height: "clamp(220px, 32vw, 420px)",
           borderRadius: "50%",
-          background: "rgba(37,99,235,0.12)",
-          filter: "blur(92px)",
-          translateX: "-50%",
-          translateY: "-50%",
+          background: "rgba(37,99,235,0.1)",
+          filter: "blur(100px)",
+          translate: "-50% -50%",
           pointerEvents: "none",
+          zIndex: 1,
         }}
       />
       <motion.div
         style={{
           position: "absolute",
-          left: darkX,
-          top: darkY,
-          width: "clamp(210px, 28vw, 340px)",
-          height: "clamp(210px, 28vw, 340px)",
+          left: "80%",
+          top: "72%",
+          x: darkX,
+          y: darkY,
+          width: "clamp(200px, 28vw, 360px)",
+          height: "clamp(200px, 28vw, 360px)",
           borderRadius: "50%",
-          background: "rgba(15,23,42,0.08)",
-          filter: "blur(84px)",
-          translateX: "-50%",
-          translateY: "-50%",
+          background: "rgba(15,23,42,0.07)",
+          filter: "blur(90px)",
+          translate: "-50% -50%",
           pointerEvents: "none",
+          zIndex: 1,
         }}
       />
     </>
   );
 }
 
-function StepCard({ step, index, total, scrollYProgress }) {
-  const start = index / total;
-  const mid = start + 0.13;
-  const end = (index + 1) / total;
-  const baseY = index * 76;
-  const y = useTransform(
-    scrollYProgress,
-    [start, mid, end],
-    [baseY + 86, baseY, baseY - 18],
-  );
-  const scale = useTransform(
-    scrollYProgress,
-    [start, mid, end],
-    [0.95, 1, 0.975],
-  );
-  const rotate = useTransform(
-    scrollYProgress,
-    [start, mid, end],
-    [index % 2 === 0 ? -7 : 7, 0, index % 2 === 0 ? -2 : 2],
-  );
-  const opacity = useTransform(
-    scrollYProgress,
-    [start, mid, end],
-    [0.5, 1, 0.76],
+function SliderCard({ step, index, total, scrollYProgress }) {
+  const seg = 1 / total;
+  const segStart = index * seg;
+  const segEnd = (index + 1) * seg;
+  const segMid = (segStart + segEnd) / 2;
+  const t = seg * 0.45;
+
+  // Keyframe points along scrollYProgress
+  const pts = [
+    Math.max(0, segStart - t),
+    segStart + t * 0.4,
+    segMid,
+    segEnd - t * 0.4,
+    Math.min(1, segEnd + t),
+  ];
+
+  const x = useTransform(scrollYProgress, pts, [1100, 340, 0, -340, -1100]);
+  const rotateY = useTransform(scrollYProgress, pts, [-28, -12, 0, 12, 28]);
+  const scale = useTransform(scrollYProgress, pts, [0.82, 0.91, 1, 0.91, 0.82]);
+  const opacity = useTransform(scrollYProgress, pts, [0, 0.8, 1, 0.8, 0]);
+  const zIndex = useTransform(scrollYProgress, (v) =>
+    v >= segStart - 0.01 && v <= segEnd + 0.01 ? 10 : 1
   );
 
   return (
     <motion.article
       style={{
+        // Center in the stage using CSS individual transform + Framer Motion x
         position: "absolute",
-        inset: 0,
-        y,
+        left: "50%",
+        top: "50%",
+        translate: "-50% -50%",
+        width: "min(580px, 88vw)",
+        x,
+        rotateY,
         scale,
-        rotate,
         opacity,
-        zIndex: total - index,
-        padding: "clamp(1.25rem, 2.3vw, 1.9rem)",
-        borderRadius: 26,
-        border: `1px solid rgba(${step.accentRgb}, 0.16)`,
+        zIndex,
+        transformOrigin: "center center",
+        willChange: "transform, opacity",
+        // Card visuals
+        borderRadius: 28,
         background: step.surface,
+        border: `1px solid rgba(${step.accentRgb}, 0.18)`,
         boxShadow:
-          "0 24px 56px rgba(16,24,40,0.1), inset 0 1px 0 rgba(255,255,255,0.72)",
-        backdropFilter: "blur(14px)",
-        WebkitBackdropFilter: "blur(14px)",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
+          "0 32px 80px rgba(16,24,40,0.14), inset 0 1px 0 rgba(255,255,255,0.85)",
+        padding: "clamp(1.75rem, 3.5vw, 2.75rem)",
       }}
     >
+      {/* Tag + step number */}
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
-          alignItems: "start",
-          gap: 12,
-          marginBottom: 22,
+          alignItems: "flex-start",
+          marginBottom: 18,
         }}
       >
-        <div>
-          <p
-            style={{
-              margin: 0,
-              fontFamily: "Inter, sans-serif",
-              fontSize: "0.72rem",
-              fontWeight: 700,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: step.accent,
-            }}
-          >
-            {step.tag}
-          </p>
-          <h3
-            style={{
-              margin: "10px 0 0",
-              fontFamily: "Bricolage Grotesque, sans-serif",
-              fontSize: "clamp(1.45rem, 2.1vw, 2.15rem)",
-              fontWeight: 800,
-              letterSpacing: "-0.04em",
-              lineHeight: 1.02,
-              color: "#101828",
-              maxWidth: 430,
-            }}
-          >
-            {step.title}
-          </h3>
-        </div>
-
-        <div
+        <p
           style={{
-            minWidth: 64,
-            textAlign: "right",
+            margin: 0,
+            fontFamily: "Inter, sans-serif",
+            fontSize: "0.72rem",
+            fontWeight: 700,
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: step.accent,
+          }}
+        >
+          {step.tag}
+        </p>
+        <span
+          style={{
             fontFamily: "Bricolage Grotesque, sans-serif",
             fontSize: "1rem",
             fontWeight: 800,
-            color: "rgba(16,24,40,0.28)",
+            color: "rgba(16,24,40,0.22)",
+            flexShrink: 0,
           }}
         >
           {step.num}
-        </div>
+        </span>
       </div>
 
+      {/* Title */}
+      <h3
+        style={{
+          margin: "0 0 14px",
+          fontFamily: "Bricolage Grotesque, sans-serif",
+          fontSize: "clamp(1.55rem, 3vw, 2.3rem)",
+          fontWeight: 800,
+          letterSpacing: "-0.04em",
+          lineHeight: 1.05,
+          color: "#101828",
+          maxWidth: 480,
+        }}
+      >
+        {step.title}
+      </h3>
+
+      {/* Body */}
       <p
         style={{
-          margin: 0,
-          maxWidth: 520,
+          margin: "0 0 20px",
           fontFamily: "Inter, sans-serif",
-          fontSize: "0.95rem",
-          lineHeight: 1.76,
-          color: "rgba(16,24,40,0.66)",
+          fontSize: "clamp(0.88rem, 1.4vw, 0.95rem)",
+          lineHeight: 1.74,
+          color: "rgba(16,24,40,0.64)",
+          maxWidth: 520,
         }}
       >
         {step.body}
       </p>
 
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 10,
-          marginTop: 24,
-        }}
-      >
+      {/* Output pills */}
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
         {step.outputs.map((item) => (
           <span
             key={item}
             style={{
               display: "inline-flex",
               alignItems: "center",
-              gap: 8,
-              padding: "9px 12px",
+              gap: 7,
+              padding: "7px 12px",
               borderRadius: 999,
-              background: "rgba(255,255,255,0.74)",
+              background: "rgba(255,255,255,0.8)",
               border: `1px solid rgba(${step.accentRgb}, 0.14)`,
               fontFamily: "Inter, sans-serif",
-              fontSize: "0.74rem",
+              fontSize: "0.72rem",
               fontWeight: 600,
               color: "#101828",
-              letterSpacing: "0.02em",
             }}
           >
             <span
               style={{
-                width: 7,
-                height: 7,
+                width: 6,
+                height: 6,
                 borderRadius: "50%",
                 background: step.accent,
-                boxShadow: `0 0 0 5px rgba(${step.accentRgb}, 0.08)`,
+                flexShrink: 0,
               }}
             />
             {item}
@@ -406,37 +392,37 @@ function StepCard({ step, index, total, scrollYProgress }) {
         ))}
       </div>
 
+      {/* Milestone */}
       <div
         style={{
-          marginTop: 28,
-          paddingTop: 18,
-          borderTop: "1px solid rgba(16,24,40,0.08)",
+          marginTop: 20,
+          paddingTop: 16,
+          borderTop: `1px solid rgba(${step.accentRgb}, 0.1)`,
           display: "flex",
           justifyContent: "space-between",
-          gap: 12,
-          flexWrap: "wrap",
           alignItems: "center",
+          gap: 12,
         }}
       >
         <span
           style={{
             fontFamily: "Inter, sans-serif",
-            fontSize: "0.75rem",
+            fontSize: "0.68rem",
             fontWeight: 700,
             letterSpacing: "0.14em",
             textTransform: "uppercase",
-            color: "rgba(16,24,40,0.42)",
+            color: "rgba(16,24,40,0.38)",
           }}
         >
-          system milestone
+          milestone
         </span>
         <span
           style={{
             fontFamily: "Bricolage Grotesque, sans-serif",
-            fontSize: "1rem",
+            fontSize: "0.92rem",
             fontWeight: 800,
             color: step.accent,
-            letterSpacing: "-0.03em",
+            letterSpacing: "-0.02em",
           }}
         >
           {step.stat}
@@ -446,392 +432,66 @@ function StepCard({ step, index, total, scrollYProgress }) {
   );
 }
 
-function SystemPanel({ scrollYProgress }) {
-  const frameY = useTransform(scrollYProgress, [0, 1], [0, -16]);
+function StepDot({ step, index, total, scrollYProgress }) {
+  const seg = 1 / total;
+  const segStart = index * seg;
+  const segEnd = (index + 1) * seg;
+  const segMid = (segStart + segEnd) / 2;
+  const pad = seg * 0.35;
 
-  return (
-    <motion.div
-      style={{
-        y: frameY,
-        position: "relative",
-        height: "100%",
-        borderRadius: 32,
-        padding: "clamp(1.25rem, 2.2vw, 2rem)",
-        background: "rgba(255,255,255,0.72)",
-        border: "1px solid rgba(16,24,40,0.08)",
-        boxShadow: "0 26px 72px rgba(16,24,40,0.1)",
-        overflow: "hidden",
-      }}
-    >
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage: DOT_PATTERN,
-          backgroundSize: "18px 18px",
-          opacity: 0.22,
-          pointerEvents: "none",
-        }}
-      />
-
-      <div
-        style={{
-          position: "relative",
-          zIndex: 1,
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: 18,
-          gap: 16,
-          flexWrap: "wrap",
-        }}
-      >
-        <div>
-          <p
-            style={{
-              margin: 0,
-              fontFamily: "Inter, sans-serif",
-              fontSize: "0.66rem",
-              fontWeight: 700,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "rgba(16,24,40,0.45)",
-            }}
-          >
-            system state
-          </p>
-          <p
-            style={{
-              margin: "10px 0 0",
-              fontFamily: "Bricolage Grotesque, sans-serif",
-              fontSize: "clamp(1.35rem, 2vw, 1.8rem)",
-              fontWeight: 800,
-              letterSpacing: "-0.04em",
-              color: "#101828",
-            }}
-          >
-            One connected growth engine.
-          </p>
-        </div>
-
-        <ProgressLedger scrollYProgress={scrollYProgress} />
-      </div>
-
-      <div
-        style={{
-          position: "relative",
-          height: "calc(100% - 110px)",
-          minHeight: 280,
-        }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            inset: "6% 7% 4%",
-            borderRadius: 30,
-            background: "rgba(16,24,40,0.05)",
-            border: "1px solid rgba(16,24,40,0.06)",
-          }}
-        />
-
-        {STEPS.map((step, index) => (
-          <SystemCard
-            key={step.num}
-            step={step}
-            index={index}
-            total={STEPS.length}
-            scrollYProgress={scrollYProgress}
-          />
-        ))}
-
-        <div
-          style={{
-            position: "absolute",
-            left: "7%",
-            right: "7%",
-            bottom: "8%",
-            height: "44%",
-            borderRadius: 28,
-            background: "rgba(16,24,40,0.96)",
-            boxShadow: "0 24px 60px rgba(16,24,40,0.3)",
-            overflow: "hidden",
-          }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              background: "rgba(37,99,235,0.08)",
-            }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              left: 20,
-              right: 20,
-              top: 18,
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              color: "rgba(255,255,255,0.85)",
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "Inter, sans-serif",
-                fontSize: "0.66rem",
-                fontWeight: 700,
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-              }}
-            >
-              CIQ system
-            </span>
-            <span
-              style={{
-                fontFamily: "Bricolage Grotesque, sans-serif",
-                fontSize: "0.95rem",
-                fontWeight: 800,
-              }}
-            >
-              4 aligned layers
-            </span>
-          </div>
-
-          <div
-            style={{
-              position: "absolute",
-              left: 20,
-              right: 20,
-              bottom: 20,
-              display: "grid",
-              gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
-              gap: 8,
-            }}
-          >
-            {STEPS.map((step) => (
-              <div
-                key={step.num}
-                style={{
-                  height: 10,
-                  borderRadius: 999,
-                  background: `rgba(${step.accentRgb}, 0.24)`,
-                }}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-function SystemCard({ step, index, total, scrollYProgress }) {
-  const start = index / total;
-  const mid = start + 0.16;
-  const end = (index + 1) / total;
-  const x = useTransform(scrollYProgress, [start, mid, end], [46, 0, -10]);
-  const y = useTransform(
+  const dotScale = useTransform(
     scrollYProgress,
-    [start, mid, end],
-    [30 + index * 14, -10 - index * 8, -20 - index * 6],
+    [Math.max(0, segStart - pad), segMid, Math.min(1, segEnd + pad)],
+    [1, 1.6, 1]
   );
-  const rotate = useTransform(
+  const dotOpacity = useTransform(
     scrollYProgress,
-    [start, mid, end],
-    [10 - index * 2, 0, -2],
+    [Math.max(0, segStart - pad), segMid, Math.min(1, segEnd + pad)],
+    [0.28, 1, 0.28]
   );
-  const opacity = useTransform(
+  const labelOpacity = useTransform(
     scrollYProgress,
-    [start, mid, end],
-    [0.42, 1, 0.72],
-  );
-  const scale = useTransform(
-    scrollYProgress,
-    [start, mid, end],
-    [0.9, 1, 0.98],
+    [
+      Math.max(0, segStart - pad * 1.2),
+      segMid,
+      Math.min(1, segEnd + pad * 1.2),
+    ],
+    [0.35, 1, 0.35]
   );
 
-  return (
-    <motion.div
-      style={{
-        position: "absolute",
-        left: "11%",
-        right: "11%",
-        top: `${14 + index * 6}%`,
-        height: "31%",
-        x,
-        y,
-        rotate,
-        scale,
-        opacity,
-        zIndex: total - index,
-        borderRadius: 24,
-        background: step.surface,
-        border: `1px solid rgba(${step.accentRgb}, 0.22)`,
-        boxShadow: "0 18px 40px rgba(16,24,40,0.12)",
-        padding: "1rem 1rem 0.95rem",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-      }}
-    >
-      <div
-        style={{ display: "flex", justifyContent: "space-between", gap: 10 }}
-      >
-        <div>
-          <p
-            style={{
-              margin: 0,
-              fontFamily: "Inter, sans-serif",
-              fontSize: "0.62rem",
-              fontWeight: 700,
-              letterSpacing: "0.16em",
-              textTransform: "uppercase",
-              color: step.accent,
-            }}
-          >
-            {step.tag}
-          </p>
-          <p
-            style={{
-              margin: "8px 0 0",
-              fontFamily: "Bricolage Grotesque, sans-serif",
-              fontSize: "clamp(1rem, 1.4vw, 1.2rem)",
-              fontWeight: 800,
-              letterSpacing: "-0.03em",
-              color: "#101828",
-            }}
-          >
-            {step.title}
-          </p>
-        </div>
-        <span
-          style={{
-            fontFamily: "Bricolage Grotesque, sans-serif",
-            fontSize: "0.9rem",
-            fontWeight: 800,
-            color: "rgba(16,24,40,0.32)",
-          }}
-        >
-          {step.num}
-        </span>
-      </div>
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-          gap: 6,
-        }}
-      >
-        {step.outputs.map((item) => (
-          <div
-            key={item}
-            style={{
-              borderRadius: 999,
-              background: "rgba(255,255,255,0.72)",
-              border: `1px solid rgba(${step.accentRgb}, 0.14)`,
-              padding: "7px 8px",
-              fontFamily: "Inter, sans-serif",
-              fontSize: "0.63rem",
-              fontWeight: 700,
-              color: "rgba(16,24,40,0.7)",
-              textAlign: "center",
-              textTransform: "uppercase",
-              letterSpacing: "0.08em",
-            }}
-          >
-            {item}
-          </div>
-        ))}
-      </div>
-    </motion.div>
-  );
-}
-
-function ProgressLedger({ scrollYProgress }) {
   return (
     <div
       style={{
-        display: "grid",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
         gap: 8,
-        minWidth: 180,
       }}
     >
-      {STEPS.map((step, index) => (
-        <LedgerRow
-          key={step.num}
-          step={step}
-          index={index}
-          total={STEPS.length}
-          scrollYProgress={scrollYProgress}
-        />
-      ))}
-    </div>
-  );
-}
-
-function LedgerRow({ step, index, total, scrollYProgress }) {
-  const start = index / total;
-  const end = (index + 1) / total;
-  const scaleX = useTransform(scrollYProgress, [start, end], [0.35, 1]);
-  const opacity = useTransform(scrollYProgress, [start, end], [0.4, 1]);
-
-  return (
-    <div>
-      <div
+      <motion.div
         style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: 6,
-          gap: 10,
+          width: 10,
+          height: 10,
+          borderRadius: "50%",
+          background: step.accent,
+          scale: dotScale,
+          opacity: dotOpacity,
+        }}
+      />
+      <motion.p
+        style={{
+          margin: 0,
+          fontFamily: "Inter, sans-serif",
+          fontSize: "0.62rem",
+          fontWeight: 700,
+          letterSpacing: "0.2em",
+          textTransform: "uppercase",
+          color: "#101828",
+          opacity: labelOpacity,
         }}
       >
-        <span
-          style={{
-            fontFamily: "Inter, sans-serif",
-            fontSize: "0.66rem",
-            fontWeight: 700,
-            letterSpacing: "0.12em",
-            textTransform: "uppercase",
-            color: "rgba(16,24,40,0.55)",
-          }}
-        >
-          {step.tag}
-        </span>
-        <span
-          style={{
-            fontFamily: "Bricolage Grotesque, sans-serif",
-            fontSize: "0.8rem",
-            fontWeight: 800,
-            color: step.accent,
-          }}
-        >
-          {step.num}
-        </span>
-      </div>
-      <div
-        style={{
-          height: 9,
-          borderRadius: 999,
-          background: "rgba(16,24,40,0.08)",
-          overflow: "hidden",
-        }}
-      >
-        <motion.div
-          style={{
-            scaleX,
-            opacity,
-            transformOrigin: "left",
-            height: "100%",
-            borderRadius: 999,
-            background: step.accent,
-            boxShadow: `0 0 18px rgba(${step.accentRgb}, 0.24)`,
-          }}
-        />
-      </div>
+        {step.tag}
+      </motion.p>
     </div>
   );
 }
