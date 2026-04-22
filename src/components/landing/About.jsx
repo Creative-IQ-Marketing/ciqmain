@@ -1,195 +1,211 @@
 import { motion } from "framer-motion";
-import {
-  Award,
-  TrendingUp,
-  Users,
-  Target,
-  Briefcase,
-  BarChart3,
-  ArrowRight,
-} from "lucide-react";
-import TeamCollaborationSVG from "../svgs/TeamCollaborationSVG";
+import { ArrowUpRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { trackButtonClick } from "../../services/analytics";
+import StaggerContainer, { StaggerItem } from "../primitives/StaggerContainer";
+import ParallaxLayer from "../primitives/ParallaxLayer";
+import FadeUp from "../primitives/FadeUp";
 
-const About = () => {
-  const features = [
-    {
-      icon: Award,
-      title: "Industry Recognition",
-      description: "Award-winning strategies that set industry standards",
-    },
-    {
-      icon: TrendingUp,
-      title: "Proven Results",
-      description: "300% average increase in organic traffic for clients",
-    },
-    {
-      icon: Users,
-      title: "Expert Team",
-      description: "Certified professionals with years of experience",
-    },
-    {
-      icon: Target,
-      title: "Data-Driven",
-      description: "Strategic decisions backed by analytics and insights",
-    },
-    {
-      icon: Briefcase,
-      title: "Dedicated Support",
-      description: "Personal account manager for your success",
-    },
-    {
-      icon: BarChart3,
-      title: "Transparent Reporting",
-      description: "Clear metrics and regular performance updates",
-    },
-  ];
+const ease = [0.22, 1, 0.36, 1];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
+const POINTS = [
+  {
+    num: "01",
+    title: "Proven results",
+    body: "300% average increase in organic traffic. Not a projection � our clients live it.",
+  },
+  {
+    num: "02",
+    title: "AI-era expertise",
+    body: "We build for how search works in 2026: ChatGPT, Gemini, Google AI, and beyond.",
+  },
+  {
+    num: "03",
+    title: "Full-stack execution",
+    body: "One team handles your web, SEO, CRM, content, and ads. No agency juggling.",
+  },
+  {
+    num: "04",
+    title: "Local & nationwide",
+    body: "Based in San Antonio, TX � serving businesses across the country.",
+  },
+];
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  };
-
+export default function About() {
+  const navigate = useNavigate();
   return (
-    <section
+    <FadeUp
+      as="section"
       id="about"
-      className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-50 to-white"
+      style={{ background: "#fff", padding: "96px 0", overflow: "hidden" }}
     >
-      <div className="max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-16 items-center text-center md:text-left">
-          {/* Left - Illustration */}
-          <motion.div
-            className="relative order-2 md:order-1"
-            initial={{ opacity: 0, scale: 0.8, x: -50 }}
-            whileInView={{ opacity: 1, scale: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, type: "spring" }}
-          >
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-blue-300 to-slate-400 rounded-3xl opacity-10 blur-2xl"
-              animate={{ scale: [1, 1.1, 1] }}
-              transition={{ duration: 4, repeat: Infinity }}
-            />
-            <motion.div
-              className="relative"
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <TeamCollaborationSVG className="w-full h-auto" />
-            </motion.div>
-          </motion.div>
+      <style>{`
+        .f-disp { font-family: 'Bricolage Grotesque', sans-serif; }
+        .f-body { font-family: 'Inter', sans-serif; }
+        @media (max-width: 640px) {
+          .about-left { width: 100% !important; flex: 1 1 100% !important; }
+        }
+      `}</style>
 
-          {/* Right - Content */}
-          <motion.div
-            className="space-y-8 order-1 md:order-2"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <motion.div variants={itemVariants}>
-              <motion.h3
-                className="text-blue-600 font-semibold text-sm uppercase tracking-wider mb-2"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
+      <div
+        style={{
+          maxWidth: 1180,
+          margin: "0 auto",
+          padding: "0 clamp(1.5rem, 5vw, 5rem)",
+          display: "flex",
+          gap: "clamp(3rem, 7vw, 8rem)",
+          alignItems: "flex-start",
+          flexWrap: "wrap",
+        }}
+      >
+        {/* LEFT */}
+        <ParallaxLayer
+          speed={-20}
+          className="about-left"
+          style={{ flex: "0 0 auto", width: "clamp(260px, 36%, 400px)" }}
+        >
+          <div>
+            <p
+              className="f-body"
+              style={{
+                fontSize: 11,
+                fontWeight: 500,
+                color: "#3B6FF0",
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                marginBottom: 18,
+              }}
+            >
+              About CreativeIQ
+            </p>
+            <h2
+              className="f-disp"
+              style={{
+                margin: "0 0 20px",
+                lineHeight: 1.05,
+                overflow: "hidden",
+              }}
+            >
+              {[
+                { text: "Your growth", color: "#0d0d0d" },
+                { text: "partner in", color: "#0d0d0d" },
+                { text: "the AI era.", color: "#3B6FF0" },
+              ].map(({ text, color }, lineIdx) => (
+                <div key={lineIdx} style={{ overflow: "hidden" }}>
+                  <span
+                    style={{
+                      display: "block",
+                      fontSize: "clamp(2.2rem, 3.8vw, 3.4rem)",
+                      fontWeight: 800,
+                      letterSpacing: "-0.04em",
+                      color,
+                    }}
+                    className="f-disp"
+                  >
+                    {text}
+                  </span>
+                </div>
+              ))}
+            </h2>
+            <p
+              className="f-body"
+              style={{
+                fontSize: 14,
+                color: "rgba(0,0,0,0.42)",
+                lineHeight: 1.7,
+                marginBottom: 36,
+                maxWidth: 340,
+              }}
+            >
+              CreativeIQ is a full-service digital agency based in San Antonio,
+              TX. We build digital ecosystems designed for AI-driven discovery �
+              SEO, web design, CRM automation, and social media all engineered
+              to grow your revenue.
+            </p>
+            <motion.button
+              onClick={() => {
+                trackButtonClick("About CTA", "about_cta", "About");
+                navigate("/contact");
+              }}
+              whileHover={{ x: 4 }}
+              whileTap={{ scale: 0.97 }}
+              className="f-body"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                fontSize: 14,
+                fontWeight: 500,
+                color: "#0d0d0d",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: 0,
+              }}
+            >
+              Schedule a free consultation <ArrowUpRight size={15} />
+            </motion.button>
+          </div>
+        </ParallaxLayer>
+
+        {/* RIGHT — numbered rows with coordinated stagger */}
+        <StaggerContainer stagger={0.09} style={{ flex: 1, minWidth: 260 }}>
+          {POINTS.map((p, i) => (
+            <StaggerItem key={p.num}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: 20,
+                  padding: "24px 0",
+                  borderBottom:
+                    i < POINTS.length - 1
+                      ? "1px solid rgba(0,0,0,0.06)"
+                      : "none",
+                }}
               >
-                About CreativeIQ
-              </motion.h3>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Your Growth Partner in the{" "}
-                <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                  AI Era
+                <span
+                  className="f-disp"
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: "#3B6FF0",
+                    letterSpacing: "0.08em",
+                    flexShrink: 0,
+                    marginTop: 3,
+                  }}
+                >
+                  {p.num}
                 </span>
-              </h2>
-              <p className="text-xl text-gray-600 leading-relaxed">
-                We build digital ecosystems designed for AI-driven discovery:
-                SEO architecture, conversion-focused websites, chat experiences,
-                and CRM automation that turns traffic into qualified leads.
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="grid sm:grid-cols-2 gap-6"
-              variants={containerVariants}
-            >
-              {features.map((feature, index) => {
-                const IconComponent = feature.icon;
-                return (
-                  <motion.div
-                    key={index}
-                    className="group p-6 bg-gradient-to-br from-gray-50 to-blue-50 rounded-xl border border-blue-100 cursor-pointer"
-                    variants={itemVariants}
-                    whileHover={{
-                      scale: 1.08,
-                      boxShadow: "0 20px 25px -5px rgba(37, 99, 235, 0.2)",
-                      backgroundColor: "rgb(240, 249, 255)",
+                <div>
+                  <p
+                    className="f-body"
+                    style={{
+                      margin: "0 0 5px",
+                      fontSize: 15,
+                      fontWeight: 500,
+                      color: "#0d0d0d",
                     }}
                   >
-                    <motion.div
-                      className="text-3xl mb-3 inline-block p-3 bg-blue-100 rounded-lg"
-                      whileHover={{ rotate: 360, scale: 1.1 }}
-                      transition={{ duration: 0.6 }}
-                    >
-                      <IconComponent className="w-6 h-6 text-blue-600" />
-                    </motion.div>
-                    <h4 className="text-lg font-semibold text-gray-900 mb-2">
-                      {feature.title}
-                    </h4>
-                    <p className="text-gray-600 text-sm">
-                      {feature.description}
-                    </p>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
-
-            <motion.div className="pt-4" variants={itemVariants}>
-              <motion.a
-                href="#contact"
-                onClick={() =>
-                  trackButtonClick(
-                    "Schedule Free Consultation",
-                    "about_cta_btn",
-                    "About",
-                  )
-                }
-                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold rounded-lg shadow-lg group"
-                whileHover={{
-                  scale: 1.05,
-                  boxShadow: "0 20px 25px -5px rgba(37, 99, 235, 0.4)",
-                }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Schedule Free Consultation
-                <motion.div
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ duration: 1, repeat: Infinity }}
-                >
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </motion.div>
-              </motion.a>
-            </motion.div>
-          </motion.div>
-        </div>
+                    {p.title}
+                  </p>
+                  <p
+                    className="f-body"
+                    style={{
+                      margin: 0,
+                      fontSize: 14,
+                      color: "rgba(0,0,0,0.4)",
+                      lineHeight: 1.65,
+                    }}
+                  >
+                    {p.body}
+                  </p>
+                </div>
+              </div>
+            </StaggerItem>
+          ))}
+        </StaggerContainer>
       </div>
-    </section>
+    </FadeUp>
   );
-};
-
-export default About;
+}

@@ -1,312 +1,266 @@
-import { motion } from "framer-motion";
-import {
-  Facebook,
-  Twitter,
-  Linkedin,
-  Instagram,
-  ArrowRight,
-  MapPin,
-  Phone,
-  Mail,
-  Clock,
-} from "lucide-react";
+﻿import { motion } from "framer-motion";
+import { Facebook, Linkedin, Instagram, Youtube } from "lucide-react";
 import mainLogo from "../../assets/mainLogo.png";
 import { trackButtonClick } from "../../services/analytics";
 
-const Footer = () => {
-  const services = [
-    "AI Search + AI Agents",
-    "Search Engine Optimization",
-    "Pay-Per-Click Advertising",
-    "Social Media Marketing",
-    "CRM & Automation",
-    "Google My Business",
-    "Web Development",
-  ];
+const NAV = [
+  { label: "Home", href: "#home" },
+  { label: "About", href: "#about" },
+  { label: "Services", href: "#services" },
+  { label: "Process", href: "#process" },
+  { label: "Contact", href: "#contact" },
+];
 
-  const quickLinks = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Services", href: "#services" },
-    { name: "Testimonials", href: "#testimonials" },
-    { name: "Contact", href: "#contact" },
-  ];
+const SERVICES = [
+  "AI Search & Agents",
+  "SEO & AEO",
+  "Google & Meta Ads",
+  "Social Media",
+  "CRM & Automation",
+  "Web Development",
+];
 
-  const socialLinks = [
-    { icon: Facebook, label: "Facebook" },
-    { icon: Twitter, label: "Twitter" },
-    { icon: Linkedin, label: "LinkedIn" },
-    { icon: Instagram, label: "Instagram" },
-  ];
+const SOCIALS = [
+  { Icon: Facebook, label: "Facebook", href: "#" },
+  { Icon: Linkedin, label: "LinkedIn", href: "#" },
+  { Icon: Instagram, label: "Instagram", href: "#" },
+  { Icon: Youtube, label: "YouTube", href: "#" },
+];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 },
-    },
-  };
-
+export default function Footer() {
   return (
-    <footer className="bg-gradient-to-br from-slate-950 via-slate-900 to-black text-white relative overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-blob"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-700 rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-blob animation-delay-2000"></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-14 border border-white/10 bg-white/5 backdrop-blur rounded-3xl p-6 md:p-10"
+    <footer
+      style={{
+        background: "#0d0d14",
+        color: "#fff",
+        borderTop: "1px solid rgba(255,255,255,0.06)",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: 1180,
+          margin: "0 auto",
+          padding: "64px clamp(1.5rem, 5vw, 5rem) 0",
+        }}
+      >
+        {/* Top row */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "200px 1fr 1fr",
+            gap: "clamp(2rem, 6vw, 5rem)",
+            paddingBottom: 56,
+            borderBottom: "1px solid rgba(255,255,255,0.06)",
+          }}
+          className="footer-grid"
         >
-          <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
-            <div className="lg:col-span-5">
-              <div className="text-xs font-semibold uppercase tracking-widest text-blue-200/80">
-                Built for AI Discovery
-              </div>
-              <div className="mt-3 text-3xl md:text-4xl font-bold text-white leading-tight">
-                Show up on AI platforms, then convert.
-              </div>
-              <div className="mt-4 text-gray-300 leading-relaxed">
-                If you’re not surfacing in AI search engines like ChatGPT, Gemini,
-                Claude, and Perplexity, you’re already behind.
-              </div>
-              <motion.a
-                href="#contact"
-                onClick={() =>
-                  trackButtonClick("Footer Consultation", "footer_cta_btn", "Footer")
-                }
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.99 }}
-                className="mt-6 inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 px-6 py-3 font-semibold text-white shadow-lg"
+          {/* Brand */}
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+              <div
+                style={{
+                  width: 36,
+                  height: 36,
+                  background: "#fff",
+                  borderRadius: 8,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
+                }}
               >
-                Set a Consultation
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </motion.a>
-            </div>
-
-            <div className="lg:col-span-7">
-              <div className="grid gap-3 sm:grid-cols-2">
-                {[
-                  "Are you showing up where your customers are actually searching—on AI platforms, not just Google?",
-                  "Is your website built to convert visitors into qualified leads, or just exist online?",
-                  "Does your chat experience feel like real, high-level customer service—or a missed opportunity?",
-                  "Is your social media positioning your brand as the obvious choice, or just adding noise?",
-                ].map((q) => (
-                  <div
-                    key={q}
-                    className="border border-white/10 bg-white/5 rounded-2xl p-4 text-sm text-gray-200 leading-relaxed"
-                  >
-                    {q}
-                  </div>
-                ))}
+                <img src={mainLogo} alt="CreativeIQ" style={{ width: 22, height: 22, objectFit: "contain" }} />
               </div>
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 text-center md:text-left"
-        >
-          {/* Company Info */}
-          <motion.div variants={itemVariants}>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="flex flex-col md:flex-row items-center md:items-start space-y-3 md:space-y-0 md:space-x-3 mb-6"
-            >
-              <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-lg">
-                <img
-                  src={mainLogo}
-                  alt="CreativeIQ Logo"
-                  className="w-8 h-8 object-contain"
-                />
-              </div>
-              <span className="text-3xl font-bold bg-gradient-to-r from-blue-300 to-blue-100 bg-clip-text text-transparent">
+              <span
+                style={{
+                  fontFamily: "Bricolage Grotesque, sans-serif",
+                  fontSize: "1.1rem",
+                  fontWeight: 700,
+                  color: "#fff",
+                  letterSpacing: "-0.02em",
+                }}
+              >
                 CreativeIQ
               </span>
-            </motion.div>
-            <p className="text-gray-300 mb-6 leading-relaxed">
-              We don’t just “do marketing”—we engineer digital ecosystems built
-              for AI-driven discovery, search dominance, and real conversions.
-            </p>
-            <div className="flex justify-center md:justify-start space-x-3">
-              {socialLinks.map((social, index) => {
-                const Icon = social.icon;
-                return (
-                  <motion.a
-                    key={index}
-                    href="#"
-                    whileHover={{ scale: 1.2, y: -4 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="w-10 h-10 bg-white/10 hover:bg-blue-600 rounded-lg flex items-center justify-center transition-all duration-200 group"
-                    title={social.label}
-                  >
-                    <Icon className="w-5 h-5 group-hover:text-white" />
-                  </motion.a>
-                );
-              })}
             </div>
-          </motion.div>
-
-          {/* Services */}
-          <motion.div variants={itemVariants}>
-            <h4 className="text-lg font-bold mb-6 flex flex-col md:flex-row items-center md:items-start gap-2">
-              <div className="w-1 h-6 bg-gradient-to-b from-blue-400 to-blue-600 rounded-full hidden md:block"></div>
-              Our Services
-            </h4>
-            <ul className="space-y-3">
-              {services.map((service, index) => (
-                <motion.li
-                  key={index}
-                  whileHover={{ x: 4 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <a
-                    href="#services"
-                    className="text-gray-300 hover:text-blue-300 transition-colors inline-flex items-center justify-center md:justify-start gap-2 group"
-                  >
-                    <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block" />
-                    {service}
-                  </a>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Quick Links */}
-          <motion.div variants={itemVariants}>
-            <h4 className="text-lg font-bold mb-6 flex flex-col md:flex-row items-center md:items-start gap-2">
-              <div className="w-1 h-6 bg-gradient-to-b from-blue-400 to-blue-600 rounded-full hidden md:block"></div>
-              Quick Links
-            </h4>
-            <ul className="space-y-3">
-              {quickLinks.map((link, index) => (
-                <motion.li
-                  key={index}
-                  whileHover={{ x: 4 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <a
-                    href={link.href}
-                    onClick={() =>
-                      trackButtonClick(link.name, "footer_quick_link", "Footer")
-                    }
-                    className="text-gray-300 hover:text-blue-300 transition-colors inline-flex items-center justify-center md:justify-start gap-2 group"
-                  >
-                    <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block" />
-                    {link.name}
-                  </a>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Contact Info */}
-          <motion.div variants={itemVariants}>
-            <h4 className="text-lg font-bold mb-6 flex flex-col md:flex-row items-center md:items-start gap-2">
-              <div className="w-1 h-6 bg-gradient-to-b from-blue-400 to-blue-600 rounded-full hidden md:block"></div>
-              Contact Us
-            </h4>
-            <ul className="space-y-4">
-              <motion.li className="flex flex-col md:flex-row items-center md:items-start gap-3 group cursor-pointer">
-                <MapPin className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-300 group-hover:text-blue-300 transition-colors">
-                  San Antonio, Texas, USA
-                </span>
-              </motion.li>
-              <motion.li className="flex flex-col md:flex-row items-center md:items-start gap-3 group">
-                <Phone className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
-                <a
-                  href="tel:2108380177"
-                  className="text-gray-300 hover:text-blue-300 transition-colors"
-                >
-                  210-838-0177
-                </a>
-              </motion.li>
-              <motion.li className="flex flex-col md:flex-row items-center md:items-start gap-3 group">
-                <Mail className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
-                <a
-                  href="mailto:CiQ@creativeiq.marketing"
-                  className="text-gray-300 hover:text-blue-300 transition-colors"
-                >
-                  CiQ@creativeiq.marketing
-                </a>
-              </motion.li>
-              <motion.li className="flex flex-col md:flex-row items-center md:items-start gap-3">
-                <Clock className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-300">
-                  Mon-Fri: 9AM-6PM
-                  <br />
-                  Sat: 10AM-4PM
-                </span>
-              </motion.li>
-            </ul>
-          </motion.div>
-        </motion.div>
-
-        {/* Bottom Bar */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="border-t border-white/10 pt-8"
-        >
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
-            <p className="text-gray-400 text-sm font-medium">
-              © {new Date().getFullYear()} CreativeIQ Marketing. All rights
-              reserved.
+            <p
+              style={{
+                fontFamily: "Inter, sans-serif",
+                fontSize: "0.8rem",
+                color: "rgba(255,255,255,0.35)",
+                lineHeight: 1.65,
+                margin: "0 0 24px",
+              }}
+            >
+              Digital ecosystems built for AI-driven discovery, search
+              dominance, and real conversions.
             </p>
-            <div className="flex space-x-8 text-sm">
-              {["Privacy Policy", "Terms of Service", "Cookie Policy"].map(
-                (item, idx) => (
-                  <motion.a
-                    key={idx}
-                    href="#"
-                    whileHover={{ color: "#3b82f6" }}
-                    className="text-gray-400 hover:text-blue-400 transition-colors font-medium"
-                  >
-                    {item}
-                  </motion.a>
-                ),
-              )}
+            <div style={{ display: "flex", gap: 10 }}>
+              {SOCIALS.map(({ Icon, label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  style={{
+                    width: 34,
+                    height: 34,
+                    borderRadius: 8,
+                    border: "1px solid rgba(255,255,255,0.1)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "rgba(255,255,255,0.45)",
+                    textDecoration: "none",
+                    transition: "border-color 0.2s, color 0.2s",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = "#3b82f6";
+                    e.currentTarget.style.color = "#3b82f6";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
+                    e.currentTarget.style.color = "rgba(255,255,255,0.45)";
+                  }}
+                >
+                  <Icon size={15} />
+                </a>
+              ))}
             </div>
           </div>
-        </motion.div>
+
+          {/* Services */}
+          <div>
+            <p
+              style={{
+                fontFamily: "Inter, sans-serif",
+                fontSize: "0.62rem",
+                fontWeight: 700,
+                letterSpacing: "0.16em",
+                textTransform: "uppercase",
+                color: "rgba(255,255,255,0.25)",
+                marginBottom: 18,
+              }}
+            >
+              Services
+            </p>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+              {SERVICES.map((s) => (
+                <li key={s} style={{ marginBottom: 10 }}>
+                  <a
+                    href="#services"
+                    style={{
+                      fontFamily: "Inter, sans-serif",
+                      fontSize: "0.82rem",
+                      color: "rgba(255,255,255,0.45)",
+                      textDecoration: "none",
+                      transition: "color 0.2s",
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}
+                  >
+                    {s}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <p
+              style={{
+                fontFamily: "Inter, sans-serif",
+                fontSize: "0.62rem",
+                fontWeight: 700,
+                letterSpacing: "0.16em",
+                textTransform: "uppercase",
+                color: "rgba(255,255,255,0.25)",
+                marginBottom: 18,
+              }}
+            >
+              Contact
+            </p>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 10,
+                fontFamily: "Inter, sans-serif",
+                fontSize: "0.82rem",
+              }}
+            >
+              <span style={{ color: "rgba(255,255,255,0.45)" }}>San Antonio, Texas</span>
+              <a
+                href="tel:2108380177"
+                style={{ color: "rgba(255,255,255,0.45)", textDecoration: "none" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}
+              >
+                (210) 838-0177
+              </a>
+              <a
+                href="mailto:CiQ@creativeiq.marketing"
+                style={{ color: "rgba(255,255,255,0.45)", textDecoration: "none" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}
+              >
+                CiQ@creativeiq.marketing
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "22px 0",
+            flexWrap: "wrap",
+            gap: 12,
+          }}
+        >
+          <p
+            style={{
+              fontFamily: "Inter, sans-serif",
+              fontSize: "0.72rem",
+              color: "rgba(255,255,255,0.2)",
+              margin: 0,
+            }}
+          >
+             {new Date().getFullYear()} CreativeIQ Marketing. All rights reserved.
+          </p>
+          <nav style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
+            {NAV.map(({ label, href }) => (
+              <a
+                key={label}
+                href={href}
+                onClick={() => trackButtonClick(label, "footer_nav", "Footer")}
+                style={{
+                  fontFamily: "Inter, sans-serif",
+                  fontSize: "0.72rem",
+                  color: "rgba(255,255,255,0.25)",
+                  textDecoration: "none",
+                  transition: "color 0.2s",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.7)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.25)")}
+              >
+                {label}
+              </a>
+            ))}
+          </nav>
+        </div>
       </div>
 
-      {/* Scroll to Top Button */}
-      <motion.a
-        href="#home"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        whileHover={{ scale: 1.1, y: -4 }}
-        whileTap={{ scale: 0.95 }}
-        transition={{ type: "spring", stiffness: 300, damping: 10 }}
-        className="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-200 z-50"
-      >
-        <ArrowRight className="w-5 h-5 rotate-[-90deg]" />
-      </motion.a>
+      <style>{`
+        @media (max-width: 768px) {
+          .footer-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </footer>
   );
-};
-
-export default Footer;
+}

@@ -3,10 +3,13 @@ import { Routes, Route, Outlet, useLocation } from "react-router-dom";
 import Header from "./components/landing/Header";
 import Hero from "./components/landing/Hero";
 import Clients from "./components/landing/Clients";
-import Stats from "./components/landing/Stats";
 import About from "./components/landing/About";
 import Services from "./components/landing/Services";
+import Stats from "./components/landing/Stats";
+import GHLValueTable from "./components/landing/GHLValueTable";
+import Process from "./components/landing/Process";
 import Testimonials from "./components/landing/Testimonials";
+import YoutubeSection from "./components/landing/YoutubeSection";
 import Booking from "./components/landing/Booking";
 import Contact from "./components/landing/Contact";
 import Footer from "./components/landing/Footer";
@@ -14,10 +17,9 @@ import SEO from "./components/SEO";
 import StructuredData from "./components/StructuredData";
 import ContactPopup from "./components/ContactPopup";
 import ServicesPage from "./pages/ServicesPage";
+import ContactPage from "./pages/ContactPage";
 import { initializeAnalytics } from "./services/analytics";
 
-// Shared layout — Header and Footer mount ONCE and persist across all routes.
-// useLocation triggers a scroll-to-top on every navigation.
 function Layout() {
   const { pathname } = useLocation();
 
@@ -30,7 +32,7 @@ function Layout() {
       <Header />
       <Outlet />
       <Footer />
-      <ContactPopup />
+      {/* <ContactPopup /> */}
     </div>
   );
 }
@@ -42,10 +44,13 @@ function HomePage() {
       <StructuredData />
       <Hero />
       <Clients />
-      <Stats />
       <About />
       <Services />
+      <Stats />
+      <GHLValueTable />
+      {/* <Process /> */}
       <Testimonials />
+      <YoutubeSection />
       <Booking />
       <Contact />
     </>
@@ -62,6 +67,7 @@ function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/services" element={<ServicesPage />} />
+        <Route path="/contact" element={<ContactPage />} />
       </Route>
     </Routes>
   );

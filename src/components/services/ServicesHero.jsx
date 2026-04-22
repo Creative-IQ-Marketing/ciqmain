@@ -20,8 +20,8 @@ export default function ServicesHero() {
   };
 
   return (
-    <section className="relative min-h-[85vh] flex flex-col justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 overflow-hidden">
-      {/* Background — lightweight gradients only for mobile perf */}
+    <section className="relative min-h-[85vh] flex flex-col justify-center bg-slate-950 overflow-hidden">
+      {/* Background decoration */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-32 left-1/4 w-[400px] h-[400px] bg-blue-900/30 rounded-full filter blur-[80px]" />
         <div className="absolute bottom-0 right-1/4 w-[300px] h-[300px] bg-blue-800/20 rounded-full filter blur-[60px]" />
@@ -32,7 +32,7 @@ export default function ServicesHero() {
         className="absolute inset-0 opacity-[0.03]"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,.3) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.3) 1px,transparent 1px)",
+            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cpath d='M0 0H40V40' fill='none' stroke='rgba(255,255,255,0.22)' stroke-width='1'/%3E%3C/svg%3E\")",
           backgroundSize: "40px 40px",
         }}
       />
@@ -43,17 +43,10 @@ export default function ServicesHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
         >
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-500/40 bg-blue-500/10 text-blue-300 text-sm font-medium mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-            Growth Infrastructure for brands seeking innovative solutions
-          </span>
-
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-6">
             Stop Buying Services.
             <br />
-            <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-              Start Building Systems.
-            </span>
+            <span className="text-blue-400">Start Building Systems.</span>
           </h1>
 
           <p className="max-w-2xl mx-auto text-lg sm:text-xl text-slate-300 leading-relaxed mb-10">
@@ -67,7 +60,7 @@ export default function ServicesHero() {
               onClick={scrollToPackages}
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold text-base shadow-lg shadow-blue-900/40 hover:shadow-blue-700/50 transition-shadow"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-blue-700 text-white font-semibold text-base shadow-lg shadow-blue-900/40 hover:bg-blue-600 transition-colors"
             >
               See Our Packages <ArrowRight className="w-4 h-4" />
             </motion.button>

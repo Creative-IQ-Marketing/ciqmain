@@ -142,28 +142,28 @@ const Contact = () => {
       icon: MapPin,
       title: "Office Location",
       content: "San Antonio, Texas, USA",
-      color: "from-blue-600 to-blue-700",
+      color: "bg-blue-700",
     },
     {
       icon: Phone,
       title: "Phone",
       content: "210-838-0177",
       link: "tel:2108380177",
-      color: "from-blue-500 to-slate-600",
+      color: "bg-blue-600",
     },
     {
       icon: Mail,
       title: "Email",
       content: "CiQ@creativeiq.marketing",
       link: "mailto:CiQ@creativeiq.marketing",
-      color: "from-slate-700 to-slate-800",
+      color: "bg-slate-800",
     },
     {
       icon: Clock,
       title: "Business Hours",
       content: "Mon - Fri: 9AM - 6PM",
       subContent: "Sat: 10AM - 4PM",
-      color: "from-blue-600 to-slate-700",
+      color: "bg-slate-700",
     },
   ];
 
@@ -190,7 +190,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="py-24 px-4 sm:px-6 lg:px-8 bg-linear-to-br from-slate-50 via-white to-slate-50 relative overflow-hidden"
+      className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-50 relative overflow-hidden"
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob"></div>
@@ -199,21 +199,18 @@ const Contact = () => {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={false}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
           className="text-center mb-20"
         >
           <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
             Let's Grow Your Business{" "}
-            <span className="bg-linear-to-r from-blue-600 via-blue-700 to-blue-800 bg-clip-text text-transparent">
-              Together
-            </span>
+            <span className="text-blue-700">Together</span>
           </h2>
           <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={false}
+            animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
             className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
           >
@@ -225,9 +222,8 @@ const Contact = () => {
         <div className="grid lg:grid-cols-2 gap-12">
           <motion.div
             variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
+            initial={false}
+            animate="visible"
             className="space-y-8"
           >
             <motion.div
@@ -235,7 +231,7 @@ const Contact = () => {
               whileHover={{
                 boxShadow: "0 25px 50px -12px rgba(37, 99, 235, 0.3)",
               }}
-              className="bg-linear-to-br from-blue-600 via-blue-700 to-blue-800 rounded-2xl p-8 text-white shadow-xl text-center md:text-left"
+              className="bg-blue-700 rounded-2xl p-8 text-white shadow-xl text-center md:text-left"
             >
               <h3 className="text-3xl font-bold mb-3">
                 Free Digital Marketing Audit
@@ -253,8 +249,8 @@ const Contact = () => {
                 ].map((item, idx) => (
                   <motion.li
                     key={idx}
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={false}
+                    animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: idx * 0.1 }}
                     className="flex items-center font-medium"
                   >
@@ -279,7 +275,7 @@ const Contact = () => {
                     className="bg-white rounded-2xl p-6 shadow-lg border border-blue-100 text-center md:text-left"
                   >
                     <motion.div
-                      className={`text-3xl mb-4 inline-block p-4 bg-linear-to-br ${info.color} rounded-xl shadow-lg`}
+                      className={`text-3xl mb-4 inline-block p-4 ${info.color} rounded-xl shadow-lg`}
                       whileHover={{ scale: 1.1, rotate: 12 }}
                       transition={{
                         type: "spring",
@@ -320,10 +316,9 @@ const Contact = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={false}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
             className="bg-white rounded-2xl shadow-2xl p-8 border border-blue-100"
           >
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -531,7 +526,7 @@ const Contact = () => {
                 whileTap={{ scale: 0.98 }}
                 type="submit"
                 disabled={loading}
-                className="w-full px-8 py-4 bg-linear-to-r from-blue-600 to-blue-800 text-white font-bold rounded-xl transition-all duration-200 text-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full px-8 py-4 bg-blue-700 text-white font-bold rounded-xl transition-all duration-200 text-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? "Sending..." : "Send Message"}
                 <ArrowRight className="w-5 h-5" />
@@ -559,14 +554,9 @@ const Contact = () => {
                 </motion.div>
               )}
 
-              <motion.p
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                className="text-sm text-gray-500 text-center"
-              >
+              <p className="text-sm text-gray-500 text-center">
                 We'll get back to you within 24 hours
-              </motion.p>
+              </p>
             </form>
           </motion.div>
         </div>

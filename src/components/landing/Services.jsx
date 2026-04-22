@@ -6,321 +6,281 @@ import {
   Database,
   MapPin,
   Code,
-  CheckCircle,
-  ArrowRight,
+  ArrowUpRight,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import SEOOptimizationSVG from "../svgs/SEOOptimizationSVG";
-import DigitalMarketingSVG from "../svgs/DigitalMarketingSVG";
-import GrowthChartSVG from "../svgs/GrowthChartSVG";
-import DataAnalyticsSVG from "../svgs/DataAnalyticsSVG";
 import { trackButtonClick } from "../../services/analytics";
+import StaggerContainer, { StaggerItem } from "../primitives/StaggerContainer";
+import ParallaxLayer from "../primitives/ParallaxLayer";
+import FadeUp from "../primitives/FadeUp";
+
+const ease = [0.22, 1, 0.36, 1];
+
+const SERVICES = [
+  {
+    icon: Bot,
+    num: "01",
+    title: "AI Search + Agents",
+    value: "ai",
+    body: "Get discovered on ChatGPT, Gemini, Perplexity, and Google AI � then convert that attention with custom AI agents.",
+  },
+  {
+    icon: Search,
+    num: "02",
+    title: "SEO & AEO",
+    value: "seo",
+    body: "SEO built for AI indexing and long-term authority � technical, on-page, link building, and AI-ready site structure.",
+  },
+  {
+    icon: MousePointerClick,
+    num: "03",
+    title: "Paid advertising",
+    value: "ppc",
+    body: "Data-driven Google and Meta campaigns that maximize ROI. Full setup, copy, bid management, and reporting.",
+  },
+  {
+    icon: MessageSquare,
+    num: "04",
+    title: "Social media & content",
+    value: "social",
+    body: "Strategy, creation, and community management across Instagram, Facebook, TikTok, and LinkedIn.",
+  },
+  {
+    icon: Database,
+    num: "05",
+    title: "CRM & automation",
+    value: "crm",
+    body: "GoHighLevel pipelines, lead nurturing sequences, and email automation that close deals while you sleep.",
+  },
+  {
+    icon: MapPin,
+    num: "06",
+    title: "Google Business Profile",
+    value: "gmb",
+    body: "Local SEO and GMB optimization to dominate map results and attract nearby customers.",
+  },
+  {
+    icon: Code,
+    num: "07",
+    title: "Web design & development",
+    value: "web",
+    body: "Custom, conversion-focused websites built fast and built to rank � responsive, performant, and on-brand.",
+  },
+];
 
 const Services = () => {
   const navigate = useNavigate();
 
-  const handleServiceClick = (serviceValue) => {
-    navigate(`/?service=${serviceValue}#contact`);
-
+  const handleCTA = (value) => {
+    trackButtonClick(value, "service_card", "Services");
+    navigate(`/?service=${value}#contact`);
     setTimeout(() => {
-      const contactSection = document.getElementById("contact");
-      if (contactSection) {
-        contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
+      document
+        .getElementById("contact")
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 100);
   };
 
-  const services = [
-    {
-      icon: Bot,
-      title: "AI Search + AI Agents",
-      value: "ai",
-      description:
-        "Get discovered across AI platforms and turn attention into leads with custom AI agents.",
-      features: [
-        "AI Search Visibility (ChatGPT/Gemini/Claude/Perplexity)",
-        "AI Agent Chat + Lead Capture",
-        "Knowledge Base + SOP Ingestion",
-        "Conversation Analytics",
-      ],
-      color: "from-blue-600 to-slate-800",
-      illustration: DataAnalyticsSVG,
-      featured: true,
-    },
-    {
-      icon: Search,
-      title: "Search Engine Optimization",
-      value: "seo",
-      description:
-        "SEO built for AI indexing + long-term authority (not just keywords).",
-      features: [
-        "Keyword Research",
-        "On-Page Optimization",
-        "AI-Ready Site Structure",
-        "Link Building",
-        "Technical SEO",
-      ],
-      color: "from-blue-500 to-blue-700",
-      illustration: SEOOptimizationSVG,
-      featured: true,
-    },
-    {
-      icon: MousePointerClick,
-      title: "Pay-Per-Click Advertising",
-      value: "ppc",
-      description: "Maximize ROI with data-driven PPC campaigns that convert.",
-      features: [
-        "Campaign Setup",
-        "Ad Creation",
-        "Bid Management",
-        "Performance Tracking",
-      ],
-      color: "from-blue-600 to-slate-700",
-      illustration: DigitalMarketingSVG,
-      featured: true,
-    },
-    {
-      icon: MessageSquare,
-      title: "Social Media Marketing",
-      value: "social",
-      description:
-        "Build meaningful connections with your audience across all platforms.",
-      features: [
-        "Content Strategy",
-        "Community Management",
-        "Paid Social",
-        "Influencer Marketing",
-      ],
-      color: "from-slate-600 to-slate-800",
-      illustration: GrowthChartSVG,
-      featured: true,
-    },
-    {
-      icon: Database,
-      title: "CRM & Automation",
-      value: "crm",
-      description: "Streamline your processes and nurture leads automatically.",
-      features: [
-        "CRM Setup & Training",
-        "Lead Nurturing",
-        "Email Automation",
-        "Pipeline Management",
-      ],
-      color: "from-blue-500 to-slate-700",
-      featured: false,
-    },
-    {
-      icon: MapPin,
-      title: "Google My Business",
-      value: "gmb",
-      description: "Optimize your local presence and attract nearby customers.",
-      features: [
-        "Profile Optimization",
-        "Review Management",
-        "Local SEO",
-        "Post Management",
-      ],
-      color: "from-slate-700 to-slate-900",
-      featured: false,
-    },
-    {
-      icon: Code,
-      title: "Web Development",
-      value: "web",
-      description:
-        "Create stunning, high-performing websites that drive results.",
-      features: [
-        "Custom Design",
-        "Responsive Development",
-        "E-commerce Solutions",
-        "Performance Optimization",
-      ],
-      color: "from-blue-600 to-slate-800",
-      featured: false,
-    },
-  ];
-
-  const featuredServices = services.filter((s) => s.featured);
-  const additionalServices = services.filter((s) => !s.featured);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  };
-
   return (
-    <section
+    <FadeUp
+      as="section"
       id="services"
-      className="py-20 sm:py-28 md:py-32 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden"
+      style={{ background: "#F5F2EC", padding: "96px 0", overflow: "hidden" }}
     >
-      {/* Subtle background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-32 -right-32 w-64 h-64 bg-blue-100/40 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-32 -left-32 w-64 h-64 bg-blue-100/30 rounded-full blur-3xl"></div>
-      </div>
+      <style>{`
+        .f-disp { font-family: 'Bricolage Grotesque', sans-serif; }
+        .f-body { font-family: 'Inter', sans-serif; }
+        .svc-card:hover { box-shadow: 0 16px 48px rgba(59,111,240,0.12), 0 2px 8px rgba(0,0,0,0.06); }
+      `}</style>
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16 sm:mb-20"
-        >
-          <motion.span
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.1 }}
-            className="inline-block text-sm font-semibold text-blue-600 tracking-widest uppercase mb-4"
-          >
-            Our Services
-          </motion.span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-950 mb-4 sm:mb-6 leading-tight">
-            Complete Digital Marketing{" "}
-            <span className="bg-linear-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
-              Solutions
-            </span>
-          </h2>
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed"
-          >
-            Everything works together as one integrated system—visibility,
-            conversion, and automation.
-          </motion.p>
-        </motion.div>
-
-        {/* Services Grid - All 7 services */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.05 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-5"
-        >
-          {services.map((service, index) => {
-            const IconComponent = service.icon;
-            return (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                whileHover={{
-                  y: -4,
-                  boxShadow: "0 20px 40px -10px rgba(37, 99, 235, 0.12)",
+      <div
+        style={{
+          maxWidth: 1180,
+          margin: "0 auto",
+          padding: "0 clamp(1.5rem, 5vw, 5rem)",
+        }}
+      >
+        {/* Header with parallax depth */}
+        <ParallaxLayer speed={-30}>
+          <div style={{ marginBottom: 56 }}>
+            <p
+              className="f-body"
+              style={{
+                fontSize: 11,
+                fontWeight: 500,
+                color: "#3B6FF0",
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                marginBottom: 14,
+              }}
+            >
+              What we do
+            </p>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-end",
+                justifyContent: "space-between",
+                flexWrap: "wrap",
+                gap: 20,
+              }}
+            >
+              <h2
+                className="f-disp"
+                style={{
+                  margin: 0,
+                  fontSize: "clamp(2rem, 3.5vw, 3.2rem)",
+                  fontWeight: 800,
+                  letterSpacing: "-0.04em",
+                  lineHeight: 1.0,
+                  color: "#0d0d0d",
                 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="group h-full flex flex-col bg-white rounded-2xl border border-slate-200/60 p-6 sm:p-8 shadow-sm hover:shadow-lg transition-all duration-300"
               >
-                {/* Icon Container */}
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ type: "spring", stiffness: 400 }}
-                  className={`inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-linear-to-br ${service.color} mb-5 group-hover:shadow-lg transition-shadow duration-300`}
-                >
-                  <IconComponent className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
-                </motion.div>
-
-                {/* Content */}
-                <h3 className="text-lg sm:text-xl font-bold text-slate-950 mb-2">
-                  {service.title}
-                </h3>
-                <p className="text-sm sm:text-base text-slate-600 mb-5 leading-relaxed flex-grow">
-                  {service.description}
-                </p>
-
-                {/* Quick Features */}
-                <ul className="space-y-2 mb-6 text-xs sm:text-sm">
-                  {service.features.slice(0, 3).map((feature, idx) => (
-                    <motion.li
-                      key={idx}
-                      initial={{ opacity: 0, x: -8 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.05 + idx * 0.03 }}
-                      className="flex items-start gap-2 text-slate-700"
-                    >
-                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-blue-100 mt-0.5 flex-shrink-0">
-                        <span className="w-2 h-2 rounded-full bg-blue-600"></span>
-                      </span>
-                      <span>{feature}</span>
-                    </motion.li>
-                  ))}
-                </ul>
-
-                {/* CTA Button */}
-                <motion.button
-                  onClick={() => handleServiceClick(service.value)}
-                  whileHover={{ x: 2 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full mt-auto pt-5 border-t border-slate-200/50 text-slate-950 font-semibold text-sm sm:text-base flex items-center justify-center gap-2 py-3 group/btn hover:text-blue-600 transition-colors duration-300"
-                >
-                  Learn More
-                  <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                </motion.button>
-              </motion.div>
-            );
-          })}
-        </motion.div>
-
-        {/* CTA Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="mt-16 sm:mt-20 md:mt-24 text-center"
-        >
-          <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 rounded-3xl p-8 sm:p-12 md:p-16 shadow-2xl relative overflow-hidden">
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              <div className="absolute -top-40 -right-40 w-80 h-80 bg-white rounded-full mix-blend-screen filter blur-3xl opacity-5"></div>
-            </div>
-            <div className="relative z-10">
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
-                Ready to get started?
-              </h3>
-              <p className="text-blue-100 text-sm sm:text-base md:text-lg mb-8 max-w-2xl mx-auto">
-                Let's discuss which services are right for your business and
-                create a custom strategy.
-              </p>
+                Our
+                <br />
+                <span style={{ color: "#3B6FF0" }}>Services</span>
+              </h2>
               <motion.a
-                href="#contact"
-                onClick={() =>
-                  trackButtonClick(
-                    "Get Started",
-                    "services_cta_btn",
-                    "Services",
-                  )
-                }
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.96 }}
-                className="inline-flex items-center px-8 sm:px-12 py-4 bg-white text-blue-600 font-bold rounded-xl hover:shadow-2xl transition-all duration-200 text-base sm:text-lg gap-2"
+                href="/services"
+                whileHover={{ x: 4 }}
+                className="f-body"
+                style={{
+                  fontSize: 14,
+                  fontWeight: 500,
+                  color: "#0d0d0d",
+                  textDecoration: "none",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 5,
+                }}
               >
-                Schedule Consultation
-                <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                View all services <ArrowUpRight size={15} />
               </motion.a>
             </div>
           </div>
-        </motion.div>
+        </ParallaxLayer>
+
+        {/* Cards � stagger entry on scroll */}
+        <StaggerContainer
+          stagger={0.07}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+            gap: 20,
+          }}
+        >
+          {SERVICES.map((s) => {
+            const Icon = s.icon;
+            return (
+              <StaggerItem key={s.num}>
+                <motion.div
+                  whileHover={{ y: -6 }}
+                  onClick={() => handleCTA(s.value)}
+                  className="svc-card"
+                  style={{
+                    background: "#fff",
+                    padding: "32px 28px",
+                    cursor: "pointer",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 14,
+                    borderRadius: 2,
+                    height: "100%",
+                    borderTop: "2px solid transparent",
+                    transition: "border-color 0.25s ease",
+                  }}
+                  onHoverStart={(e) => {
+                    e.currentTarget.style.borderTopColor = "#3B6FF0";
+                  }}
+                  onHoverEnd={(e) => {
+                    e.currentTarget.style.borderTopColor = "transparent";
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: 44,
+                        height: 44,
+                        borderRadius: 10,
+                        background: "rgba(59,111,240,0.08)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Icon size={20} color="#3B6FF0" />
+                    </div>
+                    <span
+                      className="f-disp"
+                      style={{
+                        fontSize: 11,
+                        fontWeight: 700,
+                        color: "rgba(0,0,0,0.18)",
+                        letterSpacing: "0.06em",
+                      }}
+                    >
+                      {s.num}
+                    </span>
+                  </div>
+                  <p
+                    className="f-disp"
+                    style={{
+                      margin: 0,
+                      fontSize: "1.05rem",
+                      fontWeight: 700,
+                      letterSpacing: "-0.02em",
+                      color: "#0d0d0d",
+                      lineHeight: 1.25,
+                    }}
+                  >
+                    {s.title}
+                  </p>
+                  <p
+                    className="f-body"
+                    style={{
+                      margin: 0,
+                      fontSize: 13,
+                      color: "rgba(0,0,0,0.42)",
+                      lineHeight: 1.65,
+                    }}
+                  >
+                    {s.body}
+                  </p>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 5,
+                      marginTop: "auto",
+                      paddingTop: 8,
+                    }}
+                  >
+                    <span
+                      className="f-body"
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 500,
+                        color: "#3B6FF0",
+                      }}
+                    >
+                      Learn more
+                    </span>
+                    <ArrowUpRight size={13} color="#3B6FF0" />
+                  </div>
+                </motion.div>
+              </StaggerItem>
+            );
+          })}
+        </StaggerContainer>
       </div>
-    </section>
+    </FadeUp>
   );
 };
 

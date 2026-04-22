@@ -12,7 +12,7 @@ const Button = ({
 
   const variants = {
     primary:
-      "bg-gradient-to-r from-blue-600 to-blue-800 text-white hover:shadow-xl hover:scale-105",
+      "bg-blue-700 text-white hover:shadow-xl hover:scale-105 hover:bg-blue-600",
     secondary:
       "bg-white border-2 border-blue-600 text-blue-600 hover:bg-blue-50",
     outline:

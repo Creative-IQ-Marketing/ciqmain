@@ -120,17 +120,13 @@ const ROWS = [
   {
     group: "Social Media",
     label: "Hashtag Rotation + Story Highlights",
-    values: [false, false, true],
+    values: [false, false, false, true],
   },
 ];
 
 const TIER_COLORS = ["text-slate-700", "text-blue-700", "text-blue-600"];
 
-const TIER_BG = [
-  "bg-white",
-  "bg-blue-50",
-  "bg-gradient-to-b from-blue-600 to-blue-800",
-];
+const TIER_BG = ["bg-white", "bg-blue-50", "bg-blue-700"];
 
 const TIER_TEXT = ["text-slate-900", "text-blue-900", "text-white"];
 
@@ -252,7 +248,7 @@ export default function BundleTable() {
                 </td>
                 {[
                   {
-                    monthly: "$1,777/m",
+                    monthly: "$999/m",
                     oneTime: "$699 one-time",
                     bg: "bg-slate-900",
                   },

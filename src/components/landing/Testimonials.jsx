@@ -61,19 +61,21 @@ const Testimonials = () => {
   };
 
   return (
-    <section id="testimonials" className="py-24 text-slate-950">
+    <section
+      id="testimonials"
+      className="py-24 text-slate-950"
+      style={{ overflow: "hidden" }}
+    >
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <Motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            initial={false}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="space-y-6"
           >
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-950 leading-tight">
-              Here&apos;s what our
-              <span className="block">clients have to say</span>
-              <span className="block">about us.</span>
+              Creative IQ Love
             </h2>
             <p className="text-sm md:text-base text-gray-600 leading-relaxed max-w-md">
               As the trusted partner for growing businesses, our clients&apos;
@@ -82,7 +84,12 @@ const Testimonials = () => {
             </p>
           </Motion.div>
 
-          <div className="md:pl-12 md:border-l md:border-slate-950/10">
+          <Motion.div
+            className="md:pl-12 md:border-l md:border-slate-950/10"
+            initial={false}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          >
             <AnimatePresence mode="wait">
               <Motion.div
                 key={currentIndex}
@@ -131,7 +138,7 @@ const Testimonials = () => {
                 </div>
               </Motion.div>
             </AnimatePresence>
-          </div>
+          </Motion.div>
         </div>
       </div>
     </section>
