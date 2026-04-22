@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { trackButtonClick } from "../../services/analytics";
 import StaggerContainer, { StaggerItem } from "../primitives/StaggerContainer";
 import ParallaxLayer from "../primitives/ParallaxLayer";
@@ -31,6 +32,7 @@ const POINTS = [
 ];
 
 export default function About() {
+  const navigate = useNavigate();
   return (
     <FadeUp
       as="section"
@@ -120,11 +122,11 @@ export default function About() {
               SEO, web design, CRM automation, and social media all engineered
               to grow your revenue.
             </p>
-            <motion.a
-              href="#contact"
-              onClick={() =>
-                trackButtonClick("About CTA", "about_cta", "About")
-              }
+            <motion.button
+              onClick={() => {
+                trackButtonClick("About CTA", "about_cta", "About");
+                navigate("/contact");
+              }}
               whileHover={{ x: 4 }}
               whileTap={{ scale: 0.97 }}
               className="f-body"
@@ -135,11 +137,14 @@ export default function About() {
                 fontSize: 14,
                 fontWeight: 500,
                 color: "#0d0d0d",
-                textDecoration: "none",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: 0,
               }}
             >
               Schedule a free consultation <ArrowUpRight size={15} />
-            </motion.a>
+            </motion.button>
           </div>
         </ParallaxLayer>
 

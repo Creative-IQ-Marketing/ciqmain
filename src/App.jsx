@@ -17,6 +17,7 @@ import SEO from "./components/SEO";
 import StructuredData from "./components/StructuredData";
 import ContactPopup from "./components/ContactPopup";
 import ServicesPage from "./pages/ServicesPage";
+import ContactPage from "./pages/ContactPage";
 import { initializeAnalytics } from "./services/analytics";
 
 function Layout() {
@@ -66,6 +67,7 @@ function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/services" element={<ServicesPage />} />
+        <Route path="/contact" element={<ContactPage />} />
       </Route>
     </Routes>
   );

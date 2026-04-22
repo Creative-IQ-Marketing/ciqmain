@@ -6,6 +6,7 @@
   useSpring,
 } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { trackButtonClick } from "../../services/analytics";
 
 const ease = [0.22, 1, 0.36, 1];
@@ -19,6 +20,7 @@ const PHOTOS = [
 ];
 
 export default function Hero() {
+  const navigate = useNavigate();
   const [active, setActive] = useState(0);
   const timerRef = useRef(null);
   const sectionRef = useRef(null);
@@ -359,8 +361,11 @@ export default function Hero() {
               marginBottom: 72,
             }}
           >
-            <motion.a
-              href="#contact"
+            <motion.button
+              onClick={() => {
+                trackButtonClick("Start a project", "hero_cta", "Hero");
+                navigate("/contact");
+              }}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.97 }}
               className="f-body"
@@ -371,14 +376,15 @@ export default function Hero() {
                 color: "#fff",
                 padding: "14px 30px",
                 borderRadius: 99,
-                textDecoration: "none",
+                border: "none",
+                cursor: "pointer",
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 7,
               }}
             >
               Start a project
-            </motion.a>
+            </motion.button>
             <motion.a
               href="#services"
               whileHover={{ scale: 1.02, y: -1 }}

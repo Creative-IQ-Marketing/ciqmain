@@ -1,5 +1,6 @@
 ﻿import { motion } from "framer-motion";
 import { Check } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const ROWS = [
   {
@@ -144,6 +145,7 @@ function TableRow({ feature, replaces, cost, index }) {
 }
 
 export default function GHLValueTable() {
+  const navigate = useNavigate();
   return (
     <section
       id="ciq-value"
@@ -225,8 +227,8 @@ export default function GHLValueTable() {
         >
           Take your marketing to the next level!
         </span>
-        <a
-          href="#contact"
+        <button
+          onClick={() => navigate("/contact")}
           style={{
             display: "inline-flex",
             flexDirection: "column",
@@ -236,7 +238,8 @@ export default function GHLValueTable() {
             fontFamily: "'Inter', sans-serif",
             padding: "10px 24px",
             borderRadius: 6,
-            textDecoration: "none",
+            border: "none",
+            cursor: "pointer",
             flexShrink: 0,
             boxShadow: "0 4px 12px rgba(251,191,36,0.3)",
           }}
@@ -254,7 +257,7 @@ export default function GHLValueTable() {
           <span style={{ fontSize: "9px", fontWeight: 500, opacity: 1 }}>
             No obligation, cancel at any time
           </span>
-        </a>
+        </button>
       </div>
 
       {/* Main content */}
@@ -464,8 +467,8 @@ export default function GHLValueTable() {
             marginTop: "40px",
           }}
         >
-          <a
-            href="#contact"
+          <button
+            onClick={() => navigate("/contact")}
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -477,15 +480,15 @@ export default function GHLValueTable() {
               fontFamily: "'Inter', sans-serif",
               fontSize: "13px",
               fontWeight: 700,
-              textDecoration: "none",
-              boxShadow: "0 8px 24px rgba(30,64,175,0.4)",
               border: "1px solid rgba(255,255,255,0.1)",
+              cursor: "pointer",
+              boxShadow: "0 8px 24px rgba(30,64,175,0.4)",
               textTransform: "uppercase",
               letterSpacing: "0.04em",
             }}
           >
             Start Your Free Trial
-          </a>
+          </button>
           <p
             style={{
               fontFamily: "'Inter', sans-serif",

@@ -4,15 +4,15 @@ import { Menu, X, Phone } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import mainLogo from "../../assets/mainLogo.png";
 import { trackButtonClick } from "../../services/analytics";
+import { saveAndCall } from "../../utils/vcard";
 
 const ease = [0.22, 1, 0.36, 1];
 
 const NAV = [
+  { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
-  { label: "Work", href: "#about" },
-  { label: "About", href: "#about" },
   { label: "Pricing", href: "/services#bundles" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Header() {
@@ -148,16 +148,25 @@ export default function Header() {
 
             {/* CTAs */}
             <div className="hidden md:flex items-center gap-2.5 shrink-0 ml-auto pl-4">
-              <motion.a
-                href="tel:2108380177"
+              <motion.button
+                onClick={() => {
+                  trackButtonClick("Call CTA", "header_call", "Header");
+                  saveAndCall();
+                }}
                 transition={{ delay: 0.36 }}
                 className="px-7 py-3.5 text-[0.9rem] font-semibold rounded-full bg-[#3B6FF0] text-white hover:bg-[#3B6FF0] transition-colors duration-250 shadow-sm"
+                style={{ border: "none", cursor: "pointer" }}
+                aria-label="Save CreativeIQ contact and call"
               >
                 <span>
-                  <Phone size={16} className="inline-block -mt-0.5 mr-2.5" />
+                  <Phone
+                    size={16}
+                    className="inline-block -mt-0.5 mr-2.5"
+                    aria-hidden="true"
+                  />
                 </span>
                 Call us
-              </motion.a>
+              </motion.button>
               <motion.a
                 href="#contact"
                 onClick={(e) => {
