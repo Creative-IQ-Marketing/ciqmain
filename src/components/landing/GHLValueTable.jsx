@@ -57,7 +57,7 @@ const ROWS = [
 function TableRow({ feature, replaces, cost, index }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
+      initial={{ opacity: 1, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0 }}
       transition={{ duration: 0.35, delay: index * 0.04 }}
@@ -85,7 +85,9 @@ function TableRow({ feature, replaces, cost, index }) {
             color: "#ffffff",
             lineHeight: 1.3,
             display: "block",
-            wordWrap: "break-word",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
           }}
         >
           {feature}
@@ -102,7 +104,7 @@ function TableRow({ feature, replaces, cost, index }) {
             color: "#cbd5e1",
             lineHeight: 1.5,
             display: "block",
-            wordWrap: "break-word",
+            whiteSpace: "nowrap",
           }}
         >
           {replaces.join(", ")}
@@ -120,6 +122,7 @@ function TableRow({ feature, replaces, cost, index }) {
             letterSpacing: "0.04em",
             textTransform: "uppercase",
             display: "block",
+            whiteSpace: "nowrap",
           }}
         >
           {cost}/mo
@@ -150,38 +153,47 @@ export default function GHLValueTable() {
         overflow: "hidden",
       }}
     >
-      {/* Responsive adjustments */}
+      {/* Responsive adjustments with horizontal scroll */}
       <style>{`
+        .ghl-table-scroll-container {
+          overflow-x: auto;
+          overflow-y: visible;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: thin;
+          scrollbar-color: rgba(0,217,255,0.3) rgba(255,255,255,0.05);
+        }
+        .ghl-table-scroll-container::-webkit-scrollbar {
+          height: 6px;
+        }
+        .ghl-table-scroll-container::-webkit-scrollbar-track {
+          background: rgba(255,255,255,0.05);
+          border-radius: 3px;
+        }
+        .ghl-table-scroll-container::-webkit-scrollbar-thumb {
+          background: rgba(0,217,255,0.3);
+          border-radius: 3px;
+        }
+        .ghl-table-scroll-container::-webkit-scrollbar-thumb:hover {
+          background: rgba(0,217,255,0.5);
+        }
         @media (max-width: 900px) {
-          [data-ghl-row] {
-            grid-template-columns: 1.5fr 1.5fr 1fr 60px !important;
-            padding: 16px 18px !important;
-            gap: 12px !important;
+          .ghl-table-inner {
+            min-width: 800px;
           }
-          [data-ghl-row] span {
-            font-size: 12px !important;
+          [data-ghl-row] {
+            grid-template-columns: 2fr 2.5fr 1.5fr 80px !important;
+            padding: 16px 18px !important;
+            gap: 16px !important;
           }
         }
         @media (max-width: 640px) {
+          .ghl-table-inner {
+            min-width: 700px;
+          }
           [data-ghl-row] {
-            grid-template-columns: 1fr 60px !important;
-            padding: 14px 12px !important;
-            gap: 8px !important;
-          }
-          [data-ghl-feature] {
-            grid-column: 1;
-            padding-bottom: 8px;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-          }
-          [data-ghl-replaces] {
-            display: none !important;
-          }
-          [data-ghl-cost] {
-            display: none !important;
-          }
-          [data-ghl-check] {
-            grid-column: 2;
-            grid-row: 1 / 3;
+            grid-template-columns: 1.8fr 2.2fr 1.3fr 70px !important;
+            padding: 14px 16px !important;
+            gap: 12px !important;
           }
         }
       `}</style>
@@ -239,7 +251,7 @@ export default function GHLValueTable() {
           >
             14 Day Free Trial
           </span>
-          <span style={{ fontSize: "9px", fontWeight: 500, opacity: 0.8 }}>
+          <span style={{ fontSize: "9px", fontWeight: 500, opacity: 1 }}>
             No obligation, cancel at any time
           </span>
         </a>
@@ -258,7 +270,7 @@ export default function GHLValueTable() {
         {/* Heading */}
         <div style={{ textAlign: "center", marginBottom: "50px" }}>
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 1, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6 }}
@@ -276,161 +288,174 @@ export default function GHLValueTable() {
           </motion.h2>
         </div>
 
-        {/* Column headers */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "2fr 2fr 1.5fr 80px",
-            gap: 24,
-            padding: "0 24px 20px",
-            borderBottom: "1px solid rgba(255,255,255,0.1)",
-            marginBottom: 16,
-          }}
-        >
-          <span
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: "11px",
-              fontWeight: 900,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              color: "#cbd5e1",
-            }}
-          >
-            Features
-          </span>
-          <span
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: "11px",
-              fontWeight: 900,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              color: "#cbd5e1",
-            }}
-          >
-            Replaces
-          </span>
-          <span
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: "11px",
-              fontWeight: 900,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              color: "#cbd5e1",
-            }}
-          >
-            Other tools
-          </span>
-          <span
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: "11px",
-              fontWeight: 900,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              color: "#cbd5e1",
-              textAlign: "center",
-            }}
-          >
-            CIQ&apos;s CRM
-          </span>
+        {/* Scrollable table container */}
+        <div className="ghl-table-scroll-container">
+          <div className="ghl-table-inner">
+            {/* Column headers */}
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "2fr 2fr 1.5fr 80px",
+                gap: 24,
+                padding: "0 24px 20px",
+                borderBottom: "1px solid rgba(255,255,255,0.1)",
+                marginBottom: 16,
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "11px",
+                  fontWeight: 900,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: "#cbd5e1",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                Features
+              </span>
+              <span
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "11px",
+                  fontWeight: 900,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: "#cbd5e1",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                Replaces
+              </span>
+              <span
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "11px",
+                  fontWeight: 900,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: "#cbd5e1",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                Cost
+              </span>
+              <span
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "11px",
+                  fontWeight: 900,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: "#cbd5e1",
+                  textAlign: "center",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                CIQ&apos;s CRM
+              </span>
+            </div>
+
+            {/* Data rows */}
+            {ROWS.map((row, i) => (
+              <div
+                key={row.feature}
+                data-ghl-row
+                style={{ display: "contents" }}
+              >
+                <TableRow {...row} index={i} />
+              </div>
+            ))}
+
+            {/* Overall price row */}
+            <motion.div
+              initial={{ opacity: 1, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "2fr 2fr 1.5fr 80px",
+                alignItems: "center",
+                background: "rgba(0,80,200,0.15)",
+                border: "2px solid rgba(0,150,255,0.2)",
+                borderRadius: 12,
+                padding: "22px 24px",
+                gap: 24,
+                marginTop: 16,
+              }}
+            >
+              <div />
+              <div>
+                <span
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: "11px",
+                    fontWeight: 900,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: "#00d9ff",
+                    display: "block",
+                  }}
+                >
+                  Overall Price
+                </span>
+              </div>
+              <div>
+                <span
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: "13px",
+                    fontWeight: 700,
+                    color: "#cbd5e1",
+                    textDecoration: "line-through",
+                    display: "block",
+                  }}
+                >
+                  $13,050/mo
+                </span>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: "32px",
+                    fontWeight: 900,
+                    color: "#00d9ff",
+                    letterSpacing: "-0.03em",
+                    lineHeight: 1,
+                  }}
+                >
+                  $99
+                </span>
+                <span
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: "10px",
+                    color: "#64748b",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.06em",
+                    marginTop: 4,
+                  }}
+                >
+                  /mo
+                </span>
+              </div>
+            </motion.div>
+          </div>
         </div>
-
-        {/* Data rows */}
-        {ROWS.map((row, i) => (
-          <div key={row.feature} data-ghl-row style={{ display: "contents" }}>
-            <TableRow {...row} index={i} />
-          </div>
-        ))}
-
-        {/* Overall price row */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          style={{
-            display: "grid",
-            gridTemplateColumns: "2fr 2fr 1.5fr 80px",
-            alignItems: "center",
-            background: "rgba(0,80,200,0.15)",
-            border: "2px solid rgba(0,150,255,0.2)",
-            borderRadius: 12,
-            padding: "22px 24px",
-            gap: 24,
-            marginTop: 16,
-          }}
-        >
-          <div />
-          <div>
-            <span
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: "11px",
-                fontWeight: 900,
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-                color: "#00d9ff",
-                display: "block",
-              }}
-            >
-              Overall Price
-            </span>
-          </div>
-          <div>
-            <span
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: "13px",
-                fontWeight: 700,
-                color: "#cbd5e1",
-                textDecoration: "line-through",
-                display: "block",
-              }}
-            >
-              $13,050/mo
-            </span>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: "32px",
-                fontWeight: 900,
-                color: "#00d9ff",
-                letterSpacing: "-0.03em",
-                lineHeight: 1,
-              }}
-            >
-              $999
-            </span>
-            <span
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: "10px",
-                color: "#64748b",
-                textTransform: "uppercase",
-                letterSpacing: "0.06em",
-                marginTop: 4,
-              }}
-            >
-              /mo
-            </span>
-          </div>
-        </motion.div>
 
         {/* CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 1, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}

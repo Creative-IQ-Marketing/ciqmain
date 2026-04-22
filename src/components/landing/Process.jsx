@@ -1,497 +1,743 @@
-import { useRef, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+﻿import { useRef } from "react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 
 const STEPS = [
   {
     num: "01",
-    tag: "Diagnose",
-    title: "Audit what is blocking growth",
-    body: "We review your website, search visibility, paid traffic, messaging, and follow-up flow to find the exact places revenue is leaking.",
-    outputs: ["traffic audit", "offer clarity", "tracking plan"],
-    stat: "48-72 hour audit",
-    accent: "#2563EB",
-    accentRgb: "37,99,235",
-    surface: "rgba(232,240,255,0.92)",
+    tag: "Intelligence",
+    title: "We find what your market has not said yet",
+    body: "Behavioral signals, search intent, competitor blind spots. We surface the pattern your audience is already broadcasting before rivals turn toward it.",
+    outputs: ["search intent map", "audience signals", "gap analysis"],
+    kicker: "The signal before the market moves",
+    accent: "#1d4ed8",
+    accentSoft: "rgba(29,78,216,0.12)",
+    panel: "linear-gradient(180deg, #f8fbff 0%, #eef4ff 100%)",
   },
   {
     num: "02",
-    tag: "Architect",
-    title: "Build the right marketing system",
-    body: "We turn the findings into a focused acquisition plan across SEO, paid media, content, CRM, and conversion paths that actually support each other.",
-    outputs: ["90-day roadmap", "channel priorities", "crm logic"],
-    stat: "Roadmap approved fast",
-    accent: "#1D4ED8",
-    accentRgb: "29,78,216",
-    surface: "rgba(238,244,255,0.95)",
+    tag: "Strategy",
+    title: "A growth system built around your unfair advantage",
+    body: "Not a generic funnel. A precise acquisition architecture tuned to your offer, margin, and the channels that can actually compound instead of just spending harder.",
+    outputs: ["acquisition blueprint", "channel stack", "margin model"],
+    kicker: "Precision over volume",
+    accent: "#b91c1c",
+    accentSoft: "rgba(185,28,28,0.12)",
+    panel: "linear-gradient(180deg, #fff8f8 0%, #fff0f0 100%)",
   },
   {
     num: "03",
-    tag: "Launch",
-    title: "Ship assets that move revenue",
-    body: "Pages, campaigns, automations, reporting, and follow-up get launched as one connected system instead of separate deliverables that never talk.",
-    outputs: ["site live", "ads active", "automation live"],
-    stat: "Launch in 14 days",
-    accent: "#0F172A",
-    accentRgb: "15,23,42",
-    surface: "rgba(244,246,249,0.96)",
+    tag: "Execution",
+    title: "Launched as one machine, not ten loose parts",
+    body: "Copy, creative, campaigns, CRM, and tracking go live as one connected system. Every touchpoint is coordinated. Every dollar has attribution. Every step has a purpose.",
+    outputs: ["full stack live", "attribution set", "creative suite"],
+    kicker: "Ship in 14 days flat",
+    accent: "#047857",
+    accentSoft: "rgba(4,120,87,0.12)",
+    panel: "linear-gradient(180deg, #f6fffb 0%, #ebfff6 100%)",
   },
   {
     num: "04",
-    tag: "Optimize",
-    title: "Scale what is already winning",
-    body: "Once the system is live, we tighten the message, reallocate spend, improve conversion points, and expand what is producing the best return.",
-    outputs: ["weekly testing", "clear reporting", "budget shifts"],
-    stat: "Monthly compounding gains",
-    accent: "#1E40AF",
-    accentRgb: "30,64,175",
-    surface: "rgba(233,241,255,0.92)",
+    tag: "Compounding",
+    title: "The longer we run, the harder it gets to beat you",
+    body: "Weekly intelligence loops feed better creative, tighter targeting, sharper spend allocation, and a brand moat that gets more difficult to copy every month.",
+    outputs: ["weekly intel loop", "creative rotation", "spend reallocation"],
+    kicker: "Compounding, not maintenance",
+    accent: "#6d28d9",
+    accentSoft: "rgba(109,40,217,0.12)",
+    panel: "linear-gradient(180deg, #fbf8ff 0%, #f3ecff 100%)",
   },
 ];
 
-const DOT_PATTERN =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E%3Ccircle cx='1.5' cy='1.5' r='1.1' fill='rgba(15,23,42,0.16)'/%3E%3C/svg%3E\")";
+const PROCESS_STYLES = `
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+  .process-shell {
+    position: relative;
+    background:
+      radial-gradient(circle at 20% 12%, rgba(29,78,216,0.08), transparent 34%),
+      radial-gradient(circle at 82% 76%, rgba(109,40,217,0.08), transparent 28%),
+      linear-gradient(180deg, #ffffff 0%, #f6f7fb 100%);
+  }
+
+  .process-shell::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, rgba(15,23,42,0.055) 1px, transparent 1px);
+    background-size: 32px 32px;
+    opacity: 0.35;
+  }
+
+  .process-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(220px, 0.75fr);
+    gap: clamp(1.5rem, 2.8vw, 2.5rem);
+  }
+
+  @media (max-width: 900px) {
+    .process-card {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .process-step-band {
+      padding-top: 1.1rem !important;
+      padding-bottom: 1.1rem !important;
+    }
+
+    .process-stage {
+      padding-top: 11.5rem !important;
+    }
+
+    .process-step-card {
+      width: min(94vw, 760px) !important;
+      min-height: 420px !important;
+    }
+  }
+`;
+
+function ProcessCard({ step, index, scrollYProgress, reduceMotion }) {
+  const total = STEPS.length;
+  const start = index / total;
+  const end = (index + 1) / total;
+  const localStart = Math.max(0, start - 0.08);
+  const localMid = start + 0.11;
+  const localEnd = Math.min(1, end + 0.12);
+
+  const y = useTransform(
+    scrollYProgress,
+    [localStart, localMid, localEnd],
+    reduceMotion ? [0, 0, -index * 18] : [360, 0, -index * 22],
+  );
+  const scale = useTransform(
+    scrollYProgress,
+    [localStart, localMid, localEnd],
+    reduceMotion ? [1, 1, 1 - index * 0.03] : [0.94, 1, 1 - index * 0.045],
+  );
+  const rotateX = useTransform(
+    scrollYProgress,
+    [localStart, localMid, localEnd],
+    reduceMotion ? [0, 0, 0] : [12, 0, index * 2.2],
+  );
+  const opacity = useTransform(
+    scrollYProgress,
+    [localStart, localMid, localEnd],
+    [index === 0 ? 1 : 0.6, 1, Math.max(0.32, 1 - index * 0.16)],
+  );
+  const shadowLift = useTransform(
+    scrollYProgress,
+    [localStart, localMid, localEnd],
+    [0.2, 1, 0.45],
+  );
+
+  return (
+    <motion.article
+      className="process-step-card"
+      style={{
+        position: "absolute",
+        left: "50%",
+        bottom: 0,
+        x: "-50%",
+        y,
+        scale,
+        rotateX,
+        opacity,
+        width: "min(92vw, 1080px)",
+        minHeight: "min(58vh, 520px)",
+        transformStyle: "preserve-3d",
+        transformOrigin: "50% 100%",
+        willChange: "transform, opacity",
+        zIndex: total - index,
+      }}
+    >
+      <motion.div
+        style={{
+          borderRadius: 30,
+          overflow: "hidden",
+          background: step.panel,
+          border: "1px solid rgba(15,23,42,0.08)",
+          boxShadow: useTransform(
+            shadowLift,
+            (value) =>
+              `0 24px 40px rgba(15,23,42,${0.08 + value * 0.06}), 0 70px 110px rgba(15,23,42,${0.08 + value * 0.12})`,
+          ),
+        }}
+      >
+        <div
+          className="process-step-band"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 16,
+            padding: "clamp(1rem, 1.8vw, 1.3rem) clamp(1.2rem, 2.8vw, 2rem)",
+            background: `linear-gradient(90deg, ${step.accent} 0%, ${step.accent}cc 100%)`,
+            color: "#ffffff",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 12,
+              flexWrap: "wrap",
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: "0.67rem",
+                fontWeight: 700,
+                letterSpacing: "0.24em",
+                textTransform: "uppercase",
+                opacity: 0.86,
+              }}
+            >
+              {step.tag}
+            </span>
+            <span
+              style={{
+                width: 1,
+                height: 14,
+                background: "rgba(255,255,255,0.28)",
+              }}
+            />
+            <span
+              style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: "0.7rem",
+                fontWeight: 600,
+                letterSpacing: "0.1em",
+                opacity: 0.74,
+              }}
+            >
+              Step {step.num}
+            </span>
+          </div>
+          <span
+            style={{
+              fontFamily: "'Syne', sans-serif",
+              fontSize: "clamp(1.8rem, 4.2vw, 3.8rem)",
+              fontWeight: 800,
+              lineHeight: 1,
+              color: "rgba(255,255,255,0.3)",
+              flexShrink: 0,
+            }}
+          >
+            {step.num}
+          </span>
+        </div>
+
+        <div
+          className="process-card"
+          style={{
+            padding: "clamp(1.4rem, 3vw, 2.4rem)",
+            alignItems: "stretch",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "clamp(1rem, 2vw, 1.3rem)",
+            }}
+          >
+            <span
+              style={{
+                alignSelf: "flex-start",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "7px 14px",
+                borderRadius: 999,
+                background: step.accentSoft,
+                color: step.accent,
+                border: `1px solid ${step.accent}26`,
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: "0.66rem",
+                fontWeight: 700,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+              }}
+            >
+              <span
+                style={{
+                  width: 7,
+                  height: 7,
+                  borderRadius: "50%",
+                  background: step.accent,
+                  boxShadow: `0 0 0 4px ${step.accentSoft}`,
+                }}
+              />
+              {step.kicker}
+            </span>
+
+            <h3
+              style={{
+                margin: 0,
+                fontFamily: "'Syne', sans-serif",
+                fontSize: "clamp(1.7rem, 3.5vw, 3.2rem)",
+                lineHeight: 0.98,
+                letterSpacing: "-0.05em",
+                color: "#0f172a",
+                maxWidth: "16ch",
+              }}
+            >
+              {step.title}
+            </h3>
+
+            <p
+              style={{
+                margin: 0,
+                maxWidth: 620,
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: "clamp(0.96rem, 1.45vw, 1.08rem)",
+                lineHeight: 1.7,
+                color: "rgba(15,23,42,0.68)",
+              }}
+            >
+              {step.body}
+            </p>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              gap: 18,
+            }}
+          >
+            <div
+              style={{
+                padding: "1rem 1.1rem",
+                borderRadius: 22,
+                background: "rgba(255,255,255,0.72)",
+                border: "1px solid rgba(15,23,42,0.08)",
+                backdropFilter: "blur(16px)",
+              }}
+            >
+              <p
+                style={{
+                  margin: 0,
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontSize: "0.62rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.22em",
+                  textTransform: "uppercase",
+                  color: "rgba(15,23,42,0.42)",
+                }}
+              >
+                What ships here
+              </p>
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: 8,
+                  marginTop: 14,
+                }}
+              >
+                {step.outputs.map((item) => (
+                  <span
+                    key={item}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 8,
+                      padding: "8px 13px",
+                      borderRadius: 999,
+                      background: "#ffffff",
+                      border: "1px solid rgba(15,23,42,0.08)",
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontSize: "0.74rem",
+                      fontWeight: 600,
+                      color: "#0f172a",
+                    }}
+                  >
+                    <span
+                      style={{
+                        width: 7,
+                        height: 7,
+                        borderRadius: "50%",
+                        background: step.accent,
+                        flexShrink: 0,
+                      }}
+                    />
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: 12,
+              }}
+            >
+              <div
+                style={{
+                  borderRadius: 20,
+                  padding: "1rem",
+                  background: "rgba(255,255,255,0.66)",
+                  border: "1px solid rgba(15,23,42,0.08)",
+                }}
+              >
+                <p
+                  style={{
+                    margin: 0,
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: "0.58rem",
+                    fontWeight: 700,
+                    letterSpacing: "0.2em",
+                    textTransform: "uppercase",
+                    color: "rgba(15,23,42,0.4)",
+                  }}
+                >
+                  Focus
+                </p>
+                <p
+                  style={{
+                    margin: "0.55rem 0 0",
+                    fontFamily: "'Syne', sans-serif",
+                    fontSize: "0.98rem",
+                    lineHeight: 1.15,
+                    letterSpacing: "-0.03em",
+                    color: "#0f172a",
+                  }}
+                >
+                  {step.tag}
+                </p>
+              </div>
+              <div
+                style={{
+                  borderRadius: 20,
+                  padding: "1rem",
+                  background: step.accentSoft,
+                  border: `1px solid ${step.accent}24`,
+                }}
+              >
+                <p
+                  style={{
+                    margin: 0,
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: "0.58rem",
+                    fontWeight: 700,
+                    letterSpacing: "0.2em",
+                    textTransform: "uppercase",
+                    color: "rgba(15,23,42,0.4)",
+                  }}
+                >
+                  Outcome
+                </p>
+                <p
+                  style={{
+                    margin: "0.55rem 0 0",
+                    fontFamily: "'Syne', sans-serif",
+                    fontSize: "0.98rem",
+                    lineHeight: 1.15,
+                    letterSpacing: "-0.03em",
+                    color: step.accent,
+                  }}
+                >
+                  {step.kicker}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </motion.article>
+  );
+}
+
+function StepMarkers({ scrollYProgress }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 10,
+        flexWrap: "wrap",
+      }}
+    >
+      {STEPS.map((step, index) => {
+        const total = STEPS.length;
+        const start = index / total;
+        const end = (index + 1) / total;
+        const fill = useTransform(scrollYProgress, [start, end], [0, 1]);
+        const opacity = useTransform(scrollYProgress, [start, end], [0.35, 1]);
+
+        return (
+          <div
+            key={step.num}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+            }}
+          >
+            <motion.div
+              style={{
+                width: 42,
+                height: 42,
+                borderRadius: 999,
+                background: "rgba(255,255,255,0.82)",
+                border: "1px solid rgba(15,23,42,0.08)",
+                display: "grid",
+                placeItems: "center",
+                color: step.accent,
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: "0.72rem",
+                fontWeight: 700,
+                opacity,
+                boxShadow: useTransform(fill, (value) =>
+                  value > 0.55
+                    ? `0 10px 24px ${step.accentSoft}`
+                    : "0 0 0 rgba(0,0,0,0)",
+                ),
+              }}
+            >
+              {step.num}
+            </motion.div>
+            {index < STEPS.length - 1 ? (
+              <motion.div
+                style={{
+                  width: "clamp(24px, 5vw, 52px)",
+                  height: 2,
+                  borderRadius: 999,
+                  background: useTransform(
+                    fill,
+                    (value) =>
+                      `linear-gradient(90deg, ${step.accent} ${Math.max(4, value * 100)}%, rgba(15,23,42,0.12) ${Math.max(4, value * 100)}%)`,
+                  ),
+                }}
+              />
+            ) : null}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 export default function Process() {
   const sectionRef = useRef(null);
-  const stickyRef = useRef(null);
+  const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
   });
 
-  // Fix iOS Safari 100vh — set exact pixel height on mount
-  useEffect(() => {
-    if (stickyRef.current) {
-      stickyRef.current.style.height = `${window.innerHeight}px`;
-    }
-  }, []);
-
-  return (
-    <section
-      id="process"
-      ref={sectionRef}
-      style={{
-        position: "relative",
-        height: "500vh",
-        background: "#f5f1e8",
-      }}
-    >
-      <div
-        ref={stickyRef}
-        style={{
-          position: "sticky",
-          top: 0,
-          height: "100vh",
-          overflow: "hidden",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        {/* Dot pattern */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            opacity: 0.4,
-            backgroundImage: DOT_PATTERN,
-            backgroundSize: "18px 18px",
-            pointerEvents: "none",
-            zIndex: 0,
-          }}
-        />
-
-        <BackdropOrbs scrollYProgress={scrollYProgress} />
-
-        {/* Header */}
-        <div
-          style={{
-            position: "relative",
-            zIndex: 2,
-            flexShrink: 0,
-            textAlign: "center",
-            padding:
-              "clamp(2.5rem, 5vh, 4.5rem) clamp(1rem, 4vw, 3rem) clamp(1rem, 2.5vh, 2rem)",
-          }}
-        >
-          <p
-            style={{
-              margin: 0,
-              fontFamily: "Inter, sans-serif",
-              fontSize: "0.68rem",
-              fontWeight: 700,
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              color: "#2563EB",
-            }}
-          >
-            How we work
-          </p>
-          <h2
-            style={{
-              margin: "12px 0 0",
-              fontFamily: "Bricolage Grotesque, sans-serif",
-              fontSize: "clamp(1.75rem, 4vw, 3.75rem)",
-              fontWeight: 800,
-              letterSpacing: "-0.05em",
-              lineHeight: 1.08,
-              color: "#101828",
-            }}
-          >
-            Every service layer earns its place.
-          </h2>
-        </div>
-
-        {/* 3D Card Stage — flex: 1 fills space between header and progress */}
-        <div
-          style={{
-            position: "relative",
-            flex: 1,
-            overflow: "hidden",
-            zIndex: 3,
-          }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              perspective: "1400px",
-              perspectiveOrigin: "50% 50%",
-            }}
-          >
-            {STEPS.map((step, index) => (
-              <SliderCard
-                key={step.num}
-                step={step}
-                index={index}
-                total={STEPS.length}
-                scrollYProgress={scrollYProgress}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Step progress dots */}
-        <div
-          style={{
-            position: "relative",
-            zIndex: 4,
-            flexShrink: 0,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "clamp(1.5rem, 4vw, 3rem)",
-            padding:
-              "clamp(1.25rem, 3vh, 2rem) 1rem clamp(1.75rem, 4vh, 3rem)",
-          }}
-        >
-          {STEPS.map((step, index) => (
-            <StepDot
-              key={step.num}
-              step={step}
-              index={index}
-              total={STEPS.length}
-              scrollYProgress={scrollYProgress}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
+  const headingY = useTransform(
+    scrollYProgress,
+    [0, 0.14],
+    [0, reduceMotion ? 0 : -16],
   );
-}
-
-function BackdropOrbs({ scrollYProgress }) {
-  const blueX = useTransform(scrollYProgress, [0, 1], [0, 180]);
-  const blueY = useTransform(scrollYProgress, [0, 1], [0, 100]);
-  const darkX = useTransform(scrollYProgress, [0, 1], [0, -140]);
-  const darkY = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const headingOpacity = useTransform(scrollYProgress, [0, 0.12], [1, 0.9]);
+  const stageOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.08, 1],
+    [0.88, 1, 1],
+  );
 
   return (
     <>
-      <motion.div
+      <style>{PROCESS_STYLES}</style>
+      <section
+        id="process"
+        ref={sectionRef}
+        className="process-shell"
+        aria-label="CreativeIQ process"
         style={{
-          position: "absolute",
-          left: "12%",
-          top: "22%",
-          x: blueX,
-          y: blueY,
-          width: "clamp(220px, 32vw, 420px)",
-          height: "clamp(220px, 32vw, 420px)",
-          borderRadius: "50%",
-          background: "rgba(37,99,235,0.1)",
-          filter: "blur(100px)",
-          translate: "-50% -50%",
-          pointerEvents: "none",
-          zIndex: 1,
-        }}
-      />
-      <motion.div
-        style={{
-          position: "absolute",
-          left: "80%",
-          top: "72%",
-          x: darkX,
-          y: darkY,
-          width: "clamp(200px, 28vw, 360px)",
-          height: "clamp(200px, 28vw, 360px)",
-          borderRadius: "50%",
-          background: "rgba(15,23,42,0.07)",
-          filter: "blur(90px)",
-          translate: "-50% -50%",
-          pointerEvents: "none",
-          zIndex: 1,
-        }}
-      />
-    </>
-  );
-}
-
-function SliderCard({ step, index, total, scrollYProgress }) {
-  const seg = 1 / total;
-  const segStart = index * seg;
-  const segEnd = (index + 1) * seg;
-  const segMid = (segStart + segEnd) / 2;
-  const t = seg * 0.45;
-
-  // Keyframe points along scrollYProgress
-  const pts = [
-    Math.max(0, segStart - t),
-    segStart + t * 0.4,
-    segMid,
-    segEnd - t * 0.4,
-    Math.min(1, segEnd + t),
-  ];
-
-  const x = useTransform(scrollYProgress, pts, [1100, 340, 0, -340, -1100]);
-  const rotateY = useTransform(scrollYProgress, pts, [-28, -12, 0, 12, 28]);
-  const scale = useTransform(scrollYProgress, pts, [0.82, 0.91, 1, 0.91, 0.82]);
-  const opacity = useTransform(scrollYProgress, pts, [0, 0.8, 1, 0.8, 0]);
-  const zIndex = useTransform(scrollYProgress, (v) =>
-    v >= segStart - 0.01 && v <= segEnd + 0.01 ? 10 : 1
-  );
-
-  return (
-    <motion.article
-      style={{
-        // Center in the stage using CSS individual transform + Framer Motion x
-        position: "absolute",
-        left: "50%",
-        top: "50%",
-        translate: "-50% -50%",
-        width: "min(580px, 88vw)",
-        x,
-        rotateY,
-        scale,
-        opacity,
-        zIndex,
-        transformOrigin: "center center",
-        willChange: "transform, opacity",
-        // Card visuals
-        borderRadius: 28,
-        background: step.surface,
-        border: `1px solid rgba(${step.accentRgb}, 0.18)`,
-        boxShadow:
-          "0 32px 80px rgba(16,24,40,0.14), inset 0 1px 0 rgba(255,255,255,0.85)",
-        padding: "clamp(1.75rem, 3.5vw, 2.75rem)",
-      }}
-    >
-      {/* Tag + step number */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-          marginBottom: 18,
+          position: "relative",
+          height: reduceMotion ? "auto" : "420vh",
         }}
       >
-        <p
+        <div
           style={{
-            margin: 0,
-            fontFamily: "Inter, sans-serif",
-            fontSize: "0.72rem",
-            fontWeight: 700,
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-            color: step.accent,
+            position: reduceMotion ? "relative" : "sticky",
+            top: 0,
+            minHeight: "100svh",
+            overflow: "hidden",
           }}
         >
-          {step.tag}
-        </p>
-        <span
-          style={{
-            fontFamily: "Bricolage Grotesque, sans-serif",
-            fontSize: "1rem",
-            fontWeight: 800,
-            color: "rgba(16,24,40,0.22)",
-            flexShrink: 0,
-          }}
-        >
-          {step.num}
-        </span>
-      </div>
-
-      {/* Title */}
-      <h3
-        style={{
-          margin: "0 0 14px",
-          fontFamily: "Bricolage Grotesque, sans-serif",
-          fontSize: "clamp(1.55rem, 3vw, 2.3rem)",
-          fontWeight: 800,
-          letterSpacing: "-0.04em",
-          lineHeight: 1.05,
-          color: "#101828",
-          maxWidth: 480,
-        }}
-      >
-        {step.title}
-      </h3>
-
-      {/* Body */}
-      <p
-        style={{
-          margin: "0 0 20px",
-          fontFamily: "Inter, sans-serif",
-          fontSize: "clamp(0.88rem, 1.4vw, 0.95rem)",
-          lineHeight: 1.74,
-          color: "rgba(16,24,40,0.64)",
-          maxWidth: 520,
-        }}
-      >
-        {step.body}
-      </p>
-
-      {/* Output pills */}
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-        {step.outputs.map((item) => (
-          <span
-            key={item}
+          <motion.header
             style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 7,
-              padding: "7px 12px",
-              borderRadius: 999,
-              background: "rgba(255,255,255,0.8)",
-              border: `1px solid rgba(${step.accentRgb}, 0.14)`,
-              fontFamily: "Inter, sans-serif",
-              fontSize: "0.72rem",
-              fontWeight: 600,
-              color: "#101828",
+              position: "relative",
+              zIndex: 30,
+              padding: "clamp(2rem, 4vw, 3.25rem) clamp(1rem, 4vw, 2.5rem) 0",
+              y: reduceMotion ? undefined : headingY,
+              opacity: reduceMotion ? undefined : headingOpacity,
             }}
           >
-            <span
+            <div
               style={{
-                width: 6,
-                height: 6,
-                borderRadius: "50%",
-                background: step.accent,
-                flexShrink: 0,
+                maxWidth: 1180,
+                margin: "0 auto",
+                display: "grid",
+                gap: "1.1rem",
               }}
-            />
-            {item}
-          </span>
-        ))}
-      </div>
+            >
+              <p
+                style={{
+                  margin: 0,
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontSize: "0.68rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.3em",
+                  textTransform: "uppercase",
+                  color: "rgba(15,23,42,0.42)",
+                }}
+              >
+                CreativeIQ · The Method
+              </p>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "minmax(0, 1fr) auto",
+                  gap: "1rem",
+                  alignItems: "end",
+                }}
+              >
+                <div>
+                  <h2
+                    style={{
+                      margin: 0,
+                      fontFamily: "'Syne', sans-serif",
+                      fontSize: "clamp(2.2rem, 6vw, 5.6rem)",
+                      lineHeight: 0.93,
+                      letterSpacing: "-0.06em",
+                      color: "#0f172a",
+                      maxWidth: "10ch",
+                    }}
+                  >
+                    Four big moves. One connected growth system.
+                  </h2>
+                </div>
+                <p
+                  style={{
+                    margin: 0,
+                    maxWidth: 300,
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: "clamp(0.9rem, 1.3vw, 1rem)",
+                    lineHeight: 1.7,
+                    color: "rgba(15,23,42,0.56)",
+                  }}
+                >
+                  Each card rises into view, locks into the system, and stays
+                  readable while the next layer joins it.
+                </p>
+              </div>
+              {reduceMotion ? null : (
+                <StepMarkers scrollYProgress={scrollYProgress} />
+              )}
+            </div>
+          </motion.header>
 
-      {/* Milestone */}
-      <div
-        style={{
-          marginTop: 20,
-          paddingTop: 16,
-          borderTop: `1px solid rgba(${step.accentRgb}, 0.1)`,
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          gap: 12,
-        }}
-      >
-        <span
-          style={{
-            fontFamily: "Inter, sans-serif",
-            fontSize: "0.68rem",
-            fontWeight: 700,
-            letterSpacing: "0.14em",
-            textTransform: "uppercase",
-            color: "rgba(16,24,40,0.38)",
-          }}
-        >
-          milestone
-        </span>
-        <span
-          style={{
-            fontFamily: "Bricolage Grotesque, sans-serif",
-            fontSize: "0.92rem",
-            fontWeight: 800,
-            color: step.accent,
-            letterSpacing: "-0.02em",
-          }}
-        >
-          {step.stat}
-        </span>
-      </div>
-    </motion.article>
-  );
-}
-
-function StepDot({ step, index, total, scrollYProgress }) {
-  const seg = 1 / total;
-  const segStart = index * seg;
-  const segEnd = (index + 1) * seg;
-  const segMid = (segStart + segEnd) / 2;
-  const pad = seg * 0.35;
-
-  const dotScale = useTransform(
-    scrollYProgress,
-    [Math.max(0, segStart - pad), segMid, Math.min(1, segEnd + pad)],
-    [1, 1.6, 1]
-  );
-  const dotOpacity = useTransform(
-    scrollYProgress,
-    [Math.max(0, segStart - pad), segMid, Math.min(1, segEnd + pad)],
-    [0.28, 1, 0.28]
-  );
-  const labelOpacity = useTransform(
-    scrollYProgress,
-    [
-      Math.max(0, segStart - pad * 1.2),
-      segMid,
-      Math.min(1, segEnd + pad * 1.2),
-    ],
-    [0.35, 1, 0.35]
-  );
-
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: 8,
-      }}
-    >
-      <motion.div
-        style={{
-          width: 10,
-          height: 10,
-          borderRadius: "50%",
-          background: step.accent,
-          scale: dotScale,
-          opacity: dotOpacity,
-        }}
-      />
-      <motion.p
-        style={{
-          margin: 0,
-          fontFamily: "Inter, sans-serif",
-          fontSize: "0.62rem",
-          fontWeight: 700,
-          letterSpacing: "0.2em",
-          textTransform: "uppercase",
-          color: "#101828",
-          opacity: labelOpacity,
-        }}
-      >
-        {step.tag}
-      </motion.p>
-    </div>
+          <motion.div
+            className="process-stage"
+            style={{
+              position: "relative",
+              zIndex: 10,
+              height: reduceMotion
+                ? "auto"
+                : "calc(100svh - clamp(12rem, 18vw, 15rem))",
+              minHeight: reduceMotion ? "auto" : 540,
+              paddingTop: reduceMotion ? "2rem" : "9rem",
+              paddingBottom: reduceMotion ? "2rem" : "2rem",
+              opacity: reduceMotion ? undefined : stageOpacity,
+              perspective: reduceMotion ? undefined : "1400px",
+              perspectiveOrigin: "50% 100%",
+            }}
+          >
+            {reduceMotion ? (
+              <div
+                style={{
+                  maxWidth: 1180,
+                  margin: "0 auto",
+                  display: "grid",
+                  gap: 20,
+                  padding: "0 1rem",
+                }}
+              >
+                {STEPS.map((step) => (
+                  <article key={step.num} style={{ position: "relative" }}>
+                    <div
+                      style={{
+                        borderRadius: 30,
+                        overflow: "hidden",
+                        background: step.panel,
+                        border: "1px solid rgba(15,23,42,0.08)",
+                        boxShadow: "0 24px 48px rgba(15,23,42,0.1)",
+                      }}
+                    >
+                      <div
+                        style={{
+                          padding: "1rem 1.2rem",
+                          background: step.accent,
+                          color: "#fff",
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontSize: "0.74rem",
+                          fontWeight: 700,
+                          letterSpacing: "0.2em",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        {step.tag}
+                      </div>
+                      <div style={{ padding: "1.3rem" }}>
+                        <h3
+                          style={{
+                            margin: 0,
+                            fontFamily: "'Syne', sans-serif",
+                            fontSize: "1.8rem",
+                            lineHeight: 1,
+                            letterSpacing: "-0.04em",
+                            color: "#0f172a",
+                          }}
+                        >
+                          {step.title}
+                        </h3>
+                        <p
+                          style={{
+                            margin: "1rem 0 0",
+                            fontFamily: "'DM Sans', sans-serif",
+                            fontSize: "1rem",
+                            lineHeight: 1.7,
+                            color: "rgba(15,23,42,0.66)",
+                          }}
+                        >
+                          {step.body}
+                        </p>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            ) : (
+              STEPS.map((step, index) => (
+                <ProcessCard
+                  key={step.num}
+                  step={step}
+                  index={index}
+                  scrollYProgress={scrollYProgress}
+                  reduceMotion={reduceMotion}
+                />
+              ))
+            )}
+          </motion.div>
+        </div>
+      </section>
+    </>
   );
 }

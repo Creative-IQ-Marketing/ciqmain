@@ -75,9 +75,7 @@ const Testimonials = () => {
             className="space-y-6"
           >
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-950 leading-tight">
-              Here&apos;s what our
-              <span className="block">clients have to say</span>
-              <span className="block">about us.</span>
+              Creative IQ Love
             </h2>
             <p className="text-sm md:text-base text-gray-600 leading-relaxed max-w-md">
               As the trusted partner for growing businesses, our clients&apos;

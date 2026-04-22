@@ -83,12 +83,7 @@ const Clients = () => {
       <div className="block md:hidden px-4">
         <div className="relative w-full">
           {/* Main Carousel */}
-          <div className="relative h-32 rounded-2xl overflow-hidden bg-slate-50 border border-slate-200 shadow-sm">
-            <div className="absolute inset-0 opacity-30">
-              <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-blue-200 blur-3xl" />
-              <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full bg-slate-200 blur-3xl" />
-            </div>
-
+          <div className="relative h-32 rounded-2xl overflow-hidden bg-transparent">
             {/* Carousel Items */}
             <motion.div
               className="relative w-full h-full flex items-center justify-center"
@@ -101,7 +96,10 @@ const Clients = () => {
               <img
                 src={clients[currentIndex].src}
                 alt={clients[currentIndex].alt}
-                className="max-w-[70%] max-h-[70%] object-contain drop-shadow-lg"
+                className="max-w-[70%] max-h-[70%] object-contain"
+                style={{
+                  filter: "drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15))",
+                }}
               />
             </motion.div>
           </div>
