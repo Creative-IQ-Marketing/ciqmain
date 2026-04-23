@@ -15,7 +15,6 @@ export default function ContactPage() {
   const handleDownload = () => {
     trackButtonClick("Download vCard", "vcf_download", "ContactPage");
     downloadVCard();
-    setSaved(true);
   };
 
   const handleFormCTA = () => {
