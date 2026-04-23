@@ -29,7 +29,7 @@ export async function downloadVCard() {
     "TEL;TYPE=WORK,VOICE:+12108380177",
     "EMAIL;TYPE=WORK,INTERNET:CiQ@creativeiq.marketing",
     "URL:https://creativeiq.marketing",
-    `PHOTO;ENCODING=b;TYPE=JPEG:${logoBase64}`, // embedded, not URL
+    `PHOTO;ENCODING=b;TYPE=JPEG:${logoBase64}`,
     "ADR;TYPE=WORK:;;San Antonio;TX;78205;US",
     "NOTE:AI-ready SEO\\, PPC\\, CRM automation & web development. San Antonio TX.",
     "CATEGORIES:Marketing,SEO,PPC,CRM,Web Development",

@@ -14,6 +14,8 @@ const clients = Object.entries(logoModules).map(([path, mod], index) => ({
 
 const Clients = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [hoveredId, setHoveredId] = useState(null);
+  const [touchedId, setTouchedId] = useState(null);
   const sectionRef = useRef(null);
   const inView = useInView(sectionRef, {
     margin: "-15% 0px -15% 0px",
@@ -65,16 +67,27 @@ const Clients = () => {
             }}
           >
             {[...clients, ...clients].map((client, index) => (
-              <div
+              <motion.div
                 key={`${client.id}-${index}`}
-                className="relative w-40 h-20 flex-shrink-0 flex items-center justify-center group"
+                className="relative w-40 h-20 flex-shrink-0 flex items-center justify-center group cursor-pointer"
+                onMouseEnter={() => setHoveredId(client.id)}
+                onMouseLeave={() => setHoveredId(null)}
+                whileHover={{ scale: 1.1 }}
+                transition={{ duration: 0.2 }}
               >
-                <img
+                <motion.img
                   src={client.src}
                   alt={client.alt}
-                  className="max-w-full max-h-full object-contain transition-all duration-500 ease-out transform group-hover:scale-125 group-hover:drop-shadow-xl"
+                  className="max-w-full max-h-full object-contain transition-all duration-500 ease-out"
+                  animate={{
+                    filter:
+                      hoveredId === client.id
+                        ? "grayscale(0%)"
+                        : "grayscale(100%)",
+                  }}
+                  transition={{ duration: 0.3 }}
                 />
-              </div>
+              </motion.div>
             ))}
           </motion.div>
         </div>
@@ -93,13 +106,22 @@ const Clients = () => {
               exit={{ opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
             >
-              <img
+              <motion.img
                 src={clients[currentIndex].src}
                 alt={clients[currentIndex].alt}
-                className="max-w-[70%] max-h-[70%] object-contain"
+                className="max-w-[70%] max-h-[70%] object-contain cursor-pointer"
                 style={{
                   filter: "drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15))",
                 }}
+                animate={{
+                  filter:
+                    touchedId === clients[currentIndex].id
+                      ? "grayscale(0%) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15))"
+                      : "grayscale(100%) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15))",
+                }}
+                transition={{ duration: 0.3 }}
+                onTouchStart={() => setTouchedId(clients[currentIndex].id)}
+                onTouchEnd={() => setTouchedId(null)}
               />
             </motion.div>
           </div>

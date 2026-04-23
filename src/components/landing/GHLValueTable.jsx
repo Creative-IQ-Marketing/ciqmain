@@ -342,7 +342,7 @@ export default function GHLValueTable() {
                   whiteSpace: "nowrap",
                 }}
               >
-                Cost
+                Their Cost
               </span>
               <span
                 style={{
