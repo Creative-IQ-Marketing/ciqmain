@@ -51,7 +51,7 @@ const Clients = () => {
           <motion.div
             className="flex space-x-16 items-center flex-nowrap"
             animate={
-              inView
+              inView && hoveredId === null
                 ? {
                     x: ["0%", "-50%"],
                   }
@@ -72,7 +72,7 @@ const Clients = () => {
                 className="relative w-48 h-24 flex-shrink-0 flex items-center justify-center group cursor-pointer"
                 onMouseEnter={() => setHoveredId(client.id)}
                 onMouseLeave={() => setHoveredId(null)}
-                whileHover={{ scale: 1.1 }}
+                whileHover={{ scale: 1.4 }}
                 transition={{ duration: 0.2 }}
               >
                 <motion.img
@@ -102,7 +102,10 @@ const Clients = () => {
               className="relative w-full h-full flex items-center justify-center"
               key={currentIndex}
               initial={false}
-              animate={{ opacity: 1, scale: 1 }}
+              animate={{
+                opacity: 1,
+                scale: touchedId === clients[currentIndex].id ? 1.3 : 1,
+              }}
               exit={{ opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
             >
@@ -118,6 +121,7 @@ const Clients = () => {
                     touchedId === clients[currentIndex].id
                       ? "grayscale(0%) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15))"
                       : "grayscale(100%) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15))",
+                  scale: touchedId === clients[currentIndex].id ? 1.3 : 1,
                 }}
                 transition={{ duration: 0.3 }}
                 onTouchStart={() => setTouchedId(clients[currentIndex].id)}

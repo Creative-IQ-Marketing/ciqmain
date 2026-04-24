@@ -4,10 +4,11 @@ import Header from "./components/landing/Header";
 import Hero from "./components/landing/Hero";
 import Clients from "./components/landing/Clients";
 import About from "./components/landing/About";
-import Services from "./components/landing/Services";
+import StoryStrip from "./components/landing/StoryStrip";
+import SectionGlide from "./components/landing/SectionGlide";
+import ServicesShowcase from "./components/landing/ServicesShowcase";
 import Stats from "./components/landing/Stats";
 import GHLValueTable from "./components/landing/GHLValueTable";
-import Process from "./components/landing/Process";
 import Testimonials from "./components/landing/Testimonials";
 import YoutubeSection from "./components/landing/YoutubeSection";
 import Booking from "./components/landing/Booking";
@@ -15,9 +16,9 @@ import Contact from "./components/landing/Contact";
 import Footer from "./components/landing/Footer";
 import SEO from "./components/SEO";
 import StructuredData from "./components/StructuredData";
-import ContactPopup from "./components/ContactPopup";
 import ServicesPage from "./pages/ServicesPage";
 import ContactPage from "./pages/ContactPage";
+import UnsubscribedPage from "./pages/UnsubscribedPage";
 import { initializeAnalytics } from "./services/analytics";
 
 function Layout() {
@@ -43,12 +44,17 @@ function HomePage() {
       <SEO />
       <StructuredData />
       <Hero />
+      {/* <StoryStrip /> */}
+      {/* <SectionGlide /> */}
       <Clients />
+      <SectionGlide flip />
       <About />
-      <Services />
+      <SectionGlide />
+      <ServicesShowcase />
+      <SectionGlide flip />
       <Stats />
       <GHLValueTable />
-      {/* <Process /> */}
+      <SectionGlide />
       <Testimonials />
       <YoutubeSection />
       <Booking />
@@ -68,6 +74,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/newsletter/unsubscribed" element={<UnsubscribedPage />} />
       </Route>
     </Routes>
   );

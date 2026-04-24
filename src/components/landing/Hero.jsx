@@ -1,4 +1,4 @@
-﻿import {
+import {
   motion,
   AnimatePresence,
   useScroll,
@@ -8,15 +8,16 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { trackButtonClick } from "../../services/analytics";
+import MagneticButton from "../primitives/MagneticButton";
 
 const ease = [0.22, 1, 0.36, 1];
 
 const PHOTOS = [
-  "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=90",
-  "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1920&q=90",
-  "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1920&q=90",
-  "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1920&q=90",
-  "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1920&q=90",
+  "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=2400&q=88",
+  "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=2400&q=88",
+  "https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=2400&q=88",
+  "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=2400&q=88",
+  "https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=2400&q=88",
 ];
 
 export default function Hero() {
@@ -25,13 +26,11 @@ export default function Hero() {
   const timerRef = useRef(null);
   const sectionRef = useRef(null);
 
-  // Scroll progress from section top-start to section top-at-top-of-viewport
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
   });
 
-  // Spring only on background position (smooth parallax), NOT on opacity
   const bgSpring = useSpring(scrollYProgress, {
     stiffness: 60,
     damping: 20,
@@ -39,7 +38,6 @@ export default function Hero() {
   });
   const bgY = useTransform(bgSpring, [0, 1], ["0%", "28%"]);
 
-  // Content parallax — drifts up slightly as you scroll (no opacity gate; section exits naturally)
   const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
   const scrollHintOpacity = useTransform(scrollYProgress, [0, 0.07], [1, 0]);
 
@@ -130,7 +128,6 @@ export default function Hero() {
         ref={sectionRef}
         style={{ position: "relative", height: "100dvh", overflow: "hidden" }}
       >
-        {/* Background: parallax wrapper — moves slower than the viewport on scroll */}
         <motion.div
           style={{
             y: bgY,
@@ -173,17 +170,16 @@ export default function Hero() {
           </AnimatePresence>
         </motion.div>
 
-        {/* Overlay: flat wash for legibility without gradients */}
         <div
           style={{
             position: "absolute",
             inset: 0,
             zIndex: 1,
-            background: "rgba(247,246,241,0.7)",
+            background:
+              "linear-gradient(115deg, rgba(10,19,52,0.78) 0%, rgba(10,19,52,0.58) 42%, rgba(10,19,52,0.65) 100%)",
           }}
         />
 
-        {/* Grain overlay */}
         <div
           style={{
             position: "absolute",
@@ -197,7 +193,6 @@ export default function Hero() {
           }}
         />
 
-        {/* Content — drifts up gently on scroll; section exits viewport naturally */}
         <motion.div
           className="hero-content-safe"
           style={{
@@ -213,7 +208,6 @@ export default function Hero() {
             padding: "0 clamp(1.5rem, 6vw, 5rem)",
           }}
         >
-          {/* Label */}
           <motion.p
             className="f-body"
             initial={{ opacity: 1, y: 12 }}
@@ -222,7 +216,7 @@ export default function Hero() {
             style={{
               fontSize: "clamp(9px, 2vw, 11px)",
               fontWeight: 500,
-              color: "rgba(0,0,0,0.45)",
+              color: "rgba(255,255,255,0.7)",
               letterSpacing: "0.22em",
               textTransform: "uppercase",
               marginBottom: 28,
@@ -231,7 +225,6 @@ export default function Hero() {
             San Antonio, TX · Full-service digital agency
           </motion.p>
 
-          {/* Headline */}
           <motion.div
             style={{ marginBottom: 32 }}
             initial="hidden"
@@ -242,7 +235,6 @@ export default function Hero() {
               },
             }}
           >
-            {/* Line 1 */}
             <div
               style={{
                 overflow: "hidden",
@@ -276,7 +268,7 @@ export default function Hero() {
                         fontWeight: 700,
                         letterSpacing: "-0.05em",
                         lineHeight: 1.06,
-                        color: "#0d0d14",
+                        color: "#ffffff",
                       }}
                     >
                       {word}
@@ -285,7 +277,6 @@ export default function Hero() {
                 </span>
               ))}
             </div>
-            {/* Line 2 — accent color, slight delay */}
             <div
               style={{
                 overflow: "hidden",
@@ -329,7 +320,6 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Sub-copy */}
           <motion.p
             className="f-body"
             initial={{ opacity: 1, y: 10 }}
@@ -337,7 +327,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.3, ease }}
             style={{
               fontSize: "clamp(0.92rem, 1.3vw, 1.05rem)",
-              color: "rgba(0,0,0,0.5)",
+              color: "rgba(255,255,255,0.82)",
               maxWidth: 500,
               lineHeight: 1.65,
               marginBottom: 44,
@@ -347,7 +337,6 @@ export default function Hero() {
             media — all under one roof, all built to drive real revenue.
           </motion.p>
 
-          {/* CTAs */}
           <motion.div
             initial={{ opacity: 1, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -361,13 +350,12 @@ export default function Hero() {
               marginBottom: 72,
             }}
           >
-            <motion.button
+            <MagneticButton
               onClick={() => {
                 trackButtonClick("Start a project", "hero_cta", "Hero");
                 navigate("/contact");
               }}
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.97 }}
+              strength={0.22}
               className="f-body"
               style={{
                 fontSize: 14,
@@ -384,17 +372,17 @@ export default function Hero() {
               }}
             >
               Start a project
-            </motion.button>
-            <motion.a
+            </MagneticButton>
+            <MagneticButton
+              as="a"
               href="#services"
-              whileHover={{ scale: 1.02, y: -1 }}
-              whileTap={{ scale: 0.97 }}
+              strength={0.18}
               className="f-body"
               style={{
                 fontSize: 14,
                 color: "#0d0d14",
-                border: "1px solid rgba(0,0,0,0.15)",
-                background: "rgba(255,255,255,0.6)",
+                border: "1px solid rgba(255,255,255,0.55)",
+                background: "rgba(255,255,255,0.86)",
                 backdropFilter: "blur(12px)",
                 padding: "14px 30px",
                 borderRadius: 99,
@@ -402,10 +390,27 @@ export default function Hero() {
               }}
             >
               Our services
-            </motion.a>
+            </MagneticButton>
+            <MagneticButton
+              as="a"
+              href="#footer-newsletter"
+              strength={0.14}
+              className="f-body"
+              style={{
+                fontSize: 14,
+                color: "#fff",
+                border: "1px solid rgba(255,255,255,0.45)",
+                background: "rgba(255,255,255,0.12)",
+                backdropFilter: "blur(12px)",
+                padding: "14px 30px",
+                borderRadius: 99,
+                textDecoration: "none",
+              }}
+            >
+              Join newsletter
+            </MagneticButton>
           </motion.div>
 
-          {/* Slide dots */}
           <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
             {PHOTOS.map((_, i) => (
               <button
@@ -418,14 +423,13 @@ export default function Hero() {
                   width: i === active ? 22 : 6,
                   height: 6,
                   borderRadius: 3,
-                  background: i === active ? "#3B6FF0" : "rgba(0,0,0,0.18)",
+                  background: i === active ? "#3B6FF0" : "rgba(255,255,255,0.38)",
                   transition: "all 0.32s ease",
                 }}
               />
             ))}
           </div>
 
-          {/* Scroll indicator */}
           <motion.div
             style={{
               opacity: scrollHintOpacity,
@@ -446,7 +450,7 @@ export default function Hero() {
                 fontSize: 9,
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
-                color: "rgba(0,0,0,0.3)",
+                color: "rgba(255,255,255,0.65)",
               }}
             >
               Scroll
@@ -456,13 +460,12 @@ export default function Hero() {
               style={{
                 width: 1,
                 height: 28,
-                background: "rgba(59,111,240,0.42)",
+                background: "rgba(255,255,255,0.5)",
               }}
             />
           </motion.div>
         </motion.div>
 
-        {/* Bottom stats strip */}
         <motion.div
           initial={{ opacity: 1, y: 12 }}
           animate={{ opacity: 1, y: 0 }}

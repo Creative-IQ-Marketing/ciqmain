@@ -1,5 +1,11 @@
-﻿import { motion } from "framer-motion";
-import { Facebook, Linkedin, Instagram, Youtube } from "lucide-react";
+import { useState } from "react";
+import {
+  Facebook,
+  Linkedin,
+  Instagram,
+  Youtube,
+  ArrowUpRight,
+} from "lucide-react";
 import mainLogo from "../../assets/mainLogo.png";
 import { trackButtonClick } from "../../services/analytics";
 
@@ -11,15 +17,6 @@ const NAV = [
   { label: "Contact", href: "#contact" },
 ];
 
-const SERVICES = [
-  "AI Search & Agents",
-  "SEO & AEO",
-  "Google & Meta Ads",
-  "Social Media",
-  "CRM & Automation",
-  "Web Development",
-];
-
 const SOCIALS = [
   { Icon: Facebook, label: "Facebook", href: "#" },
   { Icon: Linkedin, label: "LinkedIn", href: "#" },
@@ -28,99 +25,129 @@ const SOCIALS = [
 ];
 
 export default function Footer() {
+  const [email, setEmail] = useState("");
+  const [unsubscribeEmail, setUnsubscribeEmail] = useState("");
+  const [subscribed, setSubscribed] = useState(false);
+  const [unsubscribed, setUnsubscribed] = useState(false);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    trackButtonClick("Newsletter Subscribe", "footer_newsletter", "Footer");
+    setSubscribed(true);
+    setEmail("");
+  };
+
+  const onUnsubscribe = (e) => {
+    e.preventDefault();
+    if (!unsubscribeEmail.trim()) return;
+    trackButtonClick("Newsletter Unsubscribe", "footer_unsubscribe", "Footer");
+    setUnsubscribed(true);
+    setUnsubscribeEmail("");
+  };
+
   return (
-    <footer
-      style={{
-        background: "#0d0d14",
-        color: "#fff",
-        borderTop: "1px solid rgba(255,255,255,0.06)",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 1180,
-          margin: "0 auto",
-          padding: "64px clamp(1.5rem, 5vw, 5rem) 0",
-        }}
-      >
-        {/* Top row */}
+    <footer className="relative bg-white text-slate-900">
+      <div className="relative mx-auto max-w-7xl px-4 pb-8 pt-16 sm:px-6 lg:px-8">
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "200px 1fr 1fr",
-            gap: "clamp(2rem, 6vw, 5rem)",
-            paddingBottom: 56,
-            borderBottom: "1px solid rgba(255,255,255,0.06)",
-          }}
-          className="footer-grid"
+          id="footer-newsletter"
+          className="rounded-[28px] border border-slate-200 bg-slate-50 p-7 sm:p-10"
         >
-          {/* Brand */}
-          <div>
-            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
-              <div
-                style={{
-                  width: 36,
-                  height: 36,
-                  background: "#fff",
-                  borderRadius: 8,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                }}
-              >
-                <img src={mainLogo} alt="CreativeIQ" style={{ width: 22, height: 22, objectFit: "contain" }} />
+          <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:items-end">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
+                Newsletter
+              </p>
+              <h3 className="mt-3 text-3xl font-extrabold leading-tight sm:text-5xl">
+                High-level growth insights, straight to your inbox.
+              </h3>
+              <p className="mt-4 max-w-xl text-sm text-slate-600 sm:text-base">
+                One concise weekly email with sharp strategy, channel signals,
+                and practical execution ideas.
+              </p>
+            </div>
+
+            <form onSubmit={onSubmit} className="space-y-3">
+              <label className="sr-only" htmlFor="newsletter-email">
+                Email
+              </label>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <input
+                  id="newsletter-email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your best email"
+                  className="h-12 flex-1 rounded-full border border-slate-300 bg-white px-5 text-sm text-slate-900 outline-none transition focus:border-[#3B6FF0]"
+                  required
+                />
+                <button
+                  type="submit"
+                  className="inline-flex h-12 items-center justify-center rounded-full bg-[#3B6FF0] px-6 text-sm font-bold uppercase tracking-[0.08em] text-white transition hover:bg-[#2F5FE6]"
+                >
+                  Subscribe
+                </button>
               </div>
-              <span
-                style={{
-                  fontFamily: "Bricolage Grotesque, sans-serif",
-                  fontSize: "1.1rem",
-                  fontWeight: 700,
-                  color: "#fff",
-                  letterSpacing: "-0.02em",
-                }}
+              {subscribed && (
+                <p className="text-xs font-medium text-[#3B6FF0]">
+                  Thanks for subscribing. You are in.
+                </p>
+              )}
+            </form>
+          </div>
+
+          <form onSubmit={onUnsubscribe} className="mt-6 border-t border-slate-200 pt-5">
+            <p className="text-xs text-slate-500">
+              Prefer not to receive newsletter emails?
+            </p>
+            <div className="mt-2 flex flex-col gap-2 sm:flex-row">
+              <input
+                type="email"
+                value={unsubscribeEmail}
+                onChange={(e) => setUnsubscribeEmail(e.target.value)}
+                placeholder="Email to unsubscribe"
+                className="h-10 flex-1 rounded-full border border-slate-300 bg-white px-4 text-xs text-slate-700 outline-none transition focus:border-[#3B6FF0]"
+              />
+              <button
+                type="submit"
+                className="inline-flex h-10 items-center justify-center rounded-full border border-slate-300 bg-white px-4 text-xs font-semibold uppercase tracking-[0.08em] text-slate-600 transition hover:border-[#3B6FF0] hover:text-[#3B6FF0]"
               >
+                Unsubscribe
+              </button>
+            </div>
+            {unsubscribed && (
+              <p className="mt-2 text-xs text-slate-500">
+                Request captured. You can also confirm on the unsubscribe page.
+              </p>
+            )}
+          </form>
+        </div>
+
+        <div className="mt-14 grid gap-10 border-t border-slate-200 pt-10 lg:grid-cols-[1.1fr_auto_auto]">
+          <div>
+            <a href="/" className="inline-flex items-center gap-2.5">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#3B6FF0]">
+                <img
+                  src={mainLogo}
+                  alt="CreativeIQ"
+                  className="h-6 w-6 object-contain"
+                />
+              </span>
+              <span className="text-xl font-bold tracking-tight text-slate-900">
                 CreativeIQ
               </span>
-            </div>
-            <p
-              style={{
-                fontFamily: "Inter, sans-serif",
-                fontSize: "0.8rem",
-                color: "rgba(255,255,255,0.35)",
-                lineHeight: 1.65,
-                margin: "0 0 24px",
-              }}
-            >
-              Digital ecosystems built for AI-driven discovery, search
-              dominance, and real conversions.
+            </a>
+            <p className="mt-4 max-w-md text-sm leading-relaxed text-slate-600">
+              Performance-first digital growth systems built for compounding
+              visibility and revenue.
             </p>
-            <div style={{ display: "flex", gap: 10 }}>
+            <div className="mt-6 flex gap-2.5">
               {SOCIALS.map(({ Icon, label, href }) => (
                 <a
                   key={label}
                   href={href}
                   aria-label={label}
-                  style={{
-                    width: 34,
-                    height: 34,
-                    borderRadius: 8,
-                    border: "1px solid rgba(255,255,255,0.1)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "rgba(255,255,255,0.45)",
-                    textDecoration: "none",
-                    transition: "border-color 0.2s, color 0.2s",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = "#3b82f6";
-                    e.currentTarget.style.color = "#3b82f6";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
-                    e.currentTarget.style.color = "rgba(255,255,255,0.45)";
-                  }}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-300 text-slate-500 transition hover:border-[#3B6FF0] hover:text-[#3B6FF0]"
                 >
                   <Icon size={15} />
                 </a>
@@ -128,139 +155,63 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Services */}
-          <div>
-            <p
-              style={{
-                fontFamily: "Inter, sans-serif",
-                fontSize: "0.62rem",
-                fontWeight: 700,
-                letterSpacing: "0.16em",
-                textTransform: "uppercase",
-                color: "rgba(255,255,255,0.25)",
-                marginBottom: 18,
-              }}
-            >
+          <nav className="grid gap-3 text-sm text-slate-600">
+            <a href="#services" className="transition hover:text-slate-900">
               Services
-            </p>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-              {SERVICES.map((s) => (
-                <li key={s} style={{ marginBottom: 10 }}>
-                  <a
-                    href="#services"
-                    style={{
-                      fontFamily: "Inter, sans-serif",
-                      fontSize: "0.82rem",
-                      color: "rgba(255,255,255,0.45)",
-                      textDecoration: "none",
-                      transition: "color 0.2s",
-                    }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}
-                  >
-                    {s}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <p
-              style={{
-                fontFamily: "Inter, sans-serif",
-                fontSize: "0.62rem",
-                fontWeight: 700,
-                letterSpacing: "0.16em",
-                textTransform: "uppercase",
-                color: "rgba(255,255,255,0.25)",
-                marginBottom: 18,
-              }}
-            >
+            </a>
+            <a href="#contact" className="transition hover:text-slate-900">
               Contact
-            </p>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 10,
-                fontFamily: "Inter, sans-serif",
-                fontSize: "0.82rem",
-              }}
+            </a>
+            <a
+              href="#footer-newsletter"
+              className="transition hover:text-slate-900"
             >
-              <span style={{ color: "rgba(255,255,255,0.45)" }}>San Antonio, Texas</span>
-              <a
-                href="tel:2108380177"
-                style={{ color: "rgba(255,255,255,0.45)", textDecoration: "none" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}
-              >
-                (210) 838-0177
-              </a>
-              <a
-                href="mailto:CiQ@creativeiq.marketing"
-                style={{ color: "rgba(255,255,255,0.45)", textDecoration: "none" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}
-              >
-                CiQ@creativeiq.marketing
-              </a>
-            </div>
+              Newsletter
+            </a>
+            <a
+              href="/newsletter/unsubscribed"
+              className="inline-flex items-center gap-1 text-slate-500 transition hover:text-slate-900"
+            >
+              Unsubscribe <ArrowUpRight size={14} />
+            </a>
+          </nav>
+
+          <div className="text-sm text-slate-600">
+            <p>San Antonio, Texas</p>
+            <a
+              className="mt-2 block transition hover:text-slate-900"
+              href="tel:2108380177"
+            >
+              (210) 838-0177
+            </a>
+            <a
+              className="mt-2 block transition hover:text-slate-900"
+              href="mailto:CiQ@creativeiq.marketing"
+            >
+              CiQ@creativeiq.marketing
+            </a>
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            padding: "22px 0",
-            flexWrap: "wrap",
-            gap: 12,
-          }}
-        >
-          <p
-            style={{
-              fontFamily: "Inter, sans-serif",
-              fontSize: "0.72rem",
-              color: "rgba(255,255,255,0.2)",
-              margin: 0,
-            }}
-          >
-             {new Date().getFullYear()} CreativeIQ Marketing. All rights reserved.
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-slate-200 pt-6 text-xs text-slate-500">
+          <p>
+            {new Date().getFullYear()} CreativeIQ Marketing. All rights
+            reserved.
           </p>
-          <nav style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
+          <div className="flex items-center gap-4">
             {NAV.map(({ label, href }) => (
               <a
                 key={label}
                 href={href}
                 onClick={() => trackButtonClick(label, "footer_nav", "Footer")}
-                style={{
-                  fontFamily: "Inter, sans-serif",
-                  fontSize: "0.72rem",
-                  color: "rgba(255,255,255,0.25)",
-                  textDecoration: "none",
-                  transition: "color 0.2s",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.7)")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.25)")}
+                className="transition hover:text-slate-900"
               >
                 {label}
               </a>
             ))}
-          </nav>
+          </div>
         </div>
       </div>
-
-      <style>{`
-        @media (max-width: 768px) {
-          .footer-grid {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
     </footer>
   );
 }
