@@ -1,6 +1,11 @@
-﻿import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Check, ArrowRight } from "lucide-react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+const BRAND_BLUE = "#3B6FF0";
+const ACCENT_YELLOW = "#F6C343";
+const DARK_BG = "#0B0F1A";
 
 const ROWS = [
   {
@@ -55,36 +60,50 @@ const ROWS = [
   },
 ];
 
-function TableRow({ feature, replaces, cost, index }) {
+function TableRow({ feature, replaces, cost, index, onSelect }) {
   return (
     <motion.div
       initial={{ opacity: 1, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0 }}
       transition={{ duration: 0.35, delay: index * 0.04 }}
+      role="button"
+      tabIndex={0}
+      onClick={onSelect}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onSelect?.();
+        }
+      }}
       style={{
         display: "grid",
-        gridTemplateColumns: "2fr 2fr 1.5fr 80px",
+        gridTemplateColumns: "minmax(0,1.7fr) minmax(0,1.7fr) minmax(0,1fr) 56px",
         alignItems: "center",
-        background: "rgba(0,0,0,0.3)",
-        border: "1px solid rgba(255,255,255,0.08)",
+        background: "rgba(255,255,255,0.02)",
+        border: "1px solid rgba(255,255,255,0.10)",
         borderRadius: 12,
-        padding: "18px 24px",
+        padding: "16px 18px",
         marginBottom: 10,
-        gap: 24,
+        gap: 16,
+        cursor: "pointer",
+        outline: "none",
+      }}
+      whileHover={{
+        borderColor: "rgba(59,111,240,0.45)",
+        background: "rgba(255,255,255,0.03)",
       }}
     >
-      {/* Feature name - bold and bright */}
       <div style={{ minWidth: 0 }}>
         <span
           style={{
             fontFamily: "'Inter', sans-serif",
-            fontSize: "13px",
+            fontSize: "12px",
             fontWeight: 900,
             letterSpacing: "0.06em",
             textTransform: "uppercase",
             color: "#ffffff",
-            lineHeight: 1.3,
+            lineHeight: 1.2,
             display: "block",
             whiteSpace: "nowrap",
             overflow: "hidden",
@@ -95,42 +114,44 @@ function TableRow({ feature, replaces, cost, index }) {
         </span>
       </div>
 
-      {/* Replaces - text list */}
       <div style={{ minWidth: 0 }}>
         <span
           style={{
             fontFamily: "'Inter', sans-serif",
             fontSize: "12px",
             fontWeight: 600,
-            color: "#cbd5e1",
-            lineHeight: 1.5,
+            color: "rgba(255,255,255,0.75)",
+            lineHeight: 1.2,
             display: "block",
             whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
           }}
         >
           {replaces.join(", ")}
         </span>
       </div>
 
-      {/* Other tools cost */}
       <div style={{ minWidth: 0 }}>
         <span
           style={{
             fontFamily: "'Inter', sans-serif",
             fontSize: "12px",
-            fontWeight: 600,
-            color: "#94a3b8",
+            fontWeight: 700,
+            color: "rgba(255,255,255,0.85)",
             letterSpacing: "0.04em",
             textTransform: "uppercase",
             display: "block",
             whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            textAlign: "right",
           }}
         >
           {cost}/mo
         </span>
       </div>
 
-      {/* Check column */}
       <div
         style={{
           display: "flex",
@@ -138,7 +159,7 @@ function TableRow({ feature, replaces, cost, index }) {
           alignItems: "center",
         }}
       >
-        <Check size={20} color="#00d9ff" strokeWidth={3} />
+        <Check size={18} color="#ffffff" strokeWidth={3} />
       </div>
     </motion.div>
   );
@@ -146,68 +167,44 @@ function TableRow({ feature, replaces, cost, index }) {
 
 export default function GHLValueTable() {
   const navigate = useNavigate();
+  const [activeRow, setActiveRow] = useState(null);
   return (
     <section
       id="ciq-value"
       style={{
-        background: "#0a0e27",
+        background: DARK_BG,
         position: "relative",
         overflow: "hidden",
       }}
     >
-      {/* Responsive adjustments with horizontal scroll */}
       <style>{`
         .ghl-table-scroll-container {
-          overflow-x: auto;
+          overflow-x: visible;
           overflow-y: visible;
-          -webkit-overflow-scrolling: touch;
-          scrollbar-width: thin;
-          scrollbar-color: rgba(0,217,255,0.3) rgba(255,255,255,0.05);
+          width: 100%;
         }
-        .ghl-table-scroll-container::-webkit-scrollbar {
-          height: 6px;
-        }
-        .ghl-table-scroll-container::-webkit-scrollbar-track {
-          background: rgba(255,255,255,0.05);
-          border-radius: 3px;
-        }
-        .ghl-table-scroll-container::-webkit-scrollbar-thumb {
-          background: rgba(0,217,255,0.3);
-          border-radius: 3px;
-        }
-        .ghl-table-scroll-container::-webkit-scrollbar-thumb:hover {
-          background: rgba(0,217,255,0.5);
+        .ghl-table-inner {
+          width: 100%;
         }
         @media (max-width: 900px) {
-          .ghl-table-inner {
-            min-width: 800px;
-          }
           [data-ghl-row] {
-            grid-template-columns: 2fr 2.5fr 1.5fr 80px !important;
-            padding: 16px 18px !important;
-            gap: 16px !important;
-          }
-        }
-        @media (max-width: 640px) {
-          .ghl-table-inner {
-            min-width: 700px;
-          }
-          [data-ghl-row] {
-            grid-template-columns: 1.8fr 2.2fr 1.3fr 70px !important;
             padding: 14px 16px !important;
             gap: 12px !important;
           }
         }
+        @media (max-width: 640px) {
+          [data-ghl-row] {
+            padding: 14px 14px !important;
+            gap: 10px !important;
+          }
+        }
       `}</style>
 
-      {/* Glow effect removed - no gradients */}
-
-      {/* Top banner */}
       <div
         style={{
           position: "relative",
           zIndex: 1,
-          background: "#1d4ed8",
+          background: BRAND_BLUE,
           padding: "16px 20px",
           display: "flex",
           alignItems: "center",
@@ -233,7 +230,7 @@ export default function GHLValueTable() {
             display: "inline-flex",
             flexDirection: "column",
             alignItems: "center",
-            background: "#fbbf24",
+            background: ACCENT_YELLOW,
             color: "#000000",
             fontFamily: "'Inter', sans-serif",
             padding: "10px 24px",
@@ -241,7 +238,7 @@ export default function GHLValueTable() {
             border: "none",
             cursor: "pointer",
             flexShrink: 0,
-            boxShadow: "0 4px 12px rgba(251,191,36,0.3)",
+            boxShadow: "0 4px 12px rgba(246,195,67,0.28)",
           }}
         >
           <span
@@ -260,17 +257,15 @@ export default function GHLValueTable() {
         </button>
       </div>
 
-      {/* Main content */}
       <div
         style={{
           position: "relative",
           zIndex: 2,
           maxWidth: 1100,
           margin: "0 auto",
-          padding: "60px 40px",
+          padding: "56px 16px",
         }}
       >
-        {/* Heading */}
         <div style={{ textAlign: "center", marginBottom: "50px" }}>
           <motion.h2
             initial={{ opacity: 1, y: 20 }}
@@ -279,7 +274,7 @@ export default function GHLValueTable() {
             transition={{ duration: 0.6 }}
             style={{
               fontFamily: "'Inter', sans-serif",
-              fontSize: "clamp(2rem, 5vw, 3.5rem)",
+              fontSize: "clamp(1.75rem, 5vw, 3.4rem)",
               fontWeight: 900,
               letterSpacing: "-0.02em",
               color: "#ffffff",
@@ -291,16 +286,14 @@ export default function GHLValueTable() {
           </motion.h2>
         </div>
 
-        {/* Scrollable table container */}
         <div className="ghl-table-scroll-container">
           <div className="ghl-table-inner">
-            {/* Column headers */}
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "2fr 2fr 1.5fr 80px",
-                gap: 24,
-                padding: "0 24px 20px",
+                gridTemplateColumns: "minmax(0,1.7fr) minmax(0,1.7fr) minmax(0,1fr) 56px",
+                gap: 16,
+                padding: "0 18px 16px",
                 borderBottom: "1px solid rgba(255,255,255,0.1)",
                 marginBottom: 16,
               }}
@@ -340,6 +333,7 @@ export default function GHLValueTable() {
                   textTransform: "uppercase",
                   color: "#cbd5e1",
                   whiteSpace: "nowrap",
+                  textAlign: "right",
                 }}
               >
                 Their Cost
@@ -360,18 +354,16 @@ export default function GHLValueTable() {
               </span>
             </div>
 
-            {/* Data rows */}
             {ROWS.map((row, i) => (
-              <div
-                key={row.feature}
-                data-ghl-row
-                style={{ display: "contents" }}
-              >
-                <TableRow {...row} index={i} />
+              <div key={row.feature} data-ghl-row>
+                <TableRow
+                  {...row}
+                  index={i}
+                  onSelect={() => setActiveRow(row)}
+                />
               </div>
             ))}
 
-            {/* Overall price row */}
             <motion.div
               initial={{ opacity: 1, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -379,17 +371,16 @@ export default function GHLValueTable() {
               transition={{ duration: 0.5, delay: 0.3 }}
               style={{
                 display: "grid",
-                gridTemplateColumns: "2fr 2fr 1.5fr 80px",
+                gridTemplateColumns: "minmax(0,1.7fr) minmax(0,1.7fr) minmax(0,1fr) 56px",
                 alignItems: "center",
-                background: "rgba(0,80,200,0.15)",
-                border: "2px solid rgba(0,150,255,0.2)",
+                background: "rgba(59,111,240,0.12)",
+                border: "1px solid rgba(59,111,240,0.35)",
                 borderRadius: 12,
-                padding: "22px 24px",
-                gap: 24,
+                padding: "18px 18px",
+                gap: 16,
                 marginTop: 16,
               }}
             >
-              <div />
               <div>
                 <span
                   style={{
@@ -398,8 +389,9 @@ export default function GHLValueTable() {
                     fontWeight: 900,
                     letterSpacing: "0.08em",
                     textTransform: "uppercase",
-                    color: "#00d9ff",
+                    color: ACCENT_YELLOW,
                     display: "block",
+                    whiteSpace: "nowrap",
                   }}
                 >
                   Overall Price
@@ -411,7 +403,7 @@ export default function GHLValueTable() {
                     fontFamily: "'Inter', sans-serif",
                     fontSize: "13px",
                     fontWeight: 700,
-                    color: "#cbd5e1",
+                    color: "rgba(255,255,255,0.75)",
                     textDecoration: "line-through",
                     display: "block",
                   }}
@@ -430,9 +422,9 @@ export default function GHLValueTable() {
                 <span
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: "32px",
+                    fontSize: "26px",
                     fontWeight: 900,
-                    color: "#00d9ff",
+                    color: "#ffffff",
                     letterSpacing: "-0.03em",
                     lineHeight: 1,
                   }}
@@ -443,7 +435,7 @@ export default function GHLValueTable() {
                   style={{
                     fontFamily: "'Inter', sans-serif",
                     fontSize: "10px",
-                    color: "#64748b",
+                    color: "rgba(255,255,255,0.6)",
                     textTransform: "uppercase",
                     letterSpacing: "0.06em",
                     marginTop: 4,
@@ -456,7 +448,6 @@ export default function GHLValueTable() {
           </div>
         </div>
 
-        {/* CTA */}
         <motion.div
           initial={{ opacity: 1, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -464,7 +455,7 @@ export default function GHLValueTable() {
           transition={{ duration: 0.5, delay: 0.4 }}
           style={{
             textAlign: "center",
-            marginTop: "40px",
+            marginTop: "32px",
           }}
         >
           <button
@@ -473,35 +464,214 @@ export default function GHLValueTable() {
               display: "inline-flex",
               alignItems: "center",
               gap: 8,
-              padding: "14px 40px",
-              background: "#1e40af",
-              color: "#ffffff",
+              padding: "13px 28px",
+              background: "#ffffff",
+              color: DARK_BG,
               borderRadius: "50px",
               fontFamily: "'Inter', sans-serif",
               fontSize: "13px",
               fontWeight: 700,
-              border: "1px solid rgba(255,255,255,0.1)",
+              border: "1px solid rgba(255,255,255,0.26)",
               cursor: "pointer",
-              boxShadow: "0 8px 24px rgba(30,64,175,0.4)",
+              boxShadow: "0 10px 24px rgba(0,0,0,0.22)",
               textTransform: "uppercase",
               letterSpacing: "0.04em",
             }}
           >
             Start Your Free Trial
+            <ArrowRight size={15} />
           </button>
           <p
             style={{
               fontFamily: "'Inter', sans-serif",
               fontSize: "11px",
-              color: "#64748b",
+              color: "rgba(255,255,255,0.62)",
               marginTop: 14,
               letterSpacing: "0.04em",
             }}
           >
-            Starting from $999/mo • No long-term contracts
+            Starting from $99/mo • No long-term contracts
           </p>
         </motion.div>
       </div>
+
+      <AnimatePresence>
+        {activeRow && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            style={{
+              position: "fixed",
+              inset: 0,
+              zIndex: 60,
+              background: "rgba(0,0,0,0.65)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: 18,
+            }}
+            onClick={() => setActiveRow(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 12, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 12, scale: 0.98 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                width: "min(560px, 100%)",
+                borderRadius: 18,
+                background: "#ffffff",
+                color: DARK_BG,
+                border: `1px solid rgba(59,111,240,0.18)`,
+                boxShadow: "0 24px 70px rgba(0,0,0,0.35)",
+                overflow: "hidden",
+              }}
+            >
+              <div
+                style={{
+                  padding: "16px 18px",
+                  borderBottom: "1px solid rgba(15,23,42,0.08)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: 12,
+                }}
+              >
+                <div style={{ minWidth: 0 }}>
+                  <div
+                    style={{
+                      fontFamily: "'Inter', sans-serif",
+                      fontSize: 12,
+                      fontWeight: 900,
+                      letterSpacing: "0.12em",
+                      textTransform: "uppercase",
+                      color: BRAND_BLUE,
+                    }}
+                  >
+                    Feature
+                  </div>
+                  <div
+                    style={{
+                      marginTop: 6,
+                      fontFamily: "'Inter', sans-serif",
+                      fontSize: 18,
+                      fontWeight: 900,
+                      letterSpacing: "-0.02em",
+                      lineHeight: 1.15,
+                      color: DARK_BG,
+                      wordBreak: "break-word",
+                    }}
+                  >
+                    {activeRow.feature}
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setActiveRow(null)}
+                  style={{
+                    height: 40,
+                    padding: "0 14px",
+                    borderRadius: 999,
+                    border: "1px solid rgba(15,23,42,0.14)",
+                    background: "#ffffff",
+                    cursor: "pointer",
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: 11,
+                    fontWeight: 800,
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    color: "rgba(15,23,42,0.75)",
+                    flexShrink: 0,
+                  }}
+                >
+                  Close
+                </button>
+              </div>
+              <div style={{ padding: "16px 18px" }}>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr",
+                    gap: 10,
+                    fontFamily: "'Inter', sans-serif",
+                  }}
+                >
+                  <div
+                    style={{
+                      borderRadius: 14,
+                      border: "1px solid rgba(15,23,42,0.10)",
+                      background: "rgba(15,23,42,0.03)",
+                      padding: "12px 12px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontSize: 11,
+                        fontWeight: 900,
+                        letterSpacing: "0.12em",
+                        textTransform: "uppercase",
+                        color: "rgba(15,23,42,0.55)",
+                      }}
+                    >
+                      Replaces
+                    </div>
+                    <div style={{ marginTop: 6, fontSize: 14, fontWeight: 700 }}>
+                      {activeRow.replaces.join(", ")}
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      borderRadius: 14,
+                      border: "1px solid rgba(15,23,42,0.10)",
+                      background: "rgba(15,23,42,0.03)",
+                      padding: "12px 12px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      gap: 12,
+                    }}
+                  >
+                    <div>
+                      <div
+                        style={{
+                          fontSize: 11,
+                          fontWeight: 900,
+                          letterSpacing: "0.12em",
+                          textTransform: "uppercase",
+                          color: "rgba(15,23,42,0.55)",
+                        }}
+                      >
+                        Their Cost
+                      </div>
+                      <div style={{ marginTop: 6, fontSize: 14, fontWeight: 800 }}>
+                        {activeRow.cost}/mo
+                      </div>
+                    </div>
+                    <div
+                      style={{
+                        borderRadius: 999,
+                        background: `linear-gradient(90deg, ${BRAND_BLUE} 0%, ${BRAND_BLUE} 70%, ${ACCENT_YELLOW} 100%)`,
+                        padding: "8px 12px",
+                        color: "#ffffff",
+                        fontSize: 11,
+                        fontWeight: 900,
+                        letterSpacing: "0.1em",
+                        textTransform: "uppercase",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      Included
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

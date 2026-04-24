@@ -26,7 +26,9 @@ const SOCIALS = [
 
 export default function Footer() {
   const [email, setEmail] = useState("");
+  const [unsubscribeEmail, setUnsubscribeEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const [unsubscribed, setUnsubscribed] = useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -36,27 +38,30 @@ export default function Footer() {
     setEmail("");
   };
 
-  return (
-    <footer className="relative bg-[#050B1B] text-white">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-0 top-0 h-64 w-64 rounded-full bg-[#3B6FF0]/20 blur-3xl" />
-        <div className="absolute right-0 bottom-0 h-72 w-72 rounded-full bg-[#3B6FF0]/12 blur-3xl" />
-      </div>
+  const onUnsubscribe = (e) => {
+    e.preventDefault();
+    if (!unsubscribeEmail.trim()) return;
+    trackButtonClick("Newsletter Unsubscribe", "footer_unsubscribe", "Footer");
+    setUnsubscribed(true);
+    setUnsubscribeEmail("");
+  };
 
-      <div className="relative mx-auto max-w-7xl px-4 pb-8 pt-20 sm:px-6 lg:px-8">
+  return (
+    <footer className="relative bg-white text-slate-900">
+      <div className="relative mx-auto max-w-7xl px-4 pb-8 pt-16 sm:px-6 lg:px-8">
         <div
           id="footer-newsletter"
-          className="rounded-[28px] border border-white/15 bg-white/[0.06] p-7 backdrop-blur-xl sm:p-10"
+          className="rounded-[28px] border border-slate-200 bg-slate-50 p-7 sm:p-10"
         >
           <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:items-end">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-200">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
                 Newsletter
               </p>
               <h3 className="mt-3 text-3xl font-extrabold leading-tight sm:text-5xl">
                 High-level growth insights, straight to your inbox.
               </h3>
-              <p className="mt-4 max-w-xl text-sm text-white/75 sm:text-base">
+              <p className="mt-4 max-w-xl text-sm text-slate-600 sm:text-base">
                 One concise weekly email with sharp strategy, channel signals,
                 and practical execution ideas.
               </p>
@@ -73,40 +78,66 @@ export default function Footer() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your best email"
-                  className="h-12 flex-1 rounded-full border border-white/30 bg-white/95 px-5 text-sm text-slate-900 outline-none transition focus:border-blue-500"
+                  className="h-12 flex-1 rounded-full border border-slate-300 bg-white px-5 text-sm text-slate-900 outline-none transition focus:border-[#3B6FF0]"
                   required
                 />
                 <button
                   type="submit"
-                  className="inline-flex h-12 items-center justify-center rounded-full bg-[#3B6FF0] px-6 text-sm font-bold uppercase tracking-[0.08em] text-white transition hover:bg-[#2f5de0]"
+                  className="inline-flex h-12 items-center justify-center rounded-full bg-[#3B6FF0] px-6 text-sm font-bold uppercase tracking-[0.08em] text-white transition hover:bg-[#2F5FE6]"
                 >
                   Subscribe
                 </button>
               </div>
               {subscribed && (
-                <p className="text-xs font-medium text-blue-200">
+                <p className="text-xs font-medium text-[#3B6FF0]">
                   Thanks for subscribing. You are in.
                 </p>
               )}
             </form>
           </div>
+
+          <form onSubmit={onUnsubscribe} className="mt-6 border-t border-slate-200 pt-5">
+            <p className="text-xs text-slate-500">
+              Prefer not to receive newsletter emails?
+            </p>
+            <div className="mt-2 flex flex-col gap-2 sm:flex-row">
+              <input
+                type="email"
+                value={unsubscribeEmail}
+                onChange={(e) => setUnsubscribeEmail(e.target.value)}
+                placeholder="Email to unsubscribe"
+                className="h-10 flex-1 rounded-full border border-slate-300 bg-white px-4 text-xs text-slate-700 outline-none transition focus:border-[#3B6FF0]"
+              />
+              <button
+                type="submit"
+                className="inline-flex h-10 items-center justify-center rounded-full border border-slate-300 bg-white px-4 text-xs font-semibold uppercase tracking-[0.08em] text-slate-600 transition hover:border-[#3B6FF0] hover:text-[#3B6FF0]"
+              >
+                Unsubscribe
+              </button>
+            </div>
+            {unsubscribed && (
+              <p className="mt-2 text-xs text-slate-500">
+                Request captured. You can also confirm on the unsubscribe page.
+              </p>
+            )}
+          </form>
         </div>
 
-        <div className="mt-14 grid gap-10 border-t border-white/10 pt-10 lg:grid-cols-[1.1fr_auto_auto]">
+        <div className="mt-14 grid gap-10 border-t border-slate-200 pt-10 lg:grid-cols-[1.1fr_auto_auto]">
           <div>
             <a href="/" className="inline-flex items-center gap-2.5">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#3B6FF0]">
                 <img
                   src={mainLogo}
                   alt="CreativeIQ"
                   className="h-6 w-6 object-contain"
                 />
               </span>
-              <span className="text-xl font-bold tracking-tight text-white">
+              <span className="text-xl font-bold tracking-tight text-slate-900">
                 CreativeIQ
               </span>
             </a>
-            <p className="mt-4 max-w-md text-sm leading-relaxed text-white/65">
+            <p className="mt-4 max-w-md text-sm leading-relaxed text-slate-600">
               Performance-first digital growth systems built for compounding
               visibility and revenue.
             </p>
@@ -116,7 +147,7 @@ export default function Footer() {
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white/70 transition hover:border-blue-300 hover:text-blue-300"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-300 text-slate-500 transition hover:border-[#3B6FF0] hover:text-[#3B6FF0]"
                 >
                   <Icon size={15} />
                 </a>
@@ -124,37 +155,37 @@ export default function Footer() {
             </div>
           </div>
 
-          <nav className="grid gap-3 text-sm text-white/75">
-            <a href="#services" className="transition hover:text-white">
+          <nav className="grid gap-3 text-sm text-slate-600">
+            <a href="#services" className="transition hover:text-slate-900">
               Services
             </a>
-            <a href="#contact" className="transition hover:text-white">
+            <a href="#contact" className="transition hover:text-slate-900">
               Contact
             </a>
             <a
               href="#footer-newsletter"
-              className="transition hover:text-white"
+              className="transition hover:text-slate-900"
             >
               Newsletter
             </a>
             <a
               href="/newsletter/unsubscribed"
-              className="inline-flex items-center gap-1 text-white/60 transition hover:text-white"
+              className="inline-flex items-center gap-1 text-slate-500 transition hover:text-slate-900"
             >
               Unsubscribe <ArrowUpRight size={14} />
             </a>
           </nav>
 
-          <div className="text-sm text-white/75">
+          <div className="text-sm text-slate-600">
             <p>San Antonio, Texas</p>
             <a
-              className="mt-2 block transition hover:text-white"
+              className="mt-2 block transition hover:text-slate-900"
               href="tel:2108380177"
             >
               (210) 838-0177
             </a>
             <a
-              className="mt-2 block transition hover:text-white"
+              className="mt-2 block transition hover:text-slate-900"
               href="mailto:CiQ@creativeiq.marketing"
             >
               CiQ@creativeiq.marketing
@@ -162,7 +193,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs text-white/45">
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-slate-200 pt-6 text-xs text-slate-500">
           <p>
             {new Date().getFullYear()} CreativeIQ Marketing. All rights
             reserved.
@@ -173,7 +204,7 @@ export default function Footer() {
                 key={label}
                 href={href}
                 onClick={() => trackButtonClick(label, "footer_nav", "Footer")}
-                className="transition hover:text-white/80"
+                className="transition hover:text-slate-900"
               >
                 {label}
               </a>

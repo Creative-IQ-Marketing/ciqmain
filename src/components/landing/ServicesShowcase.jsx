@@ -5,7 +5,7 @@ import {
   useAnimationFrame,
   useMotionValue,
 } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import MagneticButton from "../primitives/MagneticButton";
 import {
   panelRevealTransition,
@@ -95,6 +95,19 @@ function ServiceCard({
 }) {
   return (
     <motion.article
+      onClick={mobile ? onTap : undefined}
+      onKeyDown={
+        mobile
+          ? (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onTap?.();
+              }
+            }
+          : undefined
+      }
+      role={mobile ? "button" : undefined}
+      tabIndex={mobile ? 0 : undefined}
       onHoverStart={mobile ? undefined : onOpen}
       onHoverEnd={mobile ? undefined : onClose}
       whileHover={premiumCardHover}
@@ -135,10 +148,28 @@ function ServiceCard({
         </div>
       )}
 
+      {mobile && expanded && (
+        <AnimatePresence>
+          <motion.button
+            type="button"
+            initial={{ opacity: 0, scale: 0.6, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.65, y: 12 }}
+            transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+            onClick={(e) => {
+              e.stopPropagation();
+              onTap?.();
+            }}
+            className="absolute right-4 top-4 z-30 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/50 bg-black/65 text-white shadow-lg backdrop-blur-sm"
+            aria-label="Close details"
+          >
+            <X size={20} />
+          </motion.button>
+        </AnimatePresence>
+      )}
+
       <div className="relative z-10 flex h-full flex-col justify-end">
-        <button
-          type="button"
-          onClick={mobile ? onTap : undefined}
+        <div
           className={`${mobile ? "cursor-pointer" : "cursor-default"} w-full px-8 pb-8 pt-10 text-left`}
           aria-expanded={expanded}
           aria-controls={`service-panel-${cardId}`}
@@ -154,7 +185,7 @@ function ServiceCard({
               {service.subtitle}
             </p>
           </motion.div>
-        </button>
+        </div>
 
         <AnimatePresence initial={false}>
           {expanded && (
@@ -165,6 +196,7 @@ function ServiceCard({
               exit={{ y: "100%", opacity: 0.95 }}
               transition={panelRevealTransition}
               className="absolute inset-x-0 bottom-0 h-[80%] bg-black/90 text-white backdrop-blur-md"
+              onClick={(e) => e.stopPropagation()}
             >
               <div className="flex h-full flex-col p-7">
                 <div className="mb-5 border-b border-white/20 pb-4">
