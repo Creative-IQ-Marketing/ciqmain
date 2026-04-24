@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { Facebook, Linkedin, Instagram, Youtube, ArrowUpRight } from "lucide-react";
+import {
+  Facebook,
+  Linkedin,
+  Instagram,
+  Youtube,
+  ArrowUpRight,
+} from "lucide-react";
 import mainLogo from "../../assets/mainLogo.png";
 import { trackButtonClick } from "../../services/analytics";
 
@@ -38,7 +44,10 @@ export default function Footer() {
       </div>
 
       <div className="relative mx-auto max-w-7xl px-4 pb-8 pt-20 sm:px-6 lg:px-8">
-        <div id="footer-newsletter" className="rounded-[28px] border border-white/15 bg-white/[0.06] p-7 backdrop-blur-xl sm:p-10">
+        <div
+          id="footer-newsletter"
+          className="rounded-[28px] border border-white/15 bg-white/[0.06] p-7 backdrop-blur-xl sm:p-10"
+        >
           <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:items-end">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-200">
@@ -87,14 +96,19 @@ export default function Footer() {
           <div>
             <a href="/" className="inline-flex items-center gap-2.5">
               <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white">
-                <img src={mainLogo} alt="CreativeIQ" className="h-6 w-6 object-contain" />
+                <img
+                  src={mainLogo}
+                  alt="CreativeIQ"
+                  className="h-6 w-6 object-contain"
+                />
               </span>
               <span className="text-xl font-bold tracking-tight text-white">
                 CreativeIQ
               </span>
             </a>
             <p className="mt-4 max-w-md text-sm leading-relaxed text-white/65">
-              Performance-first digital growth systems built for compounding visibility and revenue.
+              Performance-first digital growth systems built for compounding
+              visibility and revenue.
             </p>
             <div className="mt-6 flex gap-2.5">
               {SOCIALS.map(({ Icon, label, href }) => (
@@ -117,27 +131,42 @@ export default function Footer() {
             <a href="#contact" className="transition hover:text-white">
               Contact
             </a>
-            <a href="#footer-newsletter" className="transition hover:text-white">
+            <a
+              href="#footer-newsletter"
+              className="transition hover:text-white"
+            >
               Newsletter
             </a>
-            <a href="/newsletter/unsubscribed" className="inline-flex items-center gap-1 text-white/60 transition hover:text-white">
-              Unsubscribe Page <ArrowUpRight size={14} />
+            <a
+              href="/newsletter/unsubscribed"
+              className="inline-flex items-center gap-1 text-white/60 transition hover:text-white"
+            >
+              Unsubscribe <ArrowUpRight size={14} />
             </a>
           </nav>
 
           <div className="text-sm text-white/75">
             <p>San Antonio, Texas</p>
-            <a className="mt-2 block transition hover:text-white" href="tel:2108380177">
+            <a
+              className="mt-2 block transition hover:text-white"
+              href="tel:2108380177"
+            >
               (210) 838-0177
             </a>
-            <a className="mt-2 block transition hover:text-white" href="mailto:CiQ@creativeiq.marketing">
+            <a
+              className="mt-2 block transition hover:text-white"
+              href="mailto:CiQ@creativeiq.marketing"
+            >
               CiQ@creativeiq.marketing
             </a>
           </div>
         </div>
 
         <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs text-white/45">
-          <p>{new Date().getFullYear()} CreativeIQ Marketing. All rights reserved.</p>
+          <p>
+            {new Date().getFullYear()} CreativeIQ Marketing. All rights
+            reserved.
+          </p>
           <div className="flex items-center gap-4">
             {NAV.map(({ label, href }) => (
               <a

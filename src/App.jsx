@@ -44,8 +44,8 @@ function HomePage() {
       <SEO />
       <StructuredData />
       <Hero />
-      <StoryStrip />
-      <SectionGlide />
+      {/* <StoryStrip /> */}
+      {/* <SectionGlide /> */}
       <Clients />
       <SectionGlide flip />
       <About />
