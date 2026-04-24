@@ -2,7 +2,7 @@ import { motion, useInView } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import FadeUp from "../primitives/FadeUp";
 
-const logoModules = import.meta.glob("../../assets/brands/*.webp", {
+const logoModules = import.meta.glob("../../assets/transparent/*.png", {
   eager: true,
 });
 
@@ -69,7 +69,7 @@ const Clients = () => {
             {[...clients, ...clients].map((client, index) => (
               <motion.div
                 key={`${client.id}-${index}`}
-                className="relative w-40 h-20 flex-shrink-0 flex items-center justify-center group cursor-pointer"
+                className="relative w-48 h-24 flex-shrink-0 flex items-center justify-center group cursor-pointer"
                 onMouseEnter={() => setHoveredId(client.id)}
                 onMouseLeave={() => setHoveredId(null)}
                 whileHover={{ scale: 1.1 }}
@@ -96,7 +96,7 @@ const Clients = () => {
       <div className="block md:hidden px-4">
         <div className="relative w-full">
           {/* Main Carousel */}
-          <div className="relative h-32 rounded-2xl overflow-hidden bg-transparent">
+          <div className="relative h-40 rounded-2xl overflow-hidden bg-transparent">
             {/* Carousel Items */}
             <motion.div
               className="relative w-full h-full flex items-center justify-center"
@@ -109,7 +109,7 @@ const Clients = () => {
               <motion.img
                 src={clients[currentIndex].src}
                 alt={clients[currentIndex].alt}
-                className="max-w-[70%] max-h-[70%] object-contain cursor-pointer"
+                className="max-w-full max-h-full object-contain cursor-pointer"
                 style={{
                   filter: "drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15))",
                 }}
