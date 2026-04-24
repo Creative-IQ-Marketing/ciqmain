@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -30,11 +30,9 @@ export default function Header() {
         setVisible(true);
         clearTimeout(hideTimer.current);
       } else if (y > lastScroll.current) {
-        // scrolling down  hide
         setVisible(false);
         clearTimeout(hideTimer.current);
       } else if (y < lastScroll.current) {
-        // scrolling up  show, auto-hide after 3s
         setVisible(true);
         clearTimeout(hideTimer.current);
         hideTimer.current = setTimeout(() => {
@@ -86,19 +84,36 @@ export default function Header() {
 
   return (
     <>
-      <div className="fixed top-5 left-0 right-0 z-50 flex justify-center px-4 sm:px-6">
+      <div className="fixed top-0 left-0 right-0 z-[60] hidden lg:block">
+        <div className="mx-auto flex h-11 w-full items-center justify-center gap-4 bg-[#3B6FF0] px-8">
+          <p className="text-sm font-semibold tracking-wide text-white">
+            Want stronger rankings and faster growth? Get your free strategy
+            blueprint today.
+          </p>
+          <a
+            href="#contact"
+            onClick={(e) => {
+              trackButtonClick("Top Banner CTA", "top_banner_cta", "Header");
+              handleNav(e, "#contact");
+            }}
+            className="rounded-full border-2 border-[#F3D56D] bg-white px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.08em] text-[#3B6FF0] shadow-[0_3px_0_#F3D56D] transition hover:bg-blue-50"
+          >
+            Claim Free Audit
+          </a>
+        </div>
+      </div>
+
+      <div className="fixed top-5 left-0 right-0 z-50 flex justify-center px-4 sm:px-6 lg:top-14">
         <motion.div
           initial={{ y: -240 }}
           animate={{ y: visible ? 0 : -120, opacity: visible ? 1 : 1 }}
           transition={{ duration: 0.45, ease }}
           className="w-full max-w-6xl"
         >
-          {/* Pill */}
           <div
             className="flex items-center h-[82px] md:h-[82px] px-5 md:px-6 rounded-full bg-white/95 backdrop-blur-2xl border border-black/[0.07] shadow-[0_8px_56px_rgba(0,0,0,0.14)]"
             style={{ height: "clamp(60px, 12vw, 82px)" }}
           >
-            {/* Logo */}
             <a
               href="/"
               onClick={(e) => handleNav(e, "/")}
@@ -124,10 +139,8 @@ export default function Header() {
               </span>
             </a>
 
-            {/* Divider */}
             <div className="hidden md:block h-5 w-px bg-slate-200 shrink-0" />
 
-            {/* Desktop nav */}
             <nav className="hidden md:flex items-center flex-1 justify-center gap-0">
               {NAV.map((n, i) => (
                 <motion.a
@@ -146,7 +159,6 @@ export default function Header() {
               ))}
             </nav>
 
-            {/* CTAs */}
             <div className="hidden md:flex items-center gap-2.5 shrink-0 ml-auto pl-4">
               <motion.button
                 onClick={() => {
@@ -189,7 +201,6 @@ export default function Header() {
               </motion.a>
             </div>
 
-            {/* Mobile toggle */}
             <button
               onClick={() => setOpen(!open)}
               className="md:hidden ml-auto p-2.5 rounded-full text-slate-600 hover:bg-slate-100 transition-colors"
@@ -198,7 +209,6 @@ export default function Header() {
             </button>
           </div>
 
-          {/* Mobile menu drop */}
           <AnimatePresence>
             {open && (
               <motion.div

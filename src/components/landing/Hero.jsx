@@ -1,4 +1,4 @@
-﻿import {
+import {
   motion,
   AnimatePresence,
   useScroll,
@@ -12,11 +12,11 @@ import { trackButtonClick } from "../../services/analytics";
 const ease = [0.22, 1, 0.36, 1];
 
 const PHOTOS = [
-  "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=90",
-  "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1920&q=90",
-  "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1920&q=90",
-  "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1920&q=90",
-  "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1920&q=90",
+  "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=2200&q=85",
+  "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=2200&q=85",
+  "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=2200&q=85",
+  "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=2200&q=85",
+  "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=2200&q=85",
 ];
 
 export default function Hero() {
@@ -173,13 +173,14 @@ export default function Hero() {
           </AnimatePresence>
         </motion.div>
 
-        {/* Overlay: flat wash for legibility without gradients */}
+        {/* Overlay: premium dark tone for bold hero text */}
         <div
           style={{
             position: "absolute",
             inset: 0,
             zIndex: 1,
-            background: "rgba(247,246,241,0.7)",
+            background:
+              "linear-gradient(115deg, rgba(10,19,52,0.78) 0%, rgba(10,19,52,0.58) 42%, rgba(10,19,52,0.65) 100%)",
           }}
         />
 
@@ -222,7 +223,7 @@ export default function Hero() {
             style={{
               fontSize: "clamp(9px, 2vw, 11px)",
               fontWeight: 500,
-              color: "rgba(0,0,0,0.45)",
+              color: "rgba(255,255,255,0.7)",
               letterSpacing: "0.22em",
               textTransform: "uppercase",
               marginBottom: 28,
@@ -276,7 +277,7 @@ export default function Hero() {
                         fontWeight: 700,
                         letterSpacing: "-0.05em",
                         lineHeight: 1.06,
-                        color: "#0d0d14",
+                        color: "#ffffff",
                       }}
                     >
                       {word}
@@ -337,7 +338,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.3, ease }}
             style={{
               fontSize: "clamp(0.92rem, 1.3vw, 1.05rem)",
-              color: "rgba(0,0,0,0.5)",
+              color: "rgba(255,255,255,0.82)",
               maxWidth: 500,
               lineHeight: 1.65,
               marginBottom: 44,
@@ -393,8 +394,8 @@ export default function Hero() {
               style={{
                 fontSize: 14,
                 color: "#0d0d14",
-                border: "1px solid rgba(0,0,0,0.15)",
-                background: "rgba(255,255,255,0.6)",
+                border: "1px solid rgba(255,255,255,0.55)",
+                background: "rgba(255,255,255,0.86)",
                 backdropFilter: "blur(12px)",
                 padding: "14px 30px",
                 borderRadius: 99,
@@ -418,7 +419,7 @@ export default function Hero() {
                   width: i === active ? 22 : 6,
                   height: 6,
                   borderRadius: 3,
-                  background: i === active ? "#3B6FF0" : "rgba(0,0,0,0.18)",
+                  background: i === active ? "#3B6FF0" : "rgba(255,255,255,0.38)",
                   transition: "all 0.32s ease",
                 }}
               />
@@ -446,7 +447,7 @@ export default function Hero() {
                 fontSize: 9,
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
-                color: "rgba(0,0,0,0.3)",
+                color: "rgba(255,255,255,0.65)",
               }}
             >
               Scroll
@@ -456,7 +457,7 @@ export default function Hero() {
               style={{
                 width: 1,
                 height: 28,
-                background: "rgba(59,111,240,0.42)",
+                background: "rgba(255,255,255,0.5)",
               }}
             />
           </motion.div>

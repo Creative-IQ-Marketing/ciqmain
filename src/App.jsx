@@ -4,7 +4,7 @@ import Header from "./components/landing/Header";
 import Hero from "./components/landing/Hero";
 import Clients from "./components/landing/Clients";
 import About from "./components/landing/About";
-import Services from "./components/landing/Services";
+import ServicesShowcase from "./components/landing/ServicesShowcase";
 import Stats from "./components/landing/Stats";
 import GHLValueTable from "./components/landing/GHLValueTable";
 import Process from "./components/landing/Process";
@@ -45,7 +45,7 @@ function HomePage() {
       <Hero />
       <Clients />
       <About />
-      <Services />
+      <ServicesShowcase />
       <Stats />
       <GHLValueTable />
       {/* <Process /> */}
