@@ -6,6 +6,13 @@ import {
   useMotionValue,
 } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import MagneticButton from "../primitives/MagneticButton";
+import {
+  panelRevealTransition,
+  premiumCardHover,
+  premiumCardTap,
+  premiumCardTransition,
+} from "../primitives/motionTokens";
 import semVideo from "../../assets/svid/seovid.mp4";
 import smmVideo from "../../assets/svid/social media.mp4";
 import contentVideo from "../../assets/svid/contentmgmt.mp4";
@@ -90,6 +97,9 @@ function ServiceCard({
     <motion.article
       onHoverStart={mobile ? undefined : onOpen}
       onHoverEnd={mobile ? undefined : onClose}
+      whileHover={premiumCardHover}
+      whileTap={premiumCardTap}
+      transition={premiumCardTransition}
       className="relative h-[680px] w-full overflow-hidden rounded-[30px] border border-black/10 bg-[#0F1F54] shadow-[0_28px_70px_rgba(33,60,150,0.18)]"
     >
       <motion.video
@@ -153,7 +163,7 @@ function ServiceCard({
               initial={{ y: "100%", opacity: 0.95 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: "100%", opacity: 0.95 }}
-              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              transition={panelRevealTransition}
               className="absolute inset-x-0 bottom-0 h-[80%] bg-black/90 text-white backdrop-blur-md"
             >
               <div className="flex h-full flex-col p-7">
@@ -174,12 +184,14 @@ function ServiceCard({
                     ))}
                   </ul>
                 </div>
-                <a
+                <MagneticButton
+                  as="a"
                   href="#contact"
+                  strength={0.22}
                   className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-extrabold uppercase tracking-[0.08em] text-[#2A4AB8] transition hover:opacity-95"
                 >
                   Get a Demo
-                </a>
+                </MagneticButton>
               </div>
             </motion.div>
           )}
@@ -244,6 +256,7 @@ export default function ServicesShowcase() {
 
   return (
     <section id="services" className="relative overflow-hidden bg-white py-24 lg:py-28">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white to-transparent" />
       <div className="pointer-events-none absolute -left-44 top-20 h-[420px] w-[420px] rounded-full bg-[#3B6FF0]/14 blur-[110px]" />
       <div className="pointer-events-none absolute -right-40 bottom-8 h-[420px] w-[420px] rounded-full bg-[#3B6FF0]/10 blur-[120px]" />
 

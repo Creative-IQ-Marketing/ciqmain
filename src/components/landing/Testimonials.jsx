@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { Quote, ArrowLeft, ArrowRight, Star } from "lucide-react";
 import { motion as Motion, AnimatePresence } from "framer-motion";
+import {
+  premiumCardHover,
+  premiumCardTap,
+} from "../primitives/motionTokens";
 
 const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -97,7 +101,9 @@ const Testimonials = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -12 }}
                 transition={{ duration: 0.35 }}
-                className="space-y-6"
+                whileHover={premiumCardHover}
+                whileTap={premiumCardTap}
+                className="space-y-6 rounded-3xl border border-slate-200 bg-white p-7 shadow-[0_18px_40px_rgba(30,64,175,0.08)]"
               >
                 <Quote className="w-8 h-8 text-blue-600" />
                 <p className="text-base md:text-lg leading-relaxed text-gray-800">
