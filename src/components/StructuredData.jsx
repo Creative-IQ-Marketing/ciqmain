@@ -11,7 +11,7 @@ export default function StructuredData() {
       logo: "https://creativeiq.marketing/logo.png",
       image: "https://creativeiq.marketing/og-image.jpg",
       description:
-        "CreativeIQ Digital Marketing engineers AI-ready SEO, conversion-focused websites, chat experiences, and CRM automation designed for AI-driven discovery and real conversions.",
+        "CreativeIQ Digital Marketing engineers AI-ready SEO, social media marketing, conversion-focused websites, chat experiences, and CRM automation designed for AI-driven discovery and real conversions.",
       foundingDate: "2016",
       slogan: "Elevate Your Digital Presence",
       telephone: "+1-804-651-2531",
@@ -47,7 +47,7 @@ export default function StructuredData() {
       name: "CreativeIQ Marketing",
       image: "https://creativeiq.marketing/og-image.jpg",
       description:
-        "Digital marketing agency specializing in AI-ready SEO, conversion websites, chat experiences, and CRM automation that turns visitors into qualified leads.",
+        "Digital marketing agency specializing in AI-ready SEO, social media marketing, conversion websites, chat experiences, and CRM automation that turns visitors into qualified leads.",
       url: "https://creativeiq.marketing",
       telephone: "+1-804-651-2531",
       email: "CiQ@creativeiq.marketing",

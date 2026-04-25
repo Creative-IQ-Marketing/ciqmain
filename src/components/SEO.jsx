@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 
 export default function SEO({
-  title = "CreativeIQ Digital Marketing | AI SEO, Websites, CRM Automation",
-  description = "Are you showing up on AI platforms—not just Google? Is your website converting leads? Does your chat + social positioning help you win? CreativeIQ builds AI-ready SEO ecosystems.",
+  title = "CreativeIQ Digital Marketing | AI SEO, Social Media Marketing, Websites, CRM Automation",
+  description = "Are you showing up on AI platforms—not just Google? Is your website converting leads? Does your social media marketing + positioning help you win? CreativeIQ builds AI-ready SEO ecosystems.",
   keywords = "AI SEO, AI search optimization, ChatGPT SEO, Gemini SEO, Claude SEO, Perplexity SEO, search engine optimization, technical SEO, conversion rate optimization, website development, landing pages, CRM automation, email marketing, social media marketing, PPC advertising, Google Business Profile optimization, digital marketing agency",
   ogImage = "/og-image.jpg",
   canonical = "",

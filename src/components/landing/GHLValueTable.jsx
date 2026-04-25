@@ -305,7 +305,7 @@ export default function GHLValueTable() {
                   fontWeight: 900,
                   letterSpacing: "0.08em",
                   textTransform: "uppercase",
-                  color: "#cbd5e1",
+                  color: "rgba(255,255,255,0.72)",
                   whiteSpace: "nowrap",
                 }}
               >
@@ -318,7 +318,7 @@ export default function GHLValueTable() {
                   fontWeight: 900,
                   letterSpacing: "0.08em",
                   textTransform: "uppercase",
-                  color: "#cbd5e1",
+                  color: "rgba(255,255,255,0.72)",
                   whiteSpace: "nowrap",
                 }}
               >
@@ -331,7 +331,7 @@ export default function GHLValueTable() {
                   fontWeight: 900,
                   letterSpacing: "0.08em",
                   textTransform: "uppercase",
-                  color: "#cbd5e1",
+                  color: "rgba(255,255,255,0.72)",
                   whiteSpace: "nowrap",
                   textAlign: "right",
                 }}
@@ -345,7 +345,7 @@ export default function GHLValueTable() {
                   fontWeight: 900,
                   letterSpacing: "0.08em",
                   textTransform: "uppercase",
-                  color: "#cbd5e1",
+                  color: "rgba(255,255,255,0.72)",
                   textAlign: "center",
                   whiteSpace: "nowrap",
                 }}
@@ -602,8 +602,8 @@ export default function GHLValueTable() {
                   <div
                     style={{
                       borderRadius: 14,
-                      border: "1px solid rgba(15,23,42,0.10)",
-                      background: "rgba(15,23,42,0.03)",
+                      border: "1px solid rgba(0,0,0,0.10)",
+                      background: "rgba(0,0,0,0.03)",
                       padding: "12px 12px",
                     }}
                   >
@@ -613,7 +613,7 @@ export default function GHLValueTable() {
                         fontWeight: 900,
                         letterSpacing: "0.12em",
                         textTransform: "uppercase",
-                        color: "rgba(15,23,42,0.55)",
+                        color: "rgba(0,0,0,0.55)",
                       }}
                     >
                       Replaces
@@ -625,8 +625,8 @@ export default function GHLValueTable() {
                   <div
                     style={{
                       borderRadius: 14,
-                      border: "1px solid rgba(15,23,42,0.10)",
-                      background: "rgba(15,23,42,0.03)",
+                      border: "1px solid rgba(0,0,0,0.10)",
+                      background: "rgba(0,0,0,0.03)",
                       padding: "12px 12px",
                       display: "flex",
                       alignItems: "center",
@@ -641,7 +641,7 @@ export default function GHLValueTable() {
                           fontWeight: 900,
                           letterSpacing: "0.12em",
                           textTransform: "uppercase",
-                          color: "rgba(15,23,42,0.55)",
+                          color: "rgba(0,0,0,0.55)",
                         }}
                       >
                         Their Cost
@@ -653,8 +653,8 @@ export default function GHLValueTable() {
                     <div
                       style={{
                         borderRadius: 999,
-                        background: `linear-gradient(90deg, ${BRAND_BLUE} 0%, ${BRAND_BLUE} 70%, ${ACCENT_YELLOW} 100%)`,
                         padding: "8px 12px",
+                        background: BRAND_BLUE,
                         color: "#ffffff",
                         fontSize: 11,
                         fontWeight: 900,

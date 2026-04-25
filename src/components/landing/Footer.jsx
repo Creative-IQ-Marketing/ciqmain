@@ -4,6 +4,7 @@ import {
   Linkedin,
   Instagram,
   Youtube,
+  Music2,
   ArrowUpRight,
 } from "lucide-react";
 import mainLogo from "../../assets/mainLogo.png";
@@ -18,10 +19,27 @@ const NAV = [
 ];
 
 const SOCIALS = [
-  { Icon: Facebook, label: "Facebook", href: "#" },
-  { Icon: Linkedin, label: "LinkedIn", href: "#" },
-  { Icon: Instagram, label: "Instagram", href: "#" },
-  { Icon: Youtube, label: "YouTube", href: "#" },
+  {
+    Icon: Facebook,
+    label: "Facebook",
+    href: "https://www.facebook.com/CreativeIQDigitalmarketing",
+  },
+  {
+    Icon: Instagram,
+    label: "Instagram",
+    href: "https://www.instagram.com/creativeiq.digitalmarketing/",
+  },
+  { Icon: Music2, label: "TikTok", href: "https://www.tiktok.com/@creativeiq.marketing" },
+  {
+    Icon: Youtube,
+    label: "YouTube",
+    href: "https://www.youtube.com/@CreativeIQdigitalmarketing",
+  },
+  {
+    Icon: Linkedin,
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/creativeiqdigitalmarketing",
+  },
 ];
 
 export default function Footer() {
