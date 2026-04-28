@@ -1,0 +1,44 @@
+User-agent: *
+Allow: /
+
+# Disallow non-public utility pages
+Disallow: /newsletter/unsubscribed
+
+# Sitemap
+Sitemap: https://creativeiq.marketing/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
+
+# Block sensitive paths
+Disallow: /admin/
+Disallow: /.env
+Disallow: /api/
+Disallow: /*.json$
+
+# Allow assets
+Allow: /og-image.jpg
+Allow: /*.jpg$
+Allow: /*.png$
+Allow: /*.webp$
+Allow: /*.svg$
+
+# Google & Bing — full access
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# AI bots — allow indexing for GEO / generative engine optimization
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
