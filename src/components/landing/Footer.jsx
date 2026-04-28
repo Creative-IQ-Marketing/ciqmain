@@ -9,6 +9,10 @@ import {
 } from "lucide-react";
 import mainLogo from "../../assets/mainLogo.png";
 import { trackButtonClick } from "../../services/analytics";
+import {
+  subscribeContactToNewsletter,
+  unsubscribeEmailFromNewsletter,
+} from "../../services/ghl";
 
 const NAV = [
   { label: "Home", href: "#home" },
@@ -47,21 +51,51 @@ export default function Footer() {
   const [unsubscribeEmail, setUnsubscribeEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [unsubscribed, setUnsubscribed] = useState(false);
+  const [subscribeLoading, setSubscribeLoading] = useState(false);
+  const [unsubscribeLoading, setUnsubscribeLoading] = useState(false);
+  const [subscribeError, setSubscribeError] = useState("");
+  const [unsubscribeError, setUnsubscribeError] = useState("");
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     if (!email.trim()) return;
-    trackButtonClick("Newsletter Subscribe", "footer_newsletter", "Footer");
-    setSubscribed(true);
-    setEmail("");
+    setSubscribeError("");
+    setSubscribeLoading(true);
+    try {
+      await subscribeContactToNewsletter(email, {
+        source: "footer_newsletter_subscribe",
+        pagePath: window.location.pathname,
+      });
+      trackButtonClick("Newsletter Subscribe", "footer_newsletter", "Footer");
+      setSubscribed(true);
+      setEmail("");
+    } catch (error) {
+      console.error("Footer newsletter subscribe failed:", error);
+      setSubscribeError("Could not subscribe right now. Please try again.");
+    } finally {
+      setSubscribeLoading(false);
+    }
   };
 
-  const onUnsubscribe = (e) => {
+  const onUnsubscribe = async (e) => {
     e.preventDefault();
     if (!unsubscribeEmail.trim()) return;
-    trackButtonClick("Newsletter Unsubscribe", "footer_unsubscribe", "Footer");
-    setUnsubscribed(true);
-    setUnsubscribeEmail("");
+    setUnsubscribeError("");
+    setUnsubscribeLoading(true);
+    try {
+      await unsubscribeEmailFromNewsletter(unsubscribeEmail, {
+        source: "footer_newsletter_unsubscribe",
+        pagePath: window.location.pathname,
+      });
+      trackButtonClick("Newsletter Unsubscribe", "footer_unsubscribe", "Footer");
+      setUnsubscribed(true);
+      setUnsubscribeEmail("");
+    } catch (error) {
+      console.error("Footer newsletter unsubscribe failed:", error);
+      setUnsubscribeError("Could not unsubscribe right now. Please try again.");
+    } finally {
+      setUnsubscribeLoading(false);
+    }
   };
 
   return (
@@ -101,15 +135,19 @@ export default function Footer() {
                 />
                 <button
                   type="submit"
+                  disabled={subscribeLoading}
                   className="inline-flex h-12 items-center justify-center rounded-full bg-[#3B6FF0] px-6 text-sm font-bold uppercase tracking-[0.08em] text-white transition hover:bg-[#2F5FE6]"
                 >
-                  Subscribe
+                  {subscribeLoading ? "Submitting..." : "Subscribe"}
                 </button>
               </div>
               {subscribed && (
                 <p className="text-xs font-medium text-[#3B6FF0]">
                   Thanks for subscribing. You are in.
                 </p>
+              )}
+              {subscribeError && (
+                <p className="text-xs font-medium text-red-600">{subscribeError}</p>
               )}
             </form>
           </div>
@@ -125,18 +163,23 @@ export default function Footer() {
                 onChange={(e) => setUnsubscribeEmail(e.target.value)}
                 placeholder="Email to unsubscribe"
                 className="h-10 flex-1 rounded-full border border-slate-300 bg-white px-4 text-xs text-slate-700 outline-none transition focus:border-[#3B6FF0]"
+                required
               />
               <button
                 type="submit"
+                disabled={unsubscribeLoading}
                 className="inline-flex h-10 items-center justify-center rounded-full border border-slate-300 bg-white px-4 text-xs font-semibold uppercase tracking-[0.08em] text-slate-600 transition hover:border-[#3B6FF0] hover:text-[#3B6FF0]"
               >
-                Unsubscribe
+                {unsubscribeLoading ? "Submitting..." : "Unsubscribe"}
               </button>
             </div>
             {unsubscribed && (
               <p className="mt-2 text-xs text-slate-500">
                 Request captured. You can also confirm on the unsubscribe page.
               </p>
+            )}
+            {unsubscribeError && (
+              <p className="mt-2 text-xs font-medium text-red-600">{unsubscribeError}</p>
             )}
           </form>
         </div>
