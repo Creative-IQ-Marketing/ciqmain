@@ -90,8 +90,8 @@ export default function Hero() {
           text-transform: uppercase;
         }
         @media (max-width: 640px) {
-          .hero-stats { 
-            gap: 0.8rem !important; 
+          .hero-stats {
+            gap: 0.8rem !important;
             padding: 10px 0.75rem !important;
             flex-wrap: nowrap !important;
           }
@@ -111,8 +111,8 @@ export default function Hero() {
           .hero-content-safe { padding-top: 62px !important; padding-bottom: 48px !important; }
         }
         @media (min-width: 641px) and (max-width: 920px) {
-          .hero-stats { 
-            gap: 1rem !important; 
+          .hero-stats {
+            gap: 1rem !important;
             padding: 12px 1rem !important;
           }
           .hero-ctas { flex-direction: column !important; align-items: stretch !important; }
@@ -222,7 +222,7 @@ export default function Hero() {
               marginBottom: 28,
             }}
           >
-            San Antonio, TX · Full-service digital agency
+            AI driven full marketing agency
           </motion.p>
 
           <motion.div
@@ -235,17 +235,18 @@ export default function Hero() {
               },
             }}
           >
+            {/* ── Row 1: Built to Rank. ── */}
             <div
               style={{
                 overflow: "hidden",
                 display: "flex",
                 flexWrap: "wrap",
                 justifyContent: "center",
-                gap: "0.25em",
-                marginBottom: "0.12em",
+                gap: "0.5em",
+                marginBottom: "0.15em",
               }}
             >
-              {["We", "grow", "businesses"].map((word) => (
+              {["Built", "to", "Rank."].map((word) => (
                 <span
                   key={word}
                   style={{ overflow: "hidden", display: "inline-block" }}
@@ -266,9 +267,11 @@ export default function Hero() {
                       style={{
                         fontSize: "clamp(2.2rem, 6vw, 6.1rem)",
                         fontWeight: 700,
-                        letterSpacing: "-0.05em",
+                        letterSpacing: "-0.02em",
                         lineHeight: 1.06,
                         color: "#ffffff",
+                        textShadow:
+                          "0 2px 24px rgba(0,0,0,0.45), 0 1px 4px rgba(0,0,0,0.3)",
                       }}
                     >
                       {word}
@@ -277,16 +280,22 @@ export default function Hero() {
                 </span>
               ))}
             </div>
+
+            {/* ── Row 2: Designed to Convert. ── */}
             <div
               style={{
                 overflow: "hidden",
                 display: "flex",
                 flexWrap: "wrap",
                 justifyContent: "center",
-                gap: "0.25em",
+                gap: "0.5em",
               }}
             >
-              {["that", "mean", "business."].map((word) => (
+              {[
+                { word: "Designed", color: "#ffffff" },
+                { word: "to", color: "#ffffff" },
+                { word: "Convert.", color: "#3B6FF0" },
+              ].map(({ word, color }) => (
                 <span
                   key={word}
                   style={{ overflow: "hidden", display: "inline-block" }}
@@ -307,9 +316,13 @@ export default function Hero() {
                       style={{
                         fontSize: "clamp(2.9rem, 7vw, 6.1rem)",
                         fontWeight: 700,
-                        letterSpacing: "-0.05em",
+                        letterSpacing: "-0.02em",
                         lineHeight: 1.06,
-                        color: "#3B6FF0",
+                        color,
+                        textShadow:
+                          color === "#3B6FF0"
+                            ? "0 2px 28px rgba(59,111,240,0.5), 0 1px 4px rgba(0,0,0,0.3)"
+                            : "0 2px 24px rgba(0,0,0,0.45), 0 1px 4px rgba(0,0,0,0.3)",
                       }}
                     >
                       {word}
@@ -320,22 +333,76 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          <motion.p
-            className="f-body"
-            initial={{ opacity: 1, y: 10 }}
+          {/* ── Platform subtitle ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3, ease }}
+            transition={{ duration: 0.65, delay: 0.32, ease }}
             style={{
-              fontSize: "clamp(0.92rem, 1.3vw, 1.05rem)",
-              color: "rgba(255,255,255,0.82)",
-              maxWidth: 500,
-              lineHeight: 1.65,
+              display: "flex",
+              flexWrap: "wrap",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 10,
               marginBottom: 44,
+              maxWidth: 580,
             }}
           >
-            Website development, SEO, AEO, paid ads, CRM automation, and social
-            media — all under one roof, all built to drive real revenue.
-          </motion.p>
+            {/* Eyebrow label */}
+            <span
+              className="f-body"
+              style={{
+                fontSize: "clamp(0.72rem, 0.88vw, 0.8rem)",
+                color: "rgba(255,255,255,0.5)",
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                fontWeight: 500,
+                textShadow: "0 1px 2px rgba(0,0,0,0.4)",
+              }}
+            >
+              Show up where people search:
+            </span>
+
+            {/* Platform chips – now inline */}
+            {["Google", "Social", "AI Platforms"].map((platform) => (
+              <span
+                key={platform}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                  padding: "5px 13px",
+                  borderRadius: 99,
+                  border: "1px solid rgba(255,255,255,0.14)",
+                  background:
+                    "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%)",
+                  color: "rgba(255,255,255,0.76)",
+                  fontSize: "clamp(0.7rem, 0.82vw, 0.76rem)",
+                  fontWeight: 500,
+                  letterSpacing: "0.02em",
+                  backdropFilter: "blur(10px)",
+                  WebkitBackdropFilter: "blur(10px)",
+                  boxShadow:
+                    "inset 0 0.5px 0 rgba(255,255,255,0.1), 0 2px 8px rgba(0,0,0,0.18)",
+                  textShadow: "0 1px 2px rgba(0,0,0,0.3)",
+                }}
+              >
+                {/* Glowing dot */}
+                <span
+                  style={{
+                    width: 4,
+                    height: 4,
+                    borderRadius: "50%",
+                    background: "#3B6FF0",
+                    display: "inline-block",
+                    flexShrink: 0,
+                    boxShadow: "0 0 6px 1px rgba(59,111,240,0.75)",
+                  }}
+                />
+                {platform}
+              </span>
+            ))}
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 1, y: 10 }}
