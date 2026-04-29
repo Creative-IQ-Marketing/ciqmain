@@ -374,8 +374,14 @@ export default function Hero() {
               Start a project
             </MagneticButton>
             <MagneticButton
-              as="a"
-              href="#services"
+              onClick={() => {
+                trackButtonClick(
+                  "Try Free SEO Tool",
+                  "hero_free_seo_tool",
+                  "Hero",
+                );
+                navigate("/free-ai-seo-audit");
+              }}
               strength={0.18}
               className="f-body"
               style={{
@@ -389,27 +395,33 @@ export default function Hero() {
                 textDecoration: "none",
               }}
             >
-              Our services
-            </MagneticButton>
-            <MagneticButton
-              as="a"
-              href="#footer-newsletter"
-              strength={0.14}
-              className="f-body"
-              style={{
-                fontSize: 14,
-                color: "#fff",
-                border: "1px solid rgba(255,255,255,0.45)",
-                background: "rgba(255,255,255,0.12)",
-                backdropFilter: "blur(12px)",
-                padding: "14px 30px",
-                borderRadius: 99,
-                textDecoration: "none",
-              }}
-            >
-              Join newsletter
+              Try free SEO tool
             </MagneticButton>
           </motion.div>
+
+          <motion.a
+            href="#services"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.5, ease }}
+            className="f-body"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 8,
+              marginTop: -40,
+              marginBottom: 72,
+              fontSize: 13,
+              fontWeight: 500,
+              color: "rgba(255,255,255,0.76)",
+              textDecoration: "none",
+              letterSpacing: "0.02em",
+            }}
+          >
+            Explore our services
+            <span style={{ fontSize: 16, lineHeight: 1 }}>→</span>
+          </motion.a>
 
           <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
             {PHOTOS.map((_, i) => (
@@ -423,7 +435,8 @@ export default function Hero() {
                   width: i === active ? 22 : 6,
                   height: 6,
                   borderRadius: 3,
-                  background: i === active ? "#3B6FF0" : "rgba(255,255,255,0.38)",
+                  background:
+                    i === active ? "#3B6FF0" : "rgba(255,255,255,0.38)",
                   transition: "all 0.32s ease",
                 }}
               />

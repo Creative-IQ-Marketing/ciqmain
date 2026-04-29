@@ -33,7 +33,11 @@ const SOCIALS = [
     label: "Instagram",
     href: "https://www.instagram.com/creativeiq.digitalmarketing/",
   },
-  { Icon: Music2, label: "TikTok", href: "https://www.tiktok.com/@creativeiq.marketing" },
+  {
+    Icon: Music2,
+    label: "TikTok",
+    href: "https://www.tiktok.com/@creativeiq.marketing",
+  },
   {
     Icon: Youtube,
     label: "YouTube",
@@ -87,7 +91,11 @@ export default function Footer() {
         source: "footer_newsletter_unsubscribe",
         pagePath: window.location.pathname,
       });
-      trackButtonClick("Newsletter Unsubscribe", "footer_unsubscribe", "Footer");
+      trackButtonClick(
+        "Newsletter Unsubscribe",
+        "footer_unsubscribe",
+        "Footer",
+      );
       setUnsubscribed(true);
       setUnsubscribeEmail("");
     } catch (error) {
@@ -147,12 +155,17 @@ export default function Footer() {
                 </p>
               )}
               {subscribeError && (
-                <p className="text-xs font-medium text-red-600">{subscribeError}</p>
+                <p className="text-xs font-medium text-red-600">
+                  {subscribeError}
+                </p>
               )}
             </form>
           </div>
 
-          <form onSubmit={onUnsubscribe} className="mt-6 border-t border-slate-200 pt-5">
+          <form
+            onSubmit={onUnsubscribe}
+            className="mt-6 border-t border-slate-200 pt-5"
+          >
             <p className="text-xs text-slate-500">
               Prefer not to receive newsletter emails?
             </p>
@@ -179,7 +192,9 @@ export default function Footer() {
               </p>
             )}
             {unsubscribeError && (
-              <p className="mt-2 text-xs font-medium text-red-600">{unsubscribeError}</p>
+              <p className="mt-2 text-xs font-medium text-red-600">
+                {unsubscribeError}
+              </p>
             )}
           </form>
         </div>
@@ -219,6 +234,12 @@ export default function Footer() {
           <nav className="grid gap-3 text-sm text-slate-600">
             <a href="#services" className="transition hover:text-slate-900">
               Services
+            </a>
+            <a
+              href="/free-ai-seo-audit"
+              className="transition hover:text-slate-900"
+            >
+              Free AI SEO Audit
             </a>
             <a href="#contact" className="transition hover:text-slate-900">
               Contact

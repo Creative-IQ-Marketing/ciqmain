@@ -145,6 +145,30 @@ export default function About() {
             >
               Schedule a free consultation <ArrowUpRight size={15} />
             </motion.button>
+            <motion.button
+              onClick={() => {
+                trackButtonClick("About Audit CTA", "about_audit_cta", "About");
+                navigate("/free-ai-seo-audit");
+              }}
+              whileHover={{ x: 4 }}
+              whileTap={{ scale: 0.97 }}
+              className="f-body"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                fontSize: 14,
+                fontWeight: 500,
+                color: "#3B6FF0",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: 0,
+                marginTop: 14,
+              }}
+            >
+              Try the free AI SEO audit <ArrowUpRight size={15} />
+            </motion.button>
           </div>
         </ParallaxLayer>
 
