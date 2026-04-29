@@ -2,15 +2,19 @@ import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
-  CheckCircle2,
+  CircleAlert,
+  CircleCheckBig,
   Globe,
+  LoaderCircle,
   Mail,
   ShieldCheck,
+  UserRound,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
 import { trackButtonClick, trackFormSubmission } from "../services/analytics";
 import { requestSeoAuditReport } from "../services/seoAuditTool";
+import { upsertSeoAuditLead } from "../services/ghl";
 
 const BENEFITS = [
   {
@@ -77,27 +81,37 @@ function StatusPanel({ status, message }) {
   const toneMap = {
     success: {
       title: "Report accepted",
-      className: "border-emerald-200 bg-emerald-50 text-emerald-900",
+      className: "border-[#3b6ff0]/30 bg-[#f8fbff] text-slate-900",
+      icon: CircleCheckBig,
     },
     limited: {
       title: "Free limit reached",
-      className: "border-amber-200 bg-amber-50 text-amber-900",
+      className: "border-[#f6c343]/50 bg-[#fffaf0] text-slate-900",
+      icon: CircleAlert,
     },
     error: {
       title: "Request could not be submitted",
-      className: "border-rose-200 bg-rose-50 text-rose-900",
+      className: "border-slate-300 bg-white text-slate-900",
+      icon: CircleAlert,
     },
     submitting: {
       title: "Submitting request",
-      className: "border-slate-200 bg-slate-50 text-slate-700",
+      className: "border-slate-200 bg-[#f8fafc] text-slate-800",
+      icon: LoaderCircle,
     },
   };
 
   const tone = toneMap[status];
+  const StatusIcon = tone.icon;
 
   return (
     <div className={`mt-5 rounded-3xl border px-5 py-4 ${tone.className}`}>
-      <p className="text-sm font-semibold">{tone.title}</p>
+      <div className="flex items-center gap-2.5">
+        <StatusIcon
+          className={`h-4.5 w-4.5 ${status === "submitting" ? "animate-spin" : ""}`}
+        />
+        <p className="text-sm font-semibold">{tone.title}</p>
+      </div>
       <p className="mt-1 text-sm leading-7">
         {message || "Please wait while we submit your request."}
       </p>
@@ -116,6 +130,8 @@ function StatusPanel({ status, message }) {
 }
 
 export default function FreeSeoAuditPage() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [url, setUrl] = useState("");
   const [status, setStatus] = useState("idle");
@@ -202,9 +218,24 @@ export default function FreeSeoAuditPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    const cleanFirstName = firstName.trim();
+    const cleanLastName = lastName.trim();
+    const cleanEmail = email.trim();
     const normalizedUrl = normalizeUrl(url);
 
-    if (!isValidEmail(email)) {
+    if (!cleanFirstName) {
+      setStatus("error");
+      setMessage("Enter your first name.");
+      return;
+    }
+
+    if (!cleanLastName) {
+      setStatus("error");
+      setMessage("Enter your last name.");
+      return;
+    }
+
+    if (!isValidEmail(cleanEmail)) {
       setStatus("error");
       setMessage("Enter a valid email address.");
       return;
@@ -221,11 +252,19 @@ export default function FreeSeoAuditPage() {
 
     try {
       const result = await requestSeoAuditReport({
-        email: email.trim(),
+        firstName: cleanFirstName,
+        lastName: cleanLastName,
+        email: cleanEmail,
         url: normalizedUrl,
       });
 
       if (result.status === 202) {
+        await upsertSeoAuditLead({
+          firstName: cleanFirstName,
+          lastName: cleanLastName,
+          email: cleanEmail,
+          website: normalizedUrl,
+        }).catch(() => null);
         trackFormSubmission("free_ai_seo_audit");
         trackButtonClick(
           "Free AI SEO Audit Submit",
@@ -324,6 +363,42 @@ export default function FreeSeoAuditPage() {
               </div>
 
               <form onSubmit={handleSubmit} className="mt-5 space-y-4">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <label className="block">
+                    <span className="audit-sans mb-2 block text-sm font-semibold text-slate-700">
+                      First name
+                    </span>
+                    <div className="relative">
+                      <UserRound className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                      <input
+                        type="text"
+                        value={firstName}
+                        onChange={(event) => setFirstName(event.target.value)}
+                        placeholder="John"
+                        className="audit-sans h-14 w-full rounded-2xl border border-slate-300 bg-white pl-11 pr-4 text-base text-slate-900 outline-none transition focus:border-[#3b6ff0] focus:ring-4 focus:ring-[#3b6ff0]/10"
+                        required
+                      />
+                    </div>
+                  </label>
+
+                  <label className="block">
+                    <span className="audit-sans mb-2 block text-sm font-semibold text-slate-700">
+                      Last name
+                    </span>
+                    <div className="relative">
+                      <UserRound className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                      <input
+                        type="text"
+                        value={lastName}
+                        onChange={(event) => setLastName(event.target.value)}
+                        placeholder="Smith"
+                        className="audit-sans h-14 w-full rounded-2xl border border-slate-300 bg-white pl-11 pr-4 text-base text-slate-900 outline-none transition focus:border-[#3b6ff0] focus:ring-4 focus:ring-[#3b6ff0]/10"
+                        required
+                      />
+                    </div>
+                  </label>
+                </div>
+
                 <label className="block">
                   <span className="audit-sans mb-2 block text-sm font-semibold text-slate-700">
                     Work email

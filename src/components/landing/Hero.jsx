@@ -1,10 +1,4 @@
-import {
-  motion,
-  AnimatePresence,
-  useScroll,
-  useTransform,
-  useSpring,
-} from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { trackButtonClick } from "../../services/analytics";
@@ -20,26 +14,23 @@ const PHOTOS = [
   "https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=2400&q=88",
 ];
 
+const ROTATING_PHRASES = [
+  "Social presence",
+  "Turn visibility into trust",
+  "Google rankings",
+  "AI answers",
+  "SEO infrastructure",
+  "Own the answer",
+  "Drive Growth",
+];
+
 export default function Hero() {
   const navigate = useNavigate();
   const [active, setActive] = useState(0);
+  const [typedText, setTypedText] = useState("");
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
   const timerRef = useRef(null);
-  const sectionRef = useRef(null);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-
-  const bgSpring = useSpring(scrollYProgress, {
-    stiffness: 60,
-    damping: 20,
-    restDelta: 0.001,
-  });
-  const bgY = useTransform(bgSpring, [0, 1], ["0%", "28%"]);
-
-  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
-  const scrollHintOpacity = useTransform(scrollYProgress, [0, 0.07], [1, 0]);
 
   const go = (i) => {
     setActive(i);
@@ -58,6 +49,36 @@ export default function Hero() {
     return () => clearInterval(timerRef.current);
   }, []);
 
+  useEffect(() => {
+    const currentPhrase = ROTATING_PHRASES[phraseIndex];
+    let timeoutId;
+
+    if (!isDeleting && typedText === currentPhrase) {
+      timeoutId = setTimeout(() => setIsDeleting(true), 1200);
+      return () => clearTimeout(timeoutId);
+    }
+
+    if (isDeleting && typedText === "") {
+      timeoutId = setTimeout(() => {
+        setIsDeleting(false);
+        setPhraseIndex((prev) => (prev + 1) % ROTATING_PHRASES.length);
+      }, 220);
+      return () => clearTimeout(timeoutId);
+    }
+
+    timeoutId = setTimeout(
+      () => {
+        const next = isDeleting
+          ? currentPhrase.slice(0, Math.max(typedText.length - 1, 0))
+          : currentPhrase.slice(0, typedText.length + 1);
+        setTypedText(next);
+      },
+      isDeleting ? 45 : 80,
+    );
+
+    return () => clearTimeout(timeoutId);
+  }, [typedText, isDeleting, phraseIndex]);
+
   return (
     <>
       <style>{`
@@ -70,11 +91,6 @@ export default function Hero() {
           100% { transform: scale(1.12) translateX(3%); }
         }
         .pan-lr { animation: panLR 9s ease-in-out infinite alternate; }
-        @keyframes scrollBounce {
-          0%, 100% { transform: translateY(0); }
-          50%       { transform: translateY(6px); }
-        }
-        .scroll-bounce { animation: scrollBounce 1.6s ease-in-out infinite; }
         .hero-stat-val {
           font-size: clamp(1.2rem, 2vw, 1.8rem);
           font-weight: 800;
@@ -125,12 +141,10 @@ export default function Hero() {
       `}</style>
 
       <section
-        ref={sectionRef}
         style={{ position: "relative", height: "100dvh", overflow: "hidden" }}
       >
         <motion.div
           style={{
-            y: bgY,
             position: "absolute",
             inset: "-15% 0",
             zIndex: 0,
@@ -196,7 +210,6 @@ export default function Hero() {
         <motion.div
           className="hero-content-safe"
           style={{
-            y: contentY,
             position: "relative",
             zIndex: 3,
             height: "100%",
@@ -222,11 +235,11 @@ export default function Hero() {
               marginBottom: 28,
             }}
           >
-            AI driven full marketing agency
+            Search and social growth partner
           </motion.p>
 
           <motion.div
-            style={{ marginBottom: 32 }}
+            style={{ marginBottom: 18 }}
             initial="hidden"
             animate="show"
             variants={{
@@ -235,7 +248,6 @@ export default function Hero() {
               },
             }}
           >
-            {/* ── Row 1: Built to Rank. ── */}
             <div
               style={{
                 overflow: "hidden",
@@ -281,7 +293,6 @@ export default function Hero() {
               ))}
             </div>
 
-            {/* ── Row 2: Designed to Convert. ── */}
             <div
               style={{
                 overflow: "hidden",
@@ -333,76 +344,63 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* ── Platform subtitle ── */}
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.32, ease }}
             style={{
-              display: "flex",
-              flexWrap: "wrap",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 10,
-              marginBottom: 44,
-              maxWidth: 580,
+              maxWidth: 900,
+              marginBottom: 18,
             }}
           >
-            {/* Eyebrow label */}
-            <span
+            <p
               className="f-body"
               style={{
-                fontSize: "clamp(0.72rem, 0.88vw, 0.8rem)",
-                color: "rgba(255,255,255,0.5)",
-                letterSpacing: "0.1em",
+                fontSize: "clamp(0.8rem, 0.95vw, 0.92rem)",
+                color: "rgba(255,255,255,0.72)",
+                letterSpacing: "0.08em",
                 textTransform: "uppercase",
-                fontWeight: 500,
-                textShadow: "0 1px 2px rgba(0,0,0,0.4)",
+                margin: 0,
               }}
             >
-              Show up where people search:
-            </span>
-
-            {/* Platform chips – now inline */}
-            {["Google", "Social", "AI Platforms"].map((platform) => (
-              <span
-                key={platform}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 6,
-                  padding: "5px 13px",
-                  borderRadius: 99,
-                  border: "1px solid rgba(255,255,255,0.14)",
-                  background:
-                    "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%)",
-                  color: "rgba(255,255,255,0.76)",
-                  fontSize: "clamp(0.7rem, 0.82vw, 0.76rem)",
-                  fontWeight: 500,
-                  letterSpacing: "0.02em",
-                  backdropFilter: "blur(10px)",
-                  WebkitBackdropFilter: "blur(10px)",
-                  boxShadow:
-                    "inset 0 0.5px 0 rgba(255,255,255,0.1), 0 2px 8px rgba(0,0,0,0.18)",
-                  textShadow: "0 1px 2px rgba(0,0,0,0.3)",
-                }}
-              >
-                {/* Glowing dot */}
-                <span
-                  style={{
-                    width: 4,
-                    height: 4,
-                    borderRadius: "50%",
-                    background: "#3B6FF0",
-                    display: "inline-block",
-                    flexShrink: 0,
-                    boxShadow: "0 0 6px 1px rgba(59,111,240,0.75)",
-                  }}
-                />
-                {platform}
-              </span>
-            ))}
+              Google • Social • AI platforms
+            </p>
+            <p
+              className="f-body"
+              style={{
+                fontSize: "clamp(0.95rem, 1.25vw, 1.08rem)",
+                color: "rgba(255,255,255,0.82)",
+                lineHeight: 1.7,
+                fontWeight: 500,
+                textShadow: "0 1px 2px rgba(0,0,0,0.32)",
+                margin: "10px 0 0",
+              }}
+            >
+              From Google search and social media marketing to AI discovery, we
+              combine strategy, technical SEO infrastructure, and conversion
+              design to help high-intent customers find you first and trust you
+              faster.
+            </p>
           </motion.div>
+
+          <motion.p
+            className="f-body"
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.4, ease }}
+            style={{
+              fontSize: "clamp(1rem, 1.8vw, 1.35rem)",
+              minHeight: "1.8em",
+              color: "#F6C343",
+              letterSpacing: "0.01em",
+              marginBottom: 44,
+              fontWeight: 600,
+              textShadow: "0 2px 14px rgba(0,0,0,0.45)",
+            }}
+          >
+            {typedText}
+            <span style={{ opacity: 0.9 }}>|</span>
+          </motion.p>
 
           <motion.div
             initial={{ opacity: 1, y: 10 }}
@@ -414,7 +412,7 @@ export default function Hero() {
               gap: 12,
               flexWrap: "wrap",
               justifyContent: "center",
-              marginBottom: 72,
+              marginBottom: 52,
             }}
           >
             <MagneticButton
@@ -466,30 +464,6 @@ export default function Hero() {
             </MagneticButton>
           </motion.div>
 
-          <motion.a
-            href="#services"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.5, ease }}
-            className="f-body"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 8,
-              marginTop: -40,
-              marginBottom: 72,
-              fontSize: 13,
-              fontWeight: 500,
-              color: "rgba(255,255,255,0.76)",
-              textDecoration: "none",
-              letterSpacing: "0.02em",
-            }}
-          >
-            Explore our services
-            <span style={{ fontSize: 16, lineHeight: 1 }}>→</span>
-          </motion.a>
-
           <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
             {PHOTOS.map((_, i) => (
               <button
@@ -509,41 +483,6 @@ export default function Hero() {
               />
             ))}
           </div>
-
-          <motion.div
-            style={{
-              opacity: scrollHintOpacity,
-              position: "absolute",
-              bottom: "max(90px, 10%)",
-              left: "50%",
-              transform: "translateX(-50%)",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: 6,
-              pointerEvents: "none",
-            }}
-          >
-            <span
-              className="f-body"
-              style={{
-                fontSize: 9,
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                color: "rgba(255,255,255,0.65)",
-              }}
-            >
-              Scroll
-            </span>
-            <div
-              className="scroll-bounce"
-              style={{
-                width: 1,
-                height: 28,
-                background: "rgba(255,255,255,0.5)",
-              }}
-            />
-          </motion.div>
         </motion.div>
 
         <motion.div

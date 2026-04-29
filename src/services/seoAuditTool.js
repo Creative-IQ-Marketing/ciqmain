@@ -1,13 +1,25 @@
 const SEO_AUDIT_API_URL =
   "https://aitool-production-04db.up.railway.app/api/reports/generate";
 
-export async function requestSeoAuditReport({ email, url }) {
+export async function requestSeoAuditReport({
+  firstName,
+  lastName,
+  email,
+  url,
+}) {
   const response = await fetch(SEO_AUDIT_API_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email, url }),
+    body: JSON.stringify({
+      email,
+      url,
+      firstName,
+      lastName,
+      firstname: firstName,
+      lastname: lastName,
+    }),
   });
 
   const payload = await response.json().catch(() => ({}));
