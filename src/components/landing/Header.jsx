@@ -10,6 +10,7 @@ const ease = [0.22, 1, 0.36, 1];
 
 const NAV = [
   { label: "Home", href: "/" },
+  { label: "Free Audit Tool", href: "/free-ai-seo-audit" },
   { label: "Services", href: "/services" },
   { label: "Pricing", href: "/services#bundles" },
   { label: "Contact", href: "/contact" },
@@ -91,14 +92,14 @@ export default function Header() {
             blueprint today.
           </p>
           <a
-            href="#contact"
+            href="/free-ai-seo-audit"
             onClick={(e) => {
               trackButtonClick("Top Banner CTA", "top_banner_cta", "Header");
-              handleNav(e, "#contact");
+              handleNav(e, "/free-ai-seo-audit");
             }}
             className="rounded-full border-2 border-[#F3D56D] bg-white px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.08em] text-[#3B6FF0] shadow-[0_3px_0_#F3D56D] transition hover:bg-blue-50"
           >
-            Claim Free Audit
+            Try Free SEO Tool
           </a>
         </div>
       </div>
@@ -180,10 +181,10 @@ export default function Header() {
                 Call us
               </motion.button>
               <motion.a
-                href="#contact"
+                href="/free-ai-seo-audit"
                 onClick={(e) => {
                   trackButtonClick("Free Audit", "header_cta", "Header");
-                  handleNav(e, "#contact");
+                  handleNav(e, "/free-ai-seo-audit");
                 }}
                 initial={{ opacity: 1, scale: 0.88 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -197,7 +198,7 @@ export default function Header() {
                 whileTap={{ scale: 0.97 }}
                 className="px-7 py-3.5 text-[0.9rem] font-semibold rounded-full bg-slate-900 text-white hover:bg-[#3B6FF0] transition-colors duration-250 shadow-sm"
               >
-                Free audit
+                Free SEO tool
               </motion.a>
             </div>
 
@@ -234,11 +235,11 @@ export default function Header() {
                     </motion.a>
                   ))}
                   <a
-                    href="#contact"
-                    onClick={(e) => handleNav(e, "#contact")}
+                    href="/free-ai-seo-audit"
+                    onClick={(e) => handleNav(e, "/free-ai-seo-audit")}
                     className="mt-4 py-3.5 w-full text-center text-[0.87rem] font-semibold rounded-full bg-slate-900 text-white"
                   >
-                    Free audit
+                    Free SEO tool
                   </a>
                 </nav>
               </motion.div>

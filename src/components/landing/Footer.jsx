@@ -33,7 +33,11 @@ const SOCIALS = [
     label: "Instagram",
     href: "https://www.instagram.com/creativeiq.digitalmarketing/",
   },
-  { Icon: Music2, label: "TikTok", href: "https://www.tiktok.com/@creativeiq.marketing" },
+  {
+    Icon: Music2,
+    label: "TikTok",
+    href: "https://www.tiktok.com/@creativeiq.marketing",
+  },
   {
     Icon: Youtube,
     label: "YouTube",
@@ -87,7 +91,11 @@ export default function Footer() {
         source: "footer_newsletter_unsubscribe",
         pagePath: window.location.pathname,
       });
-      trackButtonClick("Newsletter Unsubscribe", "footer_unsubscribe", "Footer");
+      trackButtonClick(
+        "Newsletter Unsubscribe",
+        "footer_unsubscribe",
+        "Footer",
+      );
       setUnsubscribed(true);
       setUnsubscribeEmail("");
     } catch (error) {
@@ -147,41 +155,12 @@ export default function Footer() {
                 </p>
               )}
               {subscribeError && (
-                <p className="text-xs font-medium text-red-600">{subscribeError}</p>
+                <p className="text-xs font-medium text-red-600">
+                  {subscribeError}
+                </p>
               )}
             </form>
           </div>
-
-          <form onSubmit={onUnsubscribe} className="mt-6 border-t border-slate-200 pt-5">
-            <p className="text-xs text-slate-500">
-              Prefer not to receive newsletter emails?
-            </p>
-            <div className="mt-2 flex flex-col gap-2 sm:flex-row">
-              <input
-                type="email"
-                value={unsubscribeEmail}
-                onChange={(e) => setUnsubscribeEmail(e.target.value)}
-                placeholder="Email to unsubscribe"
-                className="h-10 flex-1 rounded-full border border-slate-300 bg-white px-4 text-xs text-slate-700 outline-none transition focus:border-[#3B6FF0]"
-                required
-              />
-              <button
-                type="submit"
-                disabled={unsubscribeLoading}
-                className="inline-flex h-10 items-center justify-center rounded-full border border-slate-300 bg-white px-4 text-xs font-semibold uppercase tracking-[0.08em] text-slate-600 transition hover:border-[#3B6FF0] hover:text-[#3B6FF0]"
-              >
-                {unsubscribeLoading ? "Submitting..." : "Unsubscribe"}
-              </button>
-            </div>
-            {unsubscribed && (
-              <p className="mt-2 text-xs text-slate-500">
-                Request captured. You can also confirm on the unsubscribe page.
-              </p>
-            )}
-            {unsubscribeError && (
-              <p className="mt-2 text-xs font-medium text-red-600">{unsubscribeError}</p>
-            )}
-          </form>
         </div>
 
         <div className="mt-14 grid gap-10 border-t border-slate-200 pt-10 lg:grid-cols-[1.1fr_auto_auto]">
@@ -219,6 +198,12 @@ export default function Footer() {
           <nav className="grid gap-3 text-sm text-slate-600">
             <a href="#services" className="transition hover:text-slate-900">
               Services
+            </a>
+            <a
+              href="/free-ai-seo-audit"
+              className="transition hover:text-slate-900"
+            >
+              Free AI SEO Audit
             </a>
             <a href="#contact" className="transition hover:text-slate-900">
               Contact

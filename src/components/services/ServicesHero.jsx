@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { trackButtonClick } from "../../services/analytics";
 
 const STATS = [
   { value: "400+", label: "Websites Built" },
@@ -9,6 +11,8 @@ const STATS = [
 ];
 
 export default function ServicesHero() {
+  const navigate = useNavigate();
+
   const scrollToPackages = () => {
     document.getElementById("bundles")?.scrollIntoView({ behavior: "smooth" });
   };
@@ -71,6 +75,21 @@ export default function ServicesHero() {
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-slate-500 text-slate-200 font-semibold text-base hover:bg-slate-800 transition-colors"
             >
               Talk to Our Team
+            </motion.button>
+            <motion.button
+              onClick={() => {
+                trackButtonClick(
+                  "Services Free SEO Tool",
+                  "services_free_seo_tool",
+                  "ServicesHero",
+                );
+                navigate("/free-ai-seo-audit");
+              }}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-slate-950 font-semibold text-base transition-colors hover:bg-[#f3d56d]"
+            >
+              Try Free SEO Tool
             </motion.button>
           </div>
         </motion.div>

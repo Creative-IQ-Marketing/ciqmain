@@ -1,13 +1,29 @@
-const GHL_API_KEY = import.meta.env.VITE_GHL_API_KEY;
-const GHL_LOCATION_ID = import.meta.env.VITE_GHL_LOCATION_ID;
+const GHL_API_KEY = (import.meta.env.VITE_GHL_API_KEY || "").trim();
+const GHL_LOCATION_ID = (import.meta.env.VITE_GHL_LOCATION_ID || "").trim();
 const GHL_API_BASE = "https://services.leadconnectorhq.com";
 
 function normalizeEmail(email = "") {
   return email.trim().toLowerCase();
 }
 
-async function makeGHLRequest(endpoint, method = "GET", body = null) {
+function isGhlConfigured() {
+  return Boolean(GHL_API_KEY && GHL_LOCATION_ID);
+}
+
+async function makeGHLRequest(endpoint, method = "GET", body = null, config = {}) {
   try {
+    const suppressLogs = Boolean(config?.suppressLogs);
+    if (!isGhlConfigured()) {
+      const error = new Error(
+        "GHL is not configured. Set VITE_GHL_API_KEY and VITE_GHL_LOCATION_ID.",
+      );
+      error.status = 0;
+      if (!suppressLogs) {
+        console.error("GHL request failed:", error);
+      }
+      throw error;
+    }
+
     const options = {
       method,
       headers: {
@@ -26,12 +42,14 @@ async function makeGHLRequest(endpoint, method = "GET", body = null) {
 
     if (!response.ok) {
       const traceId = response.headers.get("x-trace-id") || "No trace ID";
-      console.error("GHL API Error:", {
-        status: response.status,
-        statusText: response.statusText,
-        traceId,
-        data,
-      });
+      if (!suppressLogs) {
+        console.error("GHL API Error:", {
+          status: response.status,
+          statusText: response.statusText,
+          traceId,
+          data,
+        });
+      }
       throw new Error(
         `GHL API error: ${response.status} - ${data.message || "Unknown error"} (Trace ID: ${traceId})`,
       );
@@ -39,7 +57,10 @@ async function makeGHLRequest(endpoint, method = "GET", body = null) {
 
     return data;
   } catch (error) {
-    console.error("GHL request failed:", error);
+    const suppressLogs = Boolean(config?.suppressLogs);
+    if (!suppressLogs) {
+      console.error("GHL request failed:", error);
+    }
     throw error;
   }
 }
@@ -77,6 +98,46 @@ export async function submitToGHL(formData) {
     console.error("GHL submission failed:", error);
     throw error;
   }
+}
+
+export async function upsertSeoAuditLead({
+  firstName,
+  lastName,
+  email,
+  website,
+}) {
+  const cleanEmail = normalizeEmail(email);
+  if (!cleanEmail) {
+    throw new Error("A valid email is required.");
+  }
+
+  const fullName = `${firstName || ""} ${lastName || ""}`.trim();
+
+  const contactData = {
+    firstName: firstName?.trim() || undefined,
+    lastName: lastName?.trim() || undefined,
+    name: fullName || undefined,
+    email: cleanEmail,
+    locationId: GHL_LOCATION_ID,
+    tags: ["seo_audit_lead", "website_form"],
+    customFields: [
+      { key: "source", field_value: "free_ai_seo_audit" },
+      {
+        key: "message",
+        field_value: website
+          ? `Free AI SEO audit request for ${website}`
+          : "Free AI SEO audit request",
+      },
+    ],
+  };
+
+  const data = await makeGHLRequest(
+    "/contacts/upsert",
+    "POST",
+    contactData,
+    { suppressLogs: true },
+  );
+  return { success: true, contact: data.contact || data };
 }
 
 export async function subscribeContactToNewsletter(email, context = {}) {

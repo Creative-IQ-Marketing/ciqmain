@@ -1,10 +1,4 @@
-import {
-  motion,
-  AnimatePresence,
-  useScroll,
-  useTransform,
-  useSpring,
-} from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { trackButtonClick } from "../../services/analytics";
@@ -20,26 +14,23 @@ const PHOTOS = [
   "https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=2400&q=88",
 ];
 
+const ROTATING_PHRASES = [
+  "Social presence",
+  "Turn visibility into trust",
+  "Google rankings",
+  "AI answers",
+  "SEO infrastructure",
+  "Own the answer",
+  "Drive Growth",
+];
+
 export default function Hero() {
   const navigate = useNavigate();
   const [active, setActive] = useState(0);
+  const [typedText, setTypedText] = useState("");
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
   const timerRef = useRef(null);
-  const sectionRef = useRef(null);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-
-  const bgSpring = useSpring(scrollYProgress, {
-    stiffness: 60,
-    damping: 20,
-    restDelta: 0.001,
-  });
-  const bgY = useTransform(bgSpring, [0, 1], ["0%", "28%"]);
-
-  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
-  const scrollHintOpacity = useTransform(scrollYProgress, [0, 0.07], [1, 0]);
 
   const go = (i) => {
     setActive(i);
@@ -58,6 +49,36 @@ export default function Hero() {
     return () => clearInterval(timerRef.current);
   }, []);
 
+  useEffect(() => {
+    const currentPhrase = ROTATING_PHRASES[phraseIndex];
+    let timeoutId;
+
+    if (!isDeleting && typedText === currentPhrase) {
+      timeoutId = setTimeout(() => setIsDeleting(true), 1200);
+      return () => clearTimeout(timeoutId);
+    }
+
+    if (isDeleting && typedText === "") {
+      timeoutId = setTimeout(() => {
+        setIsDeleting(false);
+        setPhraseIndex((prev) => (prev + 1) % ROTATING_PHRASES.length);
+      }, 220);
+      return () => clearTimeout(timeoutId);
+    }
+
+    timeoutId = setTimeout(
+      () => {
+        const next = isDeleting
+          ? currentPhrase.slice(0, Math.max(typedText.length - 1, 0))
+          : currentPhrase.slice(0, typedText.length + 1);
+        setTypedText(next);
+      },
+      isDeleting ? 45 : 80,
+    );
+
+    return () => clearTimeout(timeoutId);
+  }, [typedText, isDeleting, phraseIndex]);
+
   return (
     <>
       <style>{`
@@ -70,11 +91,6 @@ export default function Hero() {
           100% { transform: scale(1.12) translateX(3%); }
         }
         .pan-lr { animation: panLR 9s ease-in-out infinite alternate; }
-        @keyframes scrollBounce {
-          0%, 100% { transform: translateY(0); }
-          50%       { transform: translateY(6px); }
-        }
-        .scroll-bounce { animation: scrollBounce 1.6s ease-in-out infinite; }
         .hero-stat-val {
           font-size: clamp(1.2rem, 2vw, 1.8rem);
           font-weight: 800;
@@ -90,8 +106,8 @@ export default function Hero() {
           text-transform: uppercase;
         }
         @media (max-width: 640px) {
-          .hero-stats { 
-            gap: 0.8rem !important; 
+          .hero-stats {
+            gap: 0.8rem !important;
             padding: 10px 0.75rem !important;
             flex-wrap: nowrap !important;
           }
@@ -111,8 +127,8 @@ export default function Hero() {
           .hero-content-safe { padding-top: 62px !important; padding-bottom: 48px !important; }
         }
         @media (min-width: 641px) and (max-width: 920px) {
-          .hero-stats { 
-            gap: 1rem !important; 
+          .hero-stats {
+            gap: 1rem !important;
             padding: 12px 1rem !important;
           }
           .hero-ctas { flex-direction: column !important; align-items: stretch !important; }
@@ -125,12 +141,10 @@ export default function Hero() {
       `}</style>
 
       <section
-        ref={sectionRef}
         style={{ position: "relative", height: "100dvh", overflow: "hidden" }}
       >
         <motion.div
           style={{
-            y: bgY,
             position: "absolute",
             inset: "-15% 0",
             zIndex: 0,
@@ -196,7 +210,6 @@ export default function Hero() {
         <motion.div
           className="hero-content-safe"
           style={{
-            y: contentY,
             position: "relative",
             zIndex: 3,
             height: "100%",
@@ -222,11 +235,11 @@ export default function Hero() {
               marginBottom: 28,
             }}
           >
-            San Antonio, TX · Full-service digital agency
+            Search and social growth partner
           </motion.p>
 
           <motion.div
-            style={{ marginBottom: 32 }}
+            style={{ marginBottom: 18 }}
             initial="hidden"
             animate="show"
             variants={{
@@ -241,11 +254,11 @@ export default function Hero() {
                 display: "flex",
                 flexWrap: "wrap",
                 justifyContent: "center",
-                gap: "0.25em",
-                marginBottom: "0.12em",
+                gap: "0.5em",
+                marginBottom: "0.15em",
               }}
             >
-              {["We", "grow", "businesses"].map((word) => (
+              {["Built", "to", "Rank."].map((word) => (
                 <span
                   key={word}
                   style={{ overflow: "hidden", display: "inline-block" }}
@@ -266,9 +279,11 @@ export default function Hero() {
                       style={{
                         fontSize: "clamp(2.2rem, 6vw, 6.1rem)",
                         fontWeight: 700,
-                        letterSpacing: "-0.05em",
+                        letterSpacing: "-0.02em",
                         lineHeight: 1.06,
                         color: "#ffffff",
+                        textShadow:
+                          "0 2px 24px rgba(0,0,0,0.45), 0 1px 4px rgba(0,0,0,0.3)",
                       }}
                     >
                       {word}
@@ -277,16 +292,21 @@ export default function Hero() {
                 </span>
               ))}
             </div>
+
             <div
               style={{
                 overflow: "hidden",
                 display: "flex",
                 flexWrap: "wrap",
                 justifyContent: "center",
-                gap: "0.25em",
+                gap: "0.5em",
               }}
             >
-              {["that", "mean", "business."].map((word) => (
+              {[
+                { word: "Designed", color: "#ffffff" },
+                { word: "to", color: "#ffffff" },
+                { word: "Convert.", color: "#3B6FF0" },
+              ].map(({ word, color }) => (
                 <span
                   key={word}
                   style={{ overflow: "hidden", display: "inline-block" }}
@@ -307,9 +327,13 @@ export default function Hero() {
                       style={{
                         fontSize: "clamp(2.9rem, 7vw, 6.1rem)",
                         fontWeight: 700,
-                        letterSpacing: "-0.05em",
+                        letterSpacing: "-0.02em",
                         lineHeight: 1.06,
-                        color: "#3B6FF0",
+                        color,
+                        textShadow:
+                          color === "#3B6FF0"
+                            ? "0 2px 28px rgba(59,111,240,0.5), 0 1px 4px rgba(0,0,0,0.3)"
+                            : "0 2px 24px rgba(0,0,0,0.45), 0 1px 4px rgba(0,0,0,0.3)",
                       }}
                     >
                       {word}
@@ -320,21 +344,62 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          <motion.p
-            className="f-body"
-            initial={{ opacity: 1, y: 10 }}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3, ease }}
+            transition={{ duration: 0.65, delay: 0.32, ease }}
             style={{
-              fontSize: "clamp(0.92rem, 1.3vw, 1.05rem)",
-              color: "rgba(255,255,255,0.82)",
-              maxWidth: 500,
-              lineHeight: 1.65,
-              marginBottom: 44,
+              maxWidth: 900,
+              marginBottom: 18,
             }}
           >
-            Website development, SEO, AEO, paid ads, CRM automation, and social
-            media — all under one roof, all built to drive real revenue.
+            <p
+              className="f-body"
+              style={{
+                fontSize: "clamp(0.8rem, 0.95vw, 0.92rem)",
+                color: "rgba(255,255,255,0.72)",
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                margin: 0,
+              }}
+            >
+              Google • Social • AI platforms
+            </p>
+            <p
+              className="f-body"
+              style={{
+                fontSize: "clamp(0.95rem, 1.25vw, 1.08rem)",
+                color: "rgba(255,255,255,0.82)",
+                lineHeight: 1.7,
+                fontWeight: 500,
+                textShadow: "0 1px 2px rgba(0,0,0,0.32)",
+                margin: "10px 0 0",
+              }}
+            >
+              From Google search and social media marketing to AI discovery, we
+              combine strategy, technical SEO infrastructure, and conversion
+              design to help high-intent customers find you first and trust you
+              faster.
+            </p>
+          </motion.div>
+
+          <motion.p
+            className="f-body"
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.4, ease }}
+            style={{
+              fontSize: "clamp(1rem, 1.8vw, 1.35rem)",
+              minHeight: "1.8em",
+              color: "#F6C343",
+              letterSpacing: "0.01em",
+              marginBottom: 44,
+              fontWeight: 600,
+              textShadow: "0 2px 14px rgba(0,0,0,0.45)",
+            }}
+          >
+            {typedText}
+            <span style={{ opacity: 0.9 }}>|</span>
           </motion.p>
 
           <motion.div
@@ -347,7 +412,7 @@ export default function Hero() {
               gap: 12,
               flexWrap: "wrap",
               justifyContent: "center",
-              marginBottom: 72,
+              marginBottom: 52,
             }}
           >
             <MagneticButton
@@ -374,8 +439,14 @@ export default function Hero() {
               Start a project
             </MagneticButton>
             <MagneticButton
-              as="a"
-              href="#services"
+              onClick={() => {
+                trackButtonClick(
+                  "Try Free SEO Tool",
+                  "hero_free_seo_tool",
+                  "Hero",
+                );
+                navigate("/free-ai-seo-audit");
+              }}
               strength={0.18}
               className="f-body"
               style={{
@@ -389,25 +460,7 @@ export default function Hero() {
                 textDecoration: "none",
               }}
             >
-              Our services
-            </MagneticButton>
-            <MagneticButton
-              as="a"
-              href="#footer-newsletter"
-              strength={0.14}
-              className="f-body"
-              style={{
-                fontSize: 14,
-                color: "#fff",
-                border: "1px solid rgba(255,255,255,0.45)",
-                background: "rgba(255,255,255,0.12)",
-                backdropFilter: "blur(12px)",
-                padding: "14px 30px",
-                borderRadius: 99,
-                textDecoration: "none",
-              }}
-            >
-              Join newsletter
+              Try free SEO tool
             </MagneticButton>
           </motion.div>
 
@@ -423,47 +476,13 @@ export default function Hero() {
                   width: i === active ? 22 : 6,
                   height: 6,
                   borderRadius: 3,
-                  background: i === active ? "#3B6FF0" : "rgba(255,255,255,0.38)",
+                  background:
+                    i === active ? "#3B6FF0" : "rgba(255,255,255,0.38)",
                   transition: "all 0.32s ease",
                 }}
               />
             ))}
           </div>
-
-          <motion.div
-            style={{
-              opacity: scrollHintOpacity,
-              position: "absolute",
-              bottom: "max(90px, 10%)",
-              left: "50%",
-              transform: "translateX(-50%)",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: 6,
-              pointerEvents: "none",
-            }}
-          >
-            <span
-              className="f-body"
-              style={{
-                fontSize: 9,
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                color: "rgba(255,255,255,0.65)",
-              }}
-            >
-              Scroll
-            </span>
-            <div
-              className="scroll-bounce"
-              style={{
-                width: 1,
-                height: 28,
-                background: "rgba(255,255,255,0.5)",
-              }}
-            />
-          </motion.div>
         </motion.div>
 
         <motion.div

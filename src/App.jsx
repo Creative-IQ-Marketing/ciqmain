@@ -18,6 +18,7 @@ import SEO from "./components/SEO";
 import StructuredData from "./components/StructuredData";
 import ServicesPage from "./pages/ServicesPage";
 import ContactPage from "./pages/ContactPage";
+import FreeSeoAuditPage from "./pages/FreeSeoAuditPage";
 import UnsubscribedPage from "./pages/UnsubscribedPage";
 import { initializeAnalytics } from "./services/analytics";
 
@@ -72,6 +73,7 @@ function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<HomePage />} />
+        <Route path="/free-ai-seo-audit" element={<FreeSeoAuditPage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/newsletter/unsubscribed" element={<UnsubscribedPage />} />
