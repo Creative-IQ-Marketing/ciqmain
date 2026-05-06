@@ -306,10 +306,7 @@ export default function Hero() {
                 { word: "to", color: "#ffffff" },
                 { word: "Convert.", color: "#3B6FF0" },
               ].map(({ word, color }) => (
-                <span
-                  key={word}
-                  style={{ display: "inline-block" }}
-                >
+                <span key={word} style={{ display: "inline-block" }}>
                   <motion.span
                     style={{ display: "inline-block" }}
                     variants={{
