@@ -50,7 +50,7 @@ const Booking = () => {
           {/* GHL Widget Iframe */}
           <div className="w-full min-h-[800px] md:min-h-[700px] bg-white">
             <iframe
-              src="https://link.creativeiq.marketing/widget/booking/e8POFfMswdSVwbyqmB1t"
+              src="https://link.creativeiq.marketing/widget/booking/ZeUt9pxYewU5fAJonRj2"
               style={{
                 width: "100%",
                 height: "100%",

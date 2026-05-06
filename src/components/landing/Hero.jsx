@@ -295,7 +295,6 @@ export default function Hero() {
 
             <div
               style={{
-                overflow: "hidden",
                 display: "flex",
                 flexWrap: "wrap",
                 justifyContent: "center",
@@ -309,7 +308,7 @@ export default function Hero() {
               ].map(({ word, color }) => (
                 <span
                   key={word}
-                  style={{ overflow: "hidden", display: "inline-block" }}
+                  style={{ display: "inline-block" }}
                 >
                   <motion.span
                     style={{ display: "inline-block" }}
