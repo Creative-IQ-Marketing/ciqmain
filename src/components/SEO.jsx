@@ -1,14 +1,37 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 export default function SEO({
   title = "CreativeIQ Digital Marketing | AI SEO, Social Media, Websites & CRM Automation",
   description = "Are you showing up on AI platforms—not just Google? Is your website converting leads? Does your social media marketing + positioning help you win? CreativeIQ builds AI-ready SEO ecosystems that drive real growth. San Antonio's top digital marketing agency.",
   keywords = "AI SEO, AI search optimization, ChatGPT SEO, Gemini SEO, Claude SEO, Perplexity SEO, GEO optimization, generative engine optimization, search engine optimization, technical SEO, local SEO, conversion rate optimization, CRO, website development, landing pages, CRM automation, GoHighLevel CRM, email marketing, social media marketing, Facebook ads, Google ads, PPC advertising, pay-per-click San Antonio, Google Business Profile optimization, digital marketing agency San Antonio TX, marketing agency San Antonio, SEO agency San Antonio, AI-ready marketing, digital marketing strategy, content marketing, lead generation San Antonio",
   ogImage = "/og-image.jpg",
-  canonical = window.location.origin + window.location.pathname,
+  canonical = null,
   pageType = "website",
 }) {
+  // Compute canonical and window-dependent URLs in useMemo to avoid SSR issues
+  const { canonicalUrl, ogImageUrl, ogImageSecureUrl, currentUrl, hostname } =
+    useMemo(() => {
+      if (typeof window === "undefined") {
+        return {
+          canonicalUrl: "",
+          ogImageUrl: "",
+          ogImageSecureUrl: "",
+          currentUrl: "",
+          hostname: "",
+        };
+      }
+      return {
+        canonicalUrl:
+          canonical || window.location.origin + window.location.pathname,
+        ogImageUrl: window.location.origin + ogImage,
+        ogImageSecureUrl: window.location.origin + ogImage,
+        currentUrl: window.location.href,
+        hostname: window.location.hostname,
+      };
+    }, [canonical, ogImage]);
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     document.title = title;
 
     const metaTags = [
@@ -64,23 +87,23 @@ export default function SEO({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: pageType },
-      { property: "og:image", content: window.location.origin + ogImage },
+      { property: "og:image", content: ogImageUrl },
       {
         property: "og:image:secure_url",
-        content: window.location.origin + ogImage,
+        content: ogImageSecureUrl,
       },
       { property: "og:image:type", content: "image/jpeg" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
       { property: "og:image:alt", content: title },
-      { property: "og:url", content: window.location.href },
+      { property: "og:url", content: currentUrl },
       // Twitter
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
-      { name: "twitter:image", content: window.location.origin + ogImage },
+      { name: "twitter:image", content: ogImageUrl },
       { name: "twitter:image:alt", content: title },
-      { name: "twitter:domain", content: window.location.hostname },
+      { name: "twitter:domain", content: hostname },
       // Mobile
       { name: "apple-mobile-web-app-capable", content: "yes" },
       {
@@ -103,14 +126,14 @@ export default function SEO({
       element.setAttribute("content", content);
     });
 
-    if (canonical) {
+    if (canonicalUrl) {
       let link = document.querySelector('link[rel="canonical"]');
       if (!link) {
         link = document.createElement("link");
         link.setAttribute("rel", "canonical");
         document.head.appendChild(link);
       }
-      link.setAttribute("href", canonical);
+      link.setAttribute("href", canonicalUrl);
     }
 
     let langLink = document.querySelector(
@@ -120,10 +143,20 @@ export default function SEO({
       langLink = document.createElement("link");
       langLink.setAttribute("rel", "alternate");
       langLink.setAttribute("hreflang", "en");
-      langLink.setAttribute("href", window.location.href);
+      langLink.setAttribute("href", currentUrl);
       document.head.appendChild(langLink);
     }
-  }, [title, description, keywords, ogImage, canonical, pageType]);
+  }, [
+    title,
+    description,
+    keywords,
+    canonicalUrl,
+    currentUrl,
+    ogImageUrl,
+    ogImageSecureUrl,
+    hostname,
+    pageType,
+  ]);
 
   return null;
 }

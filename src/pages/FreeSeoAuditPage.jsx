@@ -275,7 +275,11 @@ export default function FreeSeoAuditPage() {
         setMessage(result.message);
       }
     } catch (error) {
-      if (error.status === 429) {
+      // Safely access error properties with null checks
+      const errorStatus = error?.status ?? null;
+      const errorMessage = error?.message ?? "Unknown error";
+
+      if (errorStatus === 429) {
         setStatus("limited");
         setMessage(
           "You have used your 2 free reports this month. Contact us to get registered for ongoing access.",
@@ -285,9 +289,17 @@ export default function FreeSeoAuditPage() {
 
       setStatus("error");
       setMessage(
-        error.message ||
-          "We could not queue your report right now. Please try again.",
+        errorMessage && errorMessage.trim()
+          ? errorMessage
+          : "We could not queue your report right now. Please try again.",
       );
+
+      // Log the full error for debugging
+      console.error("SEO audit form submission error:", {
+        status: errorStatus,
+        message: errorMessage,
+        error,
+      });
     }
   };
 

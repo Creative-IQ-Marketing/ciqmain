@@ -79,6 +79,18 @@ export default function Hero() {
     return () => clearTimeout(timeoutId);
   }, [typedText, isDeleting, phraseIndex]);
 
+  // Preload critical hero images for LCP optimization
+  useEffect(() => {
+    // Preload the first two images to start loading them ASAP
+    PHOTOS.slice(0, 2).forEach((src) => {
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "image";
+      link.href = src;
+      document.head.appendChild(link);
+    });
+  }, []);
+
   return (
     <>
       <style>{`
@@ -168,8 +180,10 @@ export default function Hero() {
                 >
                   <img
                     src={src}
-                    alt=""
+                    alt="Background image"
                     className="pan-lr"
+                    loading="eager"
+                    fetchpriority={i === 0 ? "high" : "low"}
                     style={{
                       width: "100%",
                       height: "100%",
@@ -514,6 +528,56 @@ export default function Hero() {
           ))}
         </motion.div>
       </section>
+
+      {/* Scroll Indicator — Premium kinetic design */}
+      <motion.div
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: [0, 6, 0] }}
+        transition={{
+          duration: 0.6,
+          delay: 1.1,
+          y: { duration: 1.8, repeat: Infinity, repeatDelay: 0.5 },
+        }}
+        style={{
+          position: "absolute",
+          bottom: 80,
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 5,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 8,
+          pointerEvents: "none",
+          textShadow: "0 1px 3px rgba(0,0,0,0.2)",
+        }}
+      >
+        <span
+          style={{
+            fontSize: "clamp(10px, 0.75vw, 12px)",
+            color: "rgba(255,255,255,0.6)",
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            fontWeight: 600,
+            display: "block",
+          }}
+        >
+          Scroll to explore
+        </span>
+        {/* Animated chevron icon */}
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          stroke="rgba(255,255,255,0.7)"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <polyline points="3 8 10 15 17 8" />
+        </svg>
+      </motion.div>
     </>
   );
 }

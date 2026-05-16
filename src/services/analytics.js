@@ -1,6 +1,7 @@
 // Enhanced Analytics Service with state tracking
 export const trackEvent = (eventName, eventParams = {}) => {
-  if (window.gtag) {
+  // Guard: ensure gtag is defined
+  if (typeof window !== "undefined" && window.gtag) {
     window.gtag("event", eventName, {
       ...eventParams,
       timestamp: new Date().toISOString(),
@@ -10,7 +11,7 @@ export const trackEvent = (eventName, eventParams = {}) => {
   }
 
   // Also track in dataLayer for GTM
-  if (window.dataLayer) {
+  if (typeof window !== "undefined" && window.dataLayer) {
     window.dataLayer.push({
       event: eventName,
       ...eventParams,
@@ -19,9 +20,11 @@ export const trackEvent = (eventName, eventParams = {}) => {
   }
 };
 
-export const trackPageView = (path = window.location.pathname) => {
-  if (window.gtag) {
-    window.gtag("config", "G-XXXXXXXXXX", {
+export const trackPageView = (
+  path = typeof window !== "undefined" ? window.location.pathname : "/",
+) => {
+  if (typeof window !== "undefined" && window.gtag) {
+    window.gtag("config", "G-3MFNNMJKJW", {
       page_path: path,
       page_title: document.title,
       page_location: window.location.href,
@@ -84,7 +87,11 @@ export const trackOutboundLink = (url, linkText = "") => {
 };
 
 // Track button clicks
-export const trackButtonClick = (buttonName, buttonId = "", category = "button") => {
+export const trackButtonClick = (
+  buttonName,
+  buttonId = "",
+  category = "button",
+) => {
   trackEvent("button_click", {
     button_name: buttonName,
     button_id: buttonId,
@@ -128,14 +135,40 @@ export const trackCTAClick = (ctaName, ctaType, ctaText = "") => {
 
 // Initialize analytics
 export const initializeAnalytics = () => {
-  // Track page view on initialization
-  trackPageView();
+  if (typeof window === "undefined") return;
+
+  // Only initialize if gtag is available (scripts loaded)
+  const checkGtagReady = () => {
+    if (!window.gtag) {
+      // Retry after 100ms
+      setTimeout(checkGtagReady, 100);
+      return;
+    }
+    // Track page view once gtag is ready
+    trackPageView();
+  };
+
+  // Start checking for gtag (with timeout)
+  let retries = 0;
+  const maxRetries = 30; // 3 seconds max
+  const retryInterval = setInterval(() => {
+    retries++;
+    if (retries >= maxRetries) {
+      clearInterval(retryInterval);
+      // Continue without gtag if not loaded
+    } else if (window.gtag) {
+      clearInterval(retryInterval);
+      trackPageView();
+    }
+  }, 100);
 
   // Set up scroll depth tracking
   let maxScrollDepth = 0;
   window.addEventListener("scroll", () => {
     const scrollPercentage =
-      (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      (window.scrollY /
+        (document.documentElement.scrollHeight - window.innerHeight)) *
+      100;
     if (scrollPercentage > maxScrollDepth + 25) {
       maxScrollDepth = Math.floor(scrollPercentage / 25) * 25;
       trackScrollDepth(maxScrollDepth);

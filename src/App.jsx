@@ -13,6 +13,7 @@ import Testimonials from "./components/landing/Testimonials";
 import YoutubeSection from "./components/landing/YoutubeSection";
 import Booking from "./components/landing/Booking";
 import Contact from "./components/landing/Contact";
+import ExploreFurther from "./components/landing/ExploreFurther";
 import Footer from "./components/landing/Footer";
 import SEO from "./components/SEO";
 import StructuredData from "./components/StructuredData";
@@ -60,6 +61,7 @@ function HomePage() {
       <YoutubeSection />
       <Booking />
       <Contact />
+      <ExploreFurther />
     </>
   );
 }

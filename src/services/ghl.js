@@ -7,17 +7,38 @@ function normalizeEmail(email = "") {
 }
 
 function isGhlConfigured() {
-  return Boolean(GHL_API_KEY && GHL_LOCATION_ID);
+  if (!GHL_API_KEY) {
+    console.error("GHL configuration error: VITE_GHL_API_KEY is not set");
+    return false;
+  }
+  if (!GHL_LOCATION_ID) {
+    console.error("GHL configuration error: VITE_GHL_LOCATION_ID is not set");
+    return false;
+  }
+  return true;
 }
 
-async function makeGHLRequest(endpoint, method = "GET", body = null, config = {}) {
+async function makeGHLRequest(
+  endpoint,
+  method = "GET",
+  body = null,
+  config = {},
+) {
   try {
     const suppressLogs = Boolean(config?.suppressLogs);
-    if (!isGhlConfigured()) {
+
+    // Validate configuration before making request
+    if (!GHL_API_KEY || !GHL_LOCATION_ID) {
+      const missingVars = [];
+      if (!GHL_API_KEY) missingVars.push("VITE_GHL_API_KEY");
+      if (!GHL_LOCATION_ID) missingVars.push("VITE_GHL_LOCATION_ID");
+
       const error = new Error(
-        "GHL is not configured. Set VITE_GHL_API_KEY and VITE_GHL_LOCATION_ID.",
+        `GHL is not configured. Missing environment variables: ${missingVars.join(", ")}. Please check your .env file.`,
       );
       error.status = 0;
+      error.code = "MISSING_CONFIG";
+
       if (!suppressLogs) {
         console.error("GHL request failed:", error);
       }
@@ -42,6 +63,8 @@ async function makeGHLRequest(endpoint, method = "GET", body = null, config = {}
 
     if (!response.ok) {
       const traceId = response.headers.get("x-trace-id") || "No trace ID";
+      const errorMessage = data?.message || data?.error || "Unknown error";
+
       if (!suppressLogs) {
         console.error("GHL API Error:", {
           status: response.status,
@@ -50,16 +73,38 @@ async function makeGHLRequest(endpoint, method = "GET", body = null, config = {}
           data,
         });
       }
-      throw new Error(
-        `GHL API error: ${response.status} - ${data.message || "Unknown error"} (Trace ID: ${traceId})`,
+
+      const error = new Error(
+        `GHL API error: ${response.status} - ${errorMessage} (Trace ID: ${traceId})`,
       );
+      error.status = response.status;
+      error.code = "GHL_API_ERROR";
+      error.traceId = traceId;
+
+      throw error;
     }
 
     return data;
   } catch (error) {
     const suppressLogs = Boolean(config?.suppressLogs);
+
+    // Ensure error has expected properties
+    if (!(error instanceof Error)) {
+      const wrappedError = new Error(`Unexpected error: ${String(error)}`);
+      wrappedError.status = null;
+      wrappedError.code = "UNKNOWN_ERROR";
+      if (!suppressLogs) {
+        console.error("GHL request failed:", wrappedError);
+      }
+      throw wrappedError;
+    }
+
     if (!suppressLogs) {
-      console.error("GHL request failed:", error);
+      console.error("GHL request failed:", {
+        message: error.message,
+        status: error.status,
+        code: error.code,
+      });
     }
     throw error;
   }
@@ -131,12 +176,9 @@ export async function upsertSeoAuditLead({
     ],
   };
 
-  const data = await makeGHLRequest(
-    "/contacts/upsert",
-    "POST",
-    contactData,
-    { suppressLogs: true },
-  );
+  const data = await makeGHLRequest("/contacts/upsert", "POST", contactData, {
+    suppressLogs: true,
+  });
   return { success: true, contact: data.contact || data };
 }
 
@@ -192,7 +234,11 @@ export async function unsubscribeEmailFromNewsletter(email, context = {}) {
     ],
   };
 
-  const upsertResult = await makeGHLRequest("/contacts/upsert", "POST", upsertPayload);
+  const upsertResult = await makeGHLRequest(
+    "/contacts/upsert",
+    "POST",
+    upsertPayload,
+  );
   const contactId = upsertResult?.contact?.id || upsertResult?.id;
 
   if (!contactId) {
@@ -210,6 +256,10 @@ export async function unsubscribeEmailFromNewsletter(email, context = {}) {
     },
   };
 
-  const data = await makeGHLRequest(`/contacts/${contactId}`, "PUT", updatePayload);
+  const data = await makeGHLRequest(
+    `/contacts/${contactId}`,
+    "PUT",
+    updatePayload,
+  );
   return { success: true, contact: data.contact || data };
 }
