@@ -323,15 +323,6 @@ export default function FreeSeoAuditPage() {
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(243,213,109,0.28),transparent_30%),radial-gradient(circle_at_top_right,rgba(59,111,240,0.10),transparent_24%)]" />
 
         <section className="relative mx-auto max-w-3xl px-4 pb-14 pt-28 text-center sm:px-6 md:pb-18 lg:pt-36">
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45 }}
-            className="audit-sans mx-auto inline-flex min-h-10 items-center rounded-full border border-slate-300/70 bg-white/80 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.24em] text-[#3b6ff0]"
-          >
-            Free AI SEO Audit
-          </motion.p>
-
           <motion.h1
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}

@@ -1,5 +1,5 @@
 const SEO_AUDIT_API_URL =
-  "https://aitool-production-04db.up.railway.app/api/reports/generate";
+  "https://aitool-production-5b5e.up.railway.app/api/reports/generate";
 
 export async function requestSeoAuditReport({
   firstName,
