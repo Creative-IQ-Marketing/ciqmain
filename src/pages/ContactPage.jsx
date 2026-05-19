@@ -29,9 +29,9 @@ export default function ContactPage() {
   return (
     <>
       <SEO
-        title="Contact CreativeIQ | Save Our Number — Digital Marketing San Antonio TX"
-        description="Save CreativeIQ Marketing to your contacts instantly. Call (210) 838-0177 or email CiQ@creativeiq.marketing. Full-service digital marketing in San Antonio, TX."
-        keywords="CreativeIQ contact, digital marketing San Antonio, contact CreativeIQ, marketing agency phone number, SEO agency San Antonio"
+        title="Contact CreativeIQ | Get Your Digital Marketing Strategy"
+        description="Ready to grow? Contact CreativeIQ Marketing in San Antonio for a free strategy session. Talk to our digital marketing experts about SEO, ads, and growth."
+        keywords="contact marketing agency, San Antonio marketing, digital marketing strategy, free consultation, marketing agency near me"
         canonical="https://creativeiq.marketing/contact"
         pageType="website"
       />

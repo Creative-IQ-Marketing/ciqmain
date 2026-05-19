@@ -252,16 +252,7 @@ export default function Hero() {
             Search and social growth partner
           </motion.p>
 
-          <motion.div
-            style={{ marginBottom: 18 }}
-            initial="hidden"
-            animate="show"
-            variants={{
-              show: {
-                transition: { staggerChildren: 0.11, delayChildren: 0.06 },
-              },
-            }}
-          >
+          <div style={{ marginBottom: 18 }}>
             <div
               style={{
                 overflow: "hidden",
@@ -277,32 +268,21 @@ export default function Hero() {
                   key={word}
                   style={{ overflow: "hidden", display: "inline-block" }}
                 >
-                  <motion.span
-                    style={{ display: "inline-block" }}
-                    variants={{
-                      hidden: { y: "110%", opacity: 0 },
-                      show: {
-                        y: 0,
-                        opacity: 1,
-                        transition: { duration: 0.75, ease },
-                      },
+                  <span
+                    style={{
+                      display: "inline-block",
+                      fontSize: "clamp(2.2rem, 6vw, 6.1rem)",
+                      fontWeight: 700,
+                      letterSpacing: "-0.02em",
+                      lineHeight: 1.06,
+                      color: "#ffffff",
+                      textShadow:
+                        "0 2px 24px rgba(0,0,0,0.45), 0 1px 4px rgba(0,0,0,0.3)",
                     }}
                     className="f-hero"
                   >
-                    <span
-                      style={{
-                        fontSize: "clamp(2.2rem, 6vw, 6.1rem)",
-                        fontWeight: 700,
-                        letterSpacing: "-0.02em",
-                        lineHeight: 1.06,
-                        color: "#ffffff",
-                        textShadow:
-                          "0 2px 24px rgba(0,0,0,0.45), 0 1px 4px rgba(0,0,0,0.3)",
-                      }}
-                    >
-                      {word}
-                    </span>
-                  </motion.span>
+                    {word}
+                  </span>
                 </span>
               ))}
             </div>
@@ -321,38 +301,27 @@ export default function Hero() {
                 { word: "Convert.", color: "#3B6FF0" },
               ].map(({ word, color }) => (
                 <span key={word} style={{ display: "inline-block" }}>
-                  <motion.span
-                    style={{ display: "inline-block" }}
-                    variants={{
-                      hidden: { y: "110%", opacity: 0 },
-                      show: {
-                        y: 0,
-                        opacity: 1,
-                        transition: { duration: 0.75, ease },
-                      },
+                  <span
+                    style={{
+                      display: "inline-block",
+                      fontSize: "clamp(2.9rem, 7vw, 6.1rem)",
+                      fontWeight: 700,
+                      letterSpacing: "-0.02em",
+                      lineHeight: 1.06,
+                      color,
+                      textShadow:
+                        color === "#3B6FF0"
+                          ? "0 2px 28px rgba(59,111,240,0.5), 0 1px 4px rgba(0,0,0,0.3)"
+                          : "0 2px 24px rgba(0,0,0,0.45), 0 1px 4px rgba(0,0,0,0.3)",
                     }}
                     className="f-hero"
                   >
-                    <span
-                      style={{
-                        fontSize: "clamp(2.9rem, 7vw, 6.1rem)",
-                        fontWeight: 700,
-                        letterSpacing: "-0.02em",
-                        lineHeight: 1.06,
-                        color,
-                        textShadow:
-                          color === "#3B6FF0"
-                            ? "0 2px 28px rgba(59,111,240,0.5), 0 1px 4px rgba(0,0,0,0.3)"
-                            : "0 2px 24px rgba(0,0,0,0.45), 0 1px 4px rgba(0,0,0,0.3)",
-                      }}
-                    >
-                      {word}
-                    </span>
-                  </motion.span>
+                    {word}
+                  </span>
                 </span>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           <motion.div
             initial={{ opacity: 0, y: 14 }}
@@ -386,10 +355,9 @@ export default function Hero() {
                 margin: "10px 0 0",
               }}
             >
-              From Google search and social media marketing to AI discovery, we
-              combine strategy, technical SEO infrastructure, and conversion
-              design to help high-intent customers find you first and trust you
-              faster.
+              For San Antonio agencies and service businesses: We build AI-ready
+              SEO infrastructure that turns website visitors into paying
+              customers. No BS, just results.
             </p>
           </motion.div>
 
@@ -451,7 +419,7 @@ export default function Hero() {
             <MagneticButton
               onClick={() => {
                 trackButtonClick(
-                  "Try Free SEO Tool",
+                  "Get Your Free SEO Audit",
                   "hero_free_seo_tool",
                   "Hero",
                 );
@@ -470,7 +438,7 @@ export default function Hero() {
                 textDecoration: "none",
               }}
             >
-              Try free SEO tool
+              Get Your Free SEO Audit
             </MagneticButton>
           </motion.div>
 

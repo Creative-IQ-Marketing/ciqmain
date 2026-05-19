@@ -1,3 +1,4 @@
+import SEO from "../components/SEO";
 import ServicesHero from "../components/services/ServicesHero";
 import BundlePricing from "../components/services/BundlePricing";
 import BundleTable from "../components/services/BundleTable";
@@ -9,6 +10,13 @@ import GHLValueTable from "../components/landing/GHLValueTable";
 export default function ServicesPage() {
   return (
     <main>
+      <SEO
+        title="Digital Marketing Services | SEO, CRM, Web Design | CreativeIQ"
+        description="Full-service digital marketing agency offering SEO, PPC, social media, web development, and CRM automation in San Antonio. Expert services for growing businesses."
+        keywords="digital marketing services, SEO services, PPC management, web design, CRM automation, social media marketing, marketing agency San Antonio"
+        canonical="https://creativeiq.marketing/services"
+      />
+
       {/* 1. Hero — headline + stats */}
       <ServicesHero />
 

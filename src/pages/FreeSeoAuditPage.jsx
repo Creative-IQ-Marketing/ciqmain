@@ -312,8 +312,8 @@ export default function FreeSeoAuditPage() {
       `}</style>
 
       <SEO
-        title="Free AI SEO Audit | Instant Website Review by CreativeIQ"
-        description="Get a free AI SEO audit from CreativeIQ. Submit your website URL and email to receive a technical SEO, speed, mobile, and visibility report in your inbox."
+        title="Free AI SEO Audit Tool | CreativeIQ Marketing"
+        description="Get a free AI-powered SEO audit for your website in seconds. Identify performance issues, ranking gaps, and conversion problems instantly."
         keywords="free SEO audit, AI SEO audit, website SEO report, technical SEO audit, SEO analysis tool, CreativeIQ SEO audit, AI search optimization audit"
         canonical={canonical}
         pageType="website"
@@ -329,26 +329,29 @@ export default function FreeSeoAuditPage() {
             transition={{ duration: 0.55, delay: 0.05 }}
             className="mt-6 text-[clamp(1.8rem,9vw,3.8rem)] leading-[0.94] tracking-[-0.05em] text-[#0b1020]"
           >
-            <span className="audit-sans italic">A cleaner read</span>
-            <br />
-            <span className="audit-sans font-extrabold">on your website.</span>
+            <span className="audit-sans font-extrabold">Free AI SEO Audit</span>
           </motion.h1>
 
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.1 }}
-            className="audit-sans mx-auto mt-5 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg"
+            className="audit-sans mx-auto mt-5 max-w-2xl space-y-4 text-sm leading-8 text-slate-600 sm:text-lg"
           >
-            Enter your URL and email. We queue the report immediately and send
-            the analysis to your inbox shortly after.
-          </motion.p>
+            <p className="text-md">
+              Most websites underperform due to missing technical SEO
+              foundations—not poor content—so our free AI audit instantly
+              uncovers ranking gaps, performance issues, and conversion blockers
+              with actionable insights for agencies, service businesses, and
+              e-commerce sites.
+            </p>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="mx-auto mt-8 max-w-2xl"
+            className="mx-auto mt-10 max-w-2xl"
           >
             <div className="rounded-4xl border border-slate-300/80 bg-white/90 p-5 text-left shadow-[0_28px_70px_rgba(15,23,42,0.10)] backdrop-blur sm:p-7">
               <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-4">
@@ -359,6 +362,13 @@ export default function FreeSeoAuditPage() {
                   <h2 className="audit-sans mt-1 text-2xl font-extrabold tracking-[-0.04em] text-slate-950 sm:text-3xl">
                     Get your free report.
                   </h2>
+                  <p className="audit-sans mt-3 max-w-lg text-sm leading-7 text-slate-600">
+                    This free audit analyzes your site's technical SEO
+                    foundation, mobile usability, page speed metrics, and
+                    content visibility across search and AI platforms. Perfect
+                    for agencies, service businesses, and e-commerce sites
+                    looking for quick wins.
+                  </p>
                 </div>
                 <span className="audit-sans inline-flex min-h-10 items-center gap-2 rounded-full bg-[#edf7ef] px-3.5 py-2 text-[11px] font-bold uppercase tracking-[0.08em] text-emerald-700">
                   <ShieldCheck className="h-4 w-4" />2 per email
