@@ -21,6 +21,8 @@ import ServicesPage from "./pages/ServicesPage";
 import ContactPage from "./pages/ContactPage";
 import FreeSeoAuditPage from "./pages/FreeSeoAuditPage";
 import UnsubscribedPage from "./pages/UnsubscribedPage";
+import TermsAndConditionsPage from "./pages/TermsAndConditionsPage";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import { initializeAnalytics } from "./services/analytics";
 
 function Layout() {
@@ -61,7 +63,7 @@ function HomePage() {
       <YoutubeSection />
       <Booking />
       <Contact />
-      <ExploreFurther />
+      {/* <ExploreFurther /> */}
     </>
   );
 }
@@ -79,6 +81,8 @@ function App() {
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/newsletter/unsubscribed" element={<UnsubscribedPage />} />
+        <Route path="/terms" element={<TermsAndConditionsPage />} />
+        <Route path="/privacy" element={<PrivacyPolicyPage />} />
       </Route>
     </Routes>
   );

@@ -244,7 +244,7 @@ export default function Footer() {
             {new Date().getFullYear()} CreativeIQ Marketing. All rights
             reserved.
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 flex-wrap">
             {NAV.map(({ label, href }) => (
               <a
                 key={label}
@@ -255,6 +255,23 @@ export default function Footer() {
                 {label}
               </a>
             ))}
+            <span className="text-slate-300">•</span>
+            <a
+              href="/terms"
+              onClick={() => trackButtonClick("Terms", "footer_nav", "Footer")}
+              className="transition hover:text-slate-900"
+            >
+              Terms
+            </a>
+            <a
+              href="/privacy"
+              onClick={() =>
+                trackButtonClick("Privacy", "footer_nav", "Footer")
+              }
+              className="transition hover:text-slate-900"
+            >
+              Privacy
+            </a>
           </div>
         </div>
       </div>
