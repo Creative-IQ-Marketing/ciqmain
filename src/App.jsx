@@ -20,6 +20,7 @@ import StructuredData from "./components/StructuredData";
 import ServicesPage from "./pages/ServicesPage";
 import ContactPage from "./pages/ContactPage";
 import FreeSeoAuditPage from "./pages/FreeSeoAuditPage";
+import NewsletterPage from "./pages/NewsletterPage";
 import UnsubscribedPage from "./pages/UnsubscribedPage";
 import TermsAndConditionsPage from "./pages/TermsAndConditionsPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
@@ -84,6 +85,8 @@ function App() {
         <Route path="/terms" element={<TermsAndConditionsPage />} />
         <Route path="/privacy" element={<PrivacyPolicyPage />} />
       </Route>
+      {/* Standalone page routes (no header/footer) */}
+      <Route path="/newsletter" element={<NewsletterPage />} />
     </Routes>
   );
 }
