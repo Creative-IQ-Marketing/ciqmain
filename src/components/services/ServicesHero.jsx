@@ -89,7 +89,7 @@ export default function ServicesHero() {
               whileTap={{ scale: 0.97 }}
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-slate-950 font-semibold text-base transition-colors hover:bg-[#f3d56d]"
             >
-              Try Free SEO Tool
+              Test Your SEO Score
             </motion.button>
           </div>
         </motion.div>

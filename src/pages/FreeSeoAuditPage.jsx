@@ -213,7 +213,7 @@ export default function FreeSeoAuditPage() {
   const submitLabel =
     status === "submitting"
       ? "Generating your report..."
-      : "Get my free report";
+      : "Get My Visibility Report";
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -329,7 +329,7 @@ export default function FreeSeoAuditPage() {
             transition={{ duration: 0.55, delay: 0.05 }}
             className="mt-6 text-[clamp(1.8rem,9vw,3.8rem)] leading-[0.94] tracking-[-0.05em] text-[#0b1020]"
           >
-            <span className="audit-sans font-extrabold">Free AI SEO Audit</span>
+            <span className="audit-sans font-extrabold">Audit My Site</span>
           </motion.h1>
 
           <motion.div
@@ -360,7 +360,7 @@ export default function FreeSeoAuditPage() {
                     Fast request form
                   </p>
                   <h2 className="audit-sans mt-1 text-2xl font-extrabold tracking-[-0.04em] text-slate-950 sm:text-3xl">
-                    Get your free report.
+                    Unlock My Website & SEO Audit
                   </h2>
                   <p className="audit-sans mt-3 max-w-lg text-sm leading-7 text-slate-600">
                     This free audit analyzes your site's technical SEO

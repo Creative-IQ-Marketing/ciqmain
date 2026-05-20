@@ -4,16 +4,15 @@ import { Menu, X, Phone } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import mainLogo from "../../assets/mainLogo.png";
 import { trackButtonClick } from "../../services/analytics";
-import { saveAndCall } from "../../utils/vcard";
 
 const ease = [0.22, 1, 0.36, 1];
 
 const NAV = [
   { label: "Home", href: "/" },
-  { label: "Free Audit Tool", href: "/free-ai-seo-audit" },
   { label: "Services", href: "/services" },
   { label: "Pricing", href: "/services#bundles" },
   { label: "Contact", href: "/contact" },
+  { label: "Audit my Site", href: "/free-ai-seo-audit" },
 ];
 
 export default function Header() {
@@ -99,7 +98,7 @@ export default function Header() {
             }}
             className="rounded-full border-2 border-[#F3D56D] bg-white px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.08em] text-[#3B6FF0] shadow-[0_3px_0_#F3D56D] transition hover:bg-blue-50"
           >
-            Try Free SEO Tool
+            Test Your SEO Score
           </a>
         </div>
       </div>
@@ -161,15 +160,15 @@ export default function Header() {
             </nav>
 
             <div className="hidden md:flex items-center gap-2.5 shrink-0 ml-auto pl-4">
-              <motion.button
+              <motion.a
+                href="tel:+12108380177"
                 onClick={() => {
                   trackButtonClick("Call CTA", "header_call", "Header");
-                  saveAndCall();
                 }}
                 transition={{ delay: 0.36 }}
                 className="px-7 py-3.5 text-[0.9rem] font-semibold rounded-full bg-[#3B6FF0] text-white hover:bg-[#3B6FF0] transition-colors duration-250 shadow-sm"
                 style={{ border: "none", cursor: "pointer" }}
-                aria-label="Save CreativeIQ contact and call"
+                aria-label="Call CreativeIQ"
               >
                 <span>
                   <Phone
@@ -179,7 +178,7 @@ export default function Header() {
                   />
                 </span>
                 Call us
-              </motion.button>
+              </motion.a>
               <motion.a
                 href="/free-ai-seo-audit"
                 onClick={(e) => {
