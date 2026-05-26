@@ -15,11 +15,11 @@ import {
 } from "../../services/ghl";
 
 const NAV = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Process", href: "#process" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/#about" },
+  { label: "Services", href: "/#services" },
+  { label: "Process", href: "/#process" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 const SOCIALS = [
@@ -196,7 +196,7 @@ export default function Footer() {
           </div>
 
           <nav className="grid gap-3 text-sm text-slate-600">
-            <a href="#services" className="transition hover:text-slate-900">
+            <a href="/#services" className="transition hover:text-slate-900">
               Services
             </a>
             <a
@@ -205,14 +205,11 @@ export default function Footer() {
             >
               Free AI SEO Audit
             </a>
-            <a href="#contact" className="transition hover:text-slate-900">
-              Contact
-            </a>
-            <a
-              href="#footer-newsletter"
-              className="transition hover:text-slate-900"
-            >
+            <a href="/newsletter" className="transition hover:text-slate-900">
               Newsletter
+            </a>
+            <a href="/#contact" className="transition hover:text-slate-900">
+              Contact
             </a>
             <a
               href="/newsletter/unsubscribed"

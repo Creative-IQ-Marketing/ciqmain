@@ -51,6 +51,10 @@ export default function ServicesHero() {
             Stop Buying Services.
             <br />
             <span className="text-blue-400">Start Building Systems.</span>
+            <span className="sr-only">
+              {" "}
+              — Digital Marketing Services San Antonio | CreativeIQ
+            </span>
           </h1>
 
           <p className="max-w-2xl mx-auto text-lg sm:text-xl text-slate-300 leading-relaxed mb-10">

@@ -122,16 +122,17 @@ export default function ServicesContact() {
             {/* Contact info */}
             <div className="space-y-3 text-sm text-slate-400">
               <a
-                href="tel:+1234567890"
+                href="tel:+12108380177"
                 className="flex items-center gap-3 hover:text-white transition-colors"
               >
-                <Phone className="w-4 h-4 text-blue-500" /> (123) 456-7890
+                <Phone className="w-4 h-4 text-blue-500" /> (210) 838-0177
               </a>
               <a
-                href="mailto:hello@creativeiq.io"
+                href="mailto:CiQ@creativeiq.marketing"
                 className="flex items-center gap-3 hover:text-white transition-colors"
               >
-                <Mail className="w-4 h-4 text-blue-500" /> hello@creativeiq.io
+                <Mail className="w-4 h-4 text-blue-500" />{" "}
+                CiQ@creativeiq.marketing
               </a>
               <div className="flex items-center gap-3">
                 <MapPin className="w-4 h-4 text-blue-500" /> Texas, USA

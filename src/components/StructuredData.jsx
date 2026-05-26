@@ -11,15 +11,6 @@ export default function StructuredData() {
       url: "https://creativeiq.marketing",
       description:
         "AI-ready SEO, conversion-focused websites, social media marketing, and CRM automation designed for modern digital discovery and real business growth.",
-      potentialAction: {
-        "@type": "SearchAction",
-        target: {
-          "@type": "EntryPoint",
-          urlTemplate:
-            "https://creativeiq.marketing/search?q={search_term_string}",
-        },
-        "query-input": "required name=search_term_string",
-      },
     };
 
     // Person / Founder Schema
@@ -235,25 +226,25 @@ export default function StructuredData() {
           "@type": "ListItem",
           position: 1,
           name: "Home",
-          item: "https://creativeiq.marketing",
+          item: "https://creativeiq.marketing/",
         },
         {
           "@type": "ListItem",
           position: 2,
           name: "Services",
-          item: "https://creativeiq.marketing#services",
+          item: "https://creativeiq.marketing/services",
         },
         {
           "@type": "ListItem",
           position: 3,
-          name: "About",
-          item: "https://creativeiq.marketing#about",
+          name: "Free SEO Audit",
+          item: "https://creativeiq.marketing/free-ai-seo-audit",
         },
         {
           "@type": "ListItem",
           position: 4,
           name: "Contact",
-          item: "https://creativeiq.marketing#contact",
+          item: "https://creativeiq.marketing/contact",
         },
       ],
     };

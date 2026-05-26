@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
+import GuideInlineCTA from "../components/ui/GuideInlineCTA";
 import { trackButtonClick, trackFormSubmission } from "../services/analytics";
 import { requestSeoAuditReport } from "../services/seoAuditTool";
 import { upsertSeoAuditLead } from "../services/ghl";
@@ -330,6 +331,10 @@ export default function FreeSeoAuditPage() {
             className="mt-6 text-[clamp(1.8rem,9vw,3.8rem)] leading-[0.94] tracking-[-0.05em] text-[#0b1020]"
           >
             <span className="audit-sans font-extrabold">Audit My Site</span>
+            <span className="sr-only">
+              {" "}
+              — Free AI SEO Audit Tool | CreativeIQ Marketing
+            </span>
           </motion.h1>
 
           <motion.div
@@ -539,6 +544,11 @@ export default function FreeSeoAuditPage() {
                 Need more access
                 <ArrowRight className="h-4 w-4" />
               </Link>
+            </div>
+
+            {/* Guide resource */}
+            <div className="mt-8">
+              <GuideInlineCTA source="seo_audit_page" />
             </div>
           </div>
         </section>

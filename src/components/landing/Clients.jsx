@@ -9,7 +9,7 @@ const logoModules = import.meta.glob("../../assets/transparent/*.png", {
 const clients = Object.entries(logoModules).map(([path, mod], index) => ({
   id: index + 1,
   src: mod.default,
-  alt: path.split("/").pop(),
+  alt: `CreativeIQ client partner logo ${index + 1}`,
 }));
 
 const Clients = () => {

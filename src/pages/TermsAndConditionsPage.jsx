@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import SEO from "../components/SEO";
 import { ArrowRight } from "lucide-react";
 
@@ -112,11 +113,38 @@ const sections = [
 ];
 
 export default function TermsAndConditionsPage() {
+  useEffect(() => {
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://creativeiq.marketing/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Terms & Conditions",
+          item: "https://creativeiq.marketing/terms",
+        },
+      ],
+    };
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.dataset.schema = "terms-breadcrumb";
+    script.text = JSON.stringify(schema);
+    document.head.appendChild(script);
+    return () => script.remove();
+  }, []);
+
   return (
     <>
       <SEO
         title="Terms & Conditions | CreativeIQ Marketing"
-        description="Read CreativeIQ's terms and conditions for our digital marketing services, SEO, PPC, and growth strategies."
+        description="Read CreativeIQ's terms and conditions governing our digital marketing services including SEO, PPC, social media, and CRM automation in San Antonio."
         keywords="terms and conditions, terms of service, legal terms, CreativeIQ"
         canonical="https://creativeiq.marketing/terms"
         pageType="website"

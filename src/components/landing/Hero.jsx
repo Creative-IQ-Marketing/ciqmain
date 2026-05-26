@@ -14,6 +14,14 @@ const PHOTOS = [
   "https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=2400&q=88",
 ];
 
+const heroAlts = [
+  "Digital marketing team collaborating in modern office",
+  "SEO strategy session with analytics dashboard",
+  "AI-powered marketing tools for business growth",
+  "CreativeIQ team reviewing client campaign results",
+  "Digital marketing agency San Antonio workspace",
+];
+
 const ROTATING_PHRASES = [
   "Social presence",
   "Turn visibility into trust",
@@ -180,7 +188,7 @@ export default function Hero() {
                 >
                   <img
                     src={src}
-                    alt="Background image"
+                    alt={heroAlts[i]}
                     className="pan-lr"
                     loading="eager"
                     fetchpriority={i === 0 ? "high" : "low"}
@@ -235,6 +243,9 @@ export default function Hero() {
             padding: "0 clamp(1.5rem, 6vw, 5rem)",
           }}
         >
+          <h1 className="sr-only">
+            AI-Powered Digital Marketing Agency San Antonio | CreativeIQ
+          </h1>
           <motion.p
             className="f-body"
             initial={{ opacity: 1, y: 12 }}
@@ -419,11 +430,14 @@ export default function Hero() {
             <MagneticButton
               onClick={() => {
                 trackButtonClick(
-                  "Get Your Free SEO Audit",
-                  "hero_free_seo_tool",
+                  "Download Growth Guide",
+                  "hero_guide_download",
                   "Hero",
                 );
-                navigate("/free-ai-seo-audit");
+                const guideSection = document.getElementById("guide-download");
+                if (guideSection) {
+                  guideSection.scrollIntoView({ behavior: "smooth" });
+                }
               }}
               strength={0.18}
               className="f-body"
@@ -438,7 +452,7 @@ export default function Hero() {
                 textDecoration: "none",
               }}
             >
-              Get Your Free SEO Audit
+              Check Out Our Guide
             </MagneticButton>
           </motion.div>
 

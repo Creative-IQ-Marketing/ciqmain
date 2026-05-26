@@ -76,7 +76,7 @@ export default function NewsletterPage() {
     <>
       <SEO
         title="Newsletter | CreativeIQ"
-        description="Subscribe to CreativeIQ's newsletter for digital marketing insights, growth strategies, and industry updates delivered to your inbox."
+        description="Subscribe to CreativeIQ's newsletter for digital marketing insights, growth strategies, and industry updates — delivered weekly to your inbox."
         keywords="newsletter, marketing insights, digital marketing tips"
         canonical="https://creativeiq.marketing/newsletter"
         pageType="website"

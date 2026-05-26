@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Phone, Mail, Check, ArrowRight, Download } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import SEO from "../components/SEO";
+import GuideInlineCTA from "../components/ui/GuideInlineCTA";
 import { downloadVCard } from "../utils/vcard";
 import { trackButtonClick } from "../services/analytics";
 
@@ -25,6 +26,33 @@ export default function ContactPage() {
         ?.scrollIntoView({ behavior: "smooth" });
     }, 350);
   };
+
+  useEffect(() => {
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://creativeiq.marketing/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Contact",
+          item: "https://creativeiq.marketing/contact",
+        },
+      ],
+    };
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.dataset.schema = "contact-breadcrumb";
+    script.text = JSON.stringify(schema);
+    document.head.appendChild(script);
+    return () => script.remove();
+  }, []);
 
   return (
     <>
@@ -62,6 +90,10 @@ export default function ContactPage() {
               transition={{ duration: 0.6, delay: 0.06, ease }}
             >
               Let's work together.
+              <span className="sr-only">
+                {" "}
+                — Contact CreativeIQ Digital Marketing Agency San Antonio
+              </span>
             </motion.h1>
 
             <motion.p
@@ -251,6 +283,16 @@ export default function ContactPage() {
             >
               Contact form <ArrowRight size={13} aria-hidden="true" />
             </button>
+          </motion.div>
+
+          {/* Guide resource */}
+          <motion.div
+            className="mt-8"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.65, ease }}
+          >
+            <GuideInlineCTA source="contact_page" />
           </motion.div>
         </div>
       </main>
