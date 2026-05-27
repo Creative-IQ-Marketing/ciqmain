@@ -47,7 +47,7 @@ function Layout() {
 function HomePage() {
   return (
     <>
-      <SEO />
+      <SEO canonical="https://creativeiq.marketing/" />
       <StructuredData />
       <Hero />
       {/* <StoryStrip /> */}
@@ -74,6 +74,7 @@ function HomePage() {
 function App() {
   useEffect(() => {
     initializeAnalytics();
+    document.dispatchEvent(new Event("prerender-ready"));
   }, []);
 
   return (

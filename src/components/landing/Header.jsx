@@ -197,7 +197,7 @@ export default function Header() {
                 whileTap={{ scale: 0.97 }}
                 className="px-7 py-3.5 text-[0.9rem] font-semibold rounded-full bg-slate-900 text-white hover:bg-[#3B6FF0] transition-colors duration-250 shadow-sm"
               >
-                Free SEO tool
+                Audit My Site
               </motion.a>
             </div>
 
@@ -238,7 +238,7 @@ export default function Header() {
                     onClick={(e) => handleNav(e, "/free-ai-seo-audit")}
                     className="mt-4 py-3.5 w-full text-center text-[0.87rem] font-semibold rounded-full bg-slate-900 text-white"
                   >
-                    Free SEO tool
+                    Audit My Site
                   </a>
                 </nav>
               </motion.div>
