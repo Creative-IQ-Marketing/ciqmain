@@ -36,17 +36,25 @@ export default function StructuredData() {
       ],
     };
 
-    // FAQ Schema — high-value questions for featured snippets
+    // FAQ Schema — high-value questions for featured snippets + on-page FAQ accordion
     const faqSchema = {
       "@context": "https://schema.org",
       "@type": "FAQPage",
       mainEntity: [
         {
           "@type": "Question",
-          name: "What is AI SEO and why does it matter for my business?",
+          name: "What does Creative IQ do?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "AI SEO (also called Generative Engine Optimization or GEO) is the practice of optimizing your content and website to appear in AI-powered search engines like ChatGPT, Google Gemini, Claude, and Perplexity — not just traditional Google. As more users discover businesses through AI platforms, showing up in those results is critical. CreativeIQ builds AI-ready SEO ecosystems that target both traditional and AI-powered discovery.",
+            text: "Creative IQ is a full-service digital marketing agency that helps businesses build, scale, and optimize their brand. Services span SEO, content creation, social media management, website & app development, CRM automation, paid advertising, AI integrations, and data-driven growth strategy. We apply neuromarketing principles and consumer psychology to build stronger emotional connections that drive trust and conversions—not just attention.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What makes Creative IQ different from other marketing agencies?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Creative IQ combines creative production, technical development, automation systems, and advanced digital strategy under one roof. We build complete growth ecosystems—websites, SEO infrastructure, CRM automations, analytics, and AI-driven visibility. Our key differentiator is merging technology with psychology: neuromarketing strategies, behavioral design, and consumer decision-making science that helps brands influence trust, action, and long-term loyalty.",
           },
         },
         {
@@ -54,7 +62,15 @@ export default function StructuredData() {
           name: "What digital marketing services does CreativeIQ offer in San Antonio?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "CreativeIQ is San Antonio's leading digital marketing agency offering: AI SEO & technical SEO, social media marketing (Facebook, Instagram, LinkedIn), PPC/Google Ads management, conversion-focused website development, CRM automation (GoHighLevel), email marketing, and Google Business Profile optimization. We serve businesses across Texas and nationally.",
+            text: "CreativeIQ is San Antonio's leading digital marketing agency offering: AI SEO & technical SEO, social media marketing (Facebook, Instagram, LinkedIn, TikTok), PPC/Google Ads management, conversion-focused website development, CRM automation (GoHighLevel), email marketing, content creation, and Google Business Profile optimization. We serve businesses across Texas, Florida, and nationally.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What is AI SEO and why does it matter for my business?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "AI SEO (also called Generative Engine Optimization or GEO) is the practice of optimizing your content and website to appear in AI-powered search engines like ChatGPT, Google Gemini, Claude, and Perplexity — not just traditional Google. As more users discover businesses through AI platforms, showing up in those results is critical. CreativeIQ builds AI-ready SEO ecosystems that target both traditional and AI-powered discovery.",
           },
         },
         {
@@ -86,7 +102,31 @@ export default function StructuredData() {
           name: "Does CreativeIQ work with businesses outside of San Antonio?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Yes! While CreativeIQ is headquartered in San Antonio, TX, we serve businesses across Austin, Dallas, Houston, and throughout the United States. Our digital-first approach means we can build AI-ready SEO, manage social media, run PPC campaigns, and automate CRM systems for any business, anywhere.",
+            text: "Yes! While CreativeIQ is headquartered in San Antonio, TX, we serve businesses across Austin, Dallas, Houston, Florida, and throughout the United States. Our digital-first approach means we can build AI-ready SEO, manage social media, run PPC campaigns, and automate CRM systems for any business, anywhere.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What industries does Creative IQ work with?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Creative IQ works with businesses across healthcare & wellness, behavioral health, law firms, med spas, dentistry, nonprofits, retail, real estate, hospitality, and professional services. We support both small businesses and multi-location organizations, tailoring messaging, visuals, and marketing systems around how each audience thinks and emotionally responds to brands online.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How long does it take to see results from digital marketing?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Most clients begin seeing measurable improvements within 60–90 days. Stronger long-term growth typically develops over 3–6 months as SEO, content, automations, and marketing systems continue to mature. Businesses committed to consistency and data-driven decisions see the strongest outcomes.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does Creative IQ only help with marketing?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "No. While marketing is a major part of what we do, Creative IQ also helps businesses improve operations, lead management, customer experience, automation systems, and overall digital infrastructure—because successful marketing means very little if the systems behind the business cannot support or retain the growth being generated.",
           },
         },
       ],

@@ -11,6 +11,7 @@ import Stats from "./components/landing/Stats";
 import GHLValueTable from "./components/landing/GHLValueTable";
 import GuideDownload from "./components/landing/GuideDownload";
 import Testimonials from "./components/landing/Testimonials";
+import FAQ from "./components/landing/FAQ";
 import YoutubeSection from "./components/landing/YoutubeSection";
 import Booking from "./components/landing/Booking";
 import Contact from "./components/landing/Contact";
@@ -62,6 +63,7 @@ function HomePage() {
       <GHLValueTable />
       <SectionGlide />
       <Testimonials />
+      <FAQ />
       <YoutubeSection />
       <Booking />
       <GuideDownload />
