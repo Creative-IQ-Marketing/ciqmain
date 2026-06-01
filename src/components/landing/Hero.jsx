@@ -23,13 +23,17 @@ const heroAlts = [
 ];
 
 const ROTATING_PHRASES = [
-  "Social presence",
-  "Turn visibility into trust",
-  "Google rankings",
-  "AI answers",
-  "SEO infrastructure",
-  "Own the answer",
-  "Drive Growth",
+  "Does your business appear?",
+  "Does AI recommend your company?",
+  "Is your website optimized for search?",
+  "Do you have Schema Mapping?",
+  "Does Google know your services?",
+  "Is your website structured correctly?",
+  "Do you have an XML Sitemap?",
+  "Are visitors converting to leads?",
+  "Do you know where users click?",
+  "Are you losing leads to no follow-up?",
+  "Can you compete with AI search?",
 ];
 
 export default function Hero() {
@@ -368,7 +372,7 @@ export default function Hero() {
             >
               For San Antonio agencies and service businesses: We build AI-ready
               SEO infrastructure that turns website visitors into paying
-              customers. No BS, just results.
+              customers.
             </p>
           </motion.div>
 
