@@ -503,9 +503,8 @@ export default function Hero() {
           }}
         >
           {[
-            { val: "8+", label: "Years in business" },
+            { val: "8+", label: "Years of experience" },
             { val: "300%", label: "Avg traffic growth" },
-            { val: "50+", label: "Brands scaled" },
           ].map((st) => (
             <div key={st.label} style={{ textAlign: "center" }}>
               <p className="f-disp hero-stat-val">{st.val}</p>

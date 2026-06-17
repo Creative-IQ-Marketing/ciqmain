@@ -54,7 +54,6 @@ function HomePage() {
       {/* <StoryStrip /> */}
       {/* <SectionGlide /> */}
       <Clients />
-      <SectionGlide flip />
       <About />
       <SectionGlide />
       <ServicesShowcase />

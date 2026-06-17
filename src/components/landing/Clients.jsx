@@ -1,4 +1,4 @@
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import FadeUp from "../primitives/FadeUp";
 
@@ -15,7 +15,6 @@ const clients = Object.entries(logoModules).map(([path, mod], index) => ({
 const Clients = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [hoveredId, setHoveredId] = useState(null);
-  const [touchedId, setTouchedId] = useState(null);
   const sectionRef = useRef(null);
   const inView = useInView(sectionRef, {
     margin: "-15% 0px -15% 0px",
@@ -31,121 +30,116 @@ const Clients = () => {
     }, 4000);
     return () => clearInterval(interval);
   }, [inView]);
+
   return (
     <FadeUp
       as="section"
       ref={sectionRef}
-      className="py-12 bg-white border-y border-slate-100 relative overflow-hidden"
+      className="relative overflow-hidden border-y border-slate-100/90 bg-[#fafafa] py-14 sm:py-16"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 text-center">
-        <p className="text-sm font-semibold text-slate-600 tracking-widest uppercase">
+      <div className="mx-auto mb-10 max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+        <p
+          className="uppercase"
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: "var(--size-label)",
+            fontWeight: 600,
+            letterSpacing: "var(--tracking-label)",
+            color: "var(--c-text-secondary)",
+          }}
+        >
           Created For
         </p>
       </div>
 
-      <div className="relative w-full overflow-hidden hidden md:block">
-        <div className="absolute top-0 left-0 w-24 h-full bg-white/90 z-10 backdrop-blur-sm" />
-        <div className="absolute top-0 right-0 w-24 h-full bg-white/90 z-10 backdrop-blur-sm" />
+      <div className="relative hidden w-full overflow-hidden md:block">
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-28 bg-gradient-to-r from-[#fafafa] to-transparent sm:w-36" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-28 bg-gradient-to-l from-[#fafafa] to-transparent sm:w-36" />
 
         <div className="flex">
           <motion.div
-            className="flex space-x-16 items-center flex-nowrap"
+            className="flex flex-nowrap items-center gap-14 sm:gap-16"
             animate={
               inView && hoveredId === null
-                ? {
-                    x: ["0%", "-50%"],
-                  }
+                ? { x: ["0%", "-50%"] }
                 : { x: "0%" }
             }
             transition={{
               x: {
                 repeat: Infinity,
                 repeatType: "loop",
-                duration: 30,
+                duration: 32,
                 ease: "linear",
               },
             }}
           >
-            {[...clients, ...clients].map((client, index) => (
-              <motion.div
-                key={`${client.id}-${index}`}
-                className="relative w-48 h-24 flex-shrink-0 flex items-center justify-center group cursor-pointer"
-                onMouseEnter={() => setHoveredId(client.id)}
-                onMouseLeave={() => setHoveredId(null)}
-                whileHover={{ scale: 1.4 }}
-                transition={{ duration: 0.2 }}
-              >
-                <motion.img
-                  src={client.src}
-                  alt={client.alt}
-                  className="max-w-full max-h-full object-contain transition-all duration-500 ease-out"
-                  animate={{
-                    filter:
-                      hoveredId === client.id
-                        ? "grayscale(0%)"
-                        : "grayscale(100%)",
-                  }}
-                  transition={{ duration: 0.3 }}
-                />
-              </motion.div>
-            ))}
+            {[...clients, ...clients].map((client, index) => {
+              const active = hoveredId === client.id;
+              return (
+                <motion.div
+                  key={`${client.id}-${index}`}
+                  className="relative flex h-20 w-44 shrink-0 cursor-default items-center justify-center sm:h-24 sm:w-48"
+                  onMouseEnter={() => setHoveredId(client.id)}
+                  onMouseLeave={() => setHoveredId(null)}
+                  whileHover={{ y: -2 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                >
+                  <motion.img
+                    src={client.src}
+                    alt={client.alt}
+                    className="max-h-full max-w-full object-contain"
+                    animate={{
+                      filter: active ? "grayscale(0%)" : "grayscale(100%)",
+                      opacity: active ? 1 : 0.5,
+                      scale: active ? 1.06 : 1,
+                    }}
+                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  />
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
       </div>
 
-      <div className="block md:hidden px-4">
-        <div className="relative w-full">
-          {/* Main Carousel */}
-          <div className="relative h-40 rounded-2xl overflow-hidden bg-transparent">
-            {/* Carousel Items */}
+      <div className="block px-4 md:hidden">
+        <div className="relative mx-auto h-36 max-w-sm">
+          <AnimatePresence mode="wait">
             <motion.div
-              className="relative w-full h-full flex items-center justify-center"
               key={currentIndex}
-              initial={false}
-              animate={{
-                opacity: 1,
-                scale: touchedId === clients[currentIndex].id ? 1.3 : 1,
-              }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="absolute inset-0 flex items-center justify-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
             >
               <motion.img
                 src={clients[currentIndex].src}
                 alt={clients[currentIndex].alt}
-                className="max-w-full max-h-full object-contain cursor-pointer"
-                style={{
-                  filter: "drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15))",
-                }}
+                className="max-h-full max-w-[85%] object-contain"
                 animate={{
-                  filter:
-                    touchedId === clients[currentIndex].id
-                      ? "grayscale(0%) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15))"
-                      : "grayscale(100%) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15))",
-                  scale: touchedId === clients[currentIndex].id ? 1.3 : 1,
+                  filter: "grayscale(100%)",
+                  opacity: 0.55,
+                }}
+                whileTap={{
+                  filter: "grayscale(0%)",
+                  opacity: 1,
+                  scale: 1.04,
                 }}
                 transition={{ duration: 0.3 }}
-                onTouchStart={() => setTouchedId(clients[currentIndex].id)}
-                onTouchEnd={() => setTouchedId(null)}
               />
             </motion.div>
-          </div>
+          </AnimatePresence>
+        </div>
 
-          {/* Indicators */}
-          <div className="flex justify-center items-center gap-2 mt-6">
-            {clients.map((_, index) => (
-              <motion.button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`rounded-full transition-all duration-300 ${
-                  index === currentIndex
-                    ? "bg-blue-600 w-3 h-3"
-                    : "bg-slate-300 w-2 h-2 hover:bg-slate-400"
-                }`}
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.9 }}
-              />
-            ))}
-          </div>
+        <div className="mx-auto mt-8 h-px max-w-xs overflow-hidden rounded-full bg-slate-200">
+          <motion.div
+            className="h-full rounded-full bg-slate-400"
+            animate={{
+              width: `${((currentIndex + 1) / clients.length) * 100}%`,
+            }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          />
         </div>
       </div>
     </FadeUp>
