@@ -9,7 +9,7 @@
   --c-base: #f7f6f1;
   --c-surface: #ffffff;
   --c-surface-2: #f0f0f9;
-  --c-accent: #3b82f6;
+  --c-accent: #3b6ff0;
   --c-accent-dim: rgba(59, 130, 246, 0.1);
   --c-glow: rgba(59, 130, 246, 0.18);
 
@@ -21,8 +21,9 @@
   --c-border-bright: rgba(59, 130, 246, 0.4);
 
   /* ── Typography ──────────────────────────────────────────── */
-  --font-display: "Syne", sans-serif;
-  --font-body: "DM Sans", sans-serif;
+  --font-display: "Bricolage Grotesque", sans-serif;
+  --font-hero: "Manrope", sans-serif;
+  --font-body: "Inter", sans-serif;
 
   --size-hero: clamp(3.2rem, 8vw, 7.5rem);
   --size-section-title: clamp(2rem, 4vw, 3.5rem);

@@ -155,7 +155,7 @@ export default function NewsletterPage() {
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
-                    style={{ fontFamily: "Syne" }}
+                    style={{ fontFamily: "var(--font-display)" }}
                   >
                     You're all set!
                   </motion.h2>
@@ -165,7 +165,7 @@ export default function NewsletterPage() {
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
-                    style={{ fontFamily: "DM Sans" }}
+                    style={{ fontFamily: "var(--font-body)" }}
                   >
                     Thanks for subscribing! Check your inbox for a welcome
                     message and our latest digital marketing insights delivered
@@ -206,7 +206,7 @@ export default function NewsletterPage() {
                   {/* Headline */}
                   <h1
                     className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-5 sm:mb-6 leading-tight tracking-tight"
-                    style={{ fontFamily: "Syne" }}
+                    style={{ fontFamily: "var(--font-display)" }}
                   >
                     Stay Ahead in Digital Marketing
                   </h1>
@@ -214,7 +214,7 @@ export default function NewsletterPage() {
                   {/* Subheadline */}
                   <p
                     className="text-base sm:text-lg md:text-xl text-white/80 mb-12 sm:mb-14 md:mb-16 leading-relaxed max-w-xl mx-auto"
-                    style={{ fontFamily: "DM Sans" }}
+                    style={{ fontFamily: "var(--font-body)" }}
                   >
                     Get strategies, insights, and growth tactics from our
                     team—delivered weekly to your inbox.
@@ -244,7 +244,7 @@ export default function NewsletterPage() {
                             ? "border-red-400/50 focus:border-red-500 focus:bg-white/95"
                             : "border-white/40 focus:border-white focus:bg-white/95 hover:border-white/60"
                         } ${loading ? "opacity-70 cursor-not-allowed" : ""}`}
-                        style={{ fontFamily: "DM Sans" }}
+                        style={{ fontFamily: "var(--font-body)" }}
                       />
                     </div>
 
@@ -257,7 +257,7 @@ export default function NewsletterPage() {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -6 }}
                           transition={{ duration: 0.2 }}
-                          style={{ fontFamily: "DM Sans" }}
+                          style={{ fontFamily: "var(--font-body)" }}
                         >
                           {error}
                         </motion.p>
@@ -269,7 +269,7 @@ export default function NewsletterPage() {
                       type="submit"
                       disabled={loading}
                       className="w-full px-6 sm:px-8 py-4 sm:py-5 bg-linear-to-r from-[#3b82f6] to-blue-600 hover:shadow-xl hover:shadow-blue-500/30 text-white font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group disabled:opacity-60 disabled:cursor-not-allowed text-base sm:text-lg md:text-lg active:scale-95"
-                      style={{ fontFamily: "Syne" }}
+                      style={{ fontFamily: "var(--font-display)" }}
                       whileHover={!loading ? { scale: 1.02 } : {}}
                       whileTap={!loading ? { scale: 0.96 } : {}}
                     >
@@ -301,7 +301,7 @@ export default function NewsletterPage() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.35 }}
-                    style={{ fontFamily: "DM Sans" }}
+                    style={{ fontFamily: "var(--font-body)" }}
                   >
                     We respect your privacy. Unsubscribe from any email anytime.
                   </motion.p>

@@ -1,18 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import {
-  AnimatePresence,
-  motion,
-  useAnimationFrame,
-  useMotionValue,
-} from "framer-motion";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
-import MagneticButton from "../primitives/MagneticButton";
-import {
-  panelRevealTransition,
-  premiumCardHover,
-  premiumCardTap,
-  premiumCardTransition,
-} from "../primitives/motionTokens";
+import { motion, useAnimationFrame, useMotionValue } from "framer-motion";
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { trackButtonClick, trackServiceSelection } from "../../services/analytics";
 import semVideo from "../../assets/svid/seovid.mp4";
 import smmVideo from "../../assets/svid/social media.mp4";
 import contentVideo from "../../assets/svid/contentmgmt.mp4";
@@ -22,56 +12,38 @@ const SERVICE_GROUPS = [
   {
     id: "sem",
     title: "Search Engine Marketing",
-    subtitle: "Search Engine Marketing",
+    contactValue: "seo",
     video: semVideo,
-    summary: "Get found online by the right customers at the right time.",
-    subcategories: [
-      "Search Engine Optimization (SEO)",
-      "On-page SEO",
-      "Off-page SEO",
-      "Technical SEO",
-      "Pay-per-click Advertising (PPC)",
-      "Google Ads",
-      "Bing Ads",
-      "Facebook Ads",
-      "Analytics and Data Science",
-      "Google Analytics",
-      "Data Visualization",
-      "A/B Testing",
-    ],
+    summary:
+      "SEO, paid search, and analytics — built to get you found by buyers who are ready to act.",
+    tags: ["SEO", "Google Ads", "Analytics"],
   },
   {
     id: "smm",
     title: "Social Media Marketing",
-    subtitle: "Social Media Marketing",
+    contactValue: "social",
     video: smmVideo,
-    summary: "Stay top-of-mind and build trust with engaging social campaigns.",
-    subcategories: [
-      "Facebook Marketing",
-      "Instagram Marketing",
-      "Twitter Marketing",
-      "LinkedIn Marketing",
-    ],
+    summary:
+      "Campaigns and content that keep your brand top-of-mind across every major platform.",
+    tags: ["Content", "Community", "Paid social"],
   },
   {
     id: "content",
     title: "Content Marketing",
-    subtitle: "Drive More Qualified Leads",
+    contactValue: "other",
     video: contentVideo,
-    summary: "Turn attention into demand with high-value, conversion content.",
-    subcategories: ["Blogging", "Video Marketing", "Email Marketing", "Copywriting"],
+    summary:
+      "Blogs, video, email, and copy that turn attention into qualified pipeline.",
+    tags: ["Blogging", "Email", "Video"],
   },
   {
     id: "web",
     title: "Web Design & Development",
-    subtitle: "Convert Visitors into Clients",
+    contactValue: "web",
     video: webVideo,
-    summary: "Create beautiful websites engineered for performance and growth.",
-    subcategories: [
-      "React and Animated Web Design",
-      "Responsive Web Design",
-      "User Experience (UX) Design",
-    ],
+    summary:
+      "Fast, conversion-focused sites — modern stacks, sharp UX, performance included.",
+    tags: ["React", "UX", "Conversion"],
   },
 ];
 
@@ -83,160 +55,73 @@ function normalizeX(value, loopWidth) {
   return normalized;
 }
 
-function ServiceCard({
-  service,
-  expanded,
-  onOpen,
-  onClose,
-  mobile,
-  pulseDelay,
-  onTap,
-  cardId,
-}) {
+function ServiceCard({ service, onSelect, compact }) {
+  const handleSelect = () => {
+    trackServiceSelection(service.contactValue);
+    trackButtonClick(service.title, "service_carousel_card", "ServicesShowcase");
+    onSelect(service.contactValue);
+  };
+
   return (
-    <motion.article
-      onClick={mobile ? onTap : undefined}
-      onKeyDown={
-        mobile
-          ? (e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                onTap?.();
-              }
-            }
-          : undefined
-      }
-      role={mobile ? "button" : undefined}
-      tabIndex={mobile ? 0 : undefined}
-      onHoverStart={mobile ? undefined : onOpen}
-      onHoverEnd={mobile ? undefined : onClose}
-      whileHover={premiumCardHover}
-      whileTap={premiumCardTap}
-      transition={premiumCardTransition}
-      className="relative h-[680px] w-full overflow-hidden rounded-[30px] border border-black/10 bg-[#0F1F54] shadow-[0_28px_70px_rgba(33,60,150,0.18)]"
+    <article
+      role="button"
+      tabIndex={0}
+      onClick={handleSelect}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleSelect();
+        }
+      }}
+      className={`group flex h-full flex-none cursor-pointer flex-col overflow-hidden rounded-[22px] border border-black/[0.06] bg-white shadow-[0_8px_30px_rgba(15,23,42,0.06)] transition-shadow hover:shadow-[0_12px_36px_rgba(15,23,42,0.1)] ${
+        compact
+          ? "w-[min(82vw,300px)] sm:w-[320px]"
+          : "w-[min(85vw,320px)] sm:w-[340px] lg:w-[360px]"
+      }`}
     >
-      <motion.video
-        src={service.video}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        className="absolute inset-0 h-full w-full object-cover"
-        animate={{
-          scale: [1.04, 1.11, 1.06, 1.1, 1.04],
-          x: [0, -10, 8, -6, 0],
-          y: [0, 6, -4, 5, 0],
-          rotate: [0, 0.4, -0.35, 0.25, 0],
-        }}
-        transition={{
-          duration: 20,
-          ease: "easeInOut",
-          repeat: Infinity,
-          delay: pulseDelay,
-        }}
-      />
-
-      <div className="absolute inset-0 bg-black/70" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[46%] bg-[linear-gradient(to_top,rgba(0,0,0,0.82)_0%,rgba(0,0,0,0.62)_36%,rgba(0,0,0,0.30)_68%,rgba(0,0,0,0)_100%)]" />
-
-      {!expanded && mobile && (
-        <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center">
-          <span className="rounded-full border border-white/30 bg-black/35 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-white/95 backdrop-blur-sm">
-            Tap to view details
-          </span>
-        </div>
-      )}
-
-      {mobile && expanded && (
-        <AnimatePresence>
-          <motion.button
-            type="button"
-            initial={{ opacity: 0, scale: 0.6, y: 10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.65, y: 12 }}
-            transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-            onClick={(e) => {
-              e.stopPropagation();
-              onTap?.();
-            }}
-            className="absolute right-4 top-4 z-30 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/50 bg-black/65 text-white shadow-lg backdrop-blur-sm"
-            aria-label="Close details"
-          >
-            <X size={20} />
-          </motion.button>
-        </AnimatePresence>
-      )}
-
-      <div className="relative z-10 flex h-full flex-col justify-end">
-        <div
-          className={`${mobile ? "cursor-pointer" : "cursor-default"} w-full px-8 pb-8 pt-10 text-left`}
-          aria-expanded={expanded}
-          aria-controls={`service-panel-${cardId}`}
-        >
-          <motion.div
-            animate={{ y: expanded ? -160 : 0 }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <p className="text-[2.2rem] font-extrabold leading-none text-white sm:text-[2.45rem]">
-              {service.title}
-            </p>
-            <p className="hidden mt-2 max-w-[85%] text-[1.9rem] font-semibold leading-[1.04] text-white">
-              {service.subtitle}
-            </p>
-          </motion.div>
-        </div>
-
-        <AnimatePresence initial={false}>
-          {expanded && (
-            <motion.div
-              id={`service-panel-${cardId}`}
-              initial={{ y: "100%", opacity: 0.95 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: "100%", opacity: 0.95 }}
-              transition={panelRevealTransition}
-              className="absolute inset-x-0 bottom-0 h-[80%] bg-black/90 text-white backdrop-blur-md"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex h-full flex-col p-7">
-                <div className="mb-5 border-b border-white/20 pb-4">
-                  <p className="text-[1.45rem] leading-[1.2] font-semibold text-white/95">
-                    {service.summary}
-                  </p>
-                </div>
-                <div className="min-h-0 flex-1 overflow-y-auto pr-1">
-                  <ul className="grid gap-3 sm:grid-cols-2">
-                    {service.subcategories.map((item) => (
-                      <li
-                        key={item}
-                        className="rounded-xl border border-white/20 bg-white/[0.08] px-4 py-3 text-[0.95rem] font-medium leading-snug text-white/95"
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <MagneticButton
-                  as="a"
-                  href="#contact"
-                  strength={0.22}
-                  className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-extrabold uppercase tracking-[0.08em] text-[#2A4AB8] transition hover:opacity-95"
-                >
-                  Get a Demo
-                </MagneticButton>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+      <div className="relative aspect-[4/3] overflow-hidden bg-white">
+        <video
+          src={service.video}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+        />
       </div>
-    </motion.article>
+
+      <div className="flex flex-1 flex-col gap-2.5 px-5 py-5 sm:gap-3 sm:px-6 sm:py-6">
+        <h3 className="f-disp text-[1.2rem] font-bold leading-tight tracking-[-0.02em] text-slate-900 sm:text-[1.35rem]">
+          {service.title}
+        </h3>
+        <p className="text-[0.9rem] leading-relaxed text-slate-600 sm:text-[0.95rem]">
+          {service.summary}
+        </p>
+        <div className="mt-auto flex flex-wrap items-center justify-between gap-2 pt-2">
+          <div className="flex flex-wrap gap-1.5 sm:gap-2">
+            {service.tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-medium text-slate-600 sm:px-3 sm:py-1 sm:text-xs"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+          <ArrowUpRight
+            size={16}
+            className="shrink-0 text-[#3B6FF0] opacity-60 transition group-hover:translate-x-0.5 group-hover:opacity-100"
+          />
+        </div>
+      </div>
+    </article>
   );
 }
 
 export default function ServicesShowcase() {
-  const [isMobile, setIsMobile] = useState(false);
-  const [hoveredId, setHoveredId] = useState("");
-  const [expandedMobileId, setExpandedMobileId] = useState("");
+  const navigate = useNavigate();
+  const [isDesktop, setIsDesktop] = useState(false);
   const [loopWidth, setLoopWidth] = useState(0);
   const [cardStep, setCardStep] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -246,32 +131,38 @@ export default function ServicesShowcase() {
 
   const desktopCards = useMemo(() => [...SERVICE_GROUPS, ...SERVICE_GROUPS], []);
 
+  const goToContact = (serviceValue) => {
+    navigate(`/?service=${serviceValue}#contact`);
+    setTimeout(() => {
+      document
+        .getElementById("contact")
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 150);
+  };
+
   useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth < 1024);
+    const onResize = () => setIsDesktop(window.innerWidth >= 1024);
     onResize();
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
   useEffect(() => {
-    if (isMobile) return;
     const measure = () => {
       if (!trackRef.current) return;
-      const nextLoopWidth = trackRef.current.scrollWidth / 2;
-      setLoopWidth(nextLoopWidth);
+      setLoopWidth(trackRef.current.scrollWidth / 2);
       const cardWidth = firstCardRef.current?.getBoundingClientRect().width || 0;
-      setCardStep(cardWidth + 24);
+      setCardStep(cardWidth + 20);
     };
     measure();
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
-  }, [isMobile]);
+  }, [isDesktop]);
 
   useAnimationFrame((_, delta) => {
-    if (isMobile || paused || hoveredId || !loopWidth) return;
+    if (!isDesktop || paused || !loopWidth) return;
     const speed = 0.034;
-    const nextX = x.get() - delta * speed;
-    x.set(normalizeX(nextX, loopWidth));
+    x.set(normalizeX(x.get() - delta * speed, loopWidth));
   });
 
   const goNext = () => {
@@ -286,98 +177,118 @@ export default function ServicesShowcase() {
     x.set(normalizeX(x.get() + cardStep, loopWidth));
   };
 
+  const navBtnClass =
+    "absolute top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 shadow-md transition hover:bg-slate-50 sm:h-11 sm:w-11";
+
   return (
-    <section id="services" className="relative overflow-hidden bg-white py-24 lg:py-28">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white to-transparent" />
-      <div className="pointer-events-none absolute -left-44 top-20 h-[420px] w-[420px] rounded-full bg-[#3B6FF0]/14 blur-[110px]" />
-      <div className="pointer-events-none absolute -right-40 bottom-8 h-[420px] w-[420px] rounded-full bg-[#3B6FF0]/10 blur-[120px]" />
+    <section
+      id="services"
+      className="relative overflow-x-clip bg-[#F5F5F7] py-16 sm:py-20 lg:py-28"
+    >
+      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-10">
+        <div className="grid items-start gap-10 lg:grid-cols-[minmax(280px,36%)_1fr] lg:gap-10 xl:gap-16">
+          <div className="lg:sticky lg:top-28 lg:max-w-md lg:self-start">
+            <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#3B6FF0]">
+              What we do
+            </p>
+            <h2 className="f-disp text-[clamp(2rem,4.5vw,3.25rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-slate-900">
+              Marketing systems that actually grow revenue
+            </h2>
+            <p className="mt-5 text-[1.05rem] leading-relaxed text-slate-600">
+              Search, social, content, and websites — we build the full stack
+              San Antonio businesses need to turn attention into customers.
+            </p>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-10">
-        <div className="mb-10 text-center lg:mb-14">
-          <h2 className="text-5xl font-extrabold tracking-tight text-slate-900 sm:text-6xl lg:text-7xl">
-            Our Services
-          </h2>
-          <p className="text-[1.35rem] leading-[1.2] font-semibold text-slate-900">
-            We offer a range of services to help you grow your business.
-          </p>
-        </div>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                to="/services"
+                onClick={() =>
+                  trackButtonClick(
+                    "Browse Services",
+                    "services_carousel_cta",
+                    "ServicesShowcase",
+                  )
+                }
+                className="inline-flex items-center justify-center rounded-full bg-[#3B6FF0] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2f5ad4] sm:px-7 sm:py-3.5"
+              >
+                Browse services
+              </Link>
+              <button
+                type="button"
+                onClick={() => {
+                  trackButtonClick(
+                    "Get a Demo",
+                    "services_carousel_cta",
+                    "ServicesShowcase",
+                  );
+                  goToContact("other");
+                }}
+                className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-800 transition hover:border-slate-400 hover:bg-slate-50 sm:px-7 sm:py-3.5"
+              >
+                Get a demo
+              </button>
+            </div>
 
-        {!isMobile && (
+            <Link
+              to="/services"
+              className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-slate-700 transition hover:text-[#3B6FF0]"
+            >
+              View full service menu
+              <ArrowUpRight size={15} />
+            </Link>
+          </div>
+
           <div
-            className="relative"
-            onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => {
-              setPaused(false);
-              setHoveredId("");
-            }}
+            className="relative min-w-0 w-full lg:mr-[calc(-50vw+50%)] lg:w-[calc(100%+50vw-50%)]"
+            onMouseEnter={() => isDesktop && setPaused(true)}
+            onMouseLeave={() => isDesktop && setPaused(false)}
           >
             <button
               type="button"
               onClick={goPrev}
-              className="absolute -left-16 top-1/2 z-20 -translate-y-1/2 rounded-full border border-slate-300 bg-white p-3 text-slate-700 shadow-lg transition hover:border-slate-400 hover:bg-slate-50"
-              aria-label="Previous"
+              className={`${navBtnClass} left-0 sm:left-1`}
+              aria-label="Previous service"
             >
-              <ChevronLeft size={24} />
+              <ChevronLeft size={20} />
             </button>
             <button
               type="button"
               onClick={goNext}
-              className="absolute -right-16 top-1/2 z-20 -translate-y-1/2 rounded-full border border-slate-300 bg-white p-3 text-slate-700 shadow-lg transition hover:border-slate-400 hover:bg-slate-50"
-              aria-label="Next"
+              className={`${navBtnClass} right-2 sm:right-4 lg:right-8`}
+              aria-label="Next service"
             >
-              <ChevronRight size={24} />
+              <ChevronRight size={20} />
             </button>
 
-            <div className="overflow-hidden">
-              <motion.div ref={trackRef} className="flex gap-6" style={{ x }}>
-                {desktopCards.map((service, index) => {
-                  const cardId = `${service.id}-${index}`;
-                  return (
-                    <div
-                      ref={index === 0 ? firstCardRef : undefined}
-                      key={cardId}
-                      className="flex-none"
-                      style={{ width: "calc((100% - 48px) / 3)" }}
-                    >
-                      <ServiceCard
-                        service={service}
-                        expanded={hoveredId === cardId}
-                        onOpen={() => setHoveredId(cardId)}
-                        onClose={() => setHoveredId("")}
-                        mobile={false}
-                        pulseDelay={(index % 4) * 0.8}
-                        cardId={cardId}
-                      />
-                    </div>
-                  );
-                })}
+            <div className="overflow-hidden px-11 py-2 sm:px-14">
+              <motion.div
+                ref={trackRef}
+                className="flex items-stretch gap-4 sm:gap-5"
+                style={{ x }}
+              >
+                {desktopCards.map((service, index) => (
+                  <div
+                    key={`${service.id}-${index}`}
+                    ref={index === 0 ? firstCardRef : undefined}
+                    className="flex-none"
+                  >
+                    <ServiceCard
+                      service={service}
+                      onSelect={goToContact}
+                      compact={!isDesktop}
+                    />
+                  </div>
+                ))}
               </motion.div>
             </div>
-          </div>
-        )}
 
-        {isMobile && (
-          <div className="space-y-5">
-            {SERVICE_GROUPS.map((service, index) => {
-              const cardId = `${service.id}-mobile`;
-              return (
-                <ServiceCard
-                  key={service.id}
-                  service={service}
-                  expanded={expandedMobileId === service.id}
-                  onOpen={() => {}}
-                  onClose={() => {}}
-                  mobile
-                  pulseDelay={index * 0.85}
-                  cardId={cardId}
-                  onTap={() =>
-                    setExpandedMobileId((prev) => (prev === service.id ? "" : service.id))
-                  }
-                />
-              );
-            })}
+            <p className="mt-3 px-11 text-center text-xs text-slate-500 sm:px-14 lg:text-left">
+              {isDesktop
+                ? "Hover to pause · use arrows or tap a card"
+                : "Swipe or use arrows · tap a card to learn more"}
+            </p>
           </div>
-        )}
+        </div>
       </div>
     </section>
   );

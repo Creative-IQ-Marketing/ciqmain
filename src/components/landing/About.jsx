@@ -40,8 +40,6 @@ export default function About() {
       style={{ background: "#fff", padding: "96px 0", overflow: "hidden" }}
     >
       <style>{`
-        .f-disp { font-family: 'Bricolage Grotesque', sans-serif; }
-        .f-body { font-family: 'Inter', sans-serif; }
         @media (max-width: 640px) {
           .about-left { width: 100% !important; flex: 1 1 100% !important; }
         }
@@ -117,10 +115,7 @@ export default function About() {
                 maxWidth: 340,
               }}
             >
-              CreativeIQ is a full-service digital agency based in San Antonio,
-              TX. We build digital ecosystems designed for AI-driven discovery �
-              SEO, web design, CRM automation, and social media all engineered
-              to grow your revenue.
+              At CreativeIQ we build digital systems designed for AI-driven discovery. SEO Infrastructure Website Design, CRM Ecosystems, and Social Media Management all engineered for your brand. Built to Rank.
             </p>
             <motion.button
               onClick={() => {

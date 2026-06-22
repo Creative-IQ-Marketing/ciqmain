@@ -106,10 +106,6 @@ export default function Hero() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500&display=swap');
-        .f-disp { font-family: 'Bricolage Grotesque', sans-serif; }
-        .f-hero { font-family: 'Manrope', sans-serif; }
-        .f-body { font-family: 'Inter', sans-serif; }
         @keyframes panLR {
           0%   { transform: scale(1.12) translateX(-3%); }
           100% { transform: scale(1.12) translateX(3%); }
@@ -358,21 +354,6 @@ export default function Hero() {
               }}
             >
               Google • Social • AI platforms
-            </p>
-            <p
-              className="f-body"
-              style={{
-                fontSize: "clamp(0.95rem, 1.25vw, 1.08rem)",
-                color: "rgba(255,255,255,0.82)",
-                lineHeight: 1.7,
-                fontWeight: 500,
-                textShadow: "0 1px 2px rgba(0,0,0,0.32)",
-                margin: "10px 0 0",
-              }}
-            >
-              For San Antonio agencies and service businesses: We build AI-ready
-              SEO infrastructure that turns website visitors into paying
-              customers.
             </p>
           </motion.div>
 

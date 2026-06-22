@@ -46,7 +46,7 @@ export default function GuideInlineCTA({ source = "inline_cta" }) {
         <div>
           <p
             style={{
-              fontFamily: "'DM Sans', sans-serif",
+              fontFamily: "var(--font-body)",
               fontSize: "0.82rem",
               fontWeight: 600,
               color: "#0B0F1A",
@@ -58,7 +58,7 @@ export default function GuideInlineCTA({ source = "inline_cta" }) {
           </p>
           <p
             style={{
-              fontFamily: "'DM Sans', sans-serif",
+              fontFamily: "var(--font-body)",
               fontSize: "0.75rem",
               color: "#9CA3AF",
               margin: 0,
@@ -83,7 +83,7 @@ export default function GuideInlineCTA({ source = "inline_cta" }) {
           color: "#fff",
           border: "none",
           cursor: "pointer",
-          fontFamily: "'DM Sans', sans-serif",
+          fontFamily: "var(--font-body)",
           fontSize: "0.8rem",
           fontWeight: 600,
           letterSpacing: "0.01em",

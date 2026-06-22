@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
 }
 
 @layer base {
@@ -16,10 +16,38 @@
 
   body {
     @apply bg-white text-gray-900 font-sans antialiased min-h-screen;
+    font-family: var(--font-body);
+  }
+
+  h1 {
+    font-family: var(--font-hero);
+  }
+
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
   }
 
   html {
     @apply scroll-smooth;
+  }
+}
+
+@layer utilities {
+  .f-disp,
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .f-hero,
+  .font-hero {
+    font-family: var(--font-hero);
+  }
+
+  .f-body,
+  .font-body {
+    font-family: var(--font-body);
   }
 }
 

@@ -108,7 +108,7 @@ function ProcessCard({ step, index, scrollYProgress }) {
             position: "absolute",
             right: "-0.06em",
             bottom: "-0.2em",
-            fontFamily: "Syne, sans-serif",
+            fontFamily: "var(--font-display)",
             fontSize: "15rem",
             fontWeight: 800,
             color: "rgba(255,255,255,0.02)",
@@ -155,7 +155,7 @@ function ProcessCard({ step, index, scrollYProgress }) {
         <div style={{ zIndex: 1 }}>
           <h3
             style={{
-              fontFamily: "Syne, sans-serif",
+              fontFamily: "var(--font-display)",
               fontSize: "clamp(2rem, 5vw, 3.5rem)",
               fontWeight: 800,
               color: "#fff",
@@ -227,7 +227,7 @@ export default function Process() {
         <header style={{ padding: "4rem", textAlign: "center" }}>
           <h2
             style={{
-              fontFamily: "Syne, sans-serif",
+              fontFamily: "var(--font-display)",
               fontSize: "3rem",
               color: "#fff",
             }}

@@ -27,9 +27,9 @@ const OFFERS = [
       result:
         '"Look refreshed in under 30 minutes—no downtime, natural results" → conversions increased.',
     },
-    accent: "bg-slate-900",
-    iconBg: "bg-blue-500/20",
-    iconColor: "text-blue-400",
+    accent: "bg-[#3B6FF0]",
+    iconBg: "bg-white/20",
+    iconColor: "text-white",
   },
   {
     number: "02",
@@ -56,7 +56,7 @@ const OFFERS = [
       result:
         "Instant SMS + urgency emails added → lead-to-appointment rate doubled.",
     },
-    accent: "bg-blue-700",
+    accent: "bg-[#3B6FF0]",
     iconBg: "bg-blue-400/20",
     iconColor: "text-blue-300",
   },
@@ -75,7 +75,7 @@ const OFFERS = [
       "Executive-level KPI reporting",
     ],
     example: null,
-    accent: "bg-slate-800",
+    accent: "bg-[#3B6FF0]",
     iconBg: "bg-blue-500/20",
     iconColor: "text-blue-400",
   },
@@ -100,20 +100,9 @@ export default function HighLevelOffers() {
   return (
     <section
       id="high-level"
-      className="py-24 bg-slate-950 relative overflow-hidden"
+      className="py-24 bg-white relative overflow-hidden"
     >
-      {/* subtle grid */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath d='M0 0H48V48' fill='none' stroke='rgba(255,255,255,0.2)' stroke-width='1'/%3E%3C/svg%3E\")",
-          backgroundSize: "48px 48px",
-        }}
-      />
-
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -121,13 +110,13 @@ export default function HighLevelOffers() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-sm font-semibold uppercase tracking-widest text-blue-400 mb-3 block">
+          <span className="f-body text-[11px] font-semibold uppercase tracking-[0.22em] text-[#3B6FF0] mb-3 block">
             High-Level Services
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="f-disp text-4xl md:text-5xl font-bold text-slate-900 mb-4">
             Go Beyond the Bundle
           </h2>
-          <p className="text-slate-400 max-w-xl mx-auto text-lg">
+          <p className="f-body text-slate-600 max-w-xl mx-auto text-lg">
             For brands ready to work at the strategic level—where psychology
             meets infrastructure and every dollar is accountable.
           </p>
@@ -145,7 +134,7 @@ export default function HighLevelOffers() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className="flex flex-col rounded-2xl overflow-hidden border border-white/10 bg-white/5 hover:border-blue-500/40 transition-colors duration-300"
+                className="flex flex-col rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm hover:shadow-md hover:border-[#3B6FF0]/30 transition-all duration-300"
               >
                 {/* Card header */}
                 <div className={`${offer.accent} p-7`}>
@@ -155,17 +144,17 @@ export default function HighLevelOffers() {
                     >
                       <Icon className={`w-5 h-5 ${offer.iconColor}`} />
                     </div>
-                    <span className="text-5xl font-black text-white/10 leading-none">
+                    <span className="text-5xl font-black text-white/20 leading-none">
                       {offer.number}
                     </span>
                   </div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-2">
+                  <p className="text-xs font-bold uppercase tracking-widest text-blue-100 mb-2">
                     {offer.price}
                   </p>
                   <h3 className="text-xl font-bold text-white mb-3">
                     {offer.name}
                   </h3>
-                  <p className="text-slate-300 text-sm leading-relaxed italic">
+                  <p className="text-slate-100 text-sm leading-relaxed italic">
                     &ldquo;{offer.tagline}&rdquo;
                   </p>
                 </div>
@@ -173,14 +162,14 @@ export default function HighLevelOffers() {
                 {/* What you include */}
                 <div className="flex-1 p-7 space-y-6">
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+                    <p className="f-body text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
                       What&apos;s included
                     </p>
                     <ul className="space-y-2.5">
                       {offer.pitch.map((item) => (
                         <li key={item} className="flex items-start gap-2.5">
                           <span className="mt-1 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
-                          <span className="text-sm text-slate-300">{item}</span>
+                          <span className="f-body text-sm text-slate-600">{item}</span>
                         </li>
                       ))}
                     </ul>
@@ -188,12 +177,12 @@ export default function HighLevelOffers() {
 
                   {/* Real example */}
                   {offer.example && (
-                    <div className="rounded-xl bg-white/5 border border-white/10 p-4">
-                      <p className="text-xs font-bold uppercase tracking-wider text-blue-400 mb-2">
+                    <div className="rounded-xl bg-slate-50 border border-slate-100 p-4">
+                      <p className="text-xs font-bold uppercase tracking-wider text-[#3B6FF0] mb-2">
                         Real Example — {offer.example.client}
                       </p>
-                      <p className="text-xs text-slate-400 mb-2">
-                        <span className="font-semibold text-slate-300">
+                      <p className="f-body text-xs text-slate-500 mb-2">
+                        <span className="font-semibold text-slate-700">
                           Problem:{" "}
                         </span>
                         {offer.example.problem}
@@ -202,13 +191,13 @@ export default function HighLevelOffers() {
                         {offer.example.findings.map((f) => (
                           <li
                             key={f}
-                            className="text-xs text-slate-400 flex gap-2"
+                            className="f-body text-xs text-slate-500 flex gap-2"
                           >
                             <span className="text-blue-500">→</span> {f}
                           </li>
                         ))}
                       </ul>
-                      <p className="text-xs text-blue-300 font-medium">
+                      <p className="f-body text-xs text-[#3B6FF0] font-medium">
                         {offer.example.result}
                       </p>
                     </div>
@@ -221,7 +210,7 @@ export default function HighLevelOffers() {
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                     onClick={scrollToContact}
-                    className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm flex items-center justify-center gap-2 transition-colors"
+                    className="w-full py-3 rounded-full bg-[#3B6FF0] hover:bg-[#2f5ad4] text-white font-semibold text-sm flex items-center justify-center gap-2 transition-colors"
                   >
                     Inquire <ArrowRight className="w-4 h-4" />
                   </motion.button>

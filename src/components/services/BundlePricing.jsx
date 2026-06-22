@@ -111,10 +111,10 @@ export default function BundlePricing() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-sm font-semibold uppercase tracking-widest text-blue-600 mb-3 block">
+          <span className="f-body text-sm font-semibold uppercase tracking-[0.2em] text-[#3B6FF0] mb-3 block">
             3-Tier Growth Ecosystem
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+          <h2 className="f-disp text-4xl md:text-5xl font-bold text-slate-900 mb-4">
             Choose Your Growth System
           </h2>
           <p className="text-slate-500 max-w-xl mx-auto text-lg">

@@ -57,7 +57,7 @@ export default function GuideDownload() {
         >
           <p
             style={{
-              fontFamily: "'DM Sans', sans-serif",
+              fontFamily: "var(--font-body)",
               fontSize: "0.72rem",
               fontWeight: 600,
               letterSpacing: "0.14em",
@@ -71,7 +71,7 @@ export default function GuideDownload() {
 
           <h2
             style={{
-              fontFamily: "'Syne', sans-serif",
+              fontFamily: "var(--font-display)",
               fontSize: "clamp(1.75rem, 3.2vw, 2.8rem)",
               fontWeight: 800,
               color: "#0B0F1A",
@@ -87,7 +87,7 @@ export default function GuideDownload() {
 
           <p
             style={{
-              fontFamily: "'DM Sans', sans-serif",
+              fontFamily: "var(--font-body)",
               fontSize: "clamp(0.92rem, 1.1vw, 1rem)",
               color: "#6B7280",
               lineHeight: 1.7,
@@ -122,7 +122,7 @@ export default function GuideDownload() {
                   display: "flex",
                   alignItems: "center",
                   gap: "0.6rem",
-                  fontFamily: "'DM Sans', sans-serif",
+                  fontFamily: "var(--font-body)",
                   fontSize: "0.88rem",
                   color: "#374151",
                 }}
@@ -162,7 +162,7 @@ export default function GuideDownload() {
                 color: "#fff",
                 border: "none",
                 cursor: "pointer",
-                fontFamily: "'DM Sans', sans-serif",
+                fontFamily: "var(--font-body)",
                 fontSize: "0.875rem",
                 fontWeight: 600,
                 letterSpacing: "0.01em",
@@ -181,7 +181,7 @@ export default function GuideDownload() {
 
             <span
               style={{
-                fontFamily: "'DM Sans', sans-serif",
+                fontFamily: "var(--font-body)",
                 fontSize: "0.75rem",
                 color: "#9CA3AF",
                 letterSpacing: "0.02em",
@@ -244,7 +244,7 @@ export default function GuideDownload() {
               />
               <p
                 style={{
-                  fontFamily: "'DM Sans', sans-serif",
+                  fontFamily: "var(--font-body)",
                   fontSize: "clamp(0.55rem, 0.9vw, 0.65rem)",
                   letterSpacing: "0.16em",
                   textTransform: "uppercase",
@@ -257,7 +257,7 @@ export default function GuideDownload() {
               </p>
               <h3
                 style={{
-                  fontFamily: "'Syne', sans-serif",
+                  fontFamily: "var(--font-display)",
                   fontSize: "clamp(0.95rem, 1.8vw, 1.35rem)",
                   fontWeight: 800,
                   color: "#fff",
@@ -284,7 +284,7 @@ export default function GuideDownload() {
               />
               <p
                 style={{
-                  fontFamily: "'DM Sans', sans-serif",
+                  fontFamily: "var(--font-body)",
                   fontSize: "clamp(0.55rem, 0.8vw, 0.62rem)",
                   color: "rgba(255,255,255,0.25)",
                   margin: 0,

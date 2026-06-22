@@ -73,29 +73,25 @@ export default function ServicesContact() {
   return (
     <section
       id="services-contact"
-      className="py-24 bg-slate-950 relative overflow-hidden"
+      className="py-24 bg-[#F5F5F7] relative overflow-hidden"
     >
-      {/* Orb — lightweight for mobile */}
-      <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-blue-800/30 rounded-full filter blur-[80px] opacity-60 pointer-events-none" />
-
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
-          {/* Left */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="text-sm font-semibold uppercase tracking-widest text-blue-400 mb-4 block">
+            <span className="f-body text-[11px] font-semibold uppercase tracking-[0.22em] text-[#3B6FF0] mb-4 block">
               Let&apos;s Build Together
             </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-5 leading-tight">
+            <h2 className="f-disp text-4xl md:text-5xl font-bold text-slate-900 mb-5 leading-tight">
               Ready to Start Your
               <br />
-              <span className="text-blue-400">Growth System?</span>
+              <span className="text-[#3B6FF0]">Growth System?</span>
             </h2>
-            <p className="text-slate-400 text-lg mb-8 leading-relaxed">
+            <p className="f-body text-slate-600 text-lg mb-8 leading-relaxed">
               Tell us your stage and goals. We&apos;ll build the right
               system—not just sell you a package. Most clients start seeing
               results within the first 30 days.
@@ -111,31 +107,31 @@ export default function ServicesContact() {
               ].map((point) => (
                 <li
                   key={point}
-                  className="flex items-center gap-3 text-slate-300"
+                  className="flex items-center gap-3 text-slate-600"
                 >
-                  <CheckCircle className="w-5 h-5 text-blue-500 shrink-0" />
-                  <span className="text-sm">{point}</span>
+                  <CheckCircle className="w-5 h-5 text-[#3B6FF0] shrink-0" />
+                  <span className="f-body text-sm">{point}</span>
                 </li>
               ))}
             </ul>
 
             {/* Contact info */}
-            <div className="space-y-3 text-sm text-slate-400">
+            <div className="f-body space-y-3 text-sm text-slate-500">
               <a
                 href="tel:+12108380177"
-                className="flex items-center gap-3 hover:text-white transition-colors"
+                className="flex items-center gap-3 hover:text-[#3B6FF0] transition-colors"
               >
-                <Phone className="w-4 h-4 text-blue-500" /> (210) 838-0177
+                <Phone className="w-4 h-4 text-[#3B6FF0]" /> (210) 838-0177
               </a>
               <a
                 href="mailto:CiQ@creativeiq.marketing"
-                className="flex items-center gap-3 hover:text-white transition-colors"
+                className="flex items-center gap-3 hover:text-[#3B6FF0] transition-colors"
               >
-                <Mail className="w-4 h-4 text-blue-500" />{" "}
+                <Mail className="w-4 h-4 text-[#3B6FF0]" />{" "}
                 CiQ@creativeiq.marketing
               </a>
               <div className="flex items-center gap-3">
-                <MapPin className="w-4 h-4 text-blue-500" /> Texas, USA
+                <MapPin className="w-4 h-4 text-[#3B6FF0]" /> Texas, USA
               </div>
             </div>
           </motion.div>
@@ -146,17 +142,17 @@ export default function ServicesContact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8"
+            className="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm"
           >
             {success ? (
               <div className="text-center py-12">
-                <div className="w-16 h-16 rounded-full bg-blue-600/20 flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-8 h-8 text-blue-400" />
+                <div className="w-16 h-16 rounded-full bg-[#3B6FF0]/10 flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="w-8 h-8 text-[#3B6FF0]" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">
+                <h3 className="f-disp text-xl font-bold text-slate-900 mb-2">
                   Message Received!
                 </h3>
-                <p className="text-slate-400 text-sm">
+                <p className="f-body text-slate-500 text-sm">
                   We&apos;ll reach out within 24 hours with a custom proposal.
                 </p>
               </div>
@@ -164,7 +160,7 @@ export default function ServicesContact() {
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1.5 uppercase tracking-wider">
+                    <label className="f-body block text-xs font-semibold text-slate-600 mb-1.5 uppercase tracking-wider">
                       Full Name *
                     </label>
                     <input
@@ -174,11 +170,11 @@ export default function ServicesContact() {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder="Jane Smith"
-                      className="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 transition-colors"
+                      className="f-body w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#3B6FF0] focus:ring-2 focus:ring-[#3B6FF0]/10 transition-colors"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1.5 uppercase tracking-wider">
+                    <label className="f-body block text-xs font-semibold text-slate-600 mb-1.5 uppercase tracking-wider">
                       Phone
                     </label>
                     <input
@@ -187,13 +183,13 @@ export default function ServicesContact() {
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder="(555) 000-0000"
-                      className="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 transition-colors"
+                      className="f-body w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#3B6FF0] focus:ring-2 focus:ring-[#3B6FF0]/10 transition-colors"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5 uppercase tracking-wider">
+                  <label className="f-body block text-xs font-semibold text-slate-600 mb-1.5 uppercase tracking-wider">
                     Email *
                   </label>
                   <input
@@ -203,19 +199,19 @@ export default function ServicesContact() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="jane@company.com"
-                    className="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 transition-colors"
+                    className="f-body w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#3B6FF0] focus:ring-2 focus:ring-[#3B6FF0]/10 transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5 uppercase tracking-wider">
+                  <label className="f-body block text-xs font-semibold text-slate-600 mb-1.5 uppercase tracking-wider">
                     I&apos;m interested in
                   </label>
                   <select
                     name="service"
                     value={formData.service}
                     onChange={handleChange}
-                    className="w-full bg-slate-800 border border-white/15 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
+                    className="f-body w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-900 text-sm focus:outline-none focus:border-[#3B6FF0] focus:ring-2 focus:ring-[#3B6FF0]/10 transition-colors"
                   >
                     <option value="">Select a service or package…</option>
                     {SERVICE_OPTIONS.map((opt) => (
@@ -227,7 +223,7 @@ export default function ServicesContact() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5 uppercase tracking-wider">
+                  <label className="f-body block text-xs font-semibold text-slate-600 mb-1.5 uppercase tracking-wider">
                     Tell us about your goals
                   </label>
                   <textarea
@@ -236,7 +232,7 @@ export default function ServicesContact() {
                     onChange={handleChange}
                     rows={4}
                     placeholder="What's your biggest growth challenge right now?"
-                    className="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 transition-colors resize-none"
+                    className="f-body w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#3B6FF0] focus:ring-2 focus:ring-[#3B6FF0]/10 transition-colors resize-none"
                   />
                 </div>
 
@@ -246,16 +242,16 @@ export default function ServicesContact() {
                     name="consent"
                     checked={formData.consent}
                     onChange={handleChange}
-                    className="mt-0.5 w-4 h-4 accent-blue-600"
+                    className="mt-0.5 w-4 h-4 accent-[#3B6FF0]"
                   />
-                  <span className="text-xs text-slate-400 leading-relaxed">
+                  <span className="f-body text-xs text-slate-500 leading-relaxed">
                     I consent to CreativeIQ contacting me about their services.
                     I understand I can unsubscribe at any time.
                   </span>
                 </label>
 
                 {error && (
-                  <p className="text-sm text-red-400 bg-red-900/20 border border-red-500/20 rounded-lg p-3">
+                  <p className="f-body text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg p-3">
                     {error}
                   </p>
                 )}
@@ -265,7 +261,7 @@ export default function ServicesContact() {
                   disabled={loading}
                   whileHover={{ scale: loading ? 1 : 1.02 }}
                   whileTap={{ scale: loading ? 1 : 0.98 }}
-                  className="w-full py-4 rounded-xl bg-blue-700 text-white font-bold text-sm flex items-center justify-center gap-2 hover:bg-blue-600 transition-all disabled:opacity-60"
+                  className="w-full py-4 rounded-full bg-[#3B6FF0] text-white font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#2f5ad4] transition-all disabled:opacity-60"
                 >
                   {loading ? (
                     <span className="flex items-center gap-2">
