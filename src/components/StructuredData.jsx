@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { satxSchemaCities, satxServiceAreaCities } from "../data/serviceAreas";
 
 export default function StructuredData() {
   useEffect(() => {
@@ -191,18 +192,9 @@ export default function StructuredData() {
         addressCountry: "US",
       },
       areaServed: [
-        {
-          "@type": "City",
-          name: "San Antonio",
-        },
-        {
-          "@type": "State",
-          name: "Texas",
-        },
-        {
-          "@type": "Country",
-          name: "United States",
-        },
+        ...satxSchemaCities,
+        { "@type": "State", name: "Texas" },
+        { "@type": "Country", name: "United States" },
       ],
       aggregateRating: {
         "@type": "AggregateRating",
@@ -243,10 +235,7 @@ export default function StructuredData() {
         addressCountry: "US",
       },
       areaServed: [
-        "San Antonio",
-        "Austin",
-        "Dallas",
-        "Houston",
+        ...satxServiceAreaCities,
         "Texas",
         "United States",
       ],
