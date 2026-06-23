@@ -1,26 +1,16 @@
-import { useState } from "react";
 import {
   Facebook,
   Linkedin,
   Instagram,
   Youtube,
   Music2,
-  ArrowUpRight,
 } from "lucide-react";
 import mainLogo from "../../assets/mainLogo.png";
 import { trackButtonClick } from "../../services/analytics";
-import {
-  subscribeContactToNewsletter,
-  unsubscribeEmailFromNewsletter,
-} from "../../services/ghl";
+import { useNewsletter } from "../../context/NewsletterContext";
+import { EMAIL, PHONE_DISPLAY, PHONE_TEL } from "../../utils/contact";
 
-const NAV = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/#about" },
-  { label: "Services", href: "/#services" },
-  { label: "Process", href: "/#process" },
-  { label: "Contact", href: "/#contact" },
-];
+import { SERVICES_NAV } from "../../data/servicesNav";
 
 const SOCIALS = [
   {
@@ -50,144 +40,40 @@ const SOCIALS = [
   },
 ];
 
+const LINKS = [
+  { label: "Home", href: "/" },
+  SERVICES_NAV,
+  { label: "Free SEO Audit", href: "/free-ai-seo-audit" },
+  { label: "Contact", href: "/contact" },
+];
+
 export default function Footer() {
-  const [email, setEmail] = useState("");
-  const [unsubscribeEmail, setUnsubscribeEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-  const [unsubscribed, setUnsubscribed] = useState(false);
-  const [subscribeLoading, setSubscribeLoading] = useState(false);
-  const [unsubscribeLoading, setUnsubscribeLoading] = useState(false);
-  const [subscribeError, setSubscribeError] = useState("");
-  const [unsubscribeError, setUnsubscribeError] = useState("");
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    if (!email.trim()) return;
-    setSubscribeError("");
-    setSubscribeLoading(true);
-    try {
-      await subscribeContactToNewsletter(email, {
-        source: "footer_newsletter_subscribe",
-        pagePath: window.location.pathname,
-      });
-      trackButtonClick("Newsletter Subscribe", "footer_newsletter", "Footer");
-      setSubscribed(true);
-      setEmail("");
-    } catch (error) {
-      console.error("Footer newsletter subscribe failed:", error);
-      setSubscribeError("Could not subscribe right now. Please try again.");
-    } finally {
-      setSubscribeLoading(false);
-    }
-  };
-
-  const onUnsubscribe = async (e) => {
-    e.preventDefault();
-    if (!unsubscribeEmail.trim()) return;
-    setUnsubscribeError("");
-    setUnsubscribeLoading(true);
-    try {
-      await unsubscribeEmailFromNewsletter(unsubscribeEmail, {
-        source: "footer_newsletter_unsubscribe",
-        pagePath: window.location.pathname,
-      });
-      trackButtonClick(
-        "Newsletter Unsubscribe",
-        "footer_unsubscribe",
-        "Footer",
-      );
-      setUnsubscribed(true);
-      setUnsubscribeEmail("");
-    } catch (error) {
-      console.error("Footer newsletter unsubscribe failed:", error);
-      setUnsubscribeError("Could not unsubscribe right now. Please try again.");
-    } finally {
-      setUnsubscribeLoading(false);
-    }
-  };
+  const { openNewsletter } = useNewsletter();
 
   return (
-    <footer className="relative bg-white text-slate-900">
-      <div className="relative mx-auto max-w-7xl px-4 pb-8 pt-16 sm:px-6 lg:px-8">
-        <div
-          id="footer-newsletter"
-          className="rounded-[28px] border border-slate-200 bg-slate-50 p-7 sm:p-10"
-        >
-          <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:items-end">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
-                Newsletter
-              </p>
-              <h3 className="mt-3 text-3xl font-extrabold leading-tight sm:text-5xl">
-                High-level growth insights, straight to your inbox.
-              </h3>
-              <p className="mt-4 max-w-xl text-sm text-slate-600 sm:text-base">
-                One concise weekly email with sharp strategy, channel signals,
-                and practical execution ideas.
-              </p>
-            </div>
-
-            <form onSubmit={onSubmit} className="space-y-3">
-              <label className="sr-only" htmlFor="newsletter-email">
-                Email
-              </label>
-              <div className="flex flex-col gap-3 sm:flex-row">
-                <input
-                  id="newsletter-email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your best email"
-                  className="h-12 flex-1 rounded-full border border-slate-300 bg-white px-5 text-sm text-slate-900 outline-none transition focus:border-[#3B6FF0]"
-                  required
-                />
-                <button
-                  type="submit"
-                  disabled={subscribeLoading}
-                  className="inline-flex h-12 items-center justify-center rounded-full bg-[#3B6FF0] px-6 text-sm font-bold uppercase tracking-[0.08em] text-white transition hover:bg-[#2F5FE6]"
-                >
-                  {subscribeLoading ? "Submitting..." : "Subscribe"}
-                </button>
-              </div>
-              {subscribed && (
-                <p className="text-xs font-medium text-[#3B6FF0]">
-                  Thanks for subscribing. You are in.
-                </p>
-              )}
-              {subscribeError && (
-                <p className="text-xs font-medium text-red-600">
-                  {subscribeError}
-                </p>
-              )}
-            </form>
-          </div>
-        </div>
-
-        <div className="mt-14 grid gap-10 border-t border-slate-200 pt-10 lg:grid-cols-[1.1fr_auto_auto]">
+    <footer className="border-t border-slate-200 bg-white text-slate-900">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr]">
           <div>
             <a href="/" className="inline-flex items-center gap-2.5">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#3B6FF0]">
-                <img
-                  src={mainLogo}
-                  alt="CreativeIQ"
-                  className="h-6 w-6 object-contain"
-                />
-              </span>
-              <span className="text-xl font-bold tracking-tight text-slate-900">
-                CreativeIQ
-              </span>
+              <img
+                src={mainLogo}
+                alt="CreativeIQ"
+                className="h-8 w-8 object-contain"
+              />
+              <span className="text-lg font-bold tracking-tight">CreativeIQ</span>
             </a>
-            <p className="mt-4 max-w-md text-sm leading-relaxed text-slate-600">
-              Performance-first digital growth systems built for compounding
-              visibility and revenue.
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-600">
+              Performance-first digital growth systems for brands that want
+              compounding visibility and revenue.
             </p>
-            <div className="mt-6 flex gap-2.5">
+            <div className="mt-6 flex gap-2">
               {SOCIALS.map(({ Icon, label, href }) => (
                 <a
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-300 text-slate-500 transition hover:border-[#3B6FF0] hover:text-[#3B6FF0]"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-500 transition hover:border-slate-300 hover:text-slate-900"
                 >
                   <Icon size={15} />
                 </a>
@@ -195,79 +81,98 @@ export default function Footer() {
             </div>
           </div>
 
-          <nav className="grid gap-3 text-sm text-slate-600">
-            <a href="/#services" className="transition hover:text-slate-900">
-              Services
-            </a>
-            <a
-              href="/free-ai-seo-audit"
-              className="transition hover:text-slate-900"
+          <nav className="flex flex-col gap-2.5 text-sm text-slate-600">
+            <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+              Navigate
+            </p>
+            {LINKS.map((item) =>
+              item.children ? (
+                <div key={item.label} className="space-y-2">
+                  <a
+                    href={item.href}
+                    onClick={() =>
+                      trackButtonClick(item.label, "footer_nav", "Footer")
+                    }
+                    className="font-medium text-slate-800 transition hover:text-slate-900"
+                  >
+                    {item.label}
+                  </a>
+                  <div className="space-y-1.5 border-l border-slate-200 pl-3">
+                    {item.children.map((child) => (
+                      <a
+                        key={child.href}
+                        href={child.href}
+                        onClick={() =>
+                          trackButtonClick(child.label, "footer_nav", "Footer")
+                        }
+                        className="block text-slate-500 transition hover:text-slate-900"
+                      >
+                        {child.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={() =>
+                    trackButtonClick(item.label, "footer_nav", "Footer")
+                  }
+                  className="transition hover:text-slate-900"
+                >
+                  {item.label}
+                </a>
+              ),
+            )}
+            <button
+              type="button"
+              onClick={() => {
+                trackButtonClick("Newsletter", "footer_newsletter", "Footer");
+                openNewsletter();
+              }}
+              className="text-left transition hover:text-slate-900"
             >
-              Free AI SEO Audit
-            </a>
-            <a href="/newsletter" className="transition hover:text-slate-900">
               Newsletter
-            </a>
-            <a href="/#contact" className="transition hover:text-slate-900">
-              Contact
-            </a>
-            <a
-              href="/newsletter/unsubscribed"
-              className="inline-flex items-center gap-1 text-slate-500 transition hover:text-slate-900"
-            >
-              Unsubscribe <ArrowUpRight size={14} />
-            </a>
+            </button>
           </nav>
 
           <div className="text-sm text-slate-600">
-            <p>San Antonio, Texas</p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+              Contact
+            </p>
             <a
-              className="mt-2 block transition hover:text-slate-900"
-              href="tel:2108380177"
+              className="mt-3 block transition hover:text-slate-900"
+              href={`tel:${PHONE_TEL}`}
             >
-              (210) 838-0177
+              {PHONE_DISPLAY}
             </a>
             <a
               className="mt-2 block transition hover:text-slate-900"
-              href="mailto:CiQ@creativeiq.marketing"
+              href={`mailto:${EMAIL}`}
             >
-              CiQ@creativeiq.marketing
+              {EMAIL}
             </a>
+            <p className="mt-2 text-slate-500">International clients welcome</p>
           </div>
         </div>
 
-        <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-slate-200 pt-6 text-xs text-slate-500">
+        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-slate-100 pt-6 text-xs text-slate-500">
           <p>
-            {new Date().getFullYear()} CreativeIQ Marketing. All rights
-            reserved.
+            {new Date().getFullYear()} CreativeIQ Marketing. All rights reserved.
           </p>
-          <div className="flex items-center gap-4 flex-wrap">
-            {NAV.map(({ label, href }) => (
-              <a
-                key={label}
-                href={href}
-                onClick={() => trackButtonClick(label, "footer_nav", "Footer")}
-                className="transition hover:text-slate-900"
-              >
-                {label}
-              </a>
-            ))}
-            <span className="text-slate-300">•</span>
-            <a
-              href="/terms"
-              onClick={() => trackButtonClick("Terms", "footer_nav", "Footer")}
-              className="transition hover:text-slate-900"
-            >
+          <div className="flex items-center gap-4">
+            <a href="/terms" className="transition hover:text-slate-900">
               Terms
             </a>
+            <a href="/privacy" className="transition hover:text-slate-900">
+              Privacy
+            </a>
             <a
-              href="/privacy"
-              onClick={() =>
-                trackButtonClick("Privacy", "footer_nav", "Footer")
-              }
+              href="/newsletter/unsubscribed"
               className="transition hover:text-slate-900"
             >
-              Privacy
+              Unsubscribe
             </a>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { useNewsletter } from "../../context/NewsletterContext";
 
 const TRACK_TEXT = [
   "Visibility",
@@ -11,6 +12,7 @@ const TRACK_TEXT = [
 ];
 
 export default function StoryStrip() {
+  const { openNewsletter } = useNewsletter();
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -64,12 +66,13 @@ export default function StoryStrip() {
               </motion.div>
             </div>
             <div className="mt-7">
-              <a
-                href="#footer-newsletter"
+              <button
+                type="button"
+                onClick={openNewsletter}
                 className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-5 py-2.5 text-xs font-bold uppercase tracking-[0.1em] text-blue-700 transition hover:bg-blue-100"
               >
                 Get Weekly Growth Insights
-              </a>
+              </button>
             </div>
           </motion.div>
         </div>

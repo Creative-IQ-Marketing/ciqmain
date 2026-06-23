@@ -1,17 +1,31 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Phone, Mail, Check, ArrowRight, Download } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import ContactSection from "../components/contact/ContactSection";
+import { useLocation } from "react-router-dom";
+import { scrollToSection } from "../utils/scrollToSection";
 import SEO from "../components/SEO";
 import GuideInlineCTA from "../components/ui/GuideInlineCTA";
 import { downloadVCard } from "../utils/vcard";
 import { trackButtonClick } from "../services/analytics";
+import {
+  EMAIL,
+  PHONE_DISPLAY,
+  PHONE_SMS,
+  PHONE_TEL,
+} from "../utils/contact";
 
 const ease = [0.22, 1, 0.36, 1];
 
 export default function ContactPage() {
   const [saved, setSaved] = useState(false);
-  const navigate = useNavigate();
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (hash === "#contact") {
+      window.setTimeout(() => scrollToSection("contact", 100), 300);
+    }
+  }, [hash]);
 
   const handleDownload = () => {
     trackButtonClick("Download vCard", "vcf_download", "ContactPage");
@@ -19,12 +33,9 @@ export default function ContactPage() {
   };
 
   const handleFormCTA = () => {
-    navigate("/");
-    setTimeout(() => {
-      document
-        .getElementById("contact")
-        ?.scrollIntoView({ behavior: "smooth" });
-    }, 350);
+    document
+      .getElementById("contact")
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   useEffect(() => {
@@ -151,7 +162,7 @@ export default function ContactPage() {
 
                     <div className="flex flex-wrap gap-3 justify-center mt-4">
                       <a
-                        href="tel:2108380177"
+                        href={`tel:${PHONE_TEL}`}
                         className="inline-flex items-center gap-2 px-4 md:px-5 py-2.5 md:py-3 rounded-full bg-blue-600 text-white font-semibold text-sm md:text-base hover:bg-blue-700 transition-colors"
                         onClick={() =>
                           trackButtonClick(
@@ -165,7 +176,7 @@ export default function ContactPage() {
                         Call now
                       </a>
                       <a
-                        href="mailto:CiQ@creativeiq.marketing"
+                        href={`mailto:${EMAIL}`}
                         className="inline-flex items-center gap-2 px-4 md:px-5 py-2.5 md:py-3 rounded-full bg-gray-100 text-black font-semibold text-sm md:text-base hover:bg-gray-200 transition-colors"
                         onClick={() =>
                           trackButtonClick(
@@ -206,7 +217,7 @@ export default function ContactPage() {
             transition={{ duration: 0.5, delay: 0.5, ease }}
           >
             <a
-              href="tel:2108380177"
+              href={`tel:${PHONE_TEL}`}
               className="block p-4 md:p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:bg-gray-100 hover:border-blue-200 transition-all"
               onClick={() =>
                 trackButtonClick("Card Call", "card_call", "ContactPage")
@@ -219,12 +230,12 @@ export default function ContactPage() {
                 className="font-bold text-sm md:text-base text-black"
                 style={{ fontFamily: "'Manrope', sans-serif" }}
               >
-                (210) 838-0177
+                {PHONE_DISPLAY}
               </p>
             </a>
 
             <a
-              href="mailto:CiQ@creativeiq.marketing"
+              href={`mailto:${EMAIL}`}
               className="block p-4 md:p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:bg-gray-100 hover:border-blue-200 transition-all"
               onClick={() =>
                 trackButtonClick("Card Email", "card_email", "ContactPage")
@@ -237,19 +248,37 @@ export default function ContactPage() {
                 className="font-bold text-xs md:text-sm text-black break-words"
                 style={{ fontFamily: "'Manrope', sans-serif" }}
               >
-                CiQ@creativeiq.marketing
+                {EMAIL}
               </p>
             </a>
 
-            <div className="p-4 md:p-5 rounded-2xl bg-gray-50 border border-gray-100">
+            <a
+              href={PHONE_SMS}
+              className="block p-4 md:p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:bg-gray-100 hover:border-blue-200 transition-all"
+              onClick={() =>
+                trackButtonClick("Card Text", "card_text", "ContactPage")
+              }
+            >
               <p className="text-xs font-semibold tracking-widest uppercase text-black/40 mb-2">
-                Location
+                Text
               </p>
               <p
                 className="font-bold text-sm md:text-base text-black"
                 style={{ fontFamily: "'Manrope', sans-serif" }}
               >
-                San Antonio, TX
+                Message us
+              </p>
+            </a>
+
+            <div className="p-4 md:p-5 rounded-2xl bg-gray-50 border border-gray-100">
+              <p className="text-xs font-semibold tracking-widest uppercase text-black/40 mb-2">
+                Coverage
+              </p>
+              <p
+                className="font-bold text-sm md:text-base text-black"
+                style={{ fontFamily: "'Manrope', sans-serif" }}
+              >
+                International
               </p>
             </div>
 
@@ -296,6 +325,8 @@ export default function ContactPage() {
           </motion.div>
         </div>
       </main>
+
+      <ContactSection variant="home" sectionId="contact" />
     </>
   );
 }

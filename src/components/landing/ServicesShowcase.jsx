@@ -8,11 +8,13 @@ import smmVideo from "../../assets/svid/social media.mp4";
 import contentVideo from "../../assets/svid/contentmgmt.mp4";
 import webVideo from "../../assets/svid/webdev.mp4";
 
+import { normalizeFormInterest } from "../../data/serviceFormOptions";
+
 const SERVICE_GROUPS = [
   {
     id: "sem",
     title: "Search Engine Marketing",
-    contactValue: "seo",
+    contactValue: "bundle-essential",
     video: semVideo,
     summary:
       "SEO, paid search, and analytics — built to get you found by buyers who are ready to act.",
@@ -21,7 +23,7 @@ const SERVICE_GROUPS = [
   {
     id: "smm",
     title: "Social Media Marketing",
-    contactValue: "social",
+    contactValue: "social-starter",
     video: smmVideo,
     summary:
       "Campaigns and content that keep your brand top-of-mind across every major platform.",
@@ -30,7 +32,7 @@ const SERVICE_GROUPS = [
   {
     id: "content",
     title: "Content Marketing",
-    contactValue: "other",
+    contactValue: "video-production",
     video: contentVideo,
     summary:
       "Blogs, video, email, and copy that turn attention into qualified pipeline.",
@@ -39,7 +41,7 @@ const SERVICE_GROUPS = [
   {
     id: "web",
     title: "Web Design & Development",
-    contactValue: "web",
+    contactValue: "bundle-essential",
     video: webVideo,
     summary:
       "Fast, conversion-focused sites — modern stacks, sharp UX, performance included.",
@@ -132,12 +134,8 @@ export default function ServicesShowcase() {
   const desktopCards = useMemo(() => [...SERVICE_GROUPS, ...SERVICE_GROUPS], []);
 
   const goToContact = (serviceValue) => {
-    navigate(`/?service=${serviceValue}#contact`);
-    setTimeout(() => {
-      document
-        .getElementById("contact")
-        ?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 150);
+    const interest = normalizeFormInterest(serviceValue) || serviceValue;
+    navigate(`/?interest=${interest}#contact`);
   };
 
   useEffect(() => {

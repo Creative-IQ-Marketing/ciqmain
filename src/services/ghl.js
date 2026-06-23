@@ -128,7 +128,9 @@ export async function submitToGHL(formData) {
       customFields: [
         {
           key: "service",
-          field_value: `${formData.service} for ${formData.businessName} (${formData.businessWebsite})`,
+          field_value: formData.businessName
+            ? `${formData.service} for ${formData.businessName} (${formData.businessWebsite || "n/a"})`
+            : String(formData.service || ""),
         },
         {
           key: "message",

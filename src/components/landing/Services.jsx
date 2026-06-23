@@ -11,6 +11,7 @@ import {
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { trackButtonClick } from "../../services/analytics";
+import { normalizeFormInterest } from "../../data/serviceFormOptions";
 import StaggerContainer, { StaggerItem } from "../primitives/StaggerContainer";
 import ParallaxLayer from "../primitives/ParallaxLayer";
 import FadeUp from "../primitives/FadeUp";
@@ -74,12 +75,8 @@ const Services = () => {
 
   const handleCTA = (value) => {
     trackButtonClick(value, "service_card", "Services");
-    navigate(`/?service=${value}#contact`);
-    setTimeout(() => {
-      document
-        .getElementById("contact")
-        ?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 100);
+    const interest = normalizeFormInterest(value) || value;
+    navigate(`/?interest=${interest}#contact`);
   };
 
   return (

@@ -1,11 +1,13 @@
 import { motion } from "framer-motion";
 import { Check, ArrowRight, Zap, TrendingUp, Rocket } from "lucide-react";
+import { scrollToServicesContact } from "../../utils/formInterest";
 
 const BUNDLES = [
   {
     badge: null,
     icon: TrendingUp,
     name: "Essential Visibility",
+    interest: "bundle-essential",
     tagline: "Visibility & credibility",
     monthly: "$999",
     biweekly: "$499.50",
@@ -28,9 +30,10 @@ const BUNDLES = [
     bestFor: "Teams building visibility and credibility before automating HR.",
   },
   {
-    badge: "MOST POPULAR",
+    badge: "Popular",
     icon: Zap,
     name: "Growth Operations",
+    interest: "bundle-growth",
     tagline: "Organized hiring + stronger content",
     monthly: "$2,222",
     biweekly: "$1,122",
@@ -57,6 +60,7 @@ const BUNDLES = [
     badge: null,
     icon: Rocket,
     name: "Elite Automation",
+    interest: "bundle-elite",
     tagline: "Full automation + multi-platform dominance",
     monthly: "$3,888",
     biweekly: "$1,950",
@@ -94,14 +98,12 @@ const cardVariants = {
 };
 
 export default function BundlePricing() {
-  const scrollToContact = () => {
-    document
-      .getElementById("services-contact")
-      ?.scrollIntoView({ behavior: "smooth" });
+  const scrollToContact = (interest) => {
+    scrollToServicesContact(interest, `bundle:${interest}`);
   };
 
   return (
-    <section id="bundles" className="py-24 bg-white">
+    <section id="bundles" className="pb-24 pt-4 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
         <motion.div
@@ -127,7 +129,7 @@ export default function BundlePricing() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
           {BUNDLES.map((bundle, i) => {
             const Icon = bundle.icon;
-            const isPopular = bundle.badge === "MOST POPULAR";
+            const isPopular = bundle.badge === "Popular";
 
             return (
               <motion.div
@@ -137,77 +139,50 @@ export default function BundlePricing() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className={`relative flex flex-col rounded-2xl border-2 ${
+                className={`relative flex flex-col rounded-2xl border ${
                   isPopular
-                    ? "border-blue-600 shadow-2xl shadow-blue-200/50 scale-[1.03] md:scale-105 z-10"
-                    : `${bundle.color} shadow-md hover:shadow-xl`
+                    ? "border-[#3B6FF0] bg-white"
+                    : "border-slate-200 bg-white"
                 } overflow-hidden transition-shadow duration-300`}
               >
                 {bundle.badge && (
-                  <div className="text-center py-2 bg-blue-600 text-white text-xs font-bold tracking-widest uppercase">
+                  <div className="border-b border-[#3B6FF0]/10 bg-[#3B6FF0]/5 px-7 py-2 text-center text-xs font-semibold uppercase tracking-wider text-[#3B6FF0]">
                     {bundle.badge}
                   </div>
                 )}
 
                 {/* Header */}
-                <div
-                  className={`${bundle.headerBg} px-7 ${bundle.badge ? "pt-7" : "pt-7"} pb-7`}
-                >
-                  <div
-                    className={`w-10 h-10 rounded-xl flex items-center justify-center mb-5 ${
-                      isPopular
-                        ? "bg-white/20"
-                        : "bg-blue-50 ring-1 ring-blue-200"
-                    }`}
-                  >
-                    <Icon
-                      className={`w-5 h-5 ${isPopular ? "text-white" : "text-blue-600"}`}
-                    />
+                <div className="bg-white px-7 pb-7 pt-7">
+                  <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-lg bg-[#3B6FF0]/10">
+                    <Icon className="h-5 w-5 text-[#3B6FF0]" />
                   </div>
 
-                  <h3 className={`text-xl font-bold mb-1 ${bundle.headerText}`}>
+                  <h3 className="mb-1 text-xl font-bold text-slate-900">
                     {bundle.name}
                   </h3>
-                  <p className={`text-sm mb-5 ${bundle.subText}`}>
-                    {bundle.tagline}
-                  </p>
+                  <p className="mb-5 text-sm text-slate-500">{bundle.tagline}</p>
 
-                  <div className="flex items-end gap-1 mb-1">
-                    <span
-                      className={`text-4xl font-extrabold ${bundle.headerText}`}
-                    >
+                  <div className="mb-1 flex items-end gap-1">
+                    <span className="text-4xl font-extrabold text-slate-900">
                       {bundle.monthly}
                     </span>
-                    <span className={`text-sm pb-1 ${bundle.subText}`}>
-                      /mo
-                    </span>
+                    <span className="pb-1 text-sm text-slate-500">/mo</span>
                   </div>
 
-                  <p className={`text-xs ${bundle.subText}`}>
-                    Bi-weekly: {bundle.biweekly} &nbsp;·&nbsp; One-time:{" "}
-                    {bundle.oneTime}
+                  <p className="text-xs text-slate-500">
+                    Bi-weekly: {bundle.biweekly} · One-time: {bundle.oneTime}
                   </p>
 
                   {bundle.afterNote && (
-                    <p
-                      className={`text-xs font-semibold mt-1 ${
-                        isPopular ? "text-blue-200" : "text-blue-600"
-                      }`}
-                    >
+                    <p className="mt-1 text-xs font-medium text-[#3B6FF0]">
                       {bundle.afterNote}
                     </p>
                   )}
                 </div>
 
-                {/* Divider */}
-                <div
-                  className={`h-px ${
-                    isPopular ? "bg-blue-500/30" : "bg-slate-100"
-                  }`}
-                />
+                <div className="h-px bg-slate-100" />
 
-                {/* Features */}
-                <div className="flex-1 px-7 py-6 bg-white">
+                <div className="flex-1 bg-white px-7 py-6">
                   <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4">
                     What&apos;s included
                   </p>
@@ -236,8 +211,12 @@ export default function BundlePricing() {
                   <motion.button
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
-                    onClick={scrollToContact}
-                    className={`w-full py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-200 ${bundle.btnClass}`}
+                    onClick={() => scrollToContact(bundle.interest)}
+                    className={`w-full rounded-xl py-3 text-sm font-semibold flex items-center justify-center gap-2 transition-all duration-200 ${
+                      isPopular
+                        ? "bg-[#3B6FF0] text-white hover:bg-[#2f5ad4]"
+                        : "border border-slate-200 text-slate-800 hover:bg-slate-50"
+                    }`}
                   >
                     Get Started <ArrowRight className="w-4 h-4" />
                   </motion.button>

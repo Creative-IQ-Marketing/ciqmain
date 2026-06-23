@@ -26,6 +26,10 @@ import NewsletterPage from "./pages/NewsletterPage";
 import UnsubscribedPage from "./pages/UnsubscribedPage";
 import TermsAndConditionsPage from "./pages/TermsAndConditionsPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import { NewsletterProvider } from "./context/NewsletterContext";
+import NewsletterPopup from "./components/ui/NewsletterPopup";
+import NewsletterAutoOpen from "./components/ui/NewsletterAutoOpen";
+import SocialMediaFreeTrialPage from "./pages/SocialMediaFreeTrialPage";
 import { initializeAnalytics } from "./services/analytics";
 
 function Layout() {
@@ -36,12 +40,15 @@ function Layout() {
   }, [pathname]);
 
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
-      <Outlet />
-      <Footer />
-      {/* <ContactPopup /> */}
-    </div>
+    <NewsletterProvider>
+      <div className="min-h-screen bg-white">
+        <Header />
+        <Outlet />
+        <Footer />
+        <NewsletterPopup />
+        <NewsletterAutoOpen />
+      </div>
+    </NewsletterProvider>
   );
 }
 
@@ -84,6 +91,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/free-ai-seo-audit" element={<FreeSeoAuditPage />} />
         <Route path="/services" element={<ServicesPage />} />
+        <Route path="/social-media-free-trial" element={<SocialMediaFreeTrialPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/newsletter/unsubscribed" element={<UnsubscribedPage />} />
         <Route path="/terms" element={<TermsAndConditionsPage />} />

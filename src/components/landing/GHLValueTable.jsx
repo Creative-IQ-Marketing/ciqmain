@@ -165,12 +165,17 @@ function TableRow({ feature, replaces, cost, index, onSelect }) {
   );
 }
 
-export default function GHLValueTable() {
+export default function GHLValueTable({
+  showTopTrialBanner = true,
+  showBottomTrialCta = true,
+  trialPath = "/social-media-free-trial",
+  sectionId = "ciq-value",
+}) {
   const navigate = useNavigate();
   const [activeRow, setActiveRow] = useState(null);
   return (
     <section
-      id="ciq-value"
+      id={sectionId}
       style={{
         background: DARK_BG,
         position: "relative",
@@ -200,62 +205,64 @@ export default function GHLValueTable() {
         }
       `}</style>
 
-      <div
-        style={{
-          position: "relative",
-          zIndex: 1,
-          background: BRAND_BLUE,
-          padding: "16px 20px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: "20px",
-          flexWrap: "wrap",
-        }}
-      >
-        <span
+      {showTopTrialBanner && (
+        <div
           style={{
-            fontFamily: "'Inter', sans-serif",
-            color: "#ffffff",
-            fontWeight: 700,
-            fontSize: "14px",
-            letterSpacing: "0.02em",
-          }}
-        >
-          Take your marketing to the next level!
-        </span>
-        <button
-          onClick={() => navigate("/contact")}
-          style={{
-            display: "inline-flex",
-            flexDirection: "column",
+            position: "relative",
+            zIndex: 1,
+            background: BRAND_BLUE,
+            padding: "16px 20px",
+            display: "flex",
             alignItems: "center",
-            background: ACCENT_YELLOW,
-            color: "#000000",
-            fontFamily: "'Inter', sans-serif",
-            padding: "10px 24px",
-            borderRadius: 6,
-            border: "none",
-            cursor: "pointer",
-            flexShrink: 0,
-            boxShadow: "0 4px 12px rgba(246,195,67,0.28)",
+            justifyContent: "center",
+            gap: "20px",
+            flexWrap: "wrap",
           }}
         >
           <span
             style={{
-              fontWeight: 900,
-              fontSize: "13px",
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
+              fontFamily: "'Inter', sans-serif",
+              color: "#ffffff",
+              fontWeight: 700,
+              fontSize: "14px",
+              letterSpacing: "0.02em",
             }}
           >
-            14 Day Free Trial
+            Take your marketing to the next level!
           </span>
-          <span style={{ fontSize: "9px", fontWeight: 500, opacity: 1 }}>
-            No obligation, cancel at any time
-          </span>
-        </button>
-      </div>
+          <button
+            onClick={() => navigate(trialPath)}
+            style={{
+              display: "inline-flex",
+              flexDirection: "column",
+              alignItems: "center",
+              background: ACCENT_YELLOW,
+              color: "#000000",
+              fontFamily: "'Inter', sans-serif",
+              padding: "10px 24px",
+              borderRadius: 6,
+              border: "none",
+              cursor: "pointer",
+              flexShrink: 0,
+              boxShadow: "0 4px 12px rgba(246,195,67,0.28)",
+            }}
+          >
+            <span
+              style={{
+                fontWeight: 900,
+                fontSize: "13px",
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+              }}
+            >
+              30 Day Social Media Free Trial
+            </span>
+            <span style={{ fontSize: "9px", fontWeight: 500, opacity: 1 }}>
+              No obligation, cancel at any time
+            </span>
+          </button>
+        </div>
+      )}
 
       <div
         style={{
@@ -448,51 +455,53 @@ export default function GHLValueTable() {
           </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 1, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          style={{
-            textAlign: "center",
-            marginTop: "32px",
-          }}
-        >
-          <button
-            onClick={() => navigate("/contact")}
+        {showBottomTrialCta && (
+          <motion.div
+            initial={{ opacity: 1, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
             style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              padding: "13px 28px",
-              background: "#ffffff",
-              color: DARK_BG,
-              borderRadius: "50px",
-              fontFamily: "'Inter', sans-serif",
-              fontSize: "13px",
-              fontWeight: 700,
-              border: "1px solid rgba(255,255,255,0.26)",
-              cursor: "pointer",
-              boxShadow: "0 10px 24px rgba(0,0,0,0.22)",
-              textTransform: "uppercase",
-              letterSpacing: "0.04em",
+              textAlign: "center",
+              marginTop: "32px",
             }}
           >
-            Start Your Free Trial
-            <ArrowRight size={15} />
-          </button>
-          <p
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: "11px",
-              color: "rgba(255,255,255,0.62)",
-              marginTop: 14,
-              letterSpacing: "0.04em",
-            }}
-          >
-            Starting from $99/mo • No long-term contracts
-          </p>
-        </motion.div>
+            <button
+              onClick={() => navigate(trialPath)}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "13px 28px",
+                background: "#ffffff",
+                color: DARK_BG,
+                borderRadius: "50px",
+                fontFamily: "'Inter', sans-serif",
+                fontSize: "13px",
+                fontWeight: 700,
+                border: "1px solid rgba(255,255,255,0.26)",
+                cursor: "pointer",
+                boxShadow: "0 10px 24px rgba(0,0,0,0.22)",
+                textTransform: "uppercase",
+                letterSpacing: "0.04em",
+              }}
+            >
+              Start Your Free Trial
+              <ArrowRight size={15} />
+            </button>
+            <p
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: "11px",
+                color: "rgba(255,255,255,0.62)",
+                marginTop: 14,
+                letterSpacing: "0.04em",
+              }}
+            >
+              30-day social media trial • No long-term contracts
+            </p>
+          </motion.div>
+        )}
       </div>
 
       <AnimatePresence>

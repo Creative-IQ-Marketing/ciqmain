@@ -145,7 +145,7 @@ export default function StructuredData() {
         "CreativeIQ Digital Marketing engineers AI-ready SEO, social media marketing, conversion-focused websites, chat experiences, and CRM automation designed for AI-driven discovery and real conversions.",
       foundingDate: "2016",
       slogan: "Elevate Your Digital Presence",
-      telephone: "+1-210-838-0177",
+      telephone: "+1-830-355-6028",
       email: "CiQ@creativeiq.marketing",
       address: {
         "@type": "PostalAddress",
@@ -164,7 +164,7 @@ export default function StructuredData() {
       contactPoint: {
         "@type": "ContactPoint",
         contactType: "Customer Service",
-        telephone: "+1-210-838-0177",
+        telephone: "+1-830-355-6028",
         email: "CiQ@creativeiq.marketing",
         availableLanguage: "en",
       },
@@ -180,7 +180,7 @@ export default function StructuredData() {
       description:
         "Digital marketing agency specializing in AI-ready SEO, social media marketing, conversion websites, chat experiences, and CRM automation that turns visitors into qualified leads.",
       url: "https://creativeiq.marketing",
-      telephone: "+1-210-838-0177",
+      telephone: "+1-830-355-6028",
       email: "CiQ@creativeiq.marketing",
       priceRange: "$$$",
       address: {
@@ -226,7 +226,7 @@ export default function StructuredData() {
       image: "https://creativeiq.marketing/og-image.jpg",
       description:
         "Professional digital marketing services specializing in AI-ready SEO, PPC, social media, conversion websites, and CRM automation.",
-      telephone: "+1-210-838-0177",
+      telephone: "+1-830-355-6028",
       email: "CiQ@creativeiq.marketing",
       address: {
         "@type": "PostalAddress",

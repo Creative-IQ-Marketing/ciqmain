@@ -7,16 +7,18 @@ import {
   Cpu,
   Crown,
 } from "lucide-react";
+import { scrollToServicesContact } from "../../utils/formInterest";
 
 const TIERS = [
   {
     number: "1",
     icon: Building2,
     name: "The Foundation System",
+    interest: "tier-foundation",
     subtitle: "Digital Authority Build",
     bestFor: "New businesses, local clinics, startups",
     setup: "$2,500 – $5,000 setup",
-    monthly: "$1,200 – $1,800/mo",
+    monthly: null,
     goal: "Establish digital credibility + lead capture infrastructure.",
     features: [
       "Custom conversion-optimized website",
@@ -35,6 +37,7 @@ const TIERS = [
     number: "2",
     icon: Flame,
     name: "The Growth Engine",
+    interest: "tier-growth-engine",
     subtitle: "Lead Generation & Conversion System",
     bestFor: "Clinics, law firms, med spas, home services",
     setup: null,
@@ -59,6 +62,7 @@ const TIERS = [
     number: "3",
     icon: LineChart,
     name: "The Brand Authority System",
+    interest: "tier-brand-authority",
     subtitle: "Omnipresence & Market Positioning",
     bestFor: "Established brands scaling visibility",
     setup: null,
@@ -82,6 +86,7 @@ const TIERS = [
     number: "4",
     icon: Cpu,
     name: "The Revenue Maximizer",
+    interest: "tier-revenue",
     subtitle: "Automation & AI Scale Suite",
     bestFor: "Multi-location, high-volume businesses",
     setup: null,
@@ -106,6 +111,7 @@ const TIERS = [
     number: "5",
     icon: Crown,
     name: "Enterprise Growth Partner",
+    interest: "tier-enterprise",
     subtitle: "Fractional CMO + Full Digital Division",
     bestFor: "Developers, franchises, healthcare groups, investors",
     setup: null,
@@ -138,10 +144,8 @@ const cardVariants = {
 };
 
 export default function GrowthInfra() {
-  const scrollToContact = () => {
-    document
-      .getElementById("services-contact")
-      ?.scrollIntoView({ behavior: "smooth" });
+  const scrollToContact = (interest) => {
+    scrollToServicesContact(interest, `growth-tier:${interest}`);
   };
 
   return (
@@ -179,10 +183,6 @@ export default function GrowthInfra() {
           <p className="font-semibold text-lg">
             Most agencies sell services. We build growth infrastructure.
           </p>
-          <p className="text-blue-100 text-sm mt-1">
-            Average client value moves from $1,200/mo to $5,000–$12,000/mo.
-            That&apos;s how agencies scale to 7 figures.
-          </p>
         </motion.div>
 
         {/* Tier cards */}
@@ -197,7 +197,7 @@ export default function GrowthInfra() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className={`bg-white rounded-2xl shadow-sm border border-slate-200 border-l-4 ${tier.color} overflow-hidden hover:shadow-md transition-shadow duration-300`}
+                className={`bg-white rounded-2xl border border-slate-200 overflow-hidden transition-shadow duration-300 hover:border-slate-300`}
               >
                 <div className="p-6 sm:p-8">
                   <div className="flex flex-col sm:flex-row sm:items-start gap-6">
@@ -250,9 +250,11 @@ export default function GrowthInfra() {
                               {tier.setup}
                             </p>
                           )}
-                          <p className="text-lg font-bold text-blue-700">
-                            {tier.monthly}
-                          </p>
+                          {tier.monthly && (
+                            <p className="text-lg font-bold text-blue-700">
+                              {tier.monthly}
+                            </p>
+                          )}
                           {tier.badge && (
                             <span className="inline-block mt-1 text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 font-semibold">
                               {tier.badge}
@@ -281,7 +283,7 @@ export default function GrowthInfra() {
                         <motion.button
                           whileHover={{ scale: 1.03 }}
                           whileTap={{ scale: 0.97 }}
-                          onClick={scrollToContact}
+                          onClick={() => scrollToContact(tier.interest)}
                           className="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors"
                         >
                           Discuss this tier <ArrowRight className="w-4 h-4" />

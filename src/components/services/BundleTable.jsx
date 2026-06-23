@@ -120,7 +120,7 @@ const ROWS = [
   {
     group: "Social Media",
     label: "Hashtag Rotation + Story Highlights",
-    values: [false, false, false, true],
+    values: [false, false, true],
   },
 ];
 
@@ -227,7 +227,7 @@ export default function BundleTable() {
                       )}
                       {row.label}
                     </td>
-                    {row.values.map((val, vi) => (
+                    {row.values.slice(0, TIERS.length).map((val, vi) => (
                       <td
                         key={vi}
                         className={`px-6 py-4 text-center ${

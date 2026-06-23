@@ -103,7 +103,7 @@ export default function UnsubscribedPage() {
                 Return Home
               </Link>
               <Link
-                to="/#footer-newsletter"
+                to="/"
                 className="inline-flex h-11 items-center justify-center rounded-full border border-white/35 bg-white/10 px-6 text-sm font-bold uppercase tracking-[0.08em] text-white transition hover:bg-white/20"
               >
                 Resubscribe

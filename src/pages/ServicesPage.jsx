@@ -1,15 +1,37 @@
 import { useEffect } from "react";
 import SEO from "../components/SEO";
+import { useLocation } from "react-router-dom";
+import { scrollToSection } from "../utils/scrollToSection";
+import { publishFormInterest, SECTION_INTEREST_MAP } from "../utils/formInterest";
 import GuideInlineCTA from "../components/ui/GuideInlineCTA";
 import ServicesHero from "../components/services/ServicesHero";
 import BundlePricing from "../components/services/BundlePricing";
 import BundleTable from "../components/services/BundleTable";
+import SocialMediaPackages from "../components/services/SocialMediaPackages";
+import ConsultingSection from "../components/services/ConsultingSection";
 import HighLevelOffers from "../components/services/HighLevelOffers";
 import GrowthInfra from "../components/services/GrowthInfra";
 import ServicesContact from "../components/services/ServicesContact";
 import GHLValueTable from "../components/landing/GHLValueTable";
 
 export default function ServicesPage() {
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (!hash) return;
+    const id = hash.replace("#", "");
+    const timer = window.setTimeout(() => {
+      scrollToSection(id);
+      if (id !== "services-contact") {
+        const interest = SECTION_INTEREST_MAP[id];
+        if (interest) {
+          publishFormInterest(interest, { source: `section:${id}` });
+        }
+      }
+    }, 300);
+    return () => window.clearTimeout(timer);
+  }, [hash]);
+
   useEffect(() => {
     const breadcrumb = {
       "@context": "https://schema.org",
@@ -38,7 +60,7 @@ export default function ServicesPage() {
           name: "What digital marketing services does CreativeIQ offer?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "CreativeIQ offers SEO, PPC, social media management, web design, and CRM automation for businesses in San Antonio and beyond.",
+            text: "CreativeIQ offers website & SEO, social media content creation, CRM automation, and strategic consulting for businesses worldwide.",
           },
         },
         {
@@ -46,15 +68,15 @@ export default function ServicesPage() {
           name: "How much do digital marketing services cost?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "CreativeIQ offers tiered packages starting from $999/mo to enterprise-level engagements. Contact us for a custom quote tailored to your goals.",
+            text: "CreativeIQ offers tiered packages from $589/mo for social starter through enterprise-level engagements. Contact us for a custom quote.",
           },
         },
         {
           "@type": "Question",
-          name: "Does CreativeIQ offer CRM automation services?",
+          name: "Does CreativeIQ offer a social media free trial?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Yes. CreativeIQ builds GoHighLevel CRM systems with automated pipelines, appointment scheduling, email sequences, and SMS follow-ups for San Antonio businesses.",
+            text: "Yes. CreativeIQ offers a 30-day free trial on the Social Starter package — consistent posting across up to 2 platforms with no long-term commitment.",
           },
         },
       ],
@@ -74,36 +96,38 @@ export default function ServicesPage() {
   return (
     <main>
       <SEO
-        title="Digital Marketing Services San Antonio | CreativeIQ"
-        description="Full-service digital marketing agency offering SEO, PPC, social media, web development, and CRM automation in San Antonio. Grow your business with CreativeIQ."
-        keywords="digital marketing services, SEO services, PPC management, web design, CRM automation, social media marketing, marketing agency San Antonio"
+        title="Digital Marketing Services | CreativeIQ"
+        description="Website & SEO, content creation, CRM automation, and strategic consulting. Tiered growth systems for brands ready to scale — worldwide."
+        keywords="digital marketing services, SEO services, social media marketing, CRM automation, videography, marketing consulting"
         canonical="https://creativeiq.marketing/services"
       />
 
-      {/* 1. Hero — headline + stats */}
       <ServicesHero />
 
-      {/* 2. Pricing cards — 3 bundles side by side */}
-      <BundlePricing />
+      <div id="website-seo" className="scroll-mt-32">
+        <BundlePricing />
+        <BundleTable />
+        <GrowthInfra />
+      </div>
 
-      {/* 3. Full feature comparison table */}
-      <BundleTable />
+      <SocialMediaPackages />
 
-      {/* 4. What's included — GHL-style value table */}
-      <GHLValueTable />
+      <ConsultingSection />
 
-      {/* Guide resource — shown between value table and offers */}
+      <HighLevelOffers />
+
+      <div id="crm-solutions" className="scroll-mt-32">
+        <GHLValueTable
+          showTopTrialBanner={false}
+          showBottomTrialCta={false}
+          sectionId="crm-solutions"
+        />
+      </div>
+
       <div className="max-w-3xl mx-auto px-6 py-8">
         <GuideInlineCTA source="services_page" />
       </div>
 
-      {/* 5. High-level strategic offers */}
-      <HighLevelOffers />
-
-      {/* 6. 5-tier growth infrastructure */}
-      <GrowthInfra />
-
-      {/* 7. Contact / inquiry form */}
       <ServicesContact />
     </main>
   );
