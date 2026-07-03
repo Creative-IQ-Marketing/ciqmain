@@ -22,6 +22,7 @@ import StructuredData from "./components/StructuredData";
 import ServicesPage from "./pages/ServicesPage";
 import ContactPage from "./pages/ContactPage";
 import FreeSeoAuditPage from "./pages/FreeSeoAuditPage";
+import BusinessUnpluggedPage from "./pages/BusinessUnpluggedPage";
 import NewsletterPage from "./pages/NewsletterPage";
 import UnsubscribedPage from "./pages/UnsubscribedPage";
 import TermsAndConditionsPage from "./pages/TermsAndConditionsPage";
@@ -99,6 +100,7 @@ function App() {
       </Route>
       {/* Standalone page routes (no header/footer) */}
       <Route path="/newsletter" element={<NewsletterPage />} />
+      <Route path="/business-unplugged" element={<BusinessUnpluggedPage />} />
     </Routes>
   );
 }

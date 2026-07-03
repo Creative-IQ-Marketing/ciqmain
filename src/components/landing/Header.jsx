@@ -229,20 +229,19 @@ export default function Header() {
   return (
     <>
       <div className="fixed top-0 left-0 right-0 z-[60] hidden lg:block">
-        <div className="mx-auto flex h-11 w-full items-center justify-center gap-4 bg-[#3B6FF0] px-8">
-          <p className="text-sm font-semibold tracking-wide text-white">
-            Want stronger rankings and faster growth? Get your free strategy
-            blueprint today.
+        <div className="mx-auto flex h-11 w-full items-center justify-center gap-4 bg-[#1a1410] px-8">
+          <p className="text-sm font-semibold tracking-wide text-[#F3D56D]">
+            You&apos;re invited — Business Unplugged · Aug 6 · Hotel Valencia Riverwalk
           </p>
           <a
-            href="/free-ai-seo-audit"
+            href="/business-unplugged"
             onClick={(e) => {
-              trackButtonClick("Top Banner CTA", "top_banner_cta", "Header");
-              handleNav(e, "/free-ai-seo-audit");
+              trackButtonClick("Business Unplugged Banner", "top_banner_cta", "Header");
+              handleNav(e, "/business-unplugged");
             }}
-            className="rounded-full border-2 border-[#F3D56D] bg-white px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.08em] text-[#3B6FF0] shadow-[0_3px_0_#F3D56D] transition hover:bg-blue-50"
+            className="rounded-full border-2 border-[#F3D56D] bg-[#F3D56D] px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.08em] text-[#1a1410] shadow-[0_3px_0_#b8943f] transition hover:bg-[#edd55c]"
           >
-            Test Your SEO Score
+            RSVP Now
           </a>
         </div>
       </div>

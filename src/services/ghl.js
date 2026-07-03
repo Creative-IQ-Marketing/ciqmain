@@ -1,3 +1,5 @@
+import { BU_GHL_TAGS, BU_EVENT } from "../data/businessUnplugged.js";
+
 const GHL_API_KEY = (import.meta.env.VITE_GHL_API_KEY || "").trim();
 const GHL_LOCATION_ID = (import.meta.env.VITE_GHL_LOCATION_ID || "").trim();
 const GHL_API_BASE = "https://services.leadconnectorhq.com";
@@ -263,5 +265,42 @@ export async function unsubscribeEmailFromNewsletter(email, context = {}) {
     "PUT",
     updatePayload,
   );
+  return { success: true, contact: data.contact || data };
+}
+
+/**
+ * Business Unplugged event RSVP
+ */
+export async function submitBusinessUnpluggedRsvp(formData) {
+  const tags = [
+    BU_GHL_TAGS.RSVP,
+    BU_GHL_TAGS.EVENT,
+    BU_GHL_TAGS.SOURCE,
+  ];
+
+  if (formData.vendorOrSpeaker) {
+    tags.push(BU_GHL_TAGS.VENDOR_SPEAKER);
+  }
+
+  const contactData = {
+    firstName: formData.firstName.trim(),
+    lastName: formData.lastName.trim(),
+    name: `${formData.firstName.trim()} ${formData.lastName.trim()}`.trim(),
+    email: formData.email.trim(),
+    phone: formData.phone.trim(),
+    locationId: GHL_LOCATION_ID,
+    tags,
+    customFields: [
+      { key: "event_name", field_value: BU_EVENT.name },
+      { key: "event_date", field_value: BU_EVENT.date },
+      {
+        key: "vendor_or_speaker",
+        field_value: formData.vendorOrSpeaker ? "Yes" : "No",
+      },
+      { key: "source", field_value: BU_GHL_TAGS.SOURCE },
+    ],
+  };
+
+  const data = await makeGHLRequest("/contacts/upsert", "POST", contactData);
   return { success: true, contact: data.contact || data };
 }
