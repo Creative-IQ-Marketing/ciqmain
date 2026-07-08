@@ -1,7 +1,18 @@
-export default function BusinessUnpluggedSuccess({ firstName, onReset }) {
+export default function BusinessUnpluggedSuccess({
+  firstName,
+  onReset,
+  embedded = false,
+  onClose,
+}) {
   return (
     <div className="py-2 text-center">
-      <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-green-50 shadow-[0_1px_2px_rgba(60,64,67,0.3),0_1px_3px_1px_rgba(60,64,67,0.15)]">
+      <div
+        className={
+          embedded
+            ? "mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-green-50 ring-1 ring-green-100"
+            : "mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-green-50 shadow-[0_1px_2px_rgba(60,64,67,0.3),0_1px_3px_1px_rgba(60,64,67,0.15)]"
+        }
+      >
         <svg
           width="22"
           height="22"
@@ -17,17 +28,32 @@ export default function BusinessUnpluggedSuccess({ firstName, onReset }) {
         </svg>
       </div>
 
-      <h3 className="text-xl font-medium text-[#202124] sm:text-2xl">
+      <h3 className="text-xl font-medium text-slate-900 sm:text-2xl">
         You&apos;re on the list{firstName ? `, ${firstName}` : ""}!
       </h3>
-      <p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed text-[#5f6368]">
+      <p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed text-slate-600">
         Thank you for RSVPing. We&apos;ll send a confirmation shortly — see you
         at Business Unplugged.
       </p>
 
-      <button type="button" onClick={onReset} className="bu-btn-text mt-5">
-        Submit another RSVP
-      </button>
+      <div className="mt-5 flex flex-col items-center gap-2">
+        {embedded && onClose ? (
+          <button
+            type="button"
+            onClick={onClose}
+            className="h-11 w-full rounded-xl bg-[#1a1410] px-6 text-sm font-semibold text-white transition hover:bg-[#2a211a]"
+          >
+            Done
+          </button>
+        ) : null}
+        <button
+          type="button"
+          onClick={onReset}
+          className={embedded ? "text-sm font-medium text-[#b8943f] hover:underline" : "bu-btn-text"}
+        >
+          Submit another RSVP
+        </button>
+      </div>
     </div>
   );
 }

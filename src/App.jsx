@@ -28,10 +28,12 @@ import UnsubscribedPage from "./pages/UnsubscribedPage";
 import TermsAndConditionsPage from "./pages/TermsAndConditionsPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import { NewsletterProvider } from "./context/NewsletterContext";
+import { RsvpProvider } from "./context/RsvpContext";
 import NewsletterPopup from "./components/ui/NewsletterPopup";
-import NewsletterAutoOpen from "./components/ui/NewsletterAutoOpen";
+import BusinessUnpluggedModal from "./components/ui/BusinessUnpluggedModal";
 import SocialMediaFreeTrialPage from "./pages/SocialMediaFreeTrialPage";
 import { initializeAnalytics } from "./services/analytics";
+import { NEWSLETTER_POPUP_ENABLED, SITE_TOP_BANNER } from "./constants/siteBanner";
 
 function Layout() {
   const { pathname } = useLocation();
@@ -42,12 +44,18 @@ function Layout() {
 
   return (
     <NewsletterProvider>
-      <div className="min-h-screen bg-white">
+      <div
+        className={`min-h-screen bg-white${
+          SITE_TOP_BANNER.enabled
+            ? " pb-[calc(var(--site-mobile-banner-height)+env(safe-area-inset-bottom,0px))] lg:pb-0"
+            : ""
+        }`}
+      >
         <Header />
         <Outlet />
         <Footer />
-        <NewsletterPopup />
-        <NewsletterAutoOpen />
+        {NEWSLETTER_POPUP_ENABLED ? <NewsletterPopup /> : null}
+        <BusinessUnpluggedModal />
       </div>
     </NewsletterProvider>
   );
@@ -87,21 +95,22 @@ function App() {
   }, []);
 
   return (
-    <Routes>
-      <Route element={<Layout />}>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/free-ai-seo-audit" element={<FreeSeoAuditPage />} />
-        <Route path="/services" element={<ServicesPage />} />
-        <Route path="/social-media-free-trial" element={<SocialMediaFreeTrialPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/newsletter/unsubscribed" element={<UnsubscribedPage />} />
-        <Route path="/terms" element={<TermsAndConditionsPage />} />
-        <Route path="/privacy" element={<PrivacyPolicyPage />} />
-      </Route>
-      {/* Standalone page routes (no header/footer) */}
-      <Route path="/newsletter" element={<NewsletterPage />} />
-      <Route path="/business-unplugged" element={<BusinessUnpluggedPage />} />
-    </Routes>
+    <RsvpProvider>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/free-ai-seo-audit" element={<FreeSeoAuditPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/social-media-free-trial" element={<SocialMediaFreeTrialPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/newsletter/unsubscribed" element={<UnsubscribedPage />} />
+          <Route path="/terms" element={<TermsAndConditionsPage />} />
+          <Route path="/privacy" element={<PrivacyPolicyPage />} />
+        </Route>
+        <Route path="/newsletter" element={<NewsletterPage />} />
+        <Route path="/business-unplugged" element={<BusinessUnpluggedPage />} />
+      </Routes>
+    </RsvpProvider>
   );
 }
 

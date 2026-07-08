@@ -44,9 +44,22 @@
   --container-max: 1200px;
   --container-pad: clamp(1.5rem, 5vw, 5rem);
 
+  /* ── Site banner ─────────────────────────────────────────── */
+  --site-mobile-banner-height: 4.25rem;
+  --site-banner-height: 0;
+  --header-nav-top: 1.25rem;
+  --header-nav-top-with-banner: var(--header-nav-top);
+
   /* ── Radii ───────────────────────────────────────────────── */
   --radius-card: 16px;
   --radius-pill: 999px;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --site-banner-height: 2.75rem;
+    --header-nav-top-with-banner: calc(var(--site-banner-height) + 0.625rem);
+  }
 }
 
 /* ── Global resets for accent sections ───────────────────── */

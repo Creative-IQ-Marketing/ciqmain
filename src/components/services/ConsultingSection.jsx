@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Clock, Layers, Sparkles } from "lucide-react";
+import { ArrowRight, Clock, Infinity, Layers } from "lucide-react";
 import { scrollToServicesContact } from "../../utils/formInterest";
 
 const PACKAGES = [
@@ -32,7 +32,7 @@ const PACKAGES = [
     detail: "Ongoing strategic access",
     description:
       "For teams that need consistent strategic guidance without session limits.",
-    icon: Sparkles,
+    icon: Infinity,
   },
 ];
 

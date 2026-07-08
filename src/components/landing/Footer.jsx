@@ -7,7 +7,6 @@ import {
 } from "lucide-react";
 import mainLogo from "../../assets/mainLogo.png";
 import { trackButtonClick } from "../../services/analytics";
-import { useNewsletter } from "../../context/NewsletterContext";
 import { EMAIL, PHONE_DISPLAY, PHONE_TEL } from "../../utils/contact";
 
 import { SERVICES_NAV } from "../../data/servicesNav";
@@ -48,8 +47,6 @@ const LINKS = [
 ];
 
 export default function Footer() {
-  const { openNewsletter } = useNewsletter();
-
   return (
     <footer className="border-t border-slate-200 bg-white text-slate-900">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
@@ -125,16 +122,15 @@ export default function Footer() {
                 </a>
               ),
             )}
-            <button
-              type="button"
-              onClick={() => {
-                trackButtonClick("Newsletter", "footer_newsletter", "Footer");
-                openNewsletter();
-              }}
-              className="text-left transition hover:text-slate-900"
+            <a
+              href="/newsletter"
+              onClick={() =>
+                trackButtonClick("Newsletter", "footer_newsletter", "Footer")
+              }
+              className="transition hover:text-slate-900"
             >
               Newsletter
-            </button>
+            </a>
           </nav>
 
           <div className="text-sm text-slate-600">

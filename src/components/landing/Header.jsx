@@ -7,6 +7,9 @@ import { PHONE_TEL } from "../../utils/contact";
 import { trackButtonClick } from "../../services/analytics";
 import { SERVICES_NAV } from "../../data/servicesNav";
 import { scrollToHashFromHref, scrollToSection } from "../../utils/scrollToSection";
+import SiteTopBanner from "../layout/SiteTopBanner";
+import { SITE_TOP_BANNER } from "../../constants/siteBanner";
+import { useRsvp } from "../../context/RsvpContext";
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -27,6 +30,7 @@ export default function Header() {
   const servicesTimer = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const { openRsvp } = useRsvp();
 
   useEffect(() => {
     const onScroll = () => {
@@ -226,27 +230,17 @@ export default function Header() {
     );
   };
 
+  const headerNavTopClass = SITE_TOP_BANNER.enabled
+    ? "top-[var(--header-nav-top)] lg:top-[var(--header-nav-top-with-banner)]"
+    : "top-[var(--header-nav-top)]";
+
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 z-[60] hidden lg:block">
-        <div className="mx-auto flex h-11 w-full items-center justify-center gap-4 bg-[#1a1410] px-8">
-          <p className="text-sm font-semibold tracking-wide text-[#F3D56D]">
-            You&apos;re invited — Business Unplugged · Aug 6 · Hotel Valencia Riverwalk
-          </p>
-          <a
-            href="/business-unplugged"
-            onClick={(e) => {
-              trackButtonClick("Business Unplugged Banner", "top_banner_cta", "Header");
-              handleNav(e, "/business-unplugged");
-            }}
-            className="rounded-full border-2 border-[#F3D56D] bg-[#F3D56D] px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.08em] text-[#1a1410] shadow-[0_3px_0_#b8943f] transition hover:bg-[#edd55c]"
-          >
-            RSVP Now
-          </a>
-        </div>
-      </div>
+      <SiteTopBanner onCtaClick={openRsvp} />
 
-      <div className="fixed top-5 left-0 right-0 z-50 flex justify-center px-4 sm:px-6 lg:top-14">
+      <div
+        className={`fixed left-0 right-0 z-50 flex justify-center px-4 sm:px-6 ${headerNavTopClass}`}
+      >
         <motion.div
           initial={{ y: -240 }}
           animate={{ y: visible ? 0 : -120, opacity: visible ? 1 : 1 }}

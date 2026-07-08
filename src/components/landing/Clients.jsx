@@ -48,7 +48,7 @@ const Clients = () => {
             color: "var(--c-text-secondary)",
           }}
         >
-          Created For
+          Trusted by
         </p>
       </div>
 
@@ -60,9 +60,7 @@ const Clients = () => {
           <motion.div
             className="flex flex-nowrap items-center gap-14 sm:gap-16"
             animate={
-              inView && hoveredId === null
-                ? { x: ["0%", "-50%"] }
-                : { x: "0%" }
+              inView && hoveredId === null ? { x: ["0%", "-50%"] } : { x: "0%" }
             }
             transition={{
               x: {

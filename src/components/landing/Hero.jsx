@@ -484,7 +484,7 @@ export default function Hero() {
           }}
         >
           {[
-            { val: "8+", label: "Years of experience" },
+            { val: "15+", label: "Years of experience" },
             { val: "300%", label: "Avg traffic growth" },
           ].map((st) => (
             <div key={st.label} style={{ textAlign: "center" }}>
