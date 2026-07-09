@@ -5,6 +5,7 @@ export default function SEO({
   description = "Are you showing up on AI platforms—not just Google? Is your website converting leads? CreativeIQ builds AI-ready SEO ecosystems that drive real growth. San Antonio's top digital marketing agency.",
   keywords = "AI SEO, AI search optimization, ChatGPT SEO, Gemini SEO, Claude SEO, Perplexity SEO, GEO optimization, generative engine optimization, search engine optimization, technical SEO, local SEO, conversion rate optimization, CRO, website development, landing pages, CRM automation, GoHighLevel CRM, email marketing, social media marketing, Facebook ads, Google ads, PPC advertising, pay-per-click San Antonio, Google Business Profile optimization, digital marketing agency San Antonio TX, marketing agency San Antonio, SEO agency San Antonio, AI-ready marketing, digital marketing strategy, content marketing, lead generation San Antonio",
   ogImage = "/og-image.jpg",
+  ogImageAlt = null,
   canonical = null,
   pageType = "website",
   noindex = false,
@@ -30,6 +31,7 @@ export default function SEO({
         hostname: window.location.hostname,
       };
     }, [canonical, ogImage]);
+  const imageAlt = ogImageAlt || title;
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -99,7 +101,7 @@ export default function SEO({
       { property: "og:image:type", content: "image/jpeg" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { property: "og:image:alt", content: title },
+      { property: "og:image:alt", content: imageAlt },
       { property: "og:url", content: currentUrl },
       // Twitter
       { name: "twitter:card", content: "summary_large_image" },
@@ -107,7 +109,7 @@ export default function SEO({
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
       { name: "twitter:image", content: ogImageUrl },
-      { name: "twitter:image:alt", content: title },
+      { name: "twitter:image:alt", content: imageAlt },
       { name: "twitter:domain", content: hostname },
       // Mobile
       { name: "apple-mobile-web-app-capable", content: "yes" },
@@ -162,6 +164,7 @@ export default function SEO({
     hostname,
     pageType,
     noindex,
+    imageAlt,
   ]);
 
   return null;

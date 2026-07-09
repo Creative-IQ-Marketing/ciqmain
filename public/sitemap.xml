@@ -44,6 +44,14 @@
     <priority>0.85</priority>
   </url>
 
+  <!-- Business Unplugged RSVP -->
+  <url>
+    <loc>https://creativeiq.marketing/business-unplugged</loc>
+    <lastmod>2026-07-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
   <!-- Newsletter -->
   <url>
     <loc>https://creativeiq.marketing/newsletter</loc>

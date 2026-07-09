@@ -1,14 +1,11 @@
 import SEO from "../components/SEO";
 import BusinessUnplugged from "../components/landing/BusinessUnplugged";
+import { BUSINESS_UNPLUGGED_SEO } from "../constants/businessUnpluggedSeo";
 
 export default function BusinessUnpluggedPage() {
   return (
     <>
-      <SEO
-        title="Business Unplugged | RSVP — Creative IQ"
-        description="RSVP for Business Unplugged — August 6 at Hotel Valencia Riverwalk, San Antonio. An evening of connection, conversation, and cocktails."
-        canonical="https://creativeiq.marketing/business-unplugged"
-      />
+      <SEO {...BUSINESS_UNPLUGGED_SEO} />
       <BusinessUnplugged />
     </>
   );
