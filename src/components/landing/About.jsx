@@ -1,18 +1,13 @@
-import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Calendar } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { trackButtonClick } from "../../services/analytics";
-import StaggerContainer, { StaggerItem } from "../primitives/StaggerContainer";
-import ParallaxLayer from "../primitives/ParallaxLayer";
 import FadeUp from "../primitives/FadeUp";
-
-const ease = [0.22, 1, 0.36, 1];
 
 const POINTS = [
   {
     num: "01",
     title: "Proven results",
-    body: "300% average increase in organic traffic. Not a projection � our clients live it.",
+    body: "300% average increase in organic traffic. Not a projection — our clients live it.",
   },
   {
     num: "02",
@@ -27,203 +22,84 @@ const POINTS = [
   {
     num: "04",
     title: "Local & nationwide",
-    body: "Based in San Antonio, TX � serving businesses across the country.",
+    body: "Based in San Antonio, TX — serving businesses across the country.",
   },
 ];
 
 export default function About() {
   const navigate = useNavigate();
+
   return (
     <FadeUp
       as="section"
       id="about"
-      style={{ background: "#fff", padding: "96px 0", overflow: "hidden" }}
+      className="border-t border-black/[0.05] bg-white py-16 sm:py-20 lg:py-24"
     >
-      <style>{`
-        @media (max-width: 640px) {
-          .about-left { width: 100% !important; flex: 1 1 100% !important; }
-        }
-      `}</style>
-
-      <div
-        style={{
-          maxWidth: 1180,
-          margin: "0 auto",
-          padding: "0 clamp(1.5rem, 5vw, 5rem)",
-          display: "flex",
-          gap: "clamp(3rem, 7vw, 8rem)",
-          alignItems: "flex-start",
-          flexWrap: "wrap",
-        }}
-      >
-        {/* LEFT */}
-        <ParallaxLayer
-          speed={-20}
-          className="about-left"
-          style={{ flex: "0 0 auto", width: "clamp(260px, 36%, 400px)" }}
-        >
-          <div>
-            <p
-              className="f-body"
-              style={{
-                fontSize: 11,
-                fontWeight: 500,
-                color: "#3B6FF0",
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                marginBottom: 18,
-              }}
-            >
-              About CreativeIQ
-            </p>
-            <h2
-              className="f-disp"
-              style={{
-                margin: "0 0 20px",
-                lineHeight: 1.05,
-                overflow: "hidden",
-              }}
-            >
-              {[
-                { text: "Your growth", color: "#0d0d0d" },
-                { text: "partner in", color: "#0d0d0d" },
-                { text: "the AI era.", color: "#3B6FF0" },
-              ].map(({ text, color }, lineIdx) => (
-                <div key={lineIdx} style={{ overflow: "hidden" }}>
-                  <span
-                    style={{
-                      display: "block",
-                      fontSize: "clamp(2.2rem, 3.8vw, 3.4rem)",
-                      fontWeight: 800,
-                      letterSpacing: "-0.04em",
-                      color,
-                    }}
-                    className="f-disp"
-                  >
-                    {text}
-                  </span>
-                </div>
-              ))}
-            </h2>
-            <p
-              className="f-body"
-              style={{
-                fontSize: 14,
-                color: "rgba(0,0,0,0.42)",
-                lineHeight: 1.7,
-                marginBottom: 36,
-                maxWidth: 340,
-              }}
-            >
-              At CreativeIQ we build digital systems designed for AI-driven discovery. SEO Infrastructure Website Design, CRM Ecosystems, and Social Media Management all engineered for your brand. Built to Rank.
-            </p>
-            <motion.button
+      <div className="mx-auto flex max-w-[1320px] flex-wrap items-start gap-12 px-5 sm:px-6 lg:gap-20 lg:px-10">
+        <div className="w-full lg:w-[min(100%,400px)] lg:shrink-0">
+          <p className="mb-4 font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
+            About CreativeIQ
+          </p>
+          <h2 className="font-sans text-[clamp(2.2rem,3.8vw,3.4rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-[#0f0f0f]">
+            Your growth
+            <br />
+            partner in
+            <br />
+            <span className="text-[#3B6FF0]">the AI era.</span>
+          </h2>
+          <p className="mt-5 max-w-sm font-sans text-[15px] leading-relaxed text-[#5c5c5c]">
+            Digital systems engineered for AI-driven discovery — SEO, websites,
+            CRM, and social, built as one cohesive growth stack.
+          </p>
+          <div className="mt-8 flex flex-col items-start gap-3">
+            <button
+              type="button"
               onClick={() => {
                 trackButtonClick("About CTA", "about_cta", "About");
-                navigate("/contact");
+                navigate("/book");
               }}
-              whileHover={{ x: 4 }}
-              whileTap={{ scale: 0.97 }}
-              className="f-body"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                fontSize: 14,
-                fontWeight: 500,
-                color: "#0d0d0d",
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                padding: 0,
-              }}
+              className="inline-flex items-center gap-1.5 font-sans text-[15px] font-medium text-[#0f0f0f] transition hover:text-[#3B6FF0]"
             >
-              Schedule a free consultation <ArrowUpRight size={15} />
-            </motion.button>
-            <motion.button
+              <Calendar size={15} strokeWidth={1.75} aria-hidden />
+              Book a strategy call
+              <ArrowUpRight size={14} strokeWidth={1.75} aria-hidden />
+            </button>
+            <button
+              type="button"
               onClick={() => {
                 trackButtonClick("About Audit CTA", "about_audit_cta", "About");
                 navigate("/free-ai-seo-audit");
               }}
-              whileHover={{ x: 4 }}
-              whileTap={{ scale: 0.97 }}
-              className="f-body"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                fontSize: 14,
-                fontWeight: 500,
-                color: "#3B6FF0",
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                padding: 0,
-                marginTop: 14,
-              }}
+              className="inline-flex items-center gap-1.5 font-sans text-[15px] font-medium text-[#3B6FF0] transition hover:text-[#2f5ad4]"
             >
-              Try the free AI SEO audit <ArrowUpRight size={15} />
-            </motion.button>
+              Free AI SEO audit
+              <ArrowUpRight size={14} strokeWidth={1.75} aria-hidden />
+            </button>
           </div>
-        </ParallaxLayer>
+        </div>
 
-        {/* RIGHT — numbered rows with coordinated stagger */}
-        <StaggerContainer stagger={0.09} style={{ flex: 1, minWidth: 260 }}>
+        <div className="min-w-[260px] flex-1">
           {POINTS.map((p, i) => (
-            <StaggerItem key={p.num}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  gap: 20,
-                  padding: "24px 0",
-                  borderBottom:
-                    i < POINTS.length - 1
-                      ? "1px solid rgba(0,0,0,0.06)"
-                      : "none",
-                }}
-              >
-                <span
-                  className="f-disp"
-                  style={{
-                    fontSize: 11,
-                    fontWeight: 700,
-                    color: "#3B6FF0",
-                    letterSpacing: "0.08em",
-                    flexShrink: 0,
-                    marginTop: 3,
-                  }}
-                >
-                  {p.num}
-                </span>
-                <div>
-                  <p
-                    className="f-body"
-                    style={{
-                      margin: "0 0 5px",
-                      fontSize: 15,
-                      fontWeight: 500,
-                      color: "#0d0d0d",
-                    }}
-                  >
-                    {p.title}
-                  </p>
-                  <p
-                    className="f-body"
-                    style={{
-                      margin: 0,
-                      fontSize: 14,
-                      color: "rgba(0,0,0,0.4)",
-                      lineHeight: 1.65,
-                    }}
-                  >
-                    {p.body}
-                  </p>
-                </div>
+            <div
+              key={p.num}
+              className={`flex items-start gap-5 py-6 ${
+                i < POINTS.length - 1 ? "border-b border-black/[0.06]" : ""
+              }`}
+            >
+              <span className="mt-0.5 shrink-0 font-sans text-[11px] font-bold tracking-[0.08em] text-[#3B6FF0]">
+                {p.num}
+              </span>
+              <div>
+                <p className="mb-1 font-sans text-[15px] font-medium text-[#0f0f0f]">
+                  {p.title}
+                </p>
+                <p className="font-sans text-sm leading-relaxed text-[#737373]">
+                  {p.body}
+                </p>
               </div>
-            </StaggerItem>
+            </div>
           ))}
-        </StaggerContainer>
+        </div>
       </div>
     </FadeUp>
   );

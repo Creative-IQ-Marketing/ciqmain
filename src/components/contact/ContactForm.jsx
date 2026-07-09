@@ -92,10 +92,10 @@ export default function ContactForm({
         <div className="w-16 h-16 rounded-full bg-[#3B6FF0]/10 flex items-center justify-center mx-auto mb-4">
           <CheckCircle className="w-8 h-8 text-[#3B6FF0]" />
         </div>
-        <h3 className="f-disp text-xl font-bold text-slate-900 mb-2">
-          Message Received!
+        <h3 className="mb-2 font-sans text-xl font-extrabold text-[#0f0f0f]">
+          Message received!
         </h3>
-        <p className="f-body text-slate-500 text-sm">
+        <p className="font-sans text-sm text-[#737373]">
           We&apos;ll reach out within 24 hours with a custom proposal.
         </p>
       </div>
@@ -106,7 +106,7 @@ export default function ContactForm({
     <form onSubmit={handleSubmit} className="space-y-5">
       <div className="grid sm:grid-cols-2 gap-5">
         <div>
-          <label className="f-body block text-xs font-semibold text-slate-600 mb-1.5 uppercase tracking-wider">
+          <label className="font-sans block text-xs font-semibold text-[#737373] mb-1.5 uppercase tracking-wider">
             Full Name *
           </label>
           <input
@@ -116,11 +116,11 @@ export default function ContactForm({
             value={formData.name}
             onChange={handleChange}
             placeholder="Jane Smith"
-            className="f-body w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#3B6FF0] focus:ring-2 focus:ring-[#3B6FF0]/10 transition-colors"
+            className="font-sans w-full bg-white border border-black/[0.08] rounded-xl px-4 py-3 text-[#0f0f0f] placeholder-[#a3a3a3] text-sm focus:outline-none focus:border-[#3B6FF0] focus:ring-2 focus:ring-[#3B6FF0]/10 transition-colors"
           />
         </div>
         <div>
-          <label className="f-body block text-xs font-semibold text-slate-600 mb-1.5 uppercase tracking-wider">
+          <label className="font-sans block text-xs font-semibold text-[#737373] mb-1.5 uppercase tracking-wider">
             Phone
           </label>
           <input
@@ -129,13 +129,13 @@ export default function ContactForm({
             value={formData.phone}
             onChange={handleChange}
             placeholder="(555) 000-0000"
-            className="f-body w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#3B6FF0] focus:ring-2 focus:ring-[#3B6FF0]/10 transition-colors"
+            className="font-sans w-full bg-white border border-black/[0.08] rounded-xl px-4 py-3 text-[#0f0f0f] placeholder-[#a3a3a3] text-sm focus:outline-none focus:border-[#3B6FF0] focus:ring-2 focus:ring-[#3B6FF0]/10 transition-colors"
           />
         </div>
       </div>
 
       <div>
-        <label className="f-body block text-xs font-semibold text-slate-600 mb-1.5 uppercase tracking-wider">
+        <label className="font-sans block text-xs font-semibold text-[#737373] mb-1.5 uppercase tracking-wider">
           Email *
         </label>
         <input
@@ -145,12 +145,12 @@ export default function ContactForm({
           value={formData.email}
           onChange={handleChange}
           placeholder="jane@company.com"
-          className="f-body w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#3B6FF0] focus:ring-2 focus:ring-[#3B6FF0]/10 transition-colors"
+          className="font-sans w-full bg-white border border-black/[0.08] rounded-xl px-4 py-3 text-[#0f0f0f] placeholder-[#a3a3a3] text-sm focus:outline-none focus:border-[#3B6FF0] focus:ring-2 focus:ring-[#3B6FF0]/10 transition-colors"
         />
       </div>
 
       <div>
-        <label className="f-body block text-xs font-semibold text-slate-600 mb-1.5 uppercase tracking-wider">
+        <label className="font-sans block text-xs font-semibold text-[#737373] mb-1.5 uppercase tracking-wider">
           I&apos;m interested in
         </label>
         <select
@@ -158,10 +158,10 @@ export default function ContactForm({
           name="service"
           value={formData.service}
           onChange={handleChange}
-          className={`f-body w-full bg-white border rounded-xl px-4 py-3 text-slate-900 text-sm focus:outline-none focus:border-[#3B6FF0] focus:ring-2 focus:ring-[#3B6FF0]/10 transition-all ${
+          className={`font-sans w-full rounded-xl border bg-white px-4 py-3 text-sm text-[#0f0f0f] transition-all focus:border-[#3B6FF0] focus:outline-none focus:ring-2 focus:ring-[#3B6FF0]/10 ${
             servicePulse
               ? "border-[#3B6FF0] ring-2 ring-[#3B6FF0]/20"
-              : "border-slate-200"
+              : "border-black/[0.08]"
           }`}
         >
           <option value="">Select a service or package…</option>
@@ -174,7 +174,7 @@ export default function ContactForm({
       </div>
 
       <div>
-        <label className="f-body block text-xs font-semibold text-slate-600 mb-1.5 uppercase tracking-wider">
+        <label className="font-sans block text-xs font-semibold text-[#737373] mb-1.5 uppercase tracking-wider">
           Tell us about your goals
         </label>
         <textarea
@@ -183,7 +183,7 @@ export default function ContactForm({
           onChange={handleChange}
           rows={4}
           placeholder="What's your biggest growth challenge right now?"
-          className="f-body w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#3B6FF0] focus:ring-2 focus:ring-[#3B6FF0]/10 transition-colors resize-none"
+          className="font-sans w-full bg-white border border-black/[0.08] rounded-xl px-4 py-3 text-[#0f0f0f] placeholder-[#a3a3a3] text-sm focus:outline-none focus:border-[#3B6FF0] focus:ring-2 focus:ring-[#3B6FF0]/10 transition-colors resize-none"
         />
       </div>
 
@@ -195,14 +195,14 @@ export default function ContactForm({
           onChange={handleChange}
           className="mt-0.5 w-4 h-4 accent-[#3B6FF0]"
         />
-        <span className="f-body text-xs text-slate-500 leading-relaxed">
+        <span className="font-sans text-xs leading-relaxed text-[#737373]">
           I consent to CreativeIQ contacting me about their services. I
           understand I can unsubscribe at any time.
         </span>
       </label>
 
       {error && (
-        <p className="f-body text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg p-3">
+        <p className="font-sans text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg p-3">
           {error}
         </p>
       )}
@@ -212,7 +212,7 @@ export default function ContactForm({
         disabled={loading}
         whileHover={{ scale: loading ? 1 : 1.02 }}
         whileTap={{ scale: loading ? 1 : 0.98 }}
-        className="w-full py-4 rounded-full bg-[#3B6FF0] text-white font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#2f5ad4] transition-all disabled:opacity-60"
+        className="flex w-full items-center justify-center gap-2 rounded-full bg-[#18181b] py-4 text-sm font-semibold text-white transition-all hover:bg-[#2a2a2a] disabled:opacity-60"
       >
         {loading ? (
           <span className="flex items-center gap-2">

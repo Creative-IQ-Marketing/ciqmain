@@ -103,23 +103,22 @@ export default function BundlePricing() {
   };
 
   return (
-    <section id="bundles" className="pb-24 pt-4 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Heading */}
+    <section id="bundles" className="scroll-mt-32 border-t border-black/[0.05] bg-white py-16 sm:py-20 lg:py-24">
+      <div className="mx-auto max-w-[1320px] px-5 sm:px-6 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="mb-16 text-center"
         >
-          <span className="f-body text-sm font-semibold uppercase tracking-[0.2em] text-[#3B6FF0] mb-3 block">
+          <span className="mb-3 block font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
             3-Tier Growth Ecosystem
           </span>
-          <h2 className="f-disp text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+          <h2 className="mb-4 font-sans text-[clamp(1.75rem,3vw,2.75rem)] font-extrabold tracking-[-0.03em] text-[#0f0f0f]">
             Choose Your Growth System
           </h2>
-          <p className="text-slate-500 max-w-xl mx-auto text-lg">
+          <p className="mx-auto max-w-xl font-sans text-base leading-relaxed text-[#5c5c5c] lg:text-lg">
             Each bundle is a complete system—not a list of features. Pick the
             stage that matches where you are today.
           </p>
@@ -139,11 +138,11 @@ export default function BundlePricing() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className={`relative flex flex-col rounded-2xl border ${
+                className={`relative flex flex-col overflow-hidden rounded-[22px] border transition-shadow duration-300 ${
                   isPopular
-                    ? "border-[#3B6FF0] bg-white"
-                    : "border-slate-200 bg-white"
-                } overflow-hidden transition-shadow duration-300`}
+                    ? "border-[#3B6FF0] bg-white shadow-[0_20px_48px_-20px_rgba(59,111,240,0.25)]"
+                    : "border-black/[0.06] bg-white"
+                }`}
               >
                 {bundle.badge && (
                   <div className="border-b border-[#3B6FF0]/10 bg-[#3B6FF0]/5 px-7 py-2 text-center text-xs font-semibold uppercase tracking-wider text-[#3B6FF0]">
@@ -157,19 +156,19 @@ export default function BundlePricing() {
                     <Icon className="h-5 w-5 text-[#3B6FF0]" />
                   </div>
 
-                  <h3 className="mb-1 text-xl font-bold text-slate-900">
+                  <h3 className="mb-1 text-xl font-bold text-[#0f0f0f]">
                     {bundle.name}
                   </h3>
-                  <p className="mb-5 text-sm text-slate-500">{bundle.tagline}</p>
+                  <p className="mb-5 text-sm text-[#737373]">{bundle.tagline}</p>
 
                   <div className="mb-1 flex items-end gap-1">
-                    <span className="text-4xl font-extrabold text-slate-900">
+                    <span className="text-4xl font-extrabold text-[#0f0f0f]">
                       {bundle.monthly}
                     </span>
-                    <span className="pb-1 text-sm text-slate-500">/mo</span>
+                    <span className="pb-1 text-sm text-[#737373]">/mo</span>
                   </div>
 
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-[#737373]">
                     Bi-weekly: {bundle.biweekly} · One-time: {bundle.oneTime}
                   </p>
 
@@ -180,25 +179,24 @@ export default function BundlePricing() {
                   )}
                 </div>
 
-                <div className="h-px bg-slate-100" />
+                <div className="h-px bg-black/[0.05]" />
 
                 <div className="flex-1 bg-white px-7 py-6">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4">
+                  <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-[#737373]">
                     What&apos;s included
                   </p>
                   <ul className="space-y-3">
                     {bundle.features.map((feat) => (
                       <li key={feat} className="flex items-start gap-2.5">
-                        <Check className="w-4 h-4 text-blue-500 mt-0.5 shrink-0" />
-                        <span className="text-sm text-slate-700">{feat}</span>
+                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#3B6FF0]" />
+                        <span className="text-sm text-[#5c5c5c]">{feat}</span>
                       </li>
                     ))}
                   </ul>
 
-                  {/* Best for */}
-                  <div className="mt-5 p-3 rounded-xl bg-slate-50 border border-slate-100">
-                    <p className="text-xs text-slate-500">
-                      <span className="font-semibold text-slate-700">
+                  <div className="mt-5 rounded-xl border border-black/[0.06] bg-[#fafafa] p-3">
+                    <p className="text-xs text-[#737373]">
+                      <span className="font-semibold text-[#0f0f0f]">
                         Best for:{" "}
                       </span>
                       {bundle.bestFor}
@@ -206,19 +204,18 @@ export default function BundlePricing() {
                   </div>
                 </div>
 
-                {/* CTA */}
-                <div className="px-7 pb-7 bg-white">
+                <div className="bg-white px-7 pb-7">
                   <motion.button
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                     onClick={() => scrollToContact(bundle.interest)}
-                    className={`w-full rounded-xl py-3 text-sm font-semibold flex items-center justify-center gap-2 transition-all duration-200 ${
+                    className={`flex w-full items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold transition-all duration-200 ${
                       isPopular
-                        ? "bg-[#3B6FF0] text-white hover:bg-[#2f5ad4]"
-                        : "border border-slate-200 text-slate-800 hover:bg-slate-50"
+                        ? "bg-[#18181b] text-white hover:bg-[#2a2a2a]"
+                        : "border border-[#d4d4d4] text-[#252525] hover:border-[#aaa]"
                     }`}
                   >
-                    Get Started <ArrowRight className="w-4 h-4" />
+                    Get Started <ArrowRight className="h-4 w-4" />
                   </motion.button>
                 </div>
               </motion.div>
@@ -227,7 +224,7 @@ export default function BundlePricing() {
         </div>
 
         {/* Footnote */}
-        <p className="text-center text-sm text-slate-400 mt-10">
+        <p className="mt-10 text-center font-sans text-sm text-[#737373]">
           All packages include onboarding support. Prices in USD. Ad spend
           billed separately.
         </p>

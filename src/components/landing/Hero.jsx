@@ -1,26 +1,9 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { trackButtonClick } from "../../services/analytics";
-import MagneticButton from "../primitives/MagneticButton";
-
-const ease = [0.22, 1, 0.36, 1];
-
-const PHOTOS = [
-  "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=2400&q=88",
-  "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=2400&q=88",
-  "https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=2400&q=88",
-  "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=2400&q=88",
-  "https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=2400&q=88",
-];
-
-const heroAlts = [
-  "Digital marketing team collaborating in modern office",
-  "SEO strategy session with analytics dashboard",
-  "AI-powered marketing tools for business growth",
-  "CreativeIQ team reviewing client campaign results",
-  "Digital marketing agency San Antonio workspace",
-];
+import HeroArcGallery from "./HeroArcGallery";
+import HeroMobileGallery from "./HeroMobileGallery";
+import HeroDecorations from "./HeroDecorations";
 
 const ROTATING_PHRASES = [
   "Does your business appear?",
@@ -28,45 +11,22 @@ const ROTATING_PHRASES = [
   "Is your website optimized for search?",
   "Do you have Schema Mapping?",
   "Does Google know your services?",
-  "Is your website structured correctly?",
-  "Do you have an XML Sitemap?",
   "Are visitors converting to leads?",
-  "Do you know where users click?",
-  "Are you losing leads to no follow-up?",
   "Can you compete with AI search?",
 ];
 
 export default function Hero() {
   const navigate = useNavigate();
-  const [active, setActive] = useState(0);
   const [typedText, setTypedText] = useState("");
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const timerRef = useRef(null);
-
-  const go = (i) => {
-    setActive(i);
-    clearInterval(timerRef.current);
-    timerRef.current = setInterval(
-      () => setActive((c) => (c + 1) % PHOTOS.length),
-      5500,
-    );
-  };
-
-  useEffect(() => {
-    timerRef.current = setInterval(
-      () => setActive((c) => (c + 1) % PHOTOS.length),
-      5500,
-    );
-    return () => clearInterval(timerRef.current);
-  }, []);
 
   useEffect(() => {
     const currentPhrase = ROTATING_PHRASES[phraseIndex];
     let timeoutId;
 
     if (!isDeleting && typedText === currentPhrase) {
-      timeoutId = setTimeout(() => setIsDeleting(true), 1200);
+      timeoutId = setTimeout(() => setIsDeleting(true), 1400);
       return () => clearTimeout(timeoutId);
     }
 
@@ -74,7 +34,7 @@ export default function Hero() {
       timeoutId = setTimeout(() => {
         setIsDeleting(false);
         setPhraseIndex((prev) => (prev + 1) % ROTATING_PHRASES.length);
-      }, 220);
+      }, 240);
       return () => clearTimeout(timeoutId);
     }
 
@@ -85,465 +45,60 @@ export default function Hero() {
           : currentPhrase.slice(0, typedText.length + 1);
         setTypedText(next);
       },
-      isDeleting ? 45 : 80,
+      isDeleting ? 42 : 76,
     );
 
     return () => clearTimeout(timeoutId);
   }, [typedText, isDeleting, phraseIndex]);
 
-  // Preload critical hero images for LCP optimization
-  useEffect(() => {
-    // Preload the first two images to start loading them ASAP
-    PHOTOS.slice(0, 2).forEach((src) => {
-      const link = document.createElement("link");
-      link.rel = "preload";
-      link.as = "image";
-      link.href = src;
-      document.head.appendChild(link);
-    });
-  }, []);
-
   return (
-    <>
-      <style>{`
-        @keyframes panLR {
-          0%   { transform: scale(1.12) translateX(-3%); }
-          100% { transform: scale(1.12) translateX(3%); }
-        }
-        .pan-lr { animation: panLR 9s ease-in-out infinite alternate; }
-        .hero-stat-val {
-          font-size: clamp(1.2rem, 2vw, 1.8rem);
-          font-weight: 800;
-          margin: 0;
-          letter-spacing: -0.03em;
-          color: #0d0d14;
-        }
-        .hero-stat-label {
-          margin: 2px 0 0;
-          font-size: clamp(9px, 1.2vw, 11px);
-          color: rgba(0,0,0,0.4);
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-        }
-        @media (max-width: 640px) {
-          .hero-stats {
-            gap: 0.8rem !important;
-            padding: 10px 0.75rem !important;
-            flex-wrap: nowrap !important;
-          }
-          .hero-stats > div {
-            flex: 1;
-            min-width: 0;
-          }
-          .hero-stat-val {
-            font-size: 0.9rem !important;
-          }
-          .hero-stat-label {
-            font-size: 8px !important;
-            margin-top: 1px !important;
-          }
-          .hero-ctas { flex-direction: column !important; align-items: stretch !important; }
-          .hero-ctas a { text-align: center; }
-          .hero-content-safe { padding-top: 62px !important; padding-bottom: 48px !important; }
-        }
-        @media (min-width: 641px) and (max-width: 920px) {
-          .hero-stats {
-            gap: 1rem !important;
-            padding: 12px 1rem !important;
-          }
-          .hero-ctas { flex-direction: column !important; align-items: stretch !important; }
-          .hero-ctas a { text-align: center; }
-          .hero-content-safe { padding-top: 100px !important; padding-bottom: 120px !important; }
-        }
-        @media (min-width: 921px) {
-          .hero-content-safe { padding-bottom: 0 !important; }
-        }
-      `}</style>
+    <section className="relative flex flex-col overflow-x-clip bg-white pb-8 pt-[var(--hero-header-offset)] lg:min-h-dvh lg:pb-4">
+      <HeroDecorations />
 
-      <section
-        style={{ position: "relative", height: "100dvh", overflow: "hidden" }}
-      >
-        <motion.div
-          style={{
-            position: "absolute",
-            inset: "-15% 0",
-            zIndex: 0,
-          }}
-        >
-          <AnimatePresence>
-            {PHOTOS.map((src, i) =>
-              i === active ? (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 1.2, ease: "easeInOut" }}
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    zIndex: 0,
-                    overflow: "hidden",
-                  }}
-                >
-                  <img
-                    src={src}
-                    alt={heroAlts[i]}
-                    className="pan-lr"
-                    loading="eager"
-                    fetchpriority={i === 0 ? "high" : "low"}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      display: "block",
-                      transformOrigin: "center center",
-                    }}
-                  />
-                </motion.div>
-              ) : null,
-            )}
-          </AnimatePresence>
-        </motion.div>
+      <div className="relative z-10 mx-auto w-full max-w-4xl flex-1 px-4 pt-5 text-center sm:px-6 sm:pt-7 lg:max-w-[920px] lg:pt-8">
+        <h1 className="font-sans text-[clamp(2.25rem,9vw,5rem)] font-extrabold leading-[1.04] tracking-[-0.03em] text-[#0f0f0f]">
+          Built to Rank.
+          <br />
+          Designed to <span className="text-[#3B6FF0]">Convert.</span>
+        </h1>
 
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            zIndex: 1,
-            background:
-              "linear-gradient(115deg, rgba(10,19,52,0.78) 0%, rgba(10,19,52,0.58) 42%, rgba(10,19,52,0.65) 100%)",
-          }}
-        />
+        <p className="mx-auto mt-3 min-h-[1.4em] font-sans text-[15px] font-normal leading-normal text-[#737373]">
+          {typedText}
+          <span className="text-[#bbb]">|</span>
+        </p>
 
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            zIndex: 2,
-            pointerEvents: "none",
-            opacity: 0.04,
-            backgroundImage:
-              "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
-            backgroundSize: "180px 180px",
-          }}
-        />
+        <p className="mx-auto mt-2.5 max-w-[620px] font-sans text-base font-normal leading-relaxed text-[#5c5c5c]">
+          SEO, social, content, and websites — one team building systems that
+          turn attention into revenue.
+        </p>
 
-        <motion.div
-          className="hero-content-safe"
-          style={{
-            position: "relative",
-            zIndex: 3,
-            height: "100%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            textAlign: "center",
-            padding: "0 clamp(1.5rem, 6vw, 5rem)",
-          }}
-        >
-          <h1 className="sr-only">
-            AI-Powered Digital Marketing Agency San Antonio | CreativeIQ
-          </h1>
-          <motion.p
-            className="f-body"
-            initial={{ opacity: 1, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease }}
-            style={{
-              fontSize: "clamp(9px, 2vw, 11px)",
-              fontWeight: 500,
-              color: "rgba(255,255,255,0.7)",
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              marginBottom: 28,
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:mt-7">
+          <button
+            type="button"
+            onClick={() => {
+              trackButtonClick("Start a project", "hero_cta", "Hero");
+              navigate("/contact");
             }}
+            className="inline-flex items-center justify-center rounded-full bg-[#18181b] px-7 py-3 font-sans text-[15px] font-semibold text-white transition hover:bg-[#2a2a2a] sm:px-8"
           >
-            Search and social growth partner
-          </motion.p>
-
-          <div style={{ marginBottom: 18 }}>
-            <div
-              style={{
-                overflow: "hidden",
-                display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "center",
-                gap: "0.5em",
-                marginBottom: "0.15em",
-              }}
-            >
-              {["Built", "to", "Rank."].map((word) => (
-                <span
-                  key={word}
-                  style={{ overflow: "hidden", display: "inline-block" }}
-                >
-                  <span
-                    style={{
-                      display: "inline-block",
-                      fontSize: "clamp(2.2rem, 6vw, 6.1rem)",
-                      fontWeight: 700,
-                      letterSpacing: "-0.02em",
-                      lineHeight: 1.06,
-                      color: "#ffffff",
-                      textShadow:
-                        "0 2px 24px rgba(0,0,0,0.45), 0 1px 4px rgba(0,0,0,0.3)",
-                    }}
-                    className="f-hero"
-                  >
-                    {word}
-                  </span>
-                </span>
-              ))}
-            </div>
-
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "center",
-                gap: "0.5em",
-              }}
-            >
-              {[
-                { word: "Designed", color: "#ffffff" },
-                { word: "to", color: "#ffffff" },
-                { word: "Convert.", color: "#3B6FF0" },
-              ].map(({ word, color }) => (
-                <span key={word} style={{ display: "inline-block" }}>
-                  <span
-                    style={{
-                      display: "inline-block",
-                      fontSize: "clamp(2.9rem, 7vw, 6.1rem)",
-                      fontWeight: 700,
-                      letterSpacing: "-0.02em",
-                      lineHeight: 1.06,
-                      color,
-                      textShadow:
-                        color === "#3B6FF0"
-                          ? "0 2px 28px rgba(59,111,240,0.5), 0 1px 4px rgba(0,0,0,0.3)"
-                          : "0 2px 24px rgba(0,0,0,0.45), 0 1px 4px rgba(0,0,0,0.3)",
-                    }}
-                    className="f-hero"
-                  >
-                    {word}
-                  </span>
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.32, ease }}
-            style={{
-              maxWidth: 900,
-              marginBottom: 18,
+            Start a project
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              trackButtonClick("Free Audit", "hero_cta", "Hero");
+              navigate("/free-ai-seo-audit");
             }}
+            className="inline-flex items-center justify-center rounded-full border border-[#d4d4d4] bg-white px-7 py-3 font-sans text-[15px] font-medium text-[#252525] transition hover:border-[#aaa] sm:px-8"
           >
-            <p
-              className="f-body"
-              style={{
-                fontSize: "clamp(0.8rem, 0.95vw, 0.92rem)",
-                color: "rgba(255,255,255,0.72)",
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-                margin: 0,
-              }}
-            >
-              Google • Social • AI platforms
-            </p>
-          </motion.div>
+            Audit my site
+          </button>
+        </div>
 
-          <motion.p
-            className="f-body"
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.4, ease }}
-            style={{
-              fontSize: "clamp(1rem, 1.8vw, 1.35rem)",
-              minHeight: "1.8em",
-              color: "#F6C343",
-              letterSpacing: "0.01em",
-              marginBottom: 44,
-              fontWeight: 600,
-              textShadow: "0 2px 14px rgba(0,0,0,0.45)",
-            }}
-          >
-            {typedText}
-            <span style={{ opacity: 0.9 }}>|</span>
-          </motion.p>
+        <HeroMobileGallery />
+      </div>
 
-          <motion.div
-            initial={{ opacity: 1, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.42, ease }}
-            className="hero-ctas"
-            style={{
-              display: "flex",
-              gap: 12,
-              flexWrap: "wrap",
-              justifyContent: "center",
-              marginBottom: 52,
-            }}
-          >
-            <MagneticButton
-              onClick={() => {
-                trackButtonClick("Start a project", "hero_cta", "Hero");
-                navigate("/contact");
-              }}
-              strength={0.22}
-              className="f-body"
-              style={{
-                fontSize: 14,
-                fontWeight: 500,
-                background: "#3B6FF0",
-                color: "#fff",
-                padding: "14px 30px",
-                borderRadius: 99,
-                border: "none",
-                cursor: "pointer",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 7,
-              }}
-            >
-              Start a project
-            </MagneticButton>
-            <MagneticButton
-              onClick={() => {
-                trackButtonClick(
-                  "Download Growth Guide",
-                  "hero_guide_download",
-                  "Hero",
-                );
-                const guideSection = document.getElementById("guide-download");
-                if (guideSection) {
-                  guideSection.scrollIntoView({ behavior: "smooth" });
-                }
-              }}
-              strength={0.18}
-              className="f-body"
-              style={{
-                fontSize: 14,
-                color: "#0d0d14",
-                border: "1px solid rgba(255,255,255,0.55)",
-                background: "rgba(255,255,255,0.86)",
-                backdropFilter: "blur(12px)",
-                padding: "14px 30px",
-                borderRadius: 99,
-                textDecoration: "none",
-              }}
-            >
-              Check Out Our Guide
-            </MagneticButton>
-          </motion.div>
-
-          <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
-            {PHOTOS.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => go(i)}
-                style={{
-                  border: "none",
-                  padding: 0,
-                  cursor: "pointer",
-                  width: i === active ? 22 : 6,
-                  height: 6,
-                  borderRadius: 3,
-                  background:
-                    i === active ? "#3B6FF0" : "rgba(255,255,255,0.38)",
-                  transition: "all 0.32s ease",
-                }}
-              />
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 1, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.55, ease }}
-          className="hero-stats"
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            zIndex: 4,
-            borderTop: "1px solid rgba(0,0,0,0.07)",
-            background: "rgba(247,246,241,0.88)",
-            backdropFilter: "blur(16px)",
-            display: "flex",
-            justifyContent: "center",
-            gap: "clamp(2rem, 6vw, 6rem)",
-            padding: "18px clamp(1.5rem, 5vw, 4rem)",
-            flexWrap: "wrap",
-          }}
-        >
-          {[
-            { val: "15+", label: "Years of experience" },
-            { val: "300%", label: "Avg traffic growth" },
-          ].map((st) => (
-            <div key={st.label} style={{ textAlign: "center" }}>
-              <p className="f-disp hero-stat-val">{st.val}</p>
-              <p className="f-body hero-stat-label">{st.label}</p>
-            </div>
-          ))}
-        </motion.div>
-      </section>
-
-      {/* Scroll Indicator — Premium kinetic design */}
-      <motion.div
-        initial={{ opacity: 0, y: -8 }}
-        animate={{ opacity: 1, y: [0, 6, 0] }}
-        transition={{
-          duration: 0.6,
-          delay: 1.1,
-          y: { duration: 1.8, repeat: Infinity, repeatDelay: 0.5 },
-        }}
-        style={{
-          position: "absolute",
-          bottom: 80,
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 5,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 8,
-          pointerEvents: "none",
-          textShadow: "0 1px 3px rgba(0,0,0,0.2)",
-        }}
-      >
-        <span
-          style={{
-            fontSize: "clamp(10px, 0.75vw, 12px)",
-            color: "rgba(255,255,255,0.6)",
-            letterSpacing: "0.08em",
-            textTransform: "uppercase",
-            fontWeight: 600,
-            display: "block",
-          }}
-        >
-          Scroll to explore
-        </span>
-        {/* Animated chevron icon */}
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 20 20"
-          fill="none"
-          stroke="rgba(255,255,255,0.7)"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <polyline points="3 8 10 15 17 8" />
-        </svg>
-      </motion.div>
-    </>
+      <HeroArcGallery />
+    </section>
   );
 }

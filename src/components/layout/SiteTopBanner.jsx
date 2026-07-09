@@ -2,7 +2,8 @@ import { SITE_TOP_BANNER } from "../../constants/siteBanner";
 import { trackButtonClick } from "../../services/analytics";
 
 /**
- * Event announcement — bottom dock on mobile, top bar on desktop.
+ * Event strip — same surface + typography as header/hero.
+ * Desktop: slim row above nav. Mobile: bottom dock.
  */
 export default function SiteTopBanner({ onNavigate }) {
   if (!SITE_TOP_BANNER.enabled) return null;
@@ -23,23 +24,18 @@ export default function SiteTopBanner({ onNavigate }) {
         role="region"
         aria-label="Event announcement"
       >
-        <div
-          className="pointer-events-none absolute inset-x-0 -top-8 h-8 bg-gradient-to-t from-slate-900/[0.06] to-transparent"
-          aria-hidden="true"
-        />
-
-        <div className="border-t border-slate-200/90 bg-white/95 backdrop-blur-xl pb-[env(safe-area-inset-bottom,0px)] shadow-[0_-10px_40px_rgba(15,23,42,0.1)]">
-          <div className="mx-auto flex max-w-lg items-center justify-between gap-3 px-4 py-3">
+        <div className="border-t border-black/[0.06] bg-white pb-[env(safe-area-inset-bottom,0px)]">
+          <div className="mx-auto flex max-w-lg items-center justify-between gap-3 px-4 py-2.5">
             <div className="min-w-0 flex-1">
-              <p className="truncate text-[13px] font-semibold tracking-tight text-slate-900">
+              <p className="f-body truncate text-[13px] font-medium text-slate-800">
                 {eventName}
               </p>
-              <p className="truncate text-[11px] text-slate-500">{mobileSubline}</p>
+              <p className="f-body truncate text-[11px] text-slate-500">{mobileSubline}</p>
             </div>
             <a
               href={cta.href}
               onClick={handleCta}
-              className="shrink-0 rounded-full bg-[#1a1410] px-4 py-2 text-[11px] font-semibold uppercase tracking-wide text-[#F3D56D] transition active:scale-[0.98] hover:bg-[#2a211a]"
+              className="f-body shrink-0 rounded-full bg-[#3B6FF0] px-4 py-2 text-[11px] font-semibold text-white transition hover:bg-[#2f5ad4]"
             >
               {cta.mobileLabel}
             </a>
@@ -47,23 +43,23 @@ export default function SiteTopBanner({ onNavigate }) {
         </div>
       </div>
 
-      {/* Desktop — top bar */}
+      {/* Desktop — top strip (matches inspo: blue bar, white copy) */}
       <div
         className="fixed top-0 left-0 right-0 z-[60] hidden lg:block"
         role="region"
         aria-label="Event announcement"
       >
-        <div className="h-px bg-gradient-to-r from-transparent via-[#F3D56D]/80 to-transparent" />
-
-        <div className="border-b border-[#F3D56D]/15 bg-[#1a1410]/95 backdrop-blur-md">
-          <div className="mx-auto flex h-11 w-full items-center justify-center gap-4 px-8">
-            <p className="text-sm font-semibold tracking-wide text-[#F3D56D]">{desktopMessage}</p>
+        <div className="bg-[#3B6FF0]">
+          <div className="mx-auto flex h-9 max-w-[1320px] items-center justify-center gap-3 px-10">
+            <p className="font-sans text-[13px] font-normal text-white/95">
+              {desktopMessage}
+            </p>
             <a
               href={cta.href}
               onClick={handleCta}
-              className="rounded-full border-2 border-[#F3D56D] bg-[#F3D56D] px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.08em] text-[#1a1410] shadow-[0_3px_0_#b8943f] transition hover:bg-[#edd55c]"
+              className="group inline-flex items-center gap-1 rounded-full bg-white/15 px-3.5 py-1 font-sans text-[11px] font-semibold text-white transition hover:bg-white/25"
             >
-              {cta.label}
+              {cta.label} →
             </a>
           </div>
         </div>

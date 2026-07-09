@@ -42,18 +42,18 @@ export default function ConsultingSection() {
   };
 
   return (
-    <section id="consulting" className="scroll-mt-32 bg-white py-20 sm:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="consulting" className="scroll-mt-32 border-t border-black/[0.05] bg-white py-16 sm:py-20 lg:py-24">
+      <div className="mx-auto max-w-[1320px] px-5 sm:px-6 lg:px-10">
         <div className="max-w-2xl">
           <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#3B6FF0]">
             Consulting
           </p>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+          <h2 className="mt-3 font-sans text-[clamp(1.75rem,3vw,2.25rem)] font-extrabold tracking-[-0.03em] text-[#0f0f0f] sm:text-4xl">
             Strategy sessions that move the needle
           </h2>
-          <p className="mt-4 text-lg leading-relaxed text-slate-600">
+          <p className="mt-4 font-sans text-base leading-relaxed text-[#5c5c5c] lg:text-lg">
             For consulting and strategy sessions, our standard rate is{" "}
-            <span className="font-semibold text-slate-900">$199 per hour</span>.
+            <span className="font-semibold text-[#0f0f0f]">$199 per hour</span>.
             We also offer consulting packages for teams that want structured,
             ongoing guidance.
           </p>
@@ -69,28 +69,28 @@ export default function ConsultingSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: i * 0.08 }}
-                className={`flex flex-col rounded-2xl border p-7 ${
+                className={`flex flex-col rounded-[22px] border p-7 ${
                   pkg.featured
-                    ? "border-[#3B6FF0] bg-slate-50"
-                    : "border-slate-200 bg-white"
+                    ? "border-[#3B6FF0] bg-white shadow-[0_20px_48px_-20px_rgba(59,111,240,0.2)]"
+                    : "border-black/[0.06] bg-white"
                 }`}
               >
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#3B6FF0]/10">
                   <Icon className="h-5 w-5 text-[#3B6FF0]" />
                 </div>
-                <h3 className="mt-5 text-lg font-semibold text-slate-900">
+                <h3 className="mt-5 text-lg font-semibold text-[#0f0f0f]">
                   {pkg.name}
                 </h3>
                 <p className="mt-1 text-sm font-medium text-[#3B6FF0]">
                   {pkg.detail}
                 </p>
                 <div className="mt-5 flex items-baseline gap-1">
-                  <span className="text-3xl font-bold text-slate-900">
+                  <span className="text-3xl font-bold text-[#0f0f0f]">
                     {pkg.price}
                   </span>
-                  <span className="text-sm text-slate-500">{pkg.period}</span>
+                  <span className="text-sm text-[#737373]">{pkg.period}</span>
                 </div>
-                <p className="mt-4 flex-1 text-sm leading-relaxed text-slate-600">
+                <p className="mt-4 flex-1 text-sm leading-relaxed text-[#5c5c5c]">
                   {pkg.description}
                 </p>
                 <button

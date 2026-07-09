@@ -153,30 +153,29 @@ export default function BundleTable() {
   const groups = [...new Set(ROWS.map((r) => r.group))];
 
   return (
-    <section id="comparison-table" className="py-24 bg-slate-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Heading */}
+    <section id="comparison-table" className="scroll-mt-32 border-t border-black/[0.05] bg-white py-16 sm:py-20 lg:py-24">
+      <div className="mx-auto max-w-[1320px] px-5 sm:px-6 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-14"
+          className="mb-14 text-center"
         >
-          <span className="text-sm font-semibold uppercase tracking-widest text-blue-600 mb-3 block">
+          <span className="mb-3 block font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
             Side-by-Side Breakdown
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+          <h2 className="mb-4 font-sans text-[clamp(1.75rem,3vw,2.75rem)] font-extrabold tracking-[-0.03em] text-[#0f0f0f]">
             Compare Every Package
           </h2>
-          <p className="text-slate-500 max-w-xl mx-auto text-lg">
+          <p className="mx-auto max-w-xl font-sans text-base leading-relaxed text-[#5c5c5c] lg:text-lg">
             No hidden tiers. See exactly what&apos;s included in each growth
             system before you commit.
           </p>
         </motion.div>
 
         {/* Table wrapper — horizontal scroll on mobile */}
-        <div className="overflow-x-auto rounded-2xl shadow-xl border border-slate-200">
+        <div className="overflow-x-auto rounded-[22px] border border-black/[0.06] shadow-[0_20px_48px_-24px_rgba(0,0,0,0.12)]">
           <table className="w-full min-w-[700px] border-collapse">
             {/* Sticky header */}
             <thead>

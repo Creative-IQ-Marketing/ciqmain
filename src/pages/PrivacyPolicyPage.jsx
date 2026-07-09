@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import SEO from "../components/SEO";
-import { ArrowRight } from "lucide-react";
+import PageHeader from "../components/layout/PageHeader";
 
 const sections = [
   {
@@ -148,59 +148,40 @@ export default function PrivacyPolicyPage() {
         pageType="website"
       />
 
-      <main className="w-full bg-gradient-to-b from-white via-blue-50/30 to-white">
-        {/* Background decorative elements */}
-        <div className="fixed inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 right-0 w-96 h-96 bg-gradient-to-br from-blue-100/20 to-transparent rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-slate-100/20 to-transparent rounded-full blur-3xl" />
-        </div>
+      <main className="bg-white">
+        <PageHeader
+          eyebrow="Your Privacy Matters"
+          title="Privacy Policy"
+          description="We're transparent about how we collect, use, and protect your information. Your privacy is our priority."
+          align="center"
+        />
+        <p className="mx-auto max-w-3xl px-5 pb-10 text-center font-sans text-sm text-[#737373] sm:px-6">
+          Last updated:{" "}
+          {new Date().toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </p>
 
-        {/* Hero Section */}
-        <div className="relative pt-32 pb-16 md:pt-44 md:pb-24 px-4 md:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <p className="text-xs font-semibold tracking-widest uppercase text-[#3B6FF0] mb-4">
-              Your Privacy Matters
-            </p>
-
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 mb-6">
-              Privacy Policy
-            </h1>
-
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              We're transparent about how we collect, use, and protect your
-              information. Your privacy is our priority.
-            </p>
-
-            <div className="mt-8 text-sm text-slate-500">
-              Last updated:{" "}
-              {new Date().toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </div>
-          </div>
-        </div>
-
-        {/* Quick Navigation */}
-        <div className="sticky top-24 z-40 bg-white/80 backdrop-blur-xl border-b border-slate-200/50 py-4 px-4 md:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-3">
-              Quick Navigation
+        <div className="sticky top-[var(--site-header-height,72px)] z-40 border-b border-black/[0.05] bg-white/95 py-4 backdrop-blur-md">
+          <div className="mx-auto max-w-3xl px-5 sm:px-6">
+            <p className="mb-3 font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#737373]">
+              Quick navigation
             </p>
             <div className="flex flex-wrap gap-2 text-sm">
               {sections.slice(0, 6).map((section) => (
                 <a
                   key={section.id}
                   href={`#${section.id}`}
-                  className="px-3 py-1.5 rounded-full bg-slate-100 text-slate-700 hover:bg-[#3B6FF0] hover:text-white transition-colors"
+                  className="rounded-full border border-black/[0.06] px-3 py-1.5 font-sans text-[#5c5c5c] transition hover:border-[#3B6FF0] hover:text-[#3B6FF0]"
                 >
                   {section.title.split(" ")[0]}
                 </a>
               ))}
               <a
                 href="#contact-privacy"
-                className="px-3 py-1.5 rounded-full bg-slate-100 text-slate-700 hover:bg-[#3B6FF0] hover:text-white transition-colors"
+                className="rounded-full border border-black/[0.06] px-3 py-1.5 font-sans text-[#5c5c5c] transition hover:border-[#3B6FF0] hover:text-[#3B6FF0]"
               >
                 More...
               </a>
@@ -208,9 +189,8 @@ export default function PrivacyPolicyPage() {
           </div>
         </div>
 
-        {/* Content Section */}
-        <div className="relative py-16 md:py-24 px-4 md:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto space-y-16">
+        <div className="py-16 md:py-20">
+          <div className="mx-auto max-w-3xl space-y-14 px-5 sm:px-6">
             {sections.map((section, idx) => (
               <section
                 key={section.id}
@@ -218,18 +198,18 @@ export default function PrivacyPolicyPage() {
                 className="scroll-mt-32"
               >
                 <div className="flex items-start gap-4">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-[#3B6FF0]/10 text-[#3B6FF0] font-bold text-sm shrink-0 mt-1">
+                  <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#3B6FF0]/10 text-sm font-bold text-[#3B6FF0]">
                     {idx + 1}
                   </div>
                   <div className="flex-1">
-                    <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
+                    <h2 className="mb-4 font-sans text-2xl font-extrabold tracking-[-0.03em] text-[#0f0f0f] md:text-3xl">
                       {section.title}
                     </h2>
                     <div className="space-y-4">
                       {section.content.map((paragraph, pIdx) => (
                         <p
                           key={pIdx}
-                          className="text-base md:text-lg text-slate-700 leading-relaxed whitespace-pre-wrap"
+                          className="whitespace-pre-wrap font-sans text-base leading-relaxed text-[#5c5c5c] md:text-lg"
                         >
                           {paragraph}
                         </p>
@@ -240,23 +220,24 @@ export default function PrivacyPolicyPage() {
               </section>
             ))}
 
-            {/* CTA Section */}
-            <div className="mt-20 pt-16 border-t border-slate-200">
-              <div className="bg-gradient-to-br from-[#3B6FF0] to-[#2F5FE6] rounded-2xl p-8 md:p-12 text-white text-center">
-                <h3 className="text-2xl md:text-3xl font-bold mb-4">
-                  Data Subject Rights
+            <div className="mt-12 border-t border-black/[0.05] pt-14">
+              <div className="rounded-[22px] border border-black/[0.06] bg-[#fafafa] p-8 text-center md:p-10">
+                <h3 className="font-sans text-2xl font-extrabold tracking-[-0.03em] text-[#0f0f0f] md:text-3xl">
+                  Data subject rights
                 </h3>
-                <p className="text-blue-100 mb-8 max-w-2xl mx-auto">
+                <p className="mx-auto mt-4 max-w-xl font-sans text-base leading-relaxed text-[#5c5c5c]">
                   Have a question about your data or want to exercise your
-                  privacy rights? Reach out to our privacy team and we'll help
-                  within 30 days.
+                  privacy rights? Reach out to our privacy team and we&apos;ll
+                  help within 30 days.
                 </p>
-                <a
-                  href="mailto:CiQ@creativeiq.marketing"
-                  className="inline-flex items-center gap-2 bg-white text-[#3B6FF0] px-8 py-3.5 rounded-full font-semibold hover:bg-blue-50 transition-colors"
-                >
-                  Email Our Privacy Team <ArrowRight size={18} />
-                </a>
+                <div className="mt-8">
+                  <a
+                    href="mailto:CiQ@creativeiq.marketing"
+                    className="inline-flex items-center justify-center rounded-full bg-[#18181b] px-7 py-3 font-sans text-[15px] font-semibold text-white transition hover:bg-[#2a2a2a]"
+                  >
+                    Email our privacy team
+                  </a>
+                </div>
               </div>
             </div>
           </div>

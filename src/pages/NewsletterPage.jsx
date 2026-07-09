@@ -3,12 +3,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Check, ArrowRight, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
+import PageHeader from "../components/layout/PageHeader";
 import { subscribeContactToNewsletter } from "../services/ghl";
 import { trackButtonClick } from "../services/analytics";
-import mainLogo from "../assets/mainLogo.png";
-import bgVideo from "../assets/svid/contentmgmt.mp4";
-
-const ease = [0.22, 1, 0.36, 1];
 
 export default function NewsletterPage() {
   const [email, setEmail] = useState("");
@@ -22,21 +19,6 @@ export default function NewsletterPage() {
       inputRef.current?.focus();
     }
   }, [success]);
-
-  // Preload video in head for better performance
-  useEffect(() => {
-    const link = document.createElement("link");
-    link.rel = "preload";
-    link.as = "video";
-    link.href = bgVideo;
-    document.head.appendChild(link);
-
-    return () => {
-      if (document.head.contains(link)) {
-        document.head.removeChild(link);
-      }
-    };
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -82,105 +64,41 @@ export default function NewsletterPage() {
         pageType="website"
       />
 
-      <div className="h-screen flex items-center justify-center px-6 sm:px-8 relative overflow-hidden">
-        {/* Main content - Premium Glass Container */}
-        <motion.div
-          className="w-full max-w-2xl relative z-10"
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease, delay: 0.15 }}
-        >
-          {/* Glassmorphism background card */}
-          <div className="absolute inset-0 rounded-3xl bg-white/10 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-black/40" />
+      <main className="bg-white">
+        <PageHeader
+          eyebrow="Newsletter"
+          title="Stay ahead in"
+          titleAccent="digital marketing"
+          description="Get strategies, insights, and growth tactics from our team — delivered weekly to your inbox."
+          align="center"
+        />
 
-          {/* Content with padding */}
-          <div className="relative px-8 sm:px-12 md:px-16 py-12 sm:py-16 md:py-20">
-            {/* Logo inside container */}
-            <Link
-              to="/"
-              className="inline-block mb-8 sm:mb-10 md:mb-12 group hover:opacity-80 transition-opacity"
-              onClick={() =>
-                trackButtonClick(
-                  "Newsletter Back Home",
-                  "newsletter_back",
-                  "NewsletterPage",
-                )
-              }
-            >
-              <motion.img
-                src={mainLogo}
-                alt="CreativeIQ"
-                className="h-14 sm:h-16 md:h-20 w-auto filter brightness-0 invert"
-                whileHover={{ scale: 1.05 }}
-              />
-            </Link>
-            <AnimatePresence mode="wait">
-              {success ? (
-                <motion.div
-                  key="success"
-                  className="text-center"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  {/* Success icon */}
+        <section className="border-t border-black/[0.05] pb-20 pt-4">
+          <div className="mx-auto max-w-lg px-5 sm:px-6">
+            <div className="rounded-[22px] border border-black/[0.06] bg-white p-8 shadow-[0_20px_48px_-24px_rgba(0,0,0,0.12)] sm:p-10">
+              <AnimatePresence mode="wait">
+                {success ? (
                   <motion.div
-                    className="mx-auto mb-8 sm:mb-10 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-linear-to-br from-emerald-100 to-emerald-50 flex items-center justify-center shadow-lg shadow-emerald-200/50"
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 180,
-                      damping: 12,
-                      delay: 0.2,
-                    }}
-                  >
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{
-                        delay: 0.5,
-                        type: "spring",
-                        stiffness: 200,
-                      }}
-                    >
-                      <Check className="w-10 h-10 sm:w-12 sm:h-12 text-emerald-600 stroke-[2.5]" />
-                    </motion.div>
-                  </motion.div>
-
-                  {/* Success message */}
-                  <motion.h2
-                    className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-5 leading-tight"
-                    initial={{ opacity: 0, y: 8 }}
+                    key="success"
+                    className="text-center"
+                    initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                    style={{ fontFamily: "var(--font-display)" }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.4 }}
                   >
-                    You're all set!
-                  </motion.h2>
-
-                  <motion.p
-                    className="text-white/80 text-base sm:text-lg md:text-xl mb-6 sm:mb-8 md:mb-10 leading-relaxed"
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                    style={{ fontFamily: "var(--font-body)" }}
-                  >
-                    Thanks for subscribing! Check your inbox for a welcome
-                    message and our latest digital marketing insights delivered
-                    weekly.
-                  </motion.p>
-
-                  {/* CTA to home */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
-                  >
+                    <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50">
+                      <Check className="h-8 w-8 text-emerald-600 stroke-[2.5]" />
+                    </div>
+                    <h2 className="font-sans text-2xl font-extrabold tracking-[-0.03em] text-[#0f0f0f]">
+                      You&apos;re all set!
+                    </h2>
+                    <p className="mt-3 font-sans text-base leading-relaxed text-[#5c5c5c]">
+                      Thanks for subscribing. Check your inbox for a welcome
+                      message and our latest insights.
+                    </p>
                     <Link
                       to="/"
-                      className="inline-flex items-center gap-2 px-7 sm:px-8 py-3.5 sm:py-4 bg-linear-to-r from-[#3b82f6] to-blue-600 hover:shadow-lg hover:shadow-blue-500/30 text-white font-semibold rounded-xl transition-all duration-300 group text-base sm:text-lg"
+                      className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#18181b] px-7 py-3 font-sans text-[15px] font-semibold text-white transition hover:bg-[#2a2a2a]"
                       onClick={() =>
                         trackButtonClick(
                           "Newsletter Success Home",
@@ -189,155 +107,84 @@ export default function NewsletterPage() {
                         )
                       }
                     >
-                      Back to Home
-                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      Back to home
+                      <ArrowRight className="h-4 w-4" />
                     </Link>
                   </motion.div>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="form"
-                  className="text-center"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  {/* Headline */}
-                  <h1
-                    className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-5 sm:mb-6 leading-tight tracking-tight"
-                    style={{ fontFamily: "var(--font-display)" }}
+                ) : (
+                  <motion.div
+                    key="form"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.4 }}
                   >
-                    Stay Ahead in Digital Marketing
-                  </h1>
-
-                  {/* Subheadline */}
-                  <p
-                    className="text-base sm:text-lg md:text-xl text-white/80 mb-12 sm:mb-14 md:mb-16 leading-relaxed max-w-xl mx-auto"
-                    style={{ fontFamily: "var(--font-body)" }}
-                  >
-                    Get strategies, insights, and growth tactics from our
-                    team—delivered weekly to your inbox.
-                  </p>
-
-                  {/* Email form */}
-                  <form
-                    onSubmit={handleSubmit}
-                    className="space-y-5 sm:space-y-6"
-                  >
-                    <div className="relative group">
-                      <div className="absolute left-5 sm:left-6 top-1/2 -translate-y-1/2 text-white/60 group-focus-within:text-white transition-colors">
-                        <Mail className="w-5 h-5 sm:w-6 sm:h-6" />
-                      </div>
-                      <input
-                        ref={inputRef}
-                        type="email"
-                        value={email}
-                        onChange={(e) => {
-                          setEmail(e.target.value);
-                          setError("");
-                        }}
-                        placeholder="your@email.com"
-                        disabled={loading}
-                        className={`w-full pl-14 sm:pl-16 pr-5 sm:pr-6 py-4 sm:py-5 text-base sm:text-lg border-2 rounded-xl transition-all duration-200 focus:outline-none focus:ring-0 bg-white/90 backdrop-blur-sm shadow-lg placeholder-gray-500 font-medium ${
-                          error
-                            ? "border-red-400/50 focus:border-red-500 focus:bg-white/95"
-                            : "border-white/40 focus:border-white focus:bg-white/95 hover:border-white/60"
-                        } ${loading ? "opacity-70 cursor-not-allowed" : ""}`}
-                        style={{ fontFamily: "var(--font-body)" }}
-                      />
-                    </div>
-
-                    {/* Error message */}
-                    <AnimatePresence>
-                      {error && (
-                        <motion.p
-                          className="text-red-300 text-sm sm:text-base text-left pl-5 sm:pl-6 font-medium"
-                          initial={{ opacity: 0, y: -6 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -6 }}
-                          transition={{ duration: 0.2 }}
-                          style={{ fontFamily: "var(--font-body)" }}
-                        >
-                          {error}
-                        </motion.p>
-                      )}
-                    </AnimatePresence>
-
-                    {/* Submit button */}
-                    <motion.button
-                      type="submit"
-                      disabled={loading}
-                      className="w-full px-6 sm:px-8 py-4 sm:py-5 bg-linear-to-r from-[#3b82f6] to-blue-600 hover:shadow-xl hover:shadow-blue-500/30 text-white font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group disabled:opacity-60 disabled:cursor-not-allowed text-base sm:text-lg md:text-lg active:scale-95"
-                      style={{ fontFamily: "var(--font-display)" }}
-                      whileHover={!loading ? { scale: 1.02 } : {}}
-                      whileTap={!loading ? { scale: 0.96 } : {}}
-                    >
-                      {loading ? (
-                        <>
-                          <motion.div
-                            className="w-5 h-5 sm:w-6 sm:h-6 border-2 border-white/30 border-t-white rounded-full"
-                            animate={{ rotate: 360 }}
-                            transition={{
-                              duration: 1.2,
-                              repeat: Infinity,
-                              ease: "linear",
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                      <label className="block">
+                        <span className="mb-2 block font-sans text-sm font-medium text-[#0f0f0f]">
+                          Email address
+                        </span>
+                        <div className="relative">
+                          <Mail className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#737373]" />
+                          <input
+                            ref={inputRef}
+                            type="email"
+                            value={email}
+                            onChange={(e) => {
+                              setEmail(e.target.value);
+                              setError("");
                             }}
+                            placeholder="you@company.com"
+                            disabled={loading}
+                            className={`h-12 w-full rounded-xl border bg-white pl-11 pr-4 font-sans text-base text-[#0f0f0f] outline-none transition focus:border-[#3B6FF0] focus:ring-4 focus:ring-[#3B6FF0]/10 ${
+                              error
+                                ? "border-red-300"
+                                : "border-black/[0.1]"
+                            } ${loading ? "opacity-70" : ""}`}
                           />
-                          <span>Subscribing...</span>
-                        </>
-                      ) : (
-                        <>
-                          <span>Subscribe Now</span>
-                          <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1 transition-transform" />
-                        </>
-                      )}
-                    </motion.button>
-                  </form>
+                        </div>
+                      </label>
 
-                  {/* Privacy notice */}
-                  <motion.p
-                    className="text-xs sm:text-sm text-white/60 mt-8 sm:mt-10 leading-relaxed"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.35 }}
-                    style={{ fontFamily: "var(--font-body)" }}
-                  >
-                    We respect your privacy. Unsubscribe from any email anytime.
-                  </motion.p>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                      <AnimatePresence>
+                        {error && (
+                          <motion.p
+                            className="font-sans text-sm text-red-600"
+                            initial={{ opacity: 0, y: -6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -6 }}
+                          >
+                            {error}
+                          </motion.p>
+                        )}
+                      </AnimatePresence>
+
+                      <button
+                        type="submit"
+                        disabled={loading}
+                        className="flex w-full items-center justify-center gap-2 rounded-full bg-[#18181b] py-3.5 font-sans text-[15px] font-semibold text-white transition hover:bg-[#2a2a2a] disabled:cursor-not-allowed disabled:opacity-60"
+                      >
+                        {loading ? (
+                          "Subscribing..."
+                        ) : (
+                          <>
+                            Subscribe now
+                            <ArrowRight className="h-4 w-4" />
+                          </>
+                        )}
+                      </button>
+                    </form>
+
+                    <p className="mt-6 text-center font-sans text-xs leading-relaxed text-[#737373]">
+                      We respect your privacy. Unsubscribe from any email
+                      anytime.
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
-        </motion.div>
-
-        {/* Decorative background with video */}
-        <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-          {/* Background video */}
-          <video
-            className="absolute inset-0 w-full h-full object-cover"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-          >
-            <source src={bgVideo} type="video/mp4" />
-          </video>
-
-          {/* Elegant vignette - dark on edges, lighter in center */}
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage:
-                "radial-gradient(ellipse at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.75) 100%)",
-            }}
-          />
-
-          {/* Soft glow overlay for sophistication */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl bg-linear-to-b from-blue-600/5 via-transparent to-indigo-600/5 rounded-full blur-3xl opacity-80" />
-        </div>
-      </div>
+        </section>
+      </main>
     </>
   );
 }

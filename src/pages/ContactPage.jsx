@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Phone, Mail, Check, ArrowRight, Download } from "lucide-react";
+import { Download, Check, Phone, Mail, MessageSquare, ArrowUpRight } from "lucide-react";
 import ContactSection from "../components/contact/ContactSection";
+import PageHeader, { PageCtaSecondary } from "../components/layout/PageHeader";
 import { useLocation } from "react-router-dom";
 import { scrollToSection } from "../utils/scrollToSection";
 import SEO from "../components/SEO";
@@ -14,8 +14,6 @@ import {
   PHONE_SMS,
   PHONE_TEL,
 } from "../utils/contact";
-
-const ease = [0.22, 1, 0.36, 1];
 
 export default function ContactPage() {
   const [saved, setSaved] = useState(false);
@@ -30,12 +28,7 @@ export default function ContactPage() {
   const handleDownload = () => {
     trackButtonClick("Download vCard", "vcf_download", "ContactPage");
     downloadVCard();
-  };
-
-  const handleFormCTA = () => {
-    document
-      .getElementById("contact")
-      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    setSaved(true);
   };
 
   useEffect(() => {
@@ -69,262 +62,81 @@ export default function ContactPage() {
     <>
       <SEO
         title="Contact CreativeIQ | Get Your Digital Marketing Strategy"
-        description="Ready to grow? Contact CreativeIQ Marketing in San Antonio for a free strategy session. Talk to our digital marketing experts about SEO, ads, and growth."
-        keywords="contact marketing agency, San Antonio marketing, digital marketing strategy, free consultation, marketing agency near me"
+        description="Ready to grow? Contact CreativeIQ Marketing in San Antonio for a free strategy session."
+        keywords="contact marketing agency, San Antonio marketing, digital marketing strategy"
         canonical="https://creativeiq.marketing/contact"
         pageType="website"
       />
 
-      <main className="w-full bg-white pt-32 pb-12 md:pt-40 md:pb-16">
-        <div className="max-w-2xl mx-auto px-4 md:px-6 lg:px-8">
-          {/* Hero section */}
-          <motion.div
-            className="text-center mb-12 md:mb-16 lg:mb-20"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, ease }}
+      <PageHeader
+        align="center"
+        eyebrow="Get in touch"
+        title="Let's work together."
+        description="Call, text, email, or save our contact — then tell us what you're building."
+      >
+        {!saved ? (
+          <button
+            type="button"
+            onClick={handleDownload}
+            className="inline-flex items-center gap-2 rounded-full bg-[#18181b] px-7 py-3 font-sans text-[15px] font-semibold text-white transition hover:bg-[#2a2a2a]"
           >
-            <motion.p
-              className="text-xs font-semibold tracking-widest uppercase text-black/35 mb-3"
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease }}
-            >
-              Get in touch
-            </motion.p>
+            <Download size={16} strokeWidth={1.75} aria-hidden />
+            Save to contacts
+          </button>
+        ) : (
+          <span className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-5 py-2.5 font-sans text-sm font-medium text-emerald-800">
+            <Check size={16} strokeWidth={1.75} aria-hidden />
+            Added to your contacts
+          </span>
+        )}
+        <PageCtaSecondary
+          onClick={() =>
+            document
+              .getElementById("contact")
+              ?.scrollIntoView({ behavior: "smooth" })
+          }
+        >
+          <span className="inline-flex items-center gap-1.5">
+            Contact form
+            <ArrowUpRight size={15} strokeWidth={1.75} aria-hidden />
+          </span>
+        </PageCtaSecondary>
+      </PageHeader>
 
-            <motion.h1
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-black mb-4"
-              style={{ fontFamily: "'Manrope', sans-serif" }}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.06, ease }}
-            >
-              Let's work together.
-              <span className="sr-only">
-                {" "}
-                — Contact CreativeIQ Digital Marketing Agency San Antonio
-              </span>
-            </motion.h1>
-
-            <motion.p
-              className="text-sm md:text-base text-black/50 leading-relaxed max-w-lg mx-auto"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.12, ease }}
-            >
-              Quick contact. One tap to save. Zero friction.
-            </motion.p>
-
-            {/* Download/Save CTA */}
-            <motion.div
-              className="flex flex-col items-center"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.18, ease }}
-            >
-              <AnimatePresence mode="wait">
-                {!saved ? (
-                  <motion.button
-                    key="download"
-                    onClick={handleDownload}
-                    whileHover={{ scale: 1.02, y: -1 }}
-                    whileTap={{ scale: 0.98 }}
-                    exit={{
-                      opacity: 0,
-                      scale: 0.95,
-                      transition: { duration: 0.2 },
-                    }}
-                    className="inline-flex items-center gap-3 mt-6 px-6 md:px-8 py-3 md:py-4 rounded-full bg-blue-600 text-white font-bold shadow-lg hover:shadow-xl transition-shadow"
-                    style={{ fontFamily: "'Manrope', sans-serif" }}
-                    aria-label="Download CreativeIQ contact card"
-                  >
-                    <Download size={18} strokeWidth={2.5} aria-hidden="true" />
-                    Save to Contacts
-                  </motion.button>
-                ) : (
-                  <motion.div
-                    key="saved"
-                    initial={{ opacity: 0, scale: 0.92 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, ease }}
-                    className="flex flex-col items-center"
-                  >
-                    <div
-                      className="inline-flex items-center gap-2 mt-6 px-5 py-3 rounded-full bg-emerald-50 border border-emerald-300 text-emerald-700"
-                      style={{ fontFamily: "'Manrope', sans-serif" }}
-                    >
-                      <Check size={18} strokeWidth={2.5} aria-hidden="true" />
-                      <span className="font-bold text-sm md:text-base">
-                        Added to your contacts
-                      </span>
-                    </div>
-
-                    <div className="flex flex-wrap gap-3 justify-center mt-4">
-                      <a
-                        href={`tel:${PHONE_TEL}`}
-                        className="inline-flex items-center gap-2 px-4 md:px-5 py-2.5 md:py-3 rounded-full bg-blue-600 text-white font-semibold text-sm md:text-base hover:bg-blue-700 transition-colors"
-                        onClick={() =>
-                          trackButtonClick(
-                            "Post-Save Call",
-                            "contact_call",
-                            "ContactPage",
-                          )
-                        }
-                      >
-                        <Phone size={15} aria-hidden="true" />
-                        Call now
-                      </a>
-                      <a
-                        href={`mailto:${EMAIL}`}
-                        className="inline-flex items-center gap-2 px-4 md:px-5 py-2.5 md:py-3 rounded-full bg-gray-100 text-black font-semibold text-sm md:text-base hover:bg-gray-200 transition-colors"
-                        onClick={() =>
-                          trackButtonClick(
-                            "Post-Save Email",
-                            "contact_email",
-                            "ContactPage",
-                          )
-                        }
-                      >
-                        <Mail size={15} aria-hidden="true" />
-                        Email us
-                      </a>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              <p className="text-xs text-black/32 tracking-wide mt-3">
-                Works on iPhone, Android &amp; desktop · No app required
-              </p>
-            </motion.div>
-          </motion.div>
-
-          {/* Divider */}
-          <motion.div
-            className="h-px bg-black/6 my-12 md:my-16"
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.6, delay: 0.4, ease }}
-            style={{ originX: 0.5 }}
-          />
-
-          {/* Contact info cards */}
-          <motion.div
-            className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-12 md:mb-16"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.5, ease }}
-          >
+      <section className="border-b border-black/[0.05] bg-white py-10 sm:py-12">
+        <div className="mx-auto grid max-w-[1320px] grid-cols-2 gap-3 px-5 sm:grid-cols-4 sm:gap-4 sm:px-6 lg:px-10">
+          {[
+            { label: "Call", href: `tel:${PHONE_TEL}`, text: PHONE_DISPLAY, icon: Phone },
+            { label: "Email", href: `mailto:${EMAIL}`, text: EMAIL, icon: Mail },
+            { label: "Text", href: PHONE_SMS, text: "Message us", icon: MessageSquare },
+          ].map(({ label, href, text, icon: Icon }) => (
             <a
-              href={`tel:${PHONE_TEL}`}
-              className="block p-4 md:p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:bg-gray-100 hover:border-blue-200 transition-all"
-              onClick={() =>
-                trackButtonClick("Card Call", "card_call", "ContactPage")
-              }
+              key={label}
+              href={href}
+              className="rounded-[18px] border border-black/[0.06] bg-white p-4 transition hover:border-black/[0.12] sm:p-5"
             >
-              <p className="text-xs font-semibold tracking-widest uppercase text-black/40 mb-2">
-                Call
+              <Icon size={16} className="mb-2 text-[#3B6FF0]" strokeWidth={1.75} aria-hidden />
+              <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-[#737373]">
+                {label}
               </p>
-              <p
-                className="font-bold text-sm md:text-base text-black"
-                style={{ fontFamily: "'Manrope', sans-serif" }}
-              >
-                {PHONE_DISPLAY}
+              <p className="mt-1 font-sans text-sm font-medium text-[#0f0f0f] break-words">
+                {text}
               </p>
             </a>
-
-            <a
-              href={`mailto:${EMAIL}`}
-              className="block p-4 md:p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:bg-gray-100 hover:border-blue-200 transition-all"
-              onClick={() =>
-                trackButtonClick("Card Email", "card_email", "ContactPage")
-              }
-            >
-              <p className="text-xs font-semibold tracking-widest uppercase text-black/40 mb-2">
-                Email
-              </p>
-              <p
-                className="font-bold text-xs md:text-sm text-black break-words"
-                style={{ fontFamily: "'Manrope', sans-serif" }}
-              >
-                {EMAIL}
-              </p>
-            </a>
-
-            <a
-              href={PHONE_SMS}
-              className="block p-4 md:p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:bg-gray-100 hover:border-blue-200 transition-all"
-              onClick={() =>
-                trackButtonClick("Card Text", "card_text", "ContactPage")
-              }
-            >
-              <p className="text-xs font-semibold tracking-widest uppercase text-black/40 mb-2">
-                Text
-              </p>
-              <p
-                className="font-bold text-sm md:text-base text-black"
-                style={{ fontFamily: "'Manrope', sans-serif" }}
-              >
-                Message us
-              </p>
-            </a>
-
-            <div className="p-4 md:p-5 rounded-2xl bg-gray-50 border border-gray-100">
-              <p className="text-xs font-semibold tracking-widest uppercase text-black/40 mb-2">
-                Coverage
-              </p>
-              <p
-                className="font-bold text-sm md:text-base text-black"
-                style={{ fontFamily: "'Manrope', sans-serif" }}
-              >
-                International
-              </p>
-            </div>
-
-            <div className="p-4 md:p-5 rounded-2xl bg-gray-50 border border-gray-100">
-              <p className="text-xs font-semibold tracking-widest uppercase text-black/40 mb-2">
-                Hours
-              </p>
-              <p
-                className="font-bold text-sm md:text-base text-black"
-                style={{ fontFamily: "'Manrope', sans-serif" }}
-              >
-                Mon–Fri 9–6pm
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Form CTA */}
-          <motion.div
-            className="text-center pt-6 md:pt-8"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.6, ease }}
-          >
-            <p className="text-xs text-black/35 tracking-wide mb-2">
-              Prefer a form?
+          ))}
+          <div className="rounded-[18px] border border-black/[0.06] bg-white p-4 sm:p-5">
+            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-[#737373]">
+              Coverage
             </p>
-            <button
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:opacity-70 transition-opacity"
-              onClick={handleFormCTA}
-              aria-label="Go to contact form"
-            >
-              Contact form <ArrowRight size={13} aria-hidden="true" />
-            </button>
-          </motion.div>
-
-          {/* Guide resource */}
-          <motion.div
-            className="mt-8"
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.65, ease }}
-          >
-            <GuideInlineCTA source="contact_page" />
-          </motion.div>
+            <p className="mt-1 font-sans text-sm font-medium text-[#0f0f0f]">
+              International
+            </p>
+          </div>
         </div>
-      </main>
+        <div className="mx-auto mt-8 max-w-[1320px] px-5 sm:px-6 lg:px-10">
+          <GuideInlineCTA source="contact_page" />
+        </div>
+      </section>
 
       <ContactSection variant="home" sectionId="contact" />
     </>

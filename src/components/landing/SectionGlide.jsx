@@ -9,21 +9,26 @@ export default function SectionGlide({ flip = false }) {
   });
 
   const scaleX = useTransform(scrollYProgress, [0.15, 0.7], [0, 1]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.2, 0.9, 0.2]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.15, 0.5, 0.15]);
 
   return (
-    <section ref={ref} className="relative h-24 bg-white overflow-hidden">
+    <section
+      ref={ref}
+      className={`relative h-16 overflow-hidden sm:h-20 ${
+        flip ? "bg-white" : "bg-[#f7f6f1]"
+      }`}
+    >
       <div
         className={`absolute inset-0 ${
           flip
-            ? "bg-gradient-to-b from-blue-50/35 via-white to-white"
-            : "bg-gradient-to-b from-white via-white to-blue-50/30"
+            ? "bg-gradient-to-b from-[#f7f6f1]/40 to-white"
+            : "bg-gradient-to-b from-white to-[#f7f6f1]/40"
         }`}
       />
-      <div className="relative mx-auto h-full max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto flex h-full max-w-[1320px] items-center px-5 sm:px-6 lg:px-10">
         <motion.div
           style={{ scaleX, opacity, transformOrigin: "left center" }}
-          className="absolute left-0 right-0 top-1/2 h-px -translate-y-1/2 bg-gradient-to-r from-transparent via-blue-500/60 to-transparent"
+          className="h-px w-full bg-gradient-to-r from-transparent via-black/[0.08] to-transparent"
         />
       </div>
     </section>
