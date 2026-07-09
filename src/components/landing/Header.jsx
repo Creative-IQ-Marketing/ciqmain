@@ -9,7 +9,6 @@ import { SERVICES_NAV } from "../../data/servicesNav";
 import { scrollToHashFromHref, scrollToSection } from "../../utils/scrollToSection";
 import SiteTopBanner from "../layout/SiteTopBanner";
 import { SITE_TOP_BANNER } from "../../constants/siteBanner";
-import { useRsvp } from "../../context/RsvpContext";
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -30,7 +29,6 @@ export default function Header() {
   const servicesTimer = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const { openRsvp } = useRsvp();
 
   useEffect(() => {
     const onScroll = () => {
@@ -236,7 +234,7 @@ export default function Header() {
 
   return (
     <>
-      <SiteTopBanner onCtaClick={openRsvp} />
+      <SiteTopBanner onNavigate={handleNav} />
 
       <div
         className={`fixed left-0 right-0 z-50 flex justify-center px-4 sm:px-6 ${headerNavTopClass}`}

@@ -4,7 +4,7 @@ import { trackButtonClick } from "../../services/analytics";
 /**
  * Event announcement — bottom dock on mobile, top bar on desktop.
  */
-export default function SiteTopBanner({ onCtaClick }) {
+export default function SiteTopBanner({ onNavigate }) {
   if (!SITE_TOP_BANNER.enabled) return null;
 
   const { eventName, mobileSubline, desktopMessage, cta } = SITE_TOP_BANNER;
@@ -12,7 +12,7 @@ export default function SiteTopBanner({ onCtaClick }) {
   function handleCta(e) {
     e.preventDefault();
     trackButtonClick(cta.trackingLabel, cta.trackingId, "Header");
-    onCtaClick?.();
+    onNavigate?.(e, cta.href);
   }
 
   return (
@@ -36,13 +36,13 @@ export default function SiteTopBanner({ onCtaClick }) {
               </p>
               <p className="truncate text-[11px] text-slate-500">{mobileSubline}</p>
             </div>
-            <button
-              type="button"
+            <a
+              href={cta.href}
               onClick={handleCta}
               className="shrink-0 rounded-full bg-[#1a1410] px-4 py-2 text-[11px] font-semibold uppercase tracking-wide text-[#F3D56D] transition active:scale-[0.98] hover:bg-[#2a211a]"
             >
               {cta.mobileLabel}
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -58,13 +58,13 @@ export default function SiteTopBanner({ onCtaClick }) {
         <div className="border-b border-[#F3D56D]/15 bg-[#1a1410]/95 backdrop-blur-md">
           <div className="mx-auto flex h-11 w-full items-center justify-center gap-4 px-8">
             <p className="text-sm font-semibold tracking-wide text-[#F3D56D]">{desktopMessage}</p>
-            <button
-              type="button"
+            <a
+              href={cta.href}
               onClick={handleCta}
               className="rounded-full border-2 border-[#F3D56D] bg-[#F3D56D] px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.08em] text-[#1a1410] shadow-[0_3px_0_#b8943f] transition hover:bg-[#edd55c]"
             >
               {cta.label}
-            </button>
+            </a>
           </div>
         </div>
       </div>

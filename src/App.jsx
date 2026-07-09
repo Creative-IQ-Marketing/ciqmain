@@ -28,9 +28,7 @@ import UnsubscribedPage from "./pages/UnsubscribedPage";
 import TermsAndConditionsPage from "./pages/TermsAndConditionsPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import { NewsletterProvider } from "./context/NewsletterContext";
-import { RsvpProvider } from "./context/RsvpContext";
 import NewsletterPopup from "./components/ui/NewsletterPopup";
-import BusinessUnpluggedModal from "./components/ui/BusinessUnpluggedModal";
 import SocialMediaFreeTrialPage from "./pages/SocialMediaFreeTrialPage";
 import { initializeAnalytics } from "./services/analytics";
 import { NEWSLETTER_POPUP_ENABLED, SITE_TOP_BANNER } from "./constants/siteBanner";
@@ -55,7 +53,6 @@ function Layout() {
         <Outlet />
         <Footer />
         {NEWSLETTER_POPUP_ENABLED ? <NewsletterPopup /> : null}
-        <BusinessUnpluggedModal />
       </div>
     </NewsletterProvider>
   );
@@ -95,22 +92,20 @@ function App() {
   }, []);
 
   return (
-    <RsvpProvider>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/free-ai-seo-audit" element={<FreeSeoAuditPage />} />
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/social-media-free-trial" element={<SocialMediaFreeTrialPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/newsletter/unsubscribed" element={<UnsubscribedPage />} />
-          <Route path="/terms" element={<TermsAndConditionsPage />} />
-          <Route path="/privacy" element={<PrivacyPolicyPage />} />
-        </Route>
-        <Route path="/newsletter" element={<NewsletterPage />} />
-        <Route path="/business-unplugged" element={<BusinessUnpluggedPage />} />
-      </Routes>
-    </RsvpProvider>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/free-ai-seo-audit" element={<FreeSeoAuditPage />} />
+        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/social-media-free-trial" element={<SocialMediaFreeTrialPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/newsletter/unsubscribed" element={<UnsubscribedPage />} />
+        <Route path="/terms" element={<TermsAndConditionsPage />} />
+        <Route path="/privacy" element={<PrivacyPolicyPage />} />
+      </Route>
+      <Route path="/newsletter" element={<NewsletterPage />} />
+      <Route path="/business-unplugged" element={<BusinessUnpluggedPage />} />
+    </Routes>
   );
 }
 

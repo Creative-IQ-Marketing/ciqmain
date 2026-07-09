@@ -11,6 +11,7 @@ export const SITE_TOP_BANNER = {
   cta: {
     label: "RSVP Now",
     mobileLabel: "RSVP",
+    href: "/business-unplugged",
     trackingLabel: "Business Unplugged Banner",
     trackingId: "top_banner_cta",
   },
