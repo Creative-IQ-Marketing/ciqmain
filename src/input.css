@@ -248,4 +248,16 @@
   .bu-btn-text:hover {
     background: rgba(184, 148, 63, 0.1);
   }
+
+  /* Keep the Stripe buy button embed contained and full-width */
+  .stripe-buy-button-wrap {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .stripe-buy-button-wrap stripe-buy-button {
+    display: block;
+    width: 100%;
+  }
 }

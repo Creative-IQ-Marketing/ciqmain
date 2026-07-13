@@ -1,3 +1,5 @@
+import BusinessUnpluggedPackages from "./BusinessUnpluggedPackages";
+
 export default function BusinessUnpluggedSuccess({
   firstName,
   onReset,
@@ -35,6 +37,10 @@ export default function BusinessUnpluggedSuccess({
         Thank you for RSVPing. We&apos;ll send a confirmation shortly — see you
         at Business Unplugged.
       </p>
+
+      <div className="mx-auto mt-6 max-w-sm text-left">
+        <BusinessUnpluggedPackages embedded={embedded} />
+      </div>
 
       <div className="mt-5 flex flex-col items-center gap-2">
         {embedded && onClose ? (

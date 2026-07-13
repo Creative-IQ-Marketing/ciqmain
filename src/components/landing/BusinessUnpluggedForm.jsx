@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { submitBusinessUnpluggedRsvp } from "../../services/ghl";
+import BusinessUnpluggedPackages from "./BusinessUnpluggedPackages";
 import BusinessUnpluggedSuccess from "./BusinessUnpluggedSuccess";
 
 export default function BusinessUnpluggedForm({ embedded = false, onClose }) {
   const [status, setStatus] = useState("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [firstName, setFirstName] = useState("");
-  const [vendorOrSpeaker, setVendorOrSpeaker] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -21,7 +21,6 @@ export default function BusinessUnpluggedForm({ embedded = false, onClose }) {
       lastName: String(data.get("lastName") ?? ""),
       email: String(data.get("email") ?? ""),
       phone: String(data.get("phone") ?? ""),
-      vendorOrSpeaker,
     };
 
     try {
@@ -29,7 +28,6 @@ export default function BusinessUnpluggedForm({ embedded = false, onClose }) {
       setFirstName(payload.firstName);
       setStatus("success");
       form.reset();
-      setVendorOrSpeaker(false);
     } catch {
       setStatus("error");
       setErrorMsg(
@@ -100,36 +98,15 @@ export default function BusinessUnpluggedForm({ embedded = false, onClose }) {
             embedded={embedded}
           />
 
-          <label
+          <div
             className={
               embedded
-                ? "flex cursor-pointer items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 p-3.5 transition hover:bg-slate-100/80"
-                : "bu-checkbox-row flex cursor-pointer items-start gap-3 rounded-xl p-3 sm:p-3.5"
+                ? "border-t border-slate-200 pt-4"
+                : "border-t border-[#e8e0d4] pt-4"
             }
           >
-            <input
-              type="checkbox"
-              checked={vendorOrSpeaker}
-              onChange={(e) => setVendorOrSpeaker(e.target.checked)}
-              className={
-                embedded
-                  ? "mt-0.5 h-4 w-4 shrink-0 rounded border-slate-300 text-[#1a1410] focus:ring-[#b8943f]"
-                  : "bu-checkbox-input mt-0.5"
-              }
-            />
-            <span
-              className={
-                embedded
-                  ? "text-left text-sm leading-snug text-slate-600"
-                  : "text-left text-sm leading-snug text-[#5f6368]"
-              }
-            >
-              Would you like to be a vendor or speaker at this event?{" "}
-              <span className={embedded ? "font-medium text-[#b8943f]" : "font-medium text-[#b8943f]"}>
-                Let us know here.
-              </span>
-            </span>
-          </label>
+            <BusinessUnpluggedPackages embedded={embedded} />
+          </div>
 
           {status === "error" ? (
             <p className="rounded-lg bg-red-50 px-3 py-2 text-center text-sm text-red-700">
@@ -155,7 +132,7 @@ export default function BusinessUnpluggedForm({ embedded = false, onClose }) {
   if (embedded) return content;
 
   return (
-    <div className="bu-surface-card w-full max-w-[22rem] rounded-2xl p-6 sm:max-w-md sm:p-8">
+    <div className="bu-surface-card w-full max-w-sm rounded-2xl p-6 sm:max-w-lg sm:p-8">
       {content}
     </div>
   );
