@@ -6,8 +6,8 @@
 export const SITE_TOP_BANNER = {
   enabled: true,
   eventName: "Business Unplugged",
-  mobileSubline: "Aug 6 · Hotel Valencia Riverwalk",
-  desktopMessage: "You're invited — Business Unplugged · Aug 6 · Hotel Valencia Riverwalk",
+  mobileSubline: "TBA · Hotel Valencia Riverwalk",
+  desktopMessage: "You're invited — Business Unplugged · TBA · Hotel Valencia Riverwalk",
   cta: {
     label: "RSVP Now",
     mobileLabel: "RSVP",
