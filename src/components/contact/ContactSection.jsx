@@ -1,5 +1,4 @@
-import { motion } from "framer-motion";
-import { Globe, Phone, Mail, MessageSquare } from "lucide-react";
+import { Globe, Mail, MessageSquare, Phone } from "lucide-react";
 import {
   EMAIL,
   PHONE_DISPLAY,
@@ -7,6 +6,7 @@ import {
   PHONE_TEL,
 } from "../../utils/contact";
 import ContactForm from "./ContactForm";
+import FadeUp from "../primitives/FadeUp";
 
 const COPY = {
   home: {
@@ -36,22 +36,18 @@ export default function ContactSection({
   const copy = COPY[variant] ?? COPY.home;
 
   return (
-    <section
+    <FadeUp
+      as="section"
       id={sectionId}
-      className="py-24 bg-[#F5F5F7] relative overflow-hidden scroll-mt-32"
+      className="relative scroll-mt-32 overflow-hidden border-t border-black/[0.05] bg-white py-16 sm:py-20 lg:py-24"
     >
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <span className="f-body text-[11px] font-semibold uppercase tracking-[0.22em] text-[#3B6FF0] mb-4 block">
+      <div className="relative z-10 mx-auto max-w-[1320px] px-5 sm:px-6 lg:px-10">
+        <div className="grid items-start gap-16 lg:grid-cols-2">
+          <div>
+            <p className="mb-4 font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
               {copy.eyebrow}
-            </span>
-            <h2 className="f-disp text-4xl md:text-5xl font-bold text-slate-900 mb-5 leading-tight">
+            </p>
+            <h2 className="mb-5 font-sans text-[clamp(2rem,4vw,3.25rem)] font-extrabold leading-tight tracking-[-0.03em] text-[#0f0f0f]">
               {copy.title}
               {copy.titleAccent && (
                 <>
@@ -60,50 +56,47 @@ export default function ContactSection({
                 </>
               )}
             </h2>
-            <p className="f-body text-slate-600 text-lg mb-10 leading-relaxed">
+            <p className="mb-10 font-sans text-base leading-relaxed text-[#5c5c5c] lg:text-lg">
               {copy.description}
             </p>
 
-            <div className="f-body space-y-3 text-sm text-slate-500">
+            <div className="space-y-3 font-sans text-sm text-[#737373]">
               <a
                 href={`tel:${PHONE_TEL}`}
-                className="flex items-center gap-3 hover:text-[#3B6FF0] transition-colors"
+                className="flex items-center gap-3 transition hover:text-[#0f0f0f]"
               >
-                <Phone className="w-4 h-4 text-[#3B6FF0]" /> {PHONE_DISPLAY}
+                <Phone size={16} strokeWidth={1.75} className="text-[#3B6FF0]" aria-hidden />
+                {PHONE_DISPLAY}
               </a>
               <a
                 href={PHONE_SMS}
-                className="flex items-center gap-3 hover:text-[#3B6FF0] transition-colors"
+                className="flex items-center gap-3 transition hover:text-[#0f0f0f]"
               >
-                <MessageSquare className="w-4 h-4 text-[#3B6FF0]" /> Text us
+                <MessageSquare size={16} strokeWidth={1.75} className="text-[#3B6FF0]" aria-hidden />
+                Text us
               </a>
               <a
                 href={`mailto:${EMAIL}`}
-                className="flex items-center gap-3 hover:text-[#3B6FF0] transition-colors"
+                className="flex items-center gap-3 transition hover:text-[#0f0f0f]"
               >
-                <Mail className="w-4 h-4 text-[#3B6FF0]" /> {EMAIL}
+                <Mail size={16} strokeWidth={1.75} className="text-[#3B6FF0]" aria-hidden />
+                {EMAIL}
               </a>
-              <div className="flex items-center gap-3">
-                <Globe className="w-4 h-4 text-[#3B6FF0]" /> International
-                clients welcome
+              <div className="flex items-center gap-3 pt-1">
+                <Globe size={16} strokeWidth={1.75} className="text-[#3B6FF0]" aria-hidden />
+                International clients welcome
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm"
-          >
+          <div className="rounded-[22px] border border-black/[0.06] bg-white p-8 shadow-[0_8px_30px_rgba(15,23,42,0.04)]">
             <ContactForm
               formId={copy.formId}
               analyticsContext={copy.analyticsContext}
             />
-          </motion.div>
+          </div>
         </div>
       </div>
-    </section>
+    </FadeUp>
   );
 }

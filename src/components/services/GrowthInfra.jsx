@@ -149,23 +149,22 @@ export default function GrowthInfra() {
   };
 
   return (
-    <section id="growth-infra" className="py-24 bg-slate-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Heading */}
+    <section id="growth-infra" className="scroll-mt-32 border-t border-black/[0.05] bg-white py-16 sm:py-20 lg:py-24">
+      <div className="mx-auto max-w-[1320px] px-5 sm:px-6 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-6"
+          className="mb-6 text-center"
         >
-          <span className="text-sm font-semibold uppercase tracking-widest text-blue-600 mb-3 block">
+          <span className="mb-3 block font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
             Growth Infrastructure
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+          <h2 className="mb-4 font-sans text-[clamp(1.75rem,3vw,2.75rem)] font-extrabold tracking-[-0.03em] text-[#0f0f0f]">
             5 Elite Growth Tiers
           </h2>
-          <p className="text-slate-500 max-w-2xl mx-auto text-lg">
+          <p className="mx-auto max-w-2xl font-sans text-base leading-relaxed text-[#5c5c5c] lg:text-lg">
             Where are you in your growth stage? Each tier is designed to scale
             systematically— from first digital impression to full enterprise
             dominance.
@@ -178,9 +177,9 @@ export default function GrowthInfra() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="max-w-3xl mx-auto mb-16 p-5 rounded-2xl bg-blue-600 text-white text-center"
+          className="mx-auto mb-16 max-w-3xl rounded-[22px] border border-[#3B6FF0]/20 bg-[#3B6FF0]/[0.04] p-6 text-center sm:p-8"
         >
-          <p className="font-semibold text-lg">
+          <p className="font-sans text-lg font-semibold text-[#0f0f0f]">
             Most agencies sell services. We build growth infrastructure.
           </p>
         </motion.div>
@@ -197,23 +196,23 @@ export default function GrowthInfra() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className={`bg-white rounded-2xl border border-slate-200 overflow-hidden transition-shadow duration-300 hover:border-slate-300`}
+                className="overflow-hidden rounded-[22px] border border-black/[0.06] bg-white transition-colors duration-300 hover:border-black/[0.12]"
               >
                 <div className="p-6 sm:p-8">
                   <div className="flex flex-col sm:flex-row sm:items-start gap-6">
                     {/* Tier number + icon */}
                     <div className="flex items-center gap-4 shrink-0">
-                      <div className="w-14 h-14 rounded-2xl bg-slate-100 flex items-center justify-center">
-                        <Icon className="w-6 h-6 text-blue-600" />
+                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#3B6FF0]/10">
+                        <Icon className="h-6 w-6 text-[#3B6FF0]" />
                       </div>
                       <div>
-                        <span className="text-xs font-bold uppercase tracking-widest text-slate-400">
+                        <span className="text-xs font-bold uppercase tracking-widest text-[#737373]">
                           Tier {tier.number}
                         </span>
-                        <h3 className="text-xl font-bold text-slate-900 leading-tight">
+                        <h3 className="text-xl font-bold leading-tight text-[#0f0f0f]">
                           {tier.name}
                         </h3>
-                        <p className="text-sm text-blue-600 font-medium">
+                        <p className="text-sm font-medium text-[#3B6FF0]">
                           {tier.subtitle}
                         </p>
                       </div>
@@ -271,7 +270,7 @@ export default function GrowthInfra() {
                           </p>
                         </div>
 
-                        <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
+                        <div className="rounded-xl border border-black/[0.06] bg-[#fafafa] p-3">
                           <p className="text-xs text-slate-500">
                             <span className="font-semibold text-slate-700">
                               Goal:{" "}

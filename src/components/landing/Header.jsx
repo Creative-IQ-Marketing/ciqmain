@@ -1,12 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Phone, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Phone } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import mainLogo from "../../assets/mainLogo.png";
 import { PHONE_TEL } from "../../utils/contact";
 import { trackButtonClick } from "../../services/analytics";
 import { SERVICES_NAV } from "../../data/servicesNav";
-import { scrollToHashFromHref, scrollToSection } from "../../utils/scrollToSection";
+import {
+  scrollToHashFromHref,
+  scrollToSection,
+} from "../../utils/scrollToSection";
 import SiteTopBanner from "../layout/SiteTopBanner";
 import { SITE_TOP_BANNER } from "../../constants/siteBanner";
 
@@ -15,6 +18,7 @@ const ease = [0.22, 1, 0.36, 1];
 const NAV = [
   { label: "Home", href: "/" },
   SERVICES_NAV,
+  { label: "Book a call", href: "/book" },
   { label: "Contact", href: "/contact" },
   { label: "Free SEO Audit", href: "/free-ai-seo-audit" },
 ];
@@ -106,14 +110,17 @@ export default function Header() {
           onClick={(e) => handleNav(e, item.href)}
           initial={isMobile ? { opacity: 1, x: -8 } : { opacity: 1, y: -5 }}
           animate={isMobile ? { opacity: 1, x: 0 } : { opacity: 1, y: 0 }}
-          transition={{ delay: isMobile ? i * 0.04 : 0.08 + i * 0.04, duration: 0.4, ease }}
-          whileHover={isMobile ? undefined : { color: "#3B6FF0" }}
+          transition={{
+            delay: isMobile ? i * 0.04 : 0.08 + i * 0.04,
+            duration: 0.4,
+            ease,
+          }}
+          whileHover={isMobile ? undefined : { color: "#111" }}
           className={
             isMobile
-              ? "py-3.5 text-[0.95rem] font-medium text-slate-600 hover:text-[#3B6FF0] border-b border-slate-50 transition-colors"
-              : "px-5 py-3 font-medium text-slate-500"
+              ? "block w-full border-b border-slate-200/50 py-3.5 text-[15px] font-medium text-[#444] transition hover:text-[#111]"
+              : "px-4 py-2 font-sans text-[15px] font-medium text-[#252525] transition-colors duration-200 hover:text-[#111]"
           }
-          style={isMobile ? undefined : { fontSize: "clamp(0.95rem, 1.5vw, 1.1rem)" }}
         >
           {item.label}
         </motion.a>
@@ -122,16 +129,16 @@ export default function Header() {
 
     if (isMobile) {
       return (
-        <div key={item.label} className="border-b border-slate-50">
+        <div key={item.label} className="border-b border-slate-200/50">
           <button
             type="button"
             onClick={() => setMobileServicesOpen((v) => !v)}
-            className="flex w-full items-center justify-between py-3.5 text-[0.95rem] font-medium text-slate-600"
+            className="f-body flex w-full items-center justify-between py-3.5 text-[0.9rem] font-medium text-slate-700"
           >
             {item.label}
             <ChevronDown
               size={16}
-              className={`transition-transform ${mobileServicesOpen ? "rotate-180" : ""}`}
+              className={`text-slate-400 transition-transform ${mobileServicesOpen ? "rotate-180" : ""}`}
             />
           </button>
           <AnimatePresence>
@@ -141,25 +148,27 @@ export default function Header() {
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
                 transition={{ duration: 0.2 }}
-                className="overflow-hidden pb-2 pl-3"
+                className="overflow-hidden pb-3 pl-1"
               >
                 <a
                   href={item.href}
                   onClick={(e) => handleNav(e, item.href)}
-                  className="block py-2 text-sm font-semibold text-[#3B6FF0]"
+                  className="f-body block rounded-lg px-3 py-2 text-sm font-semibold text-[#3B6FF0]"
                 >
                   All services
                 </a>
-                {item.children.map((child) => (
-                  <a
-                    key={child.href}
-                    href={child.href}
-                    onClick={(e) => handleNav(e, child.href)}
-                    className="block py-2 text-sm text-slate-500 hover:text-slate-900"
-                  >
-                    {child.label}
-                  </a>
-                ))}
+                <div className="mt-1 grid grid-cols-1 gap-0.5">
+                  {item.children.map((child) => (
+                    <a
+                      key={child.href}
+                      href={child.href}
+                      onClick={(e) => handleNav(e, child.href)}
+                      className="f-body block rounded-lg px-3 py-2 text-sm text-slate-600 transition hover:bg-white/70 hover:text-slate-900"
+                    >
+                      {child.label}
+                    </a>
+                  ))}
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
@@ -180,8 +189,7 @@ export default function Header() {
           initial={{ opacity: 1, y: -5 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.08 + i * 0.04, duration: 0.4, ease }}
-          className="inline-flex items-center gap-1 px-5 py-3 font-medium text-slate-500 hover:text-[#3B6FF0]"
-          style={{ fontSize: "clamp(0.95rem, 1.5vw, 1.1rem)" }}
+          className="inline-flex items-center gap-1 px-4 py-2 font-sans text-[15px] font-medium text-[#252525] transition-colors duration-200 hover:text-[#111]"
         >
           {item.label}
           <ChevronDown
@@ -193,33 +201,35 @@ export default function Header() {
         <AnimatePresence>
           {servicesOpen && (
             <motion.div
-              initial={{ opacity: 0, y: 6 }}
+              initial={{ opacity: 0, y: 4 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 6 }}
-              transition={{ duration: 0.18, ease }}
-              className="absolute left-1/2 top-full z-50 w-56 -translate-x-1/2 pt-2"
+              exit={{ opacity: 0, y: 4 }}
+              transition={{ duration: 0.16, ease }}
+              className="absolute left-1/2 top-full z-50 w-[17.5rem] -translate-x-1/2 pt-2"
               onMouseEnter={openServicesMenu}
               onMouseLeave={closeServicesMenu}
             >
-              <div className="overflow-hidden rounded-xl border border-slate-200 bg-white py-1.5 shadow-lg">
+              <div className="overflow-hidden rounded-2xl border border-black/[0.06] bg-white p-2 shadow-[0_12px_40px_rgba(15,23,42,0.08)]">
                 <a
                   href={item.href}
                   onClick={(e) => handleNav(e, item.href)}
-                  className="block px-4 py-2.5 text-sm font-semibold text-[#3B6FF0] hover:bg-slate-50"
+                  className="f-body block rounded-xl px-3 py-2.5 text-[13px] font-semibold text-[#3B6FF0] transition hover:bg-white/80"
                 >
                   All services
                 </a>
-                <div className="mx-3 border-t border-slate-100" />
-                {item.children.map((child) => (
-                  <a
-                    key={child.href}
-                    href={child.href}
-                    onClick={(e) => handleNav(e, child.href)}
-                    className="block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900"
-                  >
-                    {child.label}
-                  </a>
-                ))}
+                <div className="my-1.5 border-t border-slate-200/50" />
+                <div className="grid grid-cols-1 gap-0.5">
+                  {item.children.map((child) => (
+                    <a
+                      key={child.href}
+                      href={child.href}
+                      onClick={(e) => handleNav(e, child.href)}
+                      className="f-body block rounded-xl px-3 py-2.5 text-[13px] font-normal text-slate-600 transition hover:bg-white/80 hover:text-slate-900"
+                    >
+                      {child.label}
+                    </a>
+                  ))}
+                </div>
               </div>
             </motion.div>
           )}
@@ -236,125 +246,88 @@ export default function Header() {
     <>
       <SiteTopBanner onNavigate={handleNav} />
 
-      <div
-        className={`fixed left-0 right-0 z-50 flex justify-center px-4 sm:px-6 ${headerNavTopClass}`}
+      <motion.header
+        initial={{ y: -80 }}
+        animate={{ y: visible ? 0 : -100 }}
+        transition={{ duration: 0.4, ease }}
+        className={`fixed inset-x-0 z-50 bg-white ${headerNavTopClass}`}
       >
-        <motion.div
-          initial={{ y: -240 }}
-          animate={{ y: visible ? 0 : -120, opacity: visible ? 1 : 1 }}
-          transition={{ duration: 0.45, ease }}
-          className="w-full max-w-6xl"
-        >
-          <div
-            className="flex items-center h-[82px] md:h-[82px] px-5 md:px-6 rounded-full bg-white/95 backdrop-blur-2xl border border-black/[0.07] shadow-[0_8px_56px_rgba(0,0,0,0.14)]"
-            style={{ height: "clamp(60px, 12vw, 82px)" }}
+        <div className="mx-auto flex h-16 max-w-[1320px] items-center px-5 sm:px-6 lg:px-10">
+          <a
+            href="/"
+            onClick={(e) => handleNav(e, "/")}
+            className="flex shrink-0 items-center gap-2.5"
           >
+            <img
+              src={mainLogo}
+              alt="CreativeIQ"
+              className="h-9 w-9 object-contain sm:h-10 sm:w-10"
+            />
+            <span className="font-sans text-[clamp(1.15rem,2vw,1.4rem)] font-bold tracking-[-0.03em] text-[#0f0f0f]">
+              Creative<span className="text-[#3B6FF0]">IQ</span>
+            </span>
+          </a>
+
+          <nav className="hidden flex-1 items-center justify-center md:flex">
+            {NAV.map((item, i) => renderNavItem(item, i))}
+          </nav>
+
+          <div className="hidden items-center gap-5 md:ml-auto md:flex">
             <a
-              href="/"
-              onClick={(e) => handleNav(e, "/")}
-              className="flex items-center gap-2.5 shrink-0 pr-5"
+              href={`tel:${PHONE_TEL}`}
+              onClick={() =>
+                trackButtonClick("Call CTA", "header_call", "Header")
+              }
+              className="inline-flex items-center gap-1.5 font-sans text-[15px] font-medium text-[#737373] transition-colors duration-200 hover:text-[#252525]"
             >
-              <img
-                src={mainLogo}
-                alt="CreativeIQ"
-                className="w-11 h-11 object-contain"
-                style={{
-                  width: "clamp(40px, 8vw, 44px)",
-                  height: "clamp(40px, 8vw, 44px)",
-                }}
-              />
-              <span
-                className="font-bold text-slate-900"
-                style={{
-                  letterSpacing: "-0.04em",
-                  fontSize: "clamp(1.1rem, 2.5vw, 1.5rem)",
-                }}
-              >
-                Creative<span className="text-[#3B6FF0]">IQ</span>
-              </span>
+              <Phone size={15} strokeWidth={1.75} aria-hidden />
+              Call us
             </a>
-
-            <div className="hidden md:block h-5 w-px bg-slate-200 shrink-0" />
-
-            <nav className="hidden md:flex items-center flex-1 justify-center gap-0">
-              {NAV.map((item, i) => renderNavItem(item, i))}
-            </nav>
-
-            <div className="hidden md:flex items-center gap-2.5 shrink-0 ml-auto pl-4">
-              <motion.a
-                href={`tel:${PHONE_TEL}`}
-                onClick={() => {
-                  trackButtonClick("Call CTA", "header_call", "Header");
-                }}
-                transition={{ delay: 0.36 }}
-                className="px-7 py-3.5 text-[0.9rem] font-semibold rounded-full bg-[#3B6FF0] text-white hover:bg-[#3B6FF0] transition-colors duration-250 shadow-sm"
-                style={{ border: "none", cursor: "pointer" }}
-                aria-label="Call CreativeIQ"
-              >
-                <span>
-                  <Phone
-                    size={16}
-                    className="inline-block -mt-0.5 mr-2.5"
-                    aria-hidden="true"
-                  />
-                </span>
-                Call us
-              </motion.a>
-              <motion.a
-                href="/free-ai-seo-audit"
-                onClick={(e) => {
-                  trackButtonClick("Free Audit", "header_cta", "Header");
-                  handleNav(e, "/free-ai-seo-audit");
-                }}
-                initial={{ opacity: 1, scale: 0.88 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{
-                  delay: 0.44,
-                  type: "spring",
-                  stiffness: 280,
-                  damping: 22,
-                }}
-                whileHover={{ scale: 1.05, y: -1 }}
-                whileTap={{ scale: 0.97 }}
-                className="px-7 py-3.5 text-[0.9rem] font-semibold rounded-full bg-slate-900 text-white hover:bg-[#3B6FF0] transition-colors duration-250 shadow-sm"
-              >
-                Audit My Site
-              </motion.a>
-            </div>
-
-            <button
-              onClick={() => setOpen(!open)}
-              className="md:hidden ml-auto p-2.5 rounded-full text-slate-600 hover:bg-slate-100 transition-colors"
+            <a
+              href="/free-ai-seo-audit"
+              onClick={(e) => {
+                trackButtonClick("Free Audit", "header_cta", "Header");
+                handleNav(e, "/free-ai-seo-audit");
+              }}
+              className="rounded-full bg-[#18181b] px-6 py-2.5 font-sans text-[15px] font-semibold text-white transition hover:bg-[#2a2a2a]"
             >
-              {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
+              Audit My Site
+            </a>
           </div>
 
-          <AnimatePresence>
-            {open && (
-              <motion.div
-                key="mobile-menu"
-                initial={{ opacity: 1, y: -10, scale: 0.97 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 1, y: -10, scale: 0.97 }}
-                transition={{ duration: 0.22, ease }}
-                className="mt-2 rounded-3xl bg-white/97 backdrop-blur-2xl border border-black/[0.06] shadow-[0_12px_48px_rgba(0,0,0,0.14)] overflow-hidden"
-              >
-                <nav className="flex flex-col px-5 py-5 gap-0">
-                  {NAV.map((item, i) => renderNavItem(item, i, true))}
-                  <a
-                    href="/free-ai-seo-audit"
-                    onClick={(e) => handleNav(e, "/free-ai-seo-audit")}
-                    className="mt-4 py-3.5 w-full text-center text-[0.87rem] font-semibold rounded-full bg-slate-900 text-white"
-                  >
-                    Audit My Site
-                  </a>
-                </nav>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.div>
-      </div>
+          <button
+            onClick={() => setOpen(!open)}
+            className="ml-auto rounded-lg p-2.5 text-slate-700 transition hover:bg-slate-900/5 md:hidden"
+            aria-label={open ? "Close menu" : "Open menu"}
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
+
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              key="mobile-menu"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.22, ease }}
+              className="overflow-hidden border-t border-black/[0.06] bg-white md:hidden"
+            >
+              <nav className="mx-auto flex max-w-[1320px] flex-col px-5 py-4">
+                {NAV.map((item, i) => renderNavItem(item, i, true))}
+                <a
+                  href="/free-ai-seo-audit"
+                  onClick={(e) => handleNav(e, "/free-ai-seo-audit")}
+                  className="f-body mt-4 rounded-full bg-[#3B6FF0] py-3.5 text-center text-sm font-semibold text-white"
+                >
+                  Audit My Site
+                </a>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.header>
     </>
   );
 }

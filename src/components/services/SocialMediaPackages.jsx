@@ -102,17 +102,17 @@ export default function SocialMediaPackages() {
   return (
     <section
       id="content-creation"
-      className="scroll-mt-32 border-t border-slate-100 bg-slate-50 py-20 sm:py-24"
+      className="scroll-mt-32 border-t border-black/[0.05] bg-white py-16 sm:py-20 lg:py-24"
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1320px] px-5 sm:px-6 lg:px-10">
         <div className="max-w-2xl">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#3B6FF0]">
+          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
             Content Creation
           </p>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+          <h2 className="mt-3 font-sans text-[clamp(1.75rem,3vw,2.25rem)] font-extrabold tracking-[-0.03em] text-[#0f0f0f] sm:text-4xl">
             Social growth systems
           </h2>
-          <p className="mt-4 text-lg leading-relaxed text-slate-600">
+          <p className="mt-4 font-sans text-base leading-relaxed text-[#5c5c5c] lg:text-lg">
             A tiered content and social ecosystem — from consistent presence to
             full digital authority. Video production available à la carte.
           </p>
@@ -126,10 +126,10 @@ export default function SocialMediaPackages() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
-              className={`flex flex-col rounded-2xl border bg-white p-7 ${
+              className={`flex flex-col rounded-[22px] border bg-white p-7 ${
                 pkg.featured
-                  ? "border-[#3B6FF0] ring-1 ring-[#3B6FF0]/20"
-                  : "border-slate-200"
+                  ? "border-[#3B6FF0] shadow-[0_20px_48px_-20px_rgba(59,111,240,0.2)]"
+                  : "border-black/[0.06]"
               }`}
             >
               {pkg.trial && (
@@ -140,33 +140,33 @@ export default function SocialMediaPackages() {
                   30-day free trial
                 </Link>
               )}
-              <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+              <p className="text-xs font-semibold uppercase tracking-wider text-[#737373]">
                 {pkg.subtitle}
               </p>
-              <h3 className="mt-1 text-xl font-bold text-slate-900">
+              <h3 className="mt-1 text-xl font-bold text-[#0f0f0f]">
                 {pkg.name}
               </h3>
               <div className="mt-4 flex items-baseline gap-1">
-                <span className="text-2xl font-bold text-slate-900">
+                <span className="text-2xl font-bold text-[#0f0f0f]">
                   {pkg.monthly}
                 </span>
-                <span className="text-sm text-slate-500">/mo</span>
+                <span className="text-sm text-[#737373]">/mo</span>
               </div>
               {pkg.biweekly && (
-                <p className="mt-0.5 text-xs text-slate-500">
+                <p className="mt-0.5 text-xs text-[#737373]">
                   {pkg.biweekly} bi-weekly
                 </p>
               )}
               <ul className="mt-5 flex-1 space-y-2.5">
                 {pkg.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2.5 text-sm text-slate-600">
+                  <li key={f} className="flex items-start gap-2.5 text-sm text-[#5c5c5c]">
                     <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#3B6FF0]" />
                     {f}
                   </li>
                 ))}
               </ul>
-              <p className="mt-5 border-t border-slate-100 pt-4 text-xs text-slate-500">
-                <span className="font-medium text-slate-700">You get: </span>
+              <p className="mt-5 border-t border-black/[0.06] pt-4 text-xs text-[#737373]">
+                <span className="font-medium text-[#0f0f0f]">You get: </span>
                 {pkg.buying}
               </p>
               <button
@@ -180,11 +180,11 @@ export default function SocialMediaPackages() {
           ))}
         </div>
 
-        <div className="mt-14 rounded-2xl border border-slate-200 bg-white p-8 sm:p-10">
-          <h3 className="text-xl font-bold text-slate-900">
+        <div className="mt-14 rounded-[22px] border border-black/[0.06] bg-white p-8 sm:p-10">
+          <h3 className="text-xl font-bold text-[#0f0f0f]">
             Video production à la carte
           </h3>
-          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[#5c5c5c]">
             Professional filmed brand videos with raw footage delivered. Under 60
             seconds; add $100 per additional minute.
           </p>
@@ -192,13 +192,13 @@ export default function SocialMediaPackages() {
             {VIDEO_PACKAGES.map((v) => (
               <div
                 key={v.count}
-                className="rounded-xl border border-slate-100 bg-slate-50 p-5"
+                className="rounded-xl border border-black/[0.06] bg-[#fafafa] p-5"
               >
-                <p className="text-2xl font-bold text-slate-900">{v.price}</p>
-                <p className="mt-1 text-sm text-slate-600">
+                <p className="text-2xl font-bold text-[#0f0f0f]">{v.price}</p>
+                <p className="mt-1 text-sm text-[#5c5c5c]">
                   {v.count} professional brand video{v.count > 1 ? "s" : ""}
                 </p>
-                <p className="mt-2 text-xs text-slate-500">One-time</p>
+                <p className="mt-2 text-xs text-[#737373]">One-time</p>
               </div>
             ))}
           </div>

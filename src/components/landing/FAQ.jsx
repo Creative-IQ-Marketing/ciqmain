@@ -55,11 +55,7 @@ export default function FAQ() {
       as="section"
       id="faq"
       aria-label="Frequently Asked Questions"
-      style={{
-        background: "#fff",
-        padding: "clamp(5rem, 10vw, 9rem) 0",
-        overflow: "hidden",
-      }}
+      className="overflow-hidden border-t border-black/[0.05] bg-white py-16 sm:py-20 lg:py-24"
     >
       <style>{`
         .faq-num { transition: color 0.28s; }
@@ -77,71 +73,21 @@ export default function FAQ() {
         }
       `}</style>
 
-      <div
-        style={{
-          maxWidth: 1180,
-          margin: "0 auto",
-          padding: "0 clamp(1.5rem, 5vw, 5rem)",
-        }}
-      >
-        {/* ── Section header ─────────────────────────────────── */}
-        <div
-          className="faq-header-grid"
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "clamp(1.5rem, 4vw, 5rem)",
-            alignItems: "flex-end",
-            marginBottom: "clamp(2.5rem, 5vw, 4.5rem)",
-          }}
-        >
-          <div style={{ flex: "0 0 auto", maxWidth: 480 }}>
-            <p
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: 11,
-                fontWeight: 500,
-                color: "#3B6FF0",
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                marginBottom: 16,
-              }}
-            >
+      <div className="mx-auto max-w-[1320px] px-5 sm:px-6 lg:px-10">
+        <div className="faq-header-grid mb-12 flex flex-wrap items-end gap-8 sm:mb-14 lg:gap-16">
+          <div className="max-w-md shrink-0">
+            <p className="mb-4 font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
               FAQ
             </p>
-            <h2
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "var(--size-section-title)",
-                fontWeight: 800,
-                color: "var(--c-text-primary)",
-                letterSpacing: "-0.03em",
-                lineHeight: 1.08,
-                margin: 0,
-              }}
-            >
+            <h2 className="font-sans text-[clamp(2rem,4vw,3.25rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-[#0f0f0f]">
               Everything you
               <br />
               need to know
             </h2>
           </div>
 
-          <div
-            style={{
-              flex: "1 1 260px",
-              maxWidth: 420,
-              paddingBottom: 4,
-            }}
-          >
-            <p
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "clamp(0.9rem, 1.4vw, 1rem)",
-                color: "#6b7280",
-                lineHeight: 1.75,
-                margin: 0,
-              }}
-            >
+          <div className="max-w-md flex-1 pb-1">
+            <p className="font-sans text-base leading-relaxed text-[#5c5c5c]">
               Answers to the most common questions about our services, process,
               and what it's really like to partner with Creative IQ.
             </p>
@@ -149,7 +95,7 @@ export default function FAQ() {
         </div>
 
         {/* ── Accordion list ──────────────────────────────────── */}
-        <div style={{ borderTop: "1px solid rgba(0,0,0,0.08)" }} role="list">
+        <div className="border-t border-black/[0.08]" role="list">
           {FAQS.map((faq, i) => {
             const isOpen = open === i;
 
@@ -157,8 +103,7 @@ export default function FAQ() {
               <div
                 key={i}
                 role="listitem"
-                className="faq-item"
-                style={{ borderBottom: "1px solid rgba(0,0,0,0.08)" }}
+                className="faq-item border-b border-black/[0.08]"
               >
                 {/* Trigger */}
                 <button
@@ -213,32 +158,13 @@ export default function FAQ() {
                     {faq.q}
                   </span>
 
-                  {/* +/– icon */}
-                  <motion.span
-                    animate={{ rotate: isOpen ? 45 : 0 }}
-                    transition={{ duration: 0.28, ease: EASE }}
+                  {/* Expand indicator */}
+                  <span
                     aria-hidden="true"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      width: 30,
-                      height: 30,
-                      borderRadius: "50%",
-                      background: isOpen
-                        ? "#3B6FF0"
-                        : "rgba(59, 111, 240, 0.07)",
-                      color: isOpen ? "#fff" : "#3B6FF0",
-                      flexShrink: 0,
-                      fontSize: 20,
-                      fontWeight: 300,
-                      lineHeight: 1,
-                      transition: "background 0.28s, color 0.28s",
-                      userSelect: "none",
-                    }}
+                    className="shrink-0 font-sans text-xl font-light leading-none text-[#737373]"
                   >
-                    +
-                  </motion.span>
+                    {isOpen ? "−" : "+"}
+                  </span>
                 </button>
 
                 {/* Answer panel */}

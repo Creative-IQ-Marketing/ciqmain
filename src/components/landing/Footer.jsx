@@ -1,14 +1,16 @@
+import { Link } from "react-router-dom";
 import {
   Facebook,
-  Linkedin,
   Instagram,
-  Youtube,
+  Linkedin,
+  Mail,
   Music2,
+  Phone,
+  Youtube,
 } from "lucide-react";
 import mainLogo from "../../assets/mainLogo.png";
 import { trackButtonClick } from "../../services/analytics";
 import { EMAIL, PHONE_DISPLAY, PHONE_TEL } from "../../utils/contact";
-
 import { SERVICES_NAV } from "../../data/servicesNav";
 
 const SOCIALS = [
@@ -39,137 +41,180 @@ const SOCIALS = [
   },
 ];
 
-const LINKS = [
+const NAV = [
   { label: "Home", href: "/" },
-  SERVICES_NAV,
+  { label: "Services", href: "/services" },
+  { label: "Book a call", href: "/book" },
   { label: "Free SEO Audit", href: "/free-ai-seo-audit" },
   { label: "Contact", href: "/contact" },
 ];
 
 export default function Footer() {
   return (
-    <footer className="border-t border-slate-200 bg-white text-slate-900">
-      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr]">
-          <div>
-            <a href="/" className="inline-flex items-center gap-2.5">
-              <img
-                src={mainLogo}
-                alt="CreativeIQ"
-                className="h-8 w-8 object-contain"
-              />
-              <span className="text-lg font-bold tracking-tight">CreativeIQ</span>
-            </a>
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-600">
-              Performance-first digital growth systems for brands that want
-              compounding visibility and revenue.
+    <footer className="bg-white">
+      {/* CTA strip */}
+      <div className="border-t border-black/[0.06] bg-white">
+        <div className="mx-auto flex max-w-[1320px] flex-col items-start justify-between gap-6 px-5 py-12 sm:px-6 sm:py-14 md:flex-row md:items-center lg:px-10">
+          <div className="max-w-lg">
+            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
+              Next step
             </p>
-            <div className="mt-6 flex gap-2">
-              {SOCIALS.map(({ Icon, label, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-500 transition hover:border-slate-300 hover:text-slate-900"
-                >
-                  <Icon size={15} />
-                </a>
-              ))}
+            <p className="mt-2 font-sans text-[clamp(1.5rem,3vw,2rem)] font-extrabold leading-tight tracking-[-0.03em] text-[#0f0f0f]">
+              Ready to build systems that convert?
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              to="/book"
+              onClick={() =>
+                trackButtonClick("Book a call", "footer_cta", "Footer")
+              }
+              className="inline-flex items-center justify-center rounded-full bg-[#18181b] px-7 py-3 font-sans text-[15px] font-semibold text-white transition hover:bg-[#2a2a2a]"
+            >
+              Book a call
+            </Link>
+            <Link
+              to="/contact"
+              onClick={() =>
+                trackButtonClick("Start a project", "footer_cta", "Footer")
+              }
+              className="inline-flex items-center justify-center rounded-full border border-[#d4d4d4] bg-white px-7 py-3 font-sans text-[15px] font-medium text-[#252525] transition hover:border-[#aaa]"
+            >
+              Start a project
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Main footer */}
+      <div className="border-t border-black/[0.06] bg-[#0f0f0f] text-white">
+        <div className="mx-auto max-w-[1320px] px-5 py-14 sm:px-6 lg:px-10 lg:py-16">
+          <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.35fr_1fr_1fr_1.1fr]">
+            <div>
+              <a href="/" className="inline-flex items-center gap-2.5">
+                <img
+                  src={mainLogo}
+                  alt="CreativeIQ"
+                  className="h-9 w-9 object-contain brightness-0 invert"
+                />
+                <span className="font-sans text-xl font-bold tracking-[-0.03em]">
+                  Creative<span className="text-[#6B9AFF]">IQ</span>
+                </span>
+              </a>
+              <p className="mt-4 max-w-xs font-sans text-sm leading-relaxed text-white/55">
+                Performance-first growth systems — SEO, web, content, and CRM
+                built to rank and convert.
+              </p>
+              <div className="mt-6 flex gap-2">
+                {SOCIALS.map(({ Icon, label, href }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    aria-label={label}
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white/70 transition hover:border-white/20 hover:bg-white/[0.08] hover:text-white"
+                  >
+                    <Icon size={16} strokeWidth={1.75} />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <nav className="font-sans text-sm">
+              <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/40">
+                Navigate
+              </p>
+              <ul className="space-y-2.5">
+                {NAV.map((item) => (
+                  <li key={item.label}>
+                    <a
+                      href={item.href}
+                      onClick={() =>
+                        trackButtonClick(item.label, "footer_nav", "Footer")
+                      }
+                      className="text-white/65 transition hover:text-white"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+                <li>
+                  <a
+                    href="/newsletter"
+                    className="text-white/65 transition hover:text-white"
+                  >
+                    Newsletter
+                  </a>
+                </li>
+              </ul>
+            </nav>
+
+            <nav className="font-sans text-sm">
+              <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/40">
+                Services
+              </p>
+              <ul className="space-y-2.5">
+                {SERVICES_NAV.children?.map((child) => (
+                  <li key={child.href}>
+                    <a
+                      href={child.href}
+                      onClick={() =>
+                        trackButtonClick(child.label, "footer_nav", "Footer")
+                      }
+                      className="text-white/65 transition hover:text-white"
+                    >
+                      {child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            <div className="font-sans text-sm">
+              <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/40">
+                Contact
+              </p>
+              <ul className="space-y-3">
+                <li>
+                  <a
+                    href={`tel:${PHONE_TEL}`}
+                    className="inline-flex items-center gap-2.5 text-white/65 transition hover:text-white"
+                  >
+                    <Phone size={15} strokeWidth={1.75} className="text-[#6B9AFF]" />
+                    {PHONE_DISPLAY}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`mailto:${EMAIL}`}
+                    className="inline-flex items-center gap-2.5 break-all text-white/65 transition hover:text-white"
+                  >
+                    <Mail size={15} strokeWidth={1.75} className="shrink-0 text-[#6B9AFF]" />
+                    {EMAIL}
+                  </a>
+                </li>
+              </ul>
+              <p className="mt-4 text-white/45">International clients welcome</p>
             </div>
           </div>
 
-          <nav className="flex flex-col gap-2.5 text-sm text-slate-600">
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-              Navigate
+          <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-8 font-sans text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between">
+            <p>
+              {new Date().getFullYear()} CreativeIQ Marketing. All rights reserved.
             </p>
-            {LINKS.map((item) =>
-              item.children ? (
-                <div key={item.label} className="space-y-2">
-                  <a
-                    href={item.href}
-                    onClick={() =>
-                      trackButtonClick(item.label, "footer_nav", "Footer")
-                    }
-                    className="font-medium text-slate-800 transition hover:text-slate-900"
-                  >
-                    {item.label}
-                  </a>
-                  <div className="space-y-1.5 border-l border-slate-200 pl-3">
-                    {item.children.map((child) => (
-                      <a
-                        key={child.href}
-                        href={child.href}
-                        onClick={() =>
-                          trackButtonClick(child.label, "footer_nav", "Footer")
-                        }
-                        className="block text-slate-500 transition hover:text-slate-900"
-                      >
-                        {child.label}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  onClick={() =>
-                    trackButtonClick(item.label, "footer_nav", "Footer")
-                  }
-                  className="transition hover:text-slate-900"
-                >
-                  {item.label}
-                </a>
-              ),
-            )}
-            <a
-              href="/newsletter"
-              onClick={() =>
-                trackButtonClick("Newsletter", "footer_newsletter", "Footer")
-              }
-              className="transition hover:text-slate-900"
-            >
-              Newsletter
-            </a>
-          </nav>
-
-          <div className="text-sm text-slate-600">
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-              Contact
-            </p>
-            <a
-              className="mt-3 block transition hover:text-slate-900"
-              href={`tel:${PHONE_TEL}`}
-            >
-              {PHONE_DISPLAY}
-            </a>
-            <a
-              className="mt-2 block transition hover:text-slate-900"
-              href={`mailto:${EMAIL}`}
-            >
-              {EMAIL}
-            </a>
-            <p className="mt-2 text-slate-500">International clients welcome</p>
-          </div>
-        </div>
-
-        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-slate-100 pt-6 text-xs text-slate-500">
-          <p>
-            {new Date().getFullYear()} CreativeIQ Marketing. All rights reserved.
-          </p>
-          <div className="flex items-center gap-4">
-            <a href="/terms" className="transition hover:text-slate-900">
-              Terms
-            </a>
-            <a href="/privacy" className="transition hover:text-slate-900">
-              Privacy
-            </a>
-            <a
-              href="/newsletter/unsubscribed"
-              className="transition hover:text-slate-900"
-            >
-              Unsubscribe
-            </a>
+            <div className="flex flex-wrap gap-5">
+              <a href="/terms" className="transition hover:text-white/80">
+                Terms
+              </a>
+              <a href="/privacy" className="transition hover:text-white/80">
+                Privacy
+              </a>
+              <a
+                href="/newsletter/unsubscribed"
+                className="transition hover:text-white/80"
+              >
+                Unsubscribe
+              </a>
+            </div>
           </div>
         </div>
       </div>

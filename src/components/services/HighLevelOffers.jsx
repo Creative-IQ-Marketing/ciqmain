@@ -53,16 +53,16 @@ export default function HighLevelOffers() {
   };
 
   return (
-    <section id="high-level" className="border-t border-slate-100 bg-white py-20 sm:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="high-level" className="scroll-mt-32 border-t border-black/[0.05] bg-white py-16 sm:py-20 lg:py-24">
+      <div className="mx-auto max-w-[1320px] px-5 sm:px-6 lg:px-10">
         <div className="max-w-2xl">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#3B6FF0]">
+          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
             Advanced Services
           </p>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+          <h2 className="mt-3 font-sans text-[clamp(1.75rem,3vw,2.25rem)] font-extrabold tracking-[-0.03em] text-[#0f0f0f] sm:text-4xl">
             Conversion intelligence
           </h2>
-          <p className="mt-4 text-lg leading-relaxed text-slate-600">
+          <p className="mt-4 font-sans text-base leading-relaxed text-[#5c5c5c] lg:text-lg">
             For brands ready to work at the strategic level—where psychology
             meets infrastructure and every dollar is accountable.
           </p>
@@ -78,7 +78,7 @@ export default function HighLevelOffers() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: i * 0.08 }}
-                className="flex flex-col rounded-2xl border border-slate-200 bg-white p-8"
+                className="flex flex-col rounded-[22px] border border-black/[0.06] bg-white p-8"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#3B6FF0]/10">
@@ -88,10 +88,10 @@ export default function HighLevelOffers() {
                     {offer.price}
                   </p>
                 </div>
-                <h3 className="mt-5 text-xl font-bold text-slate-900">
+                <h3 className="mt-5 text-xl font-bold text-[#0f0f0f]">
                   {offer.name}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                <p className="mt-2 text-sm leading-relaxed text-[#5c5c5c]">
                   {offer.tagline}
                 </p>
 
@@ -99,22 +99,22 @@ export default function HighLevelOffers() {
                   {offer.pitch.map((item) => (
                     <li
                       key={item}
-                      className="flex items-start gap-2.5 text-sm text-slate-600"
+                      className="flex items-start gap-2.5 text-sm text-[#5c5c5c]"
                     >
-                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-slate-400" />
+                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[#3B6FF0]" />
                       {item}
                     </li>
                   ))}
                 </ul>
 
-                <div className="mt-6 rounded-xl border border-slate-100 bg-slate-50 p-4">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                <div className="mt-6 rounded-xl border border-black/[0.06] bg-[#fafafa] p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-[#737373]">
                     Example — {offer.example.client}
                   </p>
-                  <p className="mt-2 text-sm text-slate-600">
+                  <p className="mt-2 text-sm text-[#5c5c5c]">
                     {offer.example.problem}
                   </p>
-                  <p className="mt-2 text-sm font-medium text-slate-900">
+                  <p className="mt-2 text-sm font-medium text-[#0f0f0f]">
                     {offer.example.result}
                   </p>
                 </div>

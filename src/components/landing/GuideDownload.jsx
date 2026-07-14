@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Download, ArrowRight } from "lucide-react";
+import { Download } from "lucide-react";
 import { trackButtonClick } from "../../services/analytics";
 
 // One-time background cache on first hover — keeps the click instant
@@ -34,20 +34,9 @@ export default function GuideDownload() {
     <section
       id="guide-download"
       onMouseEnter={warmCache}
-      className="bg-white border-t border-slate-100"
-      style={{ padding: "clamp(4rem, 8vw, 7rem) clamp(1.5rem, 6vw, 5rem)" }}
+      className="border-t border-black/[0.05] bg-white py-16 sm:py-20 lg:py-24"
     >
-      <div
-        style={{
-          maxWidth: 1080,
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)",
-          gap: "clamp(3rem, 7vw, 7rem)",
-          alignItems: "center",
-        }}
-        className="guide-layout"
-      >
+      <div className="guide-layout mx-auto grid max-w-[1080px] grid-cols-1 items-center gap-12 px-5 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-10">
         {/* ── LEFT: Editorial copy ── */}
         <motion.div
           initial={{ opacity: 0, y: 18 }}
@@ -55,46 +44,17 @@ export default function GuideDownload() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "0.72rem",
-              fontWeight: 600,
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              color: "#3B6FF0",
-              marginBottom: "1rem",
-            }}
-          >
+          <p className="mb-4 font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
             Free Download
           </p>
 
-          <h2
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(1.75rem, 3.2vw, 2.8rem)",
-              fontWeight: 800,
-              color: "#0B0F1A",
-              lineHeight: 1.1,
-              letterSpacing: "-0.04em",
-              marginBottom: "1.25rem",
-            }}
-          >
+          <h2 className="mb-5 font-sans text-[clamp(1.75rem,3.2vw,2.8rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-[#0f0f0f]">
             The AI SEO
             <br />
             Growth Guide
           </h2>
 
-          <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "clamp(0.92rem, 1.1vw, 1rem)",
-              color: "#6B7280",
-              lineHeight: 1.7,
-              marginBottom: "2rem",
-              maxWidth: 420,
-            }}
-          >
+          <p className="mb-8 max-w-md font-sans text-base leading-relaxed text-[#5c5c5c]">
             The internal playbook we use to get clients ranking on Google and
             appearing in AI search answers. No tactics recycled from 2019 — this
             is what works now.
@@ -151,31 +111,11 @@ export default function GuideDownload() {
             }}
           >
             <button
+              type="button"
               onClick={triggerDownload}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                padding: "11px 24px",
-                borderRadius: 6,
-                background: "#0B0F1A",
-                color: "#fff",
-                border: "none",
-                cursor: "pointer",
-                fontFamily: "var(--font-body)",
-                fontSize: "0.875rem",
-                fontWeight: 600,
-                letterSpacing: "0.01em",
-                transition: "background 0.2s ease",
-              }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.background = "#1e2740")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.background = "#0B0F1A")
-              }
+              className="inline-flex items-center gap-2 rounded-full bg-[#18181b] px-6 py-3 font-sans text-sm font-semibold text-white transition hover:bg-[#2a2a2a]"
             >
-              <Download size={15} strokeWidth={2.2} />
+              <Download size={15} strokeWidth={1.75} aria-hidden />
               Download PDF
             </button>
 

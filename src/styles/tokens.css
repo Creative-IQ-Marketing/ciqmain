@@ -21,9 +21,10 @@
   --c-border-bright: rgba(59, 130, 246, 0.4);
 
   /* ── Typography ──────────────────────────────────────────── */
-  --font-display: "Bricolage Grotesque", sans-serif;
-  --font-hero: "Manrope", sans-serif;
-  --font-body: "Inter", sans-serif;
+  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-hero: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-hand: "Caveat", "Segoe Script", cursive;
 
   --size-hero: clamp(3.2rem, 8vw, 7.5rem);
   --size-section-title: clamp(2rem, 4vw, 3.5rem);
@@ -45,10 +46,12 @@
   --container-pad: clamp(1.5rem, 5vw, 5rem);
 
   /* ── Site banner ─────────────────────────────────────────── */
-  --site-mobile-banner-height: 4.25rem;
+  --site-mobile-banner-height: 3.75rem;
   --site-banner-height: 0;
-  --header-nav-top: 1.25rem;
+  --header-bar-height: 4rem;
+  --header-nav-top: 0px;
   --header-nav-top-with-banner: var(--header-nav-top);
+  --hero-header-offset: calc(var(--header-nav-top) + var(--header-bar-height));
 
   /* ── Radii ───────────────────────────────────────────────── */
   --radius-card: 16px;
@@ -57,8 +60,9 @@
 
 @media (min-width: 1024px) {
   :root {
-    --site-banner-height: 2.75rem;
-    --header-nav-top-with-banner: calc(var(--site-banner-height) + 0.625rem);
+    --site-banner-height: 2.25rem;
+    --header-nav-top-with-banner: var(--site-banner-height);
+    --hero-header-offset: calc(var(--site-banner-height) + var(--header-bar-height));
   }
 }
 

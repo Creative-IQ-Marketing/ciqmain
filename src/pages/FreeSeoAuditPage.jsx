@@ -120,7 +120,7 @@ function StatusPanel({ status, message }) {
         <div className="mt-4">
           <Link
             to="/contact"
-            className="inline-flex min-h-11 items-center justify-center rounded-full bg-slate-950 px-4 py-2.5 text-xs font-bold uppercase tracking-[0.08em] text-white transition hover:bg-[#3b6ff0]"
+            className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#18181b] px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-[#2a2a2a]"
           >
             Contact us for more access
           </Link>
@@ -306,12 +306,6 @@ export default function FreeSeoAuditPage() {
 
   return (
     <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap');
-        .audit-serif { font-family: 'Instrument Serif', serif; }
-        .audit-sans { font-family: 'Manrope', sans-serif; }
-      `}</style>
-
       <SEO
         title="Free AI SEO Audit Tool | CreativeIQ Marketing"
         description="Get a free AI-powered SEO audit for your website in seconds. Identify performance issues, ranking gaps, and conversion problems instantly."
@@ -320,17 +314,23 @@ export default function FreeSeoAuditPage() {
         pageType="website"
       />
 
-      <main className="relative overflow-hidden bg-[linear-gradient(180deg,#f7f3eb_0%,#fbfaf7_48%,#ffffff_100%)] text-slate-900">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(243,213,109,0.28),transparent_30%),radial-gradient(circle_at_top_right,rgba(59,111,240,0.10),transparent_24%)]" />
-
-        <section className="relative mx-auto max-w-3xl px-4 pb-14 pt-28 text-center sm:px-6 md:pb-18 lg:pt-36">
+      <main className="relative overflow-hidden bg-white text-[#0f0f0f]">
+        <section className="relative mx-auto max-w-3xl border-b border-black/[0.05] px-4 pb-14 pt-[calc(var(--hero-header-offset)+2rem)] text-center sm:px-6 md:pb-16 lg:pt-[calc(var(--hero-header-offset)+3rem)]">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45 }}
+            className="mb-4 font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]"
+          >
+            Free tool
+          </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.05 }}
-            className="mt-6 text-[clamp(1.8rem,9vw,3.8rem)] leading-[0.94] tracking-[-0.05em] text-[#0b1020]"
+            className="font-sans text-[clamp(2rem,4.5vw,3.25rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-[#0f0f0f]"
           >
-            <span className="audit-sans font-extrabold">Audit My Site</span>
+            Audit My Site
             <span className="sr-only">
               {" "}
               — Free AI SEO Audit Tool | CreativeIQ Marketing
@@ -341,14 +341,12 @@ export default function FreeSeoAuditPage() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.1 }}
-            className="audit-sans mx-auto mt-5 max-w-2xl space-y-4 text-sm leading-8 text-slate-600 sm:text-lg"
+            className="mx-auto mt-5 max-w-2xl font-sans text-base leading-relaxed text-[#5c5c5c]"
           >
-            <p className="text-md">
+            <p>
               Most websites underperform due to missing technical SEO
-              foundations—not poor content—so our free AI audit instantly
-              uncovers ranking gaps, performance issues, and conversion blockers
-              with actionable insights for agencies, service businesses, and
-              e-commerce sites.
+              foundations—not poor content. Our free AI audit uncovers ranking
+              gaps, performance issues, and conversion blockers in minutes.
             </p>
           </motion.div>
 
@@ -358,24 +356,22 @@ export default function FreeSeoAuditPage() {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="mx-auto mt-10 max-w-2xl"
           >
-            <div className="rounded-4xl border border-slate-300/80 bg-white/90 p-5 text-left shadow-[0_28px_70px_rgba(15,23,42,0.10)] backdrop-blur sm:p-7">
-              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-4">
+            <div className="rounded-[22px] border border-black/[0.06] bg-white p-5 text-left shadow-[0_20px_48px_-20px_rgba(0,0,0,0.1)] sm:p-7">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-black/[0.06] pb-4">
                 <div>
-                  <p className="audit-sans text-xs font-bold uppercase tracking-[0.2em] text-[#3b6ff0]">
+                  <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
                     Fast request form
                   </p>
-                  <h2 className="audit-sans mt-1 text-2xl font-extrabold tracking-[-0.04em] text-slate-950 sm:text-3xl">
+                  <h2 className="mt-2 font-sans text-2xl font-extrabold tracking-[-0.03em] text-[#0f0f0f] sm:text-3xl">
                     Unlock My Website & SEO Audit
                   </h2>
-                  <p className="audit-sans mt-3 max-w-lg text-sm leading-7 text-slate-600">
-                    This free audit analyzes your site's technical SEO
-                    foundation, mobile usability, page speed metrics, and
-                    content visibility across search and AI platforms. Perfect
-                    for agencies, service businesses, and e-commerce sites
-                    looking for quick wins.
+                  <p className="mt-3 max-w-lg font-sans text-sm leading-relaxed text-[#5c5c5c]">
+                    Technical SEO, mobile usability, speed, and content visibility
+                    — actionable insights for agencies, service businesses, and
+                    e-commerce.
                   </p>
                 </div>
-                <span className="audit-sans inline-flex min-h-10 items-center gap-2 rounded-full bg-[#edf7ef] px-3.5 py-2 text-[11px] font-bold uppercase tracking-[0.08em] text-emerald-700">
+                <span className="inline-flex min-h-10 items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3.5 py-2 font-sans text-[11px] font-semibold uppercase tracking-[0.08em] text-emerald-700">
                   <ShieldCheck className="h-4 w-4" />2 per email
                 </span>
               </div>
@@ -383,7 +379,7 @@ export default function FreeSeoAuditPage() {
               <form onSubmit={handleSubmit} className="mt-5 space-y-4">
                 <div className="grid gap-4 sm:grid-cols-2">
                   <label className="block">
-                    <span className="audit-sans mb-2 block text-sm font-semibold text-slate-700">
+                    <span className="font-sans mb-2 block text-sm font-semibold text-slate-700">
                       First name
                     </span>
                     <div className="relative">
@@ -393,14 +389,14 @@ export default function FreeSeoAuditPage() {
                         value={firstName}
                         onChange={(event) => setFirstName(event.target.value)}
                         placeholder="John"
-                        className="audit-sans h-14 w-full rounded-2xl border border-slate-300 bg-white pl-11 pr-4 text-base text-slate-900 outline-none transition focus:border-[#3b6ff0] focus:ring-4 focus:ring-[#3b6ff0]/10"
+                        className="font-sans h-14 w-full rounded-2xl border border-slate-300 bg-white pl-11 pr-4 text-base text-slate-900 outline-none transition focus:border-[#3b6ff0] focus:ring-4 focus:ring-[#3b6ff0]/10"
                         required
                       />
                     </div>
                   </label>
 
                   <label className="block">
-                    <span className="audit-sans mb-2 block text-sm font-semibold text-slate-700">
+                    <span className="font-sans mb-2 block text-sm font-semibold text-slate-700">
                       Last name
                     </span>
                     <div className="relative">
@@ -410,7 +406,7 @@ export default function FreeSeoAuditPage() {
                         value={lastName}
                         onChange={(event) => setLastName(event.target.value)}
                         placeholder="Smith"
-                        className="audit-sans h-14 w-full rounded-2xl border border-slate-300 bg-white pl-11 pr-4 text-base text-slate-900 outline-none transition focus:border-[#3b6ff0] focus:ring-4 focus:ring-[#3b6ff0]/10"
+                        className="font-sans h-14 w-full rounded-2xl border border-slate-300 bg-white pl-11 pr-4 text-base text-slate-900 outline-none transition focus:border-[#3b6ff0] focus:ring-4 focus:ring-[#3b6ff0]/10"
                         required
                       />
                     </div>
@@ -418,7 +414,7 @@ export default function FreeSeoAuditPage() {
                 </div>
 
                 <label className="block">
-                  <span className="audit-sans mb-2 block text-sm font-semibold text-slate-700">
+                  <span className="font-sans mb-2 block text-sm font-semibold text-slate-700">
                     Work email
                   </span>
                   <div className="relative">
@@ -428,14 +424,14 @@ export default function FreeSeoAuditPage() {
                       value={email}
                       onChange={(event) => setEmail(event.target.value)}
                       placeholder="you@company.com"
-                      className="audit-sans h-14 w-full rounded-2xl border border-slate-300 bg-white pl-11 pr-4 text-base text-slate-900 outline-none transition focus:border-[#3b6ff0] focus:ring-4 focus:ring-[#3b6ff0]/10"
+                      className="font-sans h-14 w-full rounded-2xl border border-slate-300 bg-white pl-11 pr-4 text-base text-slate-900 outline-none transition focus:border-[#3b6ff0] focus:ring-4 focus:ring-[#3b6ff0]/10"
                       required
                     />
                   </div>
                 </label>
 
                 <label className="block">
-                  <span className="audit-sans mb-2 block text-sm font-semibold text-slate-700">
+                  <span className="font-sans mb-2 block text-sm font-semibold text-slate-700">
                     Website URL
                   </span>
                   <div className="relative">
@@ -445,7 +441,7 @@ export default function FreeSeoAuditPage() {
                       value={url}
                       onChange={(event) => setUrl(event.target.value)}
                       placeholder="example.com"
-                      className="audit-sans h-14 w-full rounded-2xl border border-slate-300 bg-white pl-11 pr-4 text-base text-slate-900 outline-none transition focus:border-[#3b6ff0] focus:ring-4 focus:ring-[#3b6ff0]/10"
+                      className="font-sans h-14 w-full rounded-2xl border border-slate-300 bg-white pl-11 pr-4 text-base text-slate-900 outline-none transition focus:border-[#3b6ff0] focus:ring-4 focus:ring-[#3b6ff0]/10"
                       required
                     />
                   </div>
@@ -454,7 +450,7 @@ export default function FreeSeoAuditPage() {
                 <button
                   type="submit"
                   disabled={status === "submitting"}
-                  className="audit-sans inline-flex min-h-14 w-full items-center justify-center rounded-2xl bg-[#3b6ff0] px-6 py-4 text-sm font-extrabold uppercase tracking-[0.08em] text-white transition hover:bg-[#2f5fe6] disabled:cursor-not-allowed disabled:opacity-70"
+                  className="inline-flex min-h-14 w-full items-center justify-center rounded-full bg-[#18181b] px-6 py-4 font-sans text-[15px] font-semibold text-white transition hover:bg-[#2a2a2a] disabled:cursor-not-allowed disabled:opacity-70"
                 >
                   {submitLabel}
                 </button>
@@ -464,7 +460,7 @@ export default function FreeSeoAuditPage() {
                 {TRUST_POINTS.map((item) => (
                   <span
                     key={item}
-                    className="audit-sans inline-flex min-h-10 items-center rounded-full border border-slate-200 bg-[#fbfaf7] px-3.5 py-2 text-xs font-semibold text-slate-600"
+                    className="inline-flex min-h-10 items-center rounded-full border border-black/[0.06] bg-white px-3.5 py-2 font-sans text-xs font-semibold text-[#5c5c5c]"
                   >
                     {item}
                   </span>
@@ -473,7 +469,7 @@ export default function FreeSeoAuditPage() {
 
               <StatusPanel status={status} message={message} />
 
-              <p className="audit-sans mt-4 text-xs leading-6 text-slate-500">
+              <p className="font-sans mt-4 text-xs leading-6 text-slate-500">
                 Need more than two reports each month? Contact CreativeIQ to get
                 registered for broader access.
               </p>
@@ -488,10 +484,10 @@ export default function FreeSeoAuditPage() {
                 key={item.label}
                 className="rounded-3xl border border-slate-200 bg-white/80 p-5 shadow-[0_14px_34px_rgba(15,23,42,0.04)]"
               >
-                <p className="audit-sans text-sm font-bold text-slate-950">
+                <p className="font-sans text-sm font-bold text-slate-950">
                   {item.label}
                 </p>
-                <p className="audit-sans mt-2 text-sm leading-7 text-slate-600">
+                <p className="font-sans mt-2 text-sm leading-7 text-slate-600">
                   {item.body}
                 </p>
               </div>
@@ -505,7 +501,7 @@ export default function FreeSeoAuditPage() {
         >
           <div className="rounded-4xl border border-slate-200 bg-white p-6 shadow-[0_20px_50px_rgba(15,23,42,0.05)] sm:p-8">
             <div className="text-center">
-              <p className="audit-sans text-xs font-bold uppercase tracking-[0.22em] text-[#3b6ff0]">
+              <p className="font-sans text-xs font-bold uppercase tracking-[0.22em] text-[#3b6ff0]">
                 Frequently asked
               </p>
               <h2 className="mt-3 text-[clamp(2rem,5vw,3.2rem)] leading-[0.98] tracking-[-0.05em] text-slate-950">
@@ -519,10 +515,10 @@ export default function FreeSeoAuditPage() {
                   key={question}
                   className="rounded-3xl border border-slate-200 bg-[#fbfaf7] p-5"
                 >
-                  <h3 className="audit-sans text-base font-extrabold tracking-[-0.02em] text-slate-950">
+                  <h3 className="font-sans text-base font-extrabold tracking-[-0.02em] text-slate-950">
                     {question}
                   </h3>
-                  <p className="audit-sans mt-2 text-sm leading-7 text-slate-600">
+                  <p className="font-sans mt-2 text-sm leading-7 text-slate-600">
                     {answer}
                   </p>
                 </article>
@@ -539,7 +535,7 @@ export default function FreeSeoAuditPage() {
                     "Lead Magnet",
                   )
                 }
-                className="audit-sans inline-flex min-h-11 items-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-[#3b6ff0]"
+                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-[#18181b] px-5 py-3 font-sans text-sm font-semibold text-white transition hover:bg-[#2a2a2a]"
               >
                 Need more access
                 <ArrowRight className="h-4 w-4" />

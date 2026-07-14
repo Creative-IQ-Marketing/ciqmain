@@ -1,77 +1,52 @@
-import { motion } from "framer-motion";
 import { useState } from "react";
+import FadeUp from "../primitives/FadeUp";
 
-const Booking = () => {
+export default function Booking() {
   const [iframeLoaded, setIframeLoaded] = useState(false);
 
   return (
-    <section
+    <FadeUp
+      as="section"
       id="booking"
-      className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-50 relative overflow-hidden"
+      className="relative overflow-hidden bg-white px-5 pb-20 pt-[calc(var(--hero-header-offset)+2rem)] sm:px-6 sm:pb-24 lg:px-10 lg:pb-28"
     >
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-100/30 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob"></div>
-        <div className="absolute top-1/2 right-0 w-96 h-96 bg-slate-200/40 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob animation-delay-2000"></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto relative z-10">
-        <motion.div
-          initial={false}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
-            Schedule Your <span className="text-blue-600">Strategy Call</span>
-          </h2>
-          <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Select a time that works for you. Let's discuss your growth goals
+      <div className="relative z-10 mx-auto max-w-[1320px]">
+        <div className="mb-10 text-center sm:mb-12">
+          <p className="mb-4 font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
+            Book a call
+          </p>
+          <h1 className="font-sans text-[clamp(2rem,4vw,3.25rem)] font-extrabold tracking-[-0.03em] text-[#0f0f0f]">
+            Schedule your{" "}
+            <span className="text-[#3B6FF0]">strategy call</span>
+          </h1>
+          <p className="mx-auto mt-5 max-w-2xl font-sans text-base leading-relaxed text-[#5c5c5c]">
+            Select a time that works for you. We will discuss your growth goals
             and map out a plan to achieve them.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={false}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="bg-white rounded-3xl shadow-2xl overflow-hidden max-w-5xl mx-auto border border-slate-100 relative"
-        >
-          {/* Loading State */}
+        <div className="relative mx-auto max-w-5xl overflow-hidden rounded-[22px] border border-black/[0.06] bg-white shadow-[0_20px_48px_-20px_rgba(0,0,0,0.12)]">
           {!iframeLoaded && (
-            <div className="absolute inset-0 flex flex-col justify-center items-center bg-slate-50 z-20 min-h-[600px]">
-              <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-200 border-t-blue-600"></div>
-              <p className="mt-4 text-slate-500 font-medium animate-pulse">
-                Loading calendar...
+            <div className="absolute inset-0 z-20 flex min-h-[600px] flex-col items-center justify-center bg-white">
+              <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#d4d4d4] border-t-[#3B6FF0]" />
+              <p className="mt-4 font-sans text-sm text-[#737373]">
+                Loading calendar…
               </p>
             </div>
           )}
 
-          {/* GHL Widget Iframe */}
-          <div className="w-full min-h-[800px] md:min-h-[700px] bg-white">
+          <div className="min-h-[800px] w-full bg-white md:min-h-[700px]">
             <iframe
               src="https://link.creativeiq.marketing/widget/booking/ZeUt9pxYewU5fAJonRj2"
-              style={{
-                width: "100%",
-                height: "100%",
-                border: "none",
-                minHeight: "800px",
-              }}
+              className="h-full min-h-[800px] w-full border-0"
               scrolling="auto"
               id="ghl-booking-widget"
               onLoad={() => setIframeLoaded(true)}
               title="Book a Strategy Call"
-            ></iframe>
+            />
           </div>
-        </motion.div>
-
-        {/* Trust Indicators */}
-        <div className="mt-12 flex flex-wrap justify-center gap-8 text-slate-400 grayscale opacity-70">
-          {/* Simple text or icons could go here, but keeping it clean for now */}
         </div>
       </div>
-    </section>
+    </FadeUp>
   );
-};
-
-export default Booking;
+}

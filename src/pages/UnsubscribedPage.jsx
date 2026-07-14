@@ -1,8 +1,13 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useSearchParams } from "react-router-dom";
+import { Mail } from "lucide-react";
 import { unsubscribeEmailFromNewsletter } from "../services/ghl";
 import SEO from "../components/SEO";
+import PageHeader, {
+  PageCtaPrimary,
+  PageCtaSecondary,
+} from "../components/layout/PageHeader";
 
 export default function UnsubscribedPage() {
   const [searchParams] = useSearchParams();
@@ -44,70 +49,67 @@ export default function UnsubscribedPage() {
         canonical="https://creativeiq.marketing/newsletter/unsubscribed"
         noindex={true}
       />
-      <main className="min-h-screen bg-slate-950 text-white">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-10 top-20 h-64 w-64 rounded-full bg-blue-500/20 blur-3xl" />
-          <div className="absolute right-10 bottom-20 h-64 w-64 rounded-full bg-blue-500/10 blur-3xl" />
-        </div>
-        <section className="relative mx-auto flex min-h-screen max-w-4xl items-center justify-center px-4 py-20 sm:px-6 lg:px-8">
+      <main className="bg-white">
+        <PageHeader
+          eyebrow="Newsletter preferences"
+          title="Manage your subscription"
+          description="Enter your email below to unsubscribe from newsletter updates. You can resubscribe any time from our footer form."
+          align="center"
+        />
+
+        <section className="border-t border-black/[0.05] pb-20 pt-4">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="w-full rounded-3xl border border-white/15 bg-white/5 p-8 text-center shadow-[0_24px_60px_rgba(20,40,120,0.22)] backdrop-blur-xl sm:p-12"
+            transition={{ duration: 0.5 }}
+            className="mx-auto max-w-lg px-5 sm:px-6"
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-blue-200">
-              Newsletter Preferences
-            </p>
-            <h1 className="mt-4 text-4xl font-extrabold sm:text-5xl">
-              Manage Your Subscription
-            </h1>
-            <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg">
-              Enter your email below to unsubscribe from newsletter updates. You
-              can resubscribe any time from our footer form.
-            </p>
-            <form onSubmit={handleSubmit} className="mx-auto mt-8 max-w-xl">
-              <div className="flex flex-col gap-3 sm:flex-row">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                    if (error) setError("");
-                    if (success) setSuccess(false);
-                  }}
-                  placeholder="Enter your email"
-                  required
-                  className="h-12 flex-1 rounded-full border border-white/25 bg-white/10 px-5 text-sm text-white outline-none transition focus:border-blue-400"
-                />
+            <div className="rounded-[22px] border border-black/[0.06] bg-white p-8 shadow-[0_20px_48px_-24px_rgba(0,0,0,0.12)] sm:p-10">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <label className="block">
+                  <span className="mb-2 block font-sans text-sm font-medium text-[#0f0f0f]">
+                    Email address
+                  </span>
+                  <div className="relative">
+                    <Mail className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#737373]" />
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        if (error) setError("");
+                        if (success) setSuccess(false);
+                      }}
+                      placeholder="Enter your email"
+                      required
+                      className="h-12 w-full rounded-xl border border-black/[0.1] bg-white pl-11 pr-4 font-sans text-base text-[#0f0f0f] outline-none transition focus:border-[#3B6FF0] focus:ring-4 focus:ring-[#3B6FF0]/10"
+                    />
+                  </div>
+                </label>
                 <button
                   type="submit"
                   disabled={loading}
-                  className="inline-flex h-12 items-center justify-center rounded-full bg-blue-600 px-6 text-sm font-bold uppercase tracking-[0.08em] text-white transition hover:bg-blue-500 disabled:opacity-70"
+                  className="w-full rounded-full bg-[#18181b] py-3.5 font-sans text-[15px] font-semibold text-white transition hover:bg-[#2a2a2a] disabled:opacity-70"
                 >
                   {loading ? "Submitting..." : "Unsubscribe"}
                 </button>
-              </div>
+              </form>
+
               {success && (
-                <p className="mt-3 text-sm font-medium text-blue-200">
+                <p className="mt-4 text-center font-sans text-sm font-medium text-emerald-700">
                   You have been unsubscribed successfully.
                 </p>
               )}
-              {error && <p className="mt-3 text-sm text-red-300">{error}</p>}
-            </form>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <Link
-                to="/"
-                className="inline-flex h-11 items-center justify-center rounded-full bg-blue-600 px-6 text-sm font-bold uppercase tracking-[0.08em] text-white transition hover:bg-blue-500"
-              >
-                Return Home
-              </Link>
-              <Link
-                to="/"
-                className="inline-flex h-11 items-center justify-center rounded-full border border-white/35 bg-white/10 px-6 text-sm font-bold uppercase tracking-[0.08em] text-white transition hover:bg-white/20"
-              >
-                Resubscribe
-              </Link>
+              {error && (
+                <p className="mt-4 text-center font-sans text-sm text-red-600">
+                  {error}
+                </p>
+              )}
+
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+                <PageCtaPrimary to="/">Return home</PageCtaPrimary>
+                <PageCtaSecondary to="/newsletter">Resubscribe</PageCtaSecondary>
+              </div>
             </div>
           </motion.div>
         </section>

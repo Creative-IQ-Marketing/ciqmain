@@ -1,7 +1,10 @@
-import { motion } from "framer-motion";
-import { ArrowRight, Check, Instagram, MessageCircle } from "lucide-react";
+import { ArrowUpRight, Check } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
+import PageHeader, {
+  PageCtaPrimary,
+  PageCtaSecondary,
+} from "../components/layout/PageHeader";
 
 const STARTER_FEATURES = [
   "Monthly strategy meeting",
@@ -17,119 +20,80 @@ export default function SocialMediaFreeTrialPage() {
     <main className="bg-white">
       <SEO
         title="30-Day Social Media Free Trial | CreativeIQ"
-        description="Try CreativeIQ's Social Starter package free for 30 days. Consistent posting, platform optimization, and monthly strategy — built for brands ready to establish visibility."
-        keywords="social media free trial, social media management, social starter package"
+        description="Try CreativeIQ's Social Starter package free for 30 days."
+        keywords="social media free trial, social media management"
         canonical="https://creativeiq.marketing/social-media-free-trial"
       />
 
-      <section className="border-b border-slate-100 bg-slate-50 pt-28 pb-16 lg:mt-20 sm:pt-32">
-        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#3B6FF0]/20 bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-[#3B6FF0]">
-              30-day free trial
-            </span>
-            <h1 className="mt-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
-              Social Starter
-              <span className="block text-2xl font-semibold text-slate-500 sm:text-3xl">
-                Presence System
-              </span>
-            </h1>
-            <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-slate-600">
-              For brands that need consistency before growth. Establish your
-              presence with professional posting, captions, and cross-platform
-              formatting — no long-term commitment to start.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <PageHeader
+        align="center"
+        eyebrow="30-day free trial"
+        title="Social Starter"
+        titleAccent="Presence System"
+        description="For brands that need consistency before growth. Professional posting, captions, and cross-platform formatting — no long-term commitment to start."
+      >
+        <PageCtaPrimary to="/services?interest=social-starter#services-contact">
+          Start free trial
+        </PageCtaPrimary>
+        <PageCtaSecondary to="/services#content-creation">
+          Compare packages
+        </PageCtaSecondary>
+      </PageHeader>
 
-      <section className="py-16 sm:py-20">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+      <section className="border-t border-black/[0.05] bg-white py-16 sm:py-20">
+        <div className="mx-auto max-w-[1320px] px-5 sm:px-6 lg:px-10">
           <div className="grid gap-10 lg:grid-cols-[1fr_340px] lg:items-start">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="rounded-2xl border border-slate-200 bg-white p-8 sm:p-10"
-            >
-              <div className="mb-6 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#3B6FF0]/10">
-                  <Instagram className="h-5 w-5 text-[#3B6FF0]" />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-                    What&apos;s included
-                  </p>
-                  <p className="text-sm font-medium text-slate-900">
-                    Full Social Starter package
-                  </p>
-                </div>
-              </div>
-
-              <ul className="space-y-3.5">
+            <div className="rounded-[22px] border border-black/[0.06] bg-white p-8 sm:p-10">
+              <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
+                What&apos;s included
+              </p>
+              <h2 className="mt-3 font-sans text-2xl font-extrabold tracking-[-0.03em] text-[#0f0f0f]">
+                Full Social Starter package
+              </h2>
+              <ul className="mt-8 space-y-3.5">
                 {STARTER_FEATURES.map((feature) => (
                   <li key={feature} className="flex items-start gap-3">
                     <Check
                       className="mt-0.5 h-4 w-4 shrink-0 text-[#3B6FF0]"
-                      strokeWidth={2.5}
+                      strokeWidth={2}
+                      aria-hidden
                     />
-                    <span className="text-sm text-slate-700">{feature}</span>
+                    <span className="font-sans text-sm text-[#5c5c5c]">{feature}</span>
                   </li>
                 ))}
               </ul>
+            </div>
 
-              <div className="mt-8 rounded-xl border border-slate-100 bg-slate-50 p-5">
-                <p className="text-sm font-semibold text-slate-900">
-                  What you&apos;re buying
-                </p>
-                <p className="mt-1 text-sm text-slate-600">
-                  Consistency and basic visibility — the foundation every growth
-                  system needs.
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.aside
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm lg:sticky lg:top-28"
-            >
-              <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+            <aside className="rounded-[22px] border border-black/[0.06] bg-white p-8 shadow-[0_8px_30px_rgba(15,23,42,0.04)] lg:sticky lg:top-28">
+              <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#737373]">
                 After your trial
               </p>
-              <div className="mt-2 flex items-baseline gap-1">
-                <span className="text-3xl font-bold text-slate-900">$589</span>
-                <span className="text-sm text-slate-500">/month</span>
+              <div className="mt-3 flex items-baseline gap-1">
+                <span className="font-sans text-3xl font-extrabold text-[#0f0f0f]">$589</span>
+                <span className="font-sans text-sm text-[#737373]">/month</span>
               </div>
-              <p className="mt-1 text-xs text-slate-500">
-                or $299 bi-weekly
-              </p>
+              <p className="mt-1 font-sans text-xs text-[#737373]">or $299 bi-weekly</p>
 
               <div className="mt-6 space-y-3">
                 <Link
                   to="/services?interest=social-starter#services-contact"
-                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#3B6FF0] py-3.5 text-sm font-semibold text-white transition hover:bg-[#2f5ad4]"
+                  className="flex w-full items-center justify-center gap-2 rounded-full bg-[#18181b] py-3.5 font-sans text-sm font-semibold text-white transition hover:bg-[#2a2a2a]"
                 >
-                  Start free trial <ArrowRight className="h-4 w-4" />
+                  Start free trial
+                  <ArrowUpRight size={16} strokeWidth={1.75} aria-hidden />
                 </Link>
                 <Link
                   to="/services#content-creation"
-                  className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 py-3.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+                  className="flex w-full items-center justify-center rounded-full border border-[#d4d4d4] py-3.5 font-sans text-sm font-medium text-[#252525] transition hover:border-[#aaa]"
                 >
                   Compare all packages
                 </Link>
               </div>
 
-              <p className="mt-5 flex items-start gap-2 text-xs leading-relaxed text-slate-500">
-                <MessageCircle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+              <p className="mt-5 font-sans text-xs leading-relaxed text-[#737373]">
                 30 days free. Cancel anytime during the trial — no obligation.
               </p>
-            </motion.aside>
+            </aside>
           </div>
         </div>
       </section>

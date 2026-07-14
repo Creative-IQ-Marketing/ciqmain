@@ -35,26 +35,17 @@ const Clients = () => {
     <FadeUp
       as="section"
       ref={sectionRef}
-      className="relative overflow-hidden border-y border-slate-100/90 bg-[#fafafa] py-14 sm:py-16"
+      className="relative overflow-hidden border-y border-black/[0.05] bg-white py-12 sm:py-14"
     >
-      <div className="mx-auto mb-10 max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-        <p
-          className="uppercase"
-          style={{
-            fontFamily: "var(--font-body)",
-            fontSize: "var(--size-label)",
-            fontWeight: 600,
-            letterSpacing: "var(--tracking-label)",
-            color: "var(--c-text-secondary)",
-          }}
-        >
+      <div className="mx-auto mb-10 max-w-[1320px] px-5 text-center sm:px-6 lg:px-10">
+        <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#737373]">
           Trusted by
         </p>
       </div>
 
       <div className="relative hidden w-full overflow-hidden md:block">
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-28 bg-gradient-to-r from-[#fafafa] to-transparent sm:w-36" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-28 bg-gradient-to-l from-[#fafafa] to-transparent sm:w-36" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-28 bg-gradient-to-r from-white to-transparent sm:w-36" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-28 bg-gradient-to-l from-white to-transparent sm:w-36" />
 
         <div className="flex">
           <motion.div
@@ -79,7 +70,7 @@ const Clients = () => {
                   className="relative flex h-20 w-44 shrink-0 cursor-default items-center justify-center sm:h-24 sm:w-48"
                   onMouseEnter={() => setHoveredId(client.id)}
                   onMouseLeave={() => setHoveredId(null)}
-                  whileHover={{ y: -2 }}
+                  whileHover={{ y: 0 }}
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 >
                   <motion.img
@@ -88,8 +79,8 @@ const Clients = () => {
                     className="max-h-full max-w-full object-contain"
                     animate={{
                       filter: active ? "grayscale(0%)" : "grayscale(100%)",
-                      opacity: active ? 1 : 0.5,
-                      scale: active ? 1.06 : 1,
+                      opacity: active ? 1 : 0.45,
+                      scale: active ? 1.05 : 1,
                     }}
                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                   />
@@ -117,7 +108,7 @@ const Clients = () => {
                 className="max-h-full max-w-[85%] object-contain"
                 animate={{
                   filter: "grayscale(100%)",
-                  opacity: 0.55,
+                  opacity: 0.5,
                 }}
                 whileTap={{
                   filter: "grayscale(0%)",
@@ -130,9 +121,9 @@ const Clients = () => {
           </AnimatePresence>
         </div>
 
-        <div className="mx-auto mt-8 h-px max-w-xs overflow-hidden rounded-full bg-slate-200">
+        <div className="mx-auto mt-8 h-px max-w-xs overflow-hidden rounded-full bg-black/[0.08]">
           <motion.div
-            className="h-full rounded-full bg-slate-400"
+            className="h-full rounded-full bg-[#3B6FF0]/40"
             animate={{
               width: `${((currentIndex + 1) / clients.length) * 100}%`,
             }}
