@@ -57,14 +57,14 @@ export default function UnsubscribedPage() {
           align="center"
         />
 
-        <section className="border-t border-black/[0.05] pb-20 pt-4">
+        <section className="border-t border-[var(--c-border)] bg-[var(--c-surface-2)] pb-20 pt-10">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="mx-auto max-w-lg px-5 sm:px-6"
           >
-            <div className="rounded-[22px] border border-black/[0.06] bg-white p-8 shadow-[0_20px_48px_-24px_rgba(0,0,0,0.12)] sm:p-10">
+            <div className="border border-[var(--c-border)] bg-white p-8 sm:p-10">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <label className="block">
                   <span className="mb-2 block font-sans text-sm font-medium text-[#0f0f0f]">

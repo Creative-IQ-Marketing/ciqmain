@@ -19,7 +19,7 @@ const PACKAGES = [
       "Cross-platform formatting",
       "Monthly engagement summary",
     ],
-    buying: "Consistency + basic visibility",
+    buying: "Reliable posting rhythm and basic visibility without a full in-house team.",
   },
   {
     name: "The Classic",
@@ -35,7 +35,7 @@ const PACKAGES = [
       "Short-form video integration",
       "1 LinkedIn blog (if applicable)",
     ],
-    buying: "Content quality + brand positioning",
+    buying: "Stronger creative quality and clearer brand positioning across three platforms.",
     featured: true,
   },
   {
@@ -52,7 +52,7 @@ const PACKAGES = [
       "Automated scheduling",
       "Monthly analytics report",
     ],
-    buying: "Consistency + strategy + performance tracking",
+    buying: "Cadence plus strategy and performance tracking for teams that outgrew ad-hoc posting.",
   },
   {
     name: "The Signature",
@@ -68,7 +68,7 @@ const PACKAGES = [
       "Trend + creative direction",
       "Up to 2 LinkedIn blogs",
     ],
-    buying: "Scale + reach + smarter distribution",
+    buying: "Broader reach with smarter distribution when one channel is no longer enough.",
   },
   {
     name: "Elite Social System",
@@ -84,7 +84,7 @@ const PACKAGES = [
       "Automated DM & inquiry flows",
       "Advanced analytics dashboard",
     ],
-    buying: "Authority + lead generation + system-driven growth",
+    buying: "Authority, lead capture, and system-driven growth across your full social surface.",
   },
 ];
 
@@ -102,18 +102,15 @@ export default function SocialMediaPackages() {
   return (
     <section
       id="content-creation"
-      className="scroll-mt-32 border-t border-black/[0.05] bg-white py-16 sm:py-20 lg:py-24"
+      className="scroll-mt-32 border-t border-black/[0.05] bg-[#f5f6f8] py-16 sm:py-20 lg:py-24"
     >
       <div className="mx-auto max-w-[1320px] px-5 sm:px-6 lg:px-10">
         <div className="max-w-2xl">
-          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
-            Content Creation
-          </p>
-          <h2 className="mt-3 font-sans text-[clamp(1.75rem,3vw,2.25rem)] font-extrabold tracking-[-0.03em] text-[#0f0f0f] sm:text-4xl">
+          <h2 className="font-sans text-[clamp(1.75rem,3vw,2.25rem)] font-extrabold tracking-[-0.03em] text-[#0f0f0f] sm:text-4xl">
             Social growth systems
           </h2>
           <p className="mt-4 font-sans text-base leading-relaxed text-[#5c5c5c] lg:text-lg">
-            A tiered content and social ecosystem — from consistent presence to
+            A tiered content and social ecosystem, from consistent presence to
             full digital authority. Video production available à la carte.
           </p>
         </div>
@@ -126,21 +123,21 @@ export default function SocialMediaPackages() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
-              className={`flex flex-col rounded-[22px] border bg-white p-7 ${
+              className={`group flex flex-col rounded-[var(--radius-card)] border bg-white p-7 transition-[border-color] duration-300 ${
                 pkg.featured
-                  ? "border-[#3B6FF0] shadow-[0_20px_48px_-20px_rgba(59,111,240,0.2)]"
-                  : "border-black/[0.06]"
+                  ? "border-[var(--c-accent)]"
+                  : "border-black/[0.08] hover:border-black/[0.16]"
               }`}
             >
               {pkg.trial && (
                 <Link
                   to="/social-media-free-trial"
-                  className="mb-4 inline-flex w-fit rounded-full bg-[#3B6FF0]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-[#3B6FF0] transition hover:bg-[#3B6FF0]/15"
+                  className="mb-4 inline-flex w-fit border border-[var(--c-accent)]/30 px-3 py-1 text-[11px] font-semibold tracking-wide text-[var(--c-accent)] transition hover:bg-[var(--c-accent)]/[0.04]"
                 >
                   30-day free trial
                 </Link>
               )}
-              <p className="text-xs font-semibold uppercase tracking-wider text-[#737373]">
+              <p className="text-xs font-medium text-[#737373]">
                 {pkg.subtitle}
               </p>
               <h3 className="mt-1 text-xl font-bold text-[#0f0f0f]">
@@ -180,7 +177,7 @@ export default function SocialMediaPackages() {
           ))}
         </div>
 
-        <div className="mt-14 rounded-[22px] border border-black/[0.06] bg-white p-8 sm:p-10">
+        <div className="mt-14 rounded-[var(--radius-card)] border border-black/[0.06] bg-white p-8 sm:p-10">
           <h3 className="text-xl font-bold text-[#0f0f0f]">
             Video production à la carte
           </h3>

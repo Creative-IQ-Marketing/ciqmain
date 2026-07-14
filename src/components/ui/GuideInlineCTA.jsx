@@ -13,89 +13,26 @@ function triggerDownload(source = "inline_cta") {
 
 /**
  * Compact inline guide CTA — drop into any page.
- * Usage: <GuideInlineCTA source="contact_page" />
  */
 export default function GuideInlineCTA({ source = "inline_cta" }) {
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        gap: "1.5rem",
-        padding: "1.25rem 1.5rem",
-        borderRadius: 8,
-        border: "1px solid #E5E7EB",
-        background: "#FAFAFA",
-        flexWrap: "wrap",
-      }}
-    >
-      {/* Left: text */}
-      <div style={{ display: "flex", alignItems: "center", gap: "1rem", minWidth: 0 }}>
-        {/* Accent bar */}
-        <div
-          aria-hidden="true"
-          style={{
-            width: 3,
-            height: 36,
-            borderRadius: 2,
-            background: "#3B6FF0",
-            flexShrink: 0,
-          }}
-        />
-        <div>
-          <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "0.82rem",
-              fontWeight: 600,
-              color: "#0B0F1A",
-              margin: "0 0 2px",
-              letterSpacing: "-0.01em",
-            }}
-          >
-            AI SEO Growth Guide — Free PDF
-          </p>
-          <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "0.75rem",
-              color: "#9CA3AF",
-              margin: 0,
-              lineHeight: 1.4,
-            }}
-          >
-            The exact framework we use to get clients ranking on Google and AI platforms.
-          </p>
-        </div>
+    <div className="flex flex-wrap items-center justify-between gap-5 border border-[var(--c-border)] bg-[var(--c-surface-2)] px-5 py-4 sm:px-6">
+      <div className="min-w-0">
+        <p className="font-sans text-sm font-semibold tracking-[-0.01em] text-[var(--c-ink)]">
+          AI SEO Growth Guide - Free PDF
+        </p>
+        <p className="mt-1 font-sans text-sm leading-snug text-[var(--c-text-muted)]">
+          The exact framework we use to get clients ranking on Google and AI
+          platforms.
+        </p>
       </div>
-
-      {/* Right: button */}
       <button
+        type="button"
         onClick={() => triggerDownload(source)}
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: 7,
-          padding: "9px 18px",
-          borderRadius: 6,
-          background: "#0B0F1A",
-          color: "#fff",
-          border: "none",
-          cursor: "pointer",
-          fontFamily: "var(--font-body)",
-          fontSize: "0.8rem",
-          fontWeight: 600,
-          letterSpacing: "0.01em",
-          whiteSpace: "nowrap",
-          transition: "background 0.2s ease",
-          flexShrink: 0,
-        }}
-        onMouseEnter={(e) => (e.currentTarget.style.background = "#1e2740")}
-        onMouseLeave={(e) => (e.currentTarget.style.background = "#0B0F1A")}
+        className="inline-flex shrink-0 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--c-cta)] px-5 py-2.5 font-sans text-sm font-semibold text-white transition hover:bg-[var(--c-cta-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)]"
       >
-        <Download size={13} strokeWidth={2.3} />
-        Download Free
+        <Download size={14} strokeWidth={2} aria-hidden />
+        Download free
       </button>
     </div>
   );

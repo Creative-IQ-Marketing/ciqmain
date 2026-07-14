@@ -12,6 +12,7 @@ import mainLogo from "../../assets/mainLogo.png";
 import { trackButtonClick } from "../../services/analytics";
 import { EMAIL, PHONE_DISPLAY, PHONE_TEL } from "../../utils/contact";
 import { SERVICES_NAV } from "../../data/servicesNav";
+import footerVoid from "../../assets/sections/section-footer-void.jpg";
 
 const SOCIALS = [
   {
@@ -51,15 +52,18 @@ const NAV = [
 
 export default function Footer() {
   return (
-    <footer className="bg-white">
-      {/* CTA strip */}
-      <div className="border-t border-black/[0.06] bg-white">
-        <div className="mx-auto flex max-w-[1320px] flex-col items-start justify-between gap-6 px-5 py-12 sm:px-6 sm:py-14 md:flex-row md:items-center lg:px-10">
-          <div className="max-w-lg">
-            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
-              Next step
-            </p>
-            <p className="mt-2 font-sans text-[clamp(1.5rem,3vw,2rem)] font-extrabold leading-tight tracking-[-0.03em] text-[#0f0f0f]">
+    <footer className="bg-[var(--c-base)]">
+      <div className="relative overflow-hidden border-t border-[var(--c-border)]">
+        <img
+          src={footerVoid}
+          alt=""
+          aria-hidden
+          className="absolute inset-0 size-full object-cover opacity-90"
+        />
+        <div className="absolute inset-0 bg-[var(--c-ink)]/75" />
+        <div className="relative mx-auto flex max-w-[var(--container-max)] flex-col items-start justify-between gap-10 px-[var(--container-pad)] py-20 sm:py-24 md:flex-row md:items-end lg:py-28">
+          <div className="max-w-2xl">
+            <p className="font-sans text-[clamp(2.4rem,6vw,5rem)] font-extrabold leading-[0.95] tracking-[-0.045em] text-white text-balance">
               Ready to build systems that convert?
             </p>
           </div>
@@ -69,7 +73,7 @@ export default function Footer() {
               onClick={() =>
                 trackButtonClick("Book a call", "footer_cta", "Footer")
               }
-              className="inline-flex items-center justify-center rounded-full bg-[#18181b] px-7 py-3 font-sans text-[15px] font-semibold text-white transition hover:bg-[#2a2a2a]"
+              className="inline-flex items-center justify-center rounded-[var(--radius-pill)] bg-white px-8 py-3.5 font-sans text-[15px] font-semibold text-[var(--c-ink)] transition hover:bg-white/90"
             >
               Book a call
             </Link>
@@ -78,7 +82,7 @@ export default function Footer() {
               onClick={() =>
                 trackButtonClick("Start a project", "footer_cta", "Footer")
               }
-              className="inline-flex items-center justify-center rounded-full border border-[#d4d4d4] bg-white px-7 py-3 font-sans text-[15px] font-medium text-[#252525] transition hover:border-[#aaa]"
+              className="inline-flex items-center justify-center rounded-[var(--radius-pill)] border border-white/30 bg-transparent px-8 py-3.5 font-sans text-[15px] font-medium text-white transition hover:border-white"
             >
               Start a project
             </Link>
@@ -86,9 +90,8 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Main footer */}
-      <div className="border-t border-black/[0.06] bg-[#0f0f0f] text-white">
-        <div className="mx-auto max-w-[1320px] px-5 py-14 sm:px-6 lg:px-10 lg:py-16">
+      <div className="bg-[var(--c-footer)] text-white">
+        <div className="mx-auto max-w-[var(--container-max)] px-[var(--container-pad)] py-14 lg:py-16">
           <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.35fr_1fr_1fr_1.1fr]">
             <div>
               <a href="/" className="inline-flex items-center gap-2.5">
@@ -102,7 +105,7 @@ export default function Footer() {
                 </span>
               </a>
               <p className="mt-4 max-w-xs font-sans text-sm leading-relaxed text-white/55">
-                Performance-first growth systems — SEO, web, content, and CRM
+                Performance-first growth systems: SEO, web, content, and CRM
                 built to rank and convert.
               </p>
               <div className="mt-6 flex gap-2">
@@ -179,7 +182,11 @@ export default function Footer() {
                     href={`tel:${PHONE_TEL}`}
                     className="inline-flex items-center gap-2.5 text-white/65 transition hover:text-white"
                   >
-                    <Phone size={15} strokeWidth={1.75} className="text-[#6B9AFF]" />
+                    <Phone
+                      size={15}
+                      strokeWidth={1.75}
+                      className="text-[#6B9AFF]"
+                    />
                     {PHONE_DISPLAY}
                   </a>
                 </li>
@@ -188,7 +195,11 @@ export default function Footer() {
                     href={`mailto:${EMAIL}`}
                     className="inline-flex items-center gap-2.5 break-all text-white/65 transition hover:text-white"
                   >
-                    <Mail size={15} strokeWidth={1.75} className="shrink-0 text-[#6B9AFF]" />
+                    <Mail
+                      size={15}
+                      strokeWidth={1.75}
+                      className="shrink-0 text-[#6B9AFF]"
+                    />
                     {EMAIL}
                   </a>
                 </li>
@@ -199,7 +210,8 @@ export default function Footer() {
 
           <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-8 font-sans text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between">
             <p>
-              {new Date().getFullYear()} CreativeIQ Marketing. All rights reserved.
+              {new Date().getFullYear()} CreativeIQ Marketing. All rights
+              reserved.
             </p>
             <div className="flex flex-wrap gap-5">
               <a href="/terms" className="transition hover:text-white/80">

@@ -1,15 +1,18 @@
 /**
- * BrandLyft-style pen accents — positioned beside hero copy, pointing at the gallery.
+ * BrandLyft-adjacent pen accent — handwritten note pointing to the gallery.
+ * Single signature moment. Not decoration spam.
  */
 export default function HeroDecorations() {
   return (
-    <div className="pointer-events-none absolute inset-0 hidden lg:block" aria-hidden>
-      {/* Left spark marks — beside headline */}
+    <div
+      className="pointer-events-none absolute inset-0 hidden lg:block"
+      aria-hidden
+    >
       <svg
         viewBox="0 0 56 64"
         fill="none"
-        className="absolute left-[max(1rem,calc(50%-520px))] top-[38%] h-14 w-14 text-[#0f0f0f]"
-        style={{ opacity: 0.22 }}
+        className="absolute left-[max(1rem,calc(50%-520px))] top-[38%] h-14 w-14 text-[var(--c-ink)]"
+        style={{ opacity: 0.2 }}
       >
         <path
           d="M14 18 L14 26 M10 22 L18 22"
@@ -31,13 +34,12 @@ export default function HeroDecorations() {
         />
       </svg>
 
-      {/* Right — handwritten note + long curve toward carousel */}
       <div
         className="absolute right-[max(1.5rem,calc(50%-480px))] top-[36%] flex flex-col items-end"
-        style={{ opacity: 0.9 }}
+        style={{ opacity: 0.92 }}
       >
         <p
-          className="mb-0 max-w-[140px] text-right text-[1.55rem] leading-[1.1] text-[#0f0f0f]/50"
+          className="mb-0 max-w-[140px] text-right text-[1.55rem] leading-[1.15] text-[var(--c-ink)]/55 pb-1"
           style={{
             fontFamily: "var(--font-hand)",
             transform: "rotate(-8deg) translateX(8px)",
@@ -48,7 +50,7 @@ export default function HeroDecorations() {
         <svg
           viewBox="0 0 120 140"
           fill="none"
-          className="-mt-1 mr-2 h-[130px] w-[100px] text-[#0f0f0f]"
+          className="-mt-1 mr-2 h-[130px] w-[100px] text-[var(--c-ink)]"
           style={{ opacity: 0.28 }}
         >
           <path

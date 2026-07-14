@@ -87,7 +87,7 @@ function StatusPanel({ status, message }) {
     },
     limited: {
       title: "Free limit reached",
-      className: "border-[#f6c343]/50 bg-[#fffaf0] text-slate-900",
+      className: "border-[var(--c-accent)]/30 bg-[var(--c-accent-dim)] text-[var(--c-ink)]",
       icon: CircleAlert,
     },
     error: {
@@ -315,15 +315,7 @@ export default function FreeSeoAuditPage() {
       />
 
       <main className="relative overflow-hidden bg-white text-[#0f0f0f]">
-        <section className="relative mx-auto max-w-3xl border-b border-black/[0.05] px-4 pb-14 pt-[calc(var(--hero-header-offset)+2rem)] text-center sm:px-6 md:pb-16 lg:pt-[calc(var(--hero-header-offset)+3rem)]">
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45 }}
-            className="mb-4 font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]"
-          >
-            Free tool
-          </motion.p>
+        <section className="relative mx-auto max-w-3xl border-b border-black/[0.05] px-4 pb-14 pt-[calc(var(--hero-header-offset)+1.75rem)] text-center sm:px-6 md:pb-16">
           <motion.h1
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
@@ -333,7 +325,7 @@ export default function FreeSeoAuditPage() {
             Audit My Site
             <span className="sr-only">
               {" "}
-              — Free AI SEO Audit Tool | CreativeIQ Marketing
+              Free AI SEO Audit Tool from CreativeIQ Marketing
             </span>
           </motion.h1>
 
@@ -344,9 +336,10 @@ export default function FreeSeoAuditPage() {
             className="mx-auto mt-5 max-w-2xl font-sans text-base leading-relaxed text-[#5c5c5c]"
           >
             <p>
-              Most websites underperform due to missing technical SEO
-              foundations—not poor content. Our free AI audit uncovers ranking
-              gaps, performance issues, and conversion blockers in minutes.
+              Most sites underperform because technical foundations are thin,
+              not because the copy is boring. This free AI audit covers
+              technical signals, mobile experience, and commercial readiness,
+              then emails your visibility report.
             </p>
           </motion.div>
 
@@ -356,14 +349,11 @@ export default function FreeSeoAuditPage() {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="mx-auto mt-10 max-w-2xl"
           >
-            <div className="rounded-[22px] border border-black/[0.06] bg-white p-5 text-left shadow-[0_20px_48px_-20px_rgba(0,0,0,0.1)] sm:p-7">
+            <div className="rounded-[var(--radius-card)] border border-black/[0.08] bg-[#f5f6f8] p-5 text-left sm:p-7">
               <div className="flex flex-wrap items-center justify-between gap-3 border-b border-black/[0.06] pb-4">
                 <div>
-                  <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
-                    Fast request form
-                  </p>
-                  <h2 className="mt-2 font-sans text-2xl font-extrabold tracking-[-0.03em] text-[#0f0f0f] sm:text-3xl">
-                    Unlock My Website & SEO Audit
+                  <h2 className="font-sans text-2xl font-extrabold tracking-[-0.03em] text-[#0f0f0f] sm:text-3xl">
+                    Get My Visibility Report
                   </h2>
                   <p className="mt-3 max-w-lg font-sans text-sm leading-relaxed text-[#5c5c5c]">
                     Technical SEO, mobile usability, speed, and content visibility

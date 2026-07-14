@@ -1,28 +1,25 @@
 import { ArrowUpRight, Calendar } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { trackButtonClick } from "../../services/analytics";
-import FadeUp from "../primitives/FadeUp";
+import Reveal from "../primitives/Reveal";
+import atmosphere from "../../assets/sections/section-about-atmosphere.jpg";
 
 const POINTS = [
   {
-    num: "01",
     title: "Proven results",
-    body: "300% average increase in organic traffic. Not a projection — our clients live it.",
+    body: "Traffic lifts, retention, and custom systems ship because we measure what the business actually feels.",
   },
   {
-    num: "02",
     title: "AI-era expertise",
-    body: "We build for how search works in 2026: ChatGPT, Gemini, Google AI, and beyond.",
+    body: "Built for discovery in 2026: Google, ChatGPT, Gemini, Perplexity, and the technical signals they reward.",
   },
   {
-    num: "03",
     title: "Full-stack execution",
-    body: "One team handles your web, SEO, CRM, content, and ads. No agency juggling.",
+    body: "Web, SEO, CRM, content, and social stay under one roof so strategy never fractures across vendors.",
   },
   {
-    num: "04",
-    title: "Local & nationwide",
-    body: "Based in San Antonio, TX — serving businesses across the country.",
+    title: "Local and nationwide",
+    body: "San Antonio rooted, national reach. Local operators and multi-market teams get the same discipline.",
   },
 ];
 
@@ -30,39 +27,62 @@ export default function About() {
   const navigate = useNavigate();
 
   return (
-    <FadeUp
-      as="section"
+    <section
       id="about"
-      className="border-t border-black/[0.05] bg-white py-16 sm:py-20 lg:py-24"
+      className="relative overflow-hidden border-t border-[var(--c-border)] bg-[var(--c-base)]"
     >
-      <div className="mx-auto flex max-w-[1320px] flex-wrap items-start gap-12 px-5 sm:px-6 lg:gap-20 lg:px-10">
-        <div className="w-full lg:w-[min(100%,400px)] lg:shrink-0">
-          <p className="mb-4 font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
-            About CreativeIQ
+          <div className="grid lg:grid-cols-2">
+        <div className="relative min-h-[36vh] lg:min-h-[420px]">
+          <img
+            src={atmosphere}
+            alt="San Antonio Riverwalk at dusk"
+            className="absolute inset-0 size-full object-cover"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-black/20" />
+          <p className="absolute bottom-8 left-8 max-w-xs font-sans text-sm text-white/85 lg:bottom-12 lg:left-12">
+            Based in San Antonio. Building systems that travel.
           </p>
-          <h2 className="font-sans text-[clamp(2.2rem,3.8vw,3.4rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-[#0f0f0f]">
-            Your growth
-            <br />
-            partner in
-            <br />
-            <span className="text-[#3B6FF0]">the AI era.</span>
+        </div>
+
+        <Reveal className="flex flex-col justify-center px-[var(--container-pad)] py-12 sm:py-14 lg:px-14 xl:px-16">
+          <h2 className="max-w-lg font-sans text-[clamp(1.9rem,3.5vw,2.85rem)] font-extrabold leading-[1.05] tracking-[-0.04em] text-[var(--c-ink)] text-balance">
+            Your growth partner in{" "}
+            <span className="text-[var(--c-accent)]">the AI era</span>
           </h2>
-          <p className="mt-5 max-w-sm font-sans text-[15px] leading-relaxed text-[#5c5c5c]">
-            Digital systems engineered for AI-driven discovery — SEO, websites,
-            CRM, and social, built as one cohesive growth stack.
+          <p className="mt-4 max-w-md font-sans text-[15px] leading-relaxed text-[var(--c-text-secondary)]">
+            Digital systems for AI-driven discovery. SEO, websites, CRM, and
+            social operate as one growth stack rather than a pile of tools.
           </p>
-          <div className="mt-8 flex flex-col items-start gap-3">
+
+          <div className="mt-8 grid gap-0 sm:grid-cols-2 sm:gap-x-8" data-reveal-group>
+            {POINTS.map((p) => (
+              <div
+                key={p.title}
+                data-reveal-item
+                className="border-t border-[var(--c-border)] py-5"
+              >
+                <p className="font-sans text-[15px] font-semibold text-[var(--c-ink)]">
+                  {p.title}
+                </p>
+                <p className="mt-1.5 font-sans text-sm leading-relaxed text-[var(--c-text-muted)]">
+                  {p.body}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-6">
             <button
               type="button"
               onClick={() => {
                 trackButtonClick("About CTA", "about_cta", "About");
                 navigate("/book");
               }}
-              className="inline-flex items-center gap-1.5 font-sans text-[15px] font-medium text-[#0f0f0f] transition hover:text-[#3B6FF0]"
+              className="inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--c-cta)] px-7 py-3 font-sans text-[15px] font-semibold text-white transition hover:bg-[var(--c-cta-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)]"
             >
               <Calendar size={15} strokeWidth={1.75} aria-hidden />
               Book a strategy call
-              <ArrowUpRight size={14} strokeWidth={1.75} aria-hidden />
             </button>
             <button
               type="button"
@@ -70,37 +90,14 @@ export default function About() {
                 trackButtonClick("About Audit CTA", "about_audit_cta", "About");
                 navigate("/free-ai-seo-audit");
               }}
-              className="inline-flex items-center gap-1.5 font-sans text-[15px] font-medium text-[#3B6FF0] transition hover:text-[#2f5ad4]"
+              className="inline-flex items-center gap-1.5 font-sans text-[15px] font-medium text-[var(--c-accent)] transition hover:text-[#2f5ad4] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)]"
             >
               Free AI SEO audit
               <ArrowUpRight size={14} strokeWidth={1.75} aria-hidden />
             </button>
           </div>
-        </div>
-
-        <div className="min-w-[260px] flex-1">
-          {POINTS.map((p, i) => (
-            <div
-              key={p.num}
-              className={`flex items-start gap-5 py-6 ${
-                i < POINTS.length - 1 ? "border-b border-black/[0.06]" : ""
-              }`}
-            >
-              <span className="mt-0.5 shrink-0 font-sans text-[11px] font-bold tracking-[0.08em] text-[#3B6FF0]">
-                {p.num}
-              </span>
-              <div>
-                <p className="mb-1 font-sans text-[15px] font-medium text-[#0f0f0f]">
-                  {p.title}
-                </p>
-                <p className="font-sans text-sm leading-relaxed text-[#737373]">
-                  {p.body}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
+        </Reveal>
       </div>
-    </FadeUp>
+    </section>
   );
 }

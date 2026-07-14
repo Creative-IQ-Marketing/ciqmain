@@ -1,7 +1,13 @@
 import { Link } from "react-router-dom";
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(useGSAP);
 
 /**
- * Shared inner-page hero — matches homepage typography & spacing.
+ * Clean inner-page hero — type first, no decorative glow fills.
+ * Text content is passed via props; visuals only here.
  */
 export default function PageHeader({
   eyebrow,
@@ -12,34 +18,55 @@ export default function PageHeader({
   children,
   className = "",
 }) {
+  const rootRef = useRef(null);
   const centered = align === "center";
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.from(".page-header-inner > *", {
+          autoAlpha: 0,
+          y: 18,
+          duration: 0.7,
+          stagger: 0.08,
+          ease: "power3.out",
+        });
+      });
+      return () => mm.revert();
+    },
+    { scope: rootRef },
+  );
 
   return (
     <section
-      className={`border-b border-black/[0.05] bg-white pb-12 pt-[calc(var(--hero-header-offset)+2rem)] sm:pb-14 lg:pb-16 ${className}`}
+      ref={rootRef}
+      className={`relative border-b border-[var(--c-border)] bg-[var(--c-base)] pb-12 pt-[calc(var(--hero-header-offset)+1.5rem)] sm:pb-14 lg:pb-16 ${className}`}
     >
       <div
-        className={`mx-auto max-w-[1320px] px-5 sm:px-6 lg:px-10 ${
-          centered ? "max-w-3xl text-center" : "max-w-3xl"
+        className={`page-header-inner relative mx-auto px-[var(--container-pad)] ${
+          centered
+            ? "max-w-3xl text-center"
+            : "max-w-[var(--container-max)] lg:max-w-3xl"
         }`}
       >
         {eyebrow ? (
-          <p className="mb-4 font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
+          <p className="mb-3 font-sans text-sm font-medium text-[var(--c-text-muted)]">
             {eyebrow}
           </p>
         ) : null}
-        <h1 className="font-sans text-[clamp(2rem,4.5vw,3.25rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-[#0f0f0f]">
+        <h1 className="font-sans text-[clamp(2.15rem,5vw,3.5rem)] font-extrabold leading-[1.05] tracking-[-0.04em] text-[var(--c-ink)] text-balance">
           {title}
           {titleAccent ? (
             <>
               <br />
-              <span className="text-[#3B6FF0]">{titleAccent}</span>
+              <span className="text-[var(--c-accent)]">{titleAccent}</span>
             </>
           ) : null}
         </h1>
         {description ? (
           <p
-            className={`mt-5 font-sans text-base leading-relaxed text-[#5c5c5c] ${
+            className={`mt-5 font-sans text-base leading-relaxed text-[var(--c-text-secondary)] text-pretty ${
               centered ? "mx-auto max-w-xl" : "max-w-2xl"
             }`}
           >
@@ -61,29 +88,23 @@ export default function PageHeader({
 }
 
 export function PageCtaPrimary({ to, onClick, children, className = "" }) {
+  const cls = `inline-flex items-center justify-center rounded-[var(--radius-pill)] bg-[var(--c-cta)] px-7 py-3 font-sans text-[15px] font-semibold text-white transition hover:bg-[var(--c-cta-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)] ${className}`;
   if (to) {
     return (
-      <Link
-        to={to}
-        className={`inline-flex items-center justify-center rounded-full bg-[#18181b] px-7 py-3 font-sans text-[15px] font-semibold text-white transition hover:bg-[#2a2a2a] ${className}`}
-      >
+      <Link to={to} className={cls}>
         {children}
       </Link>
     );
   }
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`inline-flex items-center justify-center rounded-full bg-[#18181b] px-7 py-3 font-sans text-[15px] font-semibold text-white transition hover:bg-[#2a2a2a] ${className}`}
-    >
+    <button type="button" onClick={onClick} className={cls}>
       {children}
     </button>
   );
 }
 
 export function PageCtaSecondary({ to, onClick, children, className = "" }) {
-  const cls = `inline-flex items-center justify-center rounded-full border border-[#d4d4d4] bg-white px-7 py-3 font-sans text-[15px] font-medium text-[#252525] transition hover:border-[#aaa] ${className}`;
+  const cls = `inline-flex items-center justify-center rounded-[var(--radius-pill)] border border-[var(--c-border-strong)] bg-white px-7 py-3 font-sans text-[15px] font-medium text-[var(--c-ink)] transition hover:border-[var(--c-ink)]/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)] ${className}`;
   if (to) {
     return (
       <Link to={to} className={cls}>

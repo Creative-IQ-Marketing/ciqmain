@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, Phone } from "lucide-react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronDown, Menu, Phone, X } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
 import mainLogo from "../../assets/mainLogo.png";
 import { PHONE_TEL } from "../../utils/contact";
 import { trackButtonClick } from "../../services/analytics";
@@ -25,6 +25,7 @@ const NAV = [
 
 export default function Header() {
   const [visible, setVisible] = useState(true);
+  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
@@ -37,6 +38,7 @@ export default function Header() {
   useEffect(() => {
     const onScroll = () => {
       const y = window.scrollY;
+      setScrolled(y > 12);
       if (y <= 40) {
         setVisible(true);
         clearTimeout(hideTimer.current);
@@ -48,7 +50,7 @@ export default function Header() {
         clearTimeout(hideTimer.current);
         hideTimer.current = setTimeout(() => {
           if (window.scrollY > 40) setVisible(false);
-        }, 3000);
+        }, 3200);
       }
       lastScroll.current = y;
     };
@@ -76,19 +78,16 @@ export default function Header() {
       scrollToHashFromHref(href, location.pathname, navigate);
       return;
     }
-
     if (href.startsWith("/")) {
       navigate(href);
       return;
     }
-
     const id = href.replace("#", "");
     if (location.pathname !== "/") {
       navigate("/");
       window.setTimeout(() => scrollToSection(id, 80), 350);
       return;
     }
-
     scrollToSection(id, 80);
   };
 
@@ -96,146 +95,8 @@ export default function Header() {
     clearTimeout(servicesTimer.current);
     setServicesOpen(true);
   };
-
   const closeServicesMenu = () => {
     servicesTimer.current = setTimeout(() => setServicesOpen(false), 120);
-  };
-
-  const renderNavItem = (item, i, isMobile = false) => {
-    if (!item.children) {
-      return (
-        <motion.a
-          key={item.label}
-          href={item.href}
-          onClick={(e) => handleNav(e, item.href)}
-          initial={isMobile ? { opacity: 1, x: -8 } : { opacity: 1, y: -5 }}
-          animate={isMobile ? { opacity: 1, x: 0 } : { opacity: 1, y: 0 }}
-          transition={{
-            delay: isMobile ? i * 0.04 : 0.08 + i * 0.04,
-            duration: 0.4,
-            ease,
-          }}
-          whileHover={isMobile ? undefined : { color: "#111" }}
-          className={
-            isMobile
-              ? "block w-full border-b border-slate-200/50 py-3.5 text-[15px] font-medium text-[#444] transition hover:text-[#111]"
-              : "px-4 py-2 font-sans text-[15px] font-medium text-[#252525] transition-colors duration-200 hover:text-[#111]"
-          }
-        >
-          {item.label}
-        </motion.a>
-      );
-    }
-
-    if (isMobile) {
-      return (
-        <div key={item.label} className="border-b border-slate-200/50">
-          <button
-            type="button"
-            onClick={() => setMobileServicesOpen((v) => !v)}
-            className="f-body flex w-full items-center justify-between py-3.5 text-[0.9rem] font-medium text-slate-700"
-          >
-            {item.label}
-            <ChevronDown
-              size={16}
-              className={`text-slate-400 transition-transform ${mobileServicesOpen ? "rotate-180" : ""}`}
-            />
-          </button>
-          <AnimatePresence>
-            {mobileServicesOpen && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                className="overflow-hidden pb-3 pl-1"
-              >
-                <a
-                  href={item.href}
-                  onClick={(e) => handleNav(e, item.href)}
-                  className="f-body block rounded-lg px-3 py-2 text-sm font-semibold text-[#3B6FF0]"
-                >
-                  All services
-                </a>
-                <div className="mt-1 grid grid-cols-1 gap-0.5">
-                  {item.children.map((child) => (
-                    <a
-                      key={child.href}
-                      href={child.href}
-                      onClick={(e) => handleNav(e, child.href)}
-                      className="f-body block rounded-lg px-3 py-2 text-sm text-slate-600 transition hover:bg-white/70 hover:text-slate-900"
-                    >
-                      {child.label}
-                    </a>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      );
-    }
-
-    return (
-      <div
-        key={item.label}
-        className="relative"
-        onMouseEnter={openServicesMenu}
-        onMouseLeave={closeServicesMenu}
-      >
-        <motion.a
-          href={item.href}
-          onClick={(e) => handleNav(e, item.href)}
-          initial={{ opacity: 1, y: -5 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.08 + i * 0.04, duration: 0.4, ease }}
-          className="inline-flex items-center gap-1 px-4 py-2 font-sans text-[15px] font-medium text-[#252525] transition-colors duration-200 hover:text-[#111]"
-        >
-          {item.label}
-          <ChevronDown
-            size={14}
-            className={`mt-0.5 transition-transform ${servicesOpen ? "rotate-180" : ""}`}
-          />
-        </motion.a>
-
-        <AnimatePresence>
-          {servicesOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 4 }}
-              transition={{ duration: 0.16, ease }}
-              className="absolute left-1/2 top-full z-50 w-[17.5rem] -translate-x-1/2 pt-2"
-              onMouseEnter={openServicesMenu}
-              onMouseLeave={closeServicesMenu}
-            >
-              <div className="overflow-hidden rounded-2xl border border-black/[0.06] bg-white p-2 shadow-[0_12px_40px_rgba(15,23,42,0.08)]">
-                <a
-                  href={item.href}
-                  onClick={(e) => handleNav(e, item.href)}
-                  className="f-body block rounded-xl px-3 py-2.5 text-[13px] font-semibold text-[#3B6FF0] transition hover:bg-white/80"
-                >
-                  All services
-                </a>
-                <div className="my-1.5 border-t border-slate-200/50" />
-                <div className="grid grid-cols-1 gap-0.5">
-                  {item.children.map((child) => (
-                    <a
-                      key={child.href}
-                      href={child.href}
-                      onClick={(e) => handleNav(e, child.href)}
-                      className="f-body block rounded-xl px-3 py-2.5 text-[13px] font-normal text-slate-600 transition hover:bg-white/80 hover:text-slate-900"
-                    >
-                      {child.label}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    );
   };
 
   const headerNavTopClass = SITE_TOP_BANNER.enabled
@@ -248,84 +109,218 @@ export default function Header() {
 
       <motion.header
         initial={{ y: -80 }}
-        animate={{ y: visible ? 0 : -100 }}
+        animate={{ y: visible ? 0 : -110 }}
         transition={{ duration: 0.4, ease }}
-        className={`fixed inset-x-0 z-50 bg-white ${headerNavTopClass}`}
+        className={`fixed inset-x-0 z-50 ${headerNavTopClass}`}
       >
-        <div className="mx-auto flex h-16 max-w-[1320px] items-center px-5 sm:px-6 lg:px-10">
-          <a
-            href="/"
-            onClick={(e) => handleNav(e, "/")}
-            className="flex shrink-0 items-center gap-2.5"
+        <div className="mx-auto max-w-[1400px] px-3 pt-2 sm:px-4 lg:px-6">
+          <div
+            className={`flex h-14 items-center gap-3 rounded-[var(--radius-pill)] border px-3 transition-all duration-300 sm:h-[3.6rem] sm:px-4 ${
+              scrolled
+                ? "border-black/[0.08] bg-white/85 shadow-[0_12px_40px_-18px_rgba(15,15,15,0.28)] backdrop-blur-xl"
+                : "border-transparent bg-white/55 backdrop-blur-md"
+            }`}
           >
-            <img
-              src={mainLogo}
-              alt="CreativeIQ"
-              className="h-9 w-9 object-contain sm:h-10 sm:w-10"
-            />
-            <span className="font-sans text-[clamp(1.15rem,2vw,1.4rem)] font-bold tracking-[-0.03em] text-[#0f0f0f]">
-              Creative<span className="text-[#3B6FF0]">IQ</span>
-            </span>
-          </a>
-
-          <nav className="hidden flex-1 items-center justify-center md:flex">
-            {NAV.map((item, i) => renderNavItem(item, i))}
-          </nav>
-
-          <div className="hidden items-center gap-5 md:ml-auto md:flex">
             <a
-              href={`tel:${PHONE_TEL}`}
-              onClick={() =>
-                trackButtonClick("Call CTA", "header_call", "Header")
-              }
-              className="inline-flex items-center gap-1.5 font-sans text-[15px] font-medium text-[#737373] transition-colors duration-200 hover:text-[#252525]"
+              href="/"
+              onClick={(e) => handleNav(e, "/")}
+              className="flex shrink-0 items-center gap-2.5 pl-1"
             >
-              <Phone size={15} strokeWidth={1.75} aria-hidden />
-              Call us
+              <span className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-[var(--c-ink)] sm:h-10 sm:w-10">
+                <img
+                  src={mainLogo}
+                  alt="CreativeIQ"
+                  className="h-6 w-6 object-contain brightness-0 invert sm:h-7 sm:w-7"
+                />
+              </span>
+              <span className="hidden font-sans text-[1.05rem] font-bold tracking-[-0.03em] text-[var(--c-ink)] sm:inline">
+                Creative<span className="text-[var(--c-accent)]">IQ</span>
+              </span>
             </a>
-            <a
-              href="/free-ai-seo-audit"
-              onClick={(e) => {
-                trackButtonClick("Free Audit", "header_cta", "Header");
-                handleNav(e, "/free-ai-seo-audit");
-              }}
-              className="rounded-full bg-[#18181b] px-6 py-2.5 font-sans text-[15px] font-semibold text-white transition hover:bg-[#2a2a2a]"
+
+            <nav className="ml-2 hidden flex-1 items-center justify-center gap-0.5 md:flex">
+              {NAV.map((item, i) => {
+                if (!item.children) {
+                  return (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      onClick={(e) => handleNav(e, item.href)}
+                      className="rounded-full px-3.5 py-2 font-sans text-[13px] font-medium text-[var(--c-ink-soft)] transition hover:bg-black/[0.04] hover:text-[var(--c-ink)] lg:px-4 lg:text-[14px]"
+                    >
+                      {item.label}
+                    </a>
+                  );
+                }
+                return (
+                  <div
+                    key={item.label}
+                    className="relative"
+                    onMouseEnter={openServicesMenu}
+                    onMouseLeave={closeServicesMenu}
+                  >
+                    <a
+                      href={item.href}
+                      onClick={(e) => handleNav(e, item.href)}
+                      className="inline-flex items-center gap-1 rounded-full px-3.5 py-2 font-sans text-[13px] font-medium text-[var(--c-ink-soft)] transition hover:bg-black/[0.04] hover:text-[var(--c-ink)] lg:px-4 lg:text-[14px]"
+                    >
+                      {item.label}
+                      <ChevronDown
+                        size={13}
+                        className={`transition-transform ${servicesOpen ? "rotate-180" : ""}`}
+                      />
+                    </a>
+                    <AnimatePresence>
+                      {servicesOpen ? (
+                        <motion.div
+                          initial={{ opacity: 0, y: 6, scale: 0.98 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 6, scale: 0.98 }}
+                          transition={{ duration: 0.18, ease }}
+                          className="absolute left-1/2 top-full z-50 w-[18rem] -translate-x-1/2 pt-3"
+                          onMouseEnter={openServicesMenu}
+                          onMouseLeave={closeServicesMenu}
+                        >
+                          <div className="overflow-hidden rounded-[var(--radius-card)] border border-black/[0.07] bg-white/95 p-2 shadow-[0_20px_50px_-20px_rgba(15,15,15,0.35)] backdrop-blur-xl">
+                            <a
+                              href={item.href}
+                              onClick={(e) => handleNav(e, item.href)}
+                              className="block rounded-[12px] px-3 py-2.5 text-[13px] font-semibold text-[var(--c-accent)] transition hover:bg-[var(--c-accent-dim)]"
+                            >
+                              All services
+                            </a>
+                            <div className="my-1.5 border-t border-black/[0.06]" />
+                            {item.children.map((child) => (
+                              <a
+                                key={child.href}
+                                href={child.href}
+                                onClick={(e) => handleNav(e, child.href)}
+                                className="block rounded-[12px] px-3 py-2.5 text-[13px] text-[var(--c-text-secondary)] transition hover:bg-black/[0.035] hover:text-[var(--c-ink)]"
+                              >
+                                {child.label}
+                              </a>
+                            ))}
+                          </div>
+                        </motion.div>
+                      ) : null}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+            </nav>
+
+            <div className="ml-auto hidden items-center gap-2 md:flex">
+              <a
+                href={`tel:${PHONE_TEL}`}
+                onClick={() =>
+                  trackButtonClick("Call CTA", "header_call", "Header")
+                }
+                className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 font-sans text-[13px] font-medium text-[var(--c-text-muted)] transition hover:bg-black/[0.04] hover:text-[var(--c-ink)]"
+              >
+                <Phone size={14} strokeWidth={1.75} aria-hidden />
+                Call us
+              </a>
+              <a
+                href="/free-ai-seo-audit"
+                onClick={(e) => {
+                  trackButtonClick("Free Audit", "header_cta", "Header");
+                  handleNav(e, "/free-ai-seo-audit");
+                }}
+                className="rounded-full bg-[var(--c-cta)] px-5 py-2.5 font-sans text-[13px] font-semibold text-white transition hover:bg-[var(--c-cta-hover)]"
+              >
+                Audit My Site
+              </a>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setOpen(!open)}
+              className="ml-auto flex h-10 w-10 items-center justify-center rounded-full text-[var(--c-ink)] transition hover:bg-black/[0.05] md:hidden"
+              aria-label={open ? "Close menu" : "Open menu"}
             >
-              Audit My Site
-            </a>
+              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
           </div>
-
-          <button
-            onClick={() => setOpen(!open)}
-            className="ml-auto rounded-lg p-2.5 text-slate-700 transition hover:bg-slate-900/5 md:hidden"
-            aria-label={open ? "Close menu" : "Open menu"}
-          >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
         </div>
 
         <AnimatePresence>
-          {open && (
+          {open ? (
             <motion.div
               key="mobile-menu"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.22, ease }}
-              className="overflow-hidden border-t border-black/[0.06] bg-white md:hidden"
+              className="mx-3 mt-2 overflow-hidden rounded-[var(--radius-card)] border border-black/[0.07] bg-white/95 shadow-[0_20px_50px_-20px_rgba(15,15,15,0.3)] backdrop-blur-xl md:hidden"
             >
-              <nav className="mx-auto flex max-w-[1320px] flex-col px-5 py-4">
-                {NAV.map((item, i) => renderNavItem(item, i, true))}
+              <nav className="flex flex-col px-3 py-3">
+                {NAV.map((item) => {
+                  if (!item.children) {
+                    return (
+                      <a
+                        key={item.label}
+                        href={item.href}
+                        onClick={(e) => handleNav(e, item.href)}
+                        className="rounded-[12px] px-3 py-3 font-sans text-[15px] font-medium text-[var(--c-ink)] transition hover:bg-black/[0.04]"
+                      >
+                        {item.label}
+                      </a>
+                    );
+                  }
+                  return (
+                    <div key={item.label} className="border-t border-black/[0.05]">
+                      <button
+                        type="button"
+                        onClick={() => setMobileServicesOpen((v) => !v)}
+                        className="flex w-full items-center justify-between rounded-[12px] px-3 py-3 font-sans text-[15px] font-medium text-[var(--c-ink)]"
+                      >
+                        {item.label}
+                        <ChevronDown
+                          size={16}
+                          className={`transition-transform ${mobileServicesOpen ? "rotate-180" : ""}`}
+                        />
+                      </button>
+                      <AnimatePresence>
+                        {mobileServicesOpen ? (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            className="overflow-hidden pb-2 pl-2"
+                          >
+                            <a
+                              href={item.href}
+                              onClick={(e) => handleNav(e, item.href)}
+                              className="block rounded-lg px-3 py-2 text-sm font-semibold text-[var(--c-accent)]"
+                            >
+                              All services
+                            </a>
+                            {item.children.map((child) => (
+                              <a
+                                key={child.href}
+                                href={child.href}
+                                onClick={(e) => handleNav(e, child.href)}
+                                className="block rounded-lg px-3 py-2 text-sm text-[var(--c-text-secondary)]"
+                              >
+                                {child.label}
+                              </a>
+                            ))}
+                          </motion.div>
+                        ) : null}
+                      </AnimatePresence>
+                    </div>
+                  );
+                })}
                 <a
                   href="/free-ai-seo-audit"
                   onClick={(e) => handleNav(e, "/free-ai-seo-audit")}
-                  className="f-body mt-4 rounded-full bg-[#3B6FF0] py-3.5 text-center text-sm font-semibold text-white"
+                  className="mt-2 rounded-full bg-[var(--c-cta)] py-3.5 text-center font-sans text-sm font-semibold text-white"
                 >
                   Audit My Site
                 </a>
               </nav>
             </motion.div>
-          )}
+          ) : null}
         </AnimatePresence>
       </motion.header>
     </>

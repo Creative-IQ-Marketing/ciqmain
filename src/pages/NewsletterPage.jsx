@@ -66,16 +66,14 @@ export default function NewsletterPage() {
 
       <main className="bg-white">
         <PageHeader
-          eyebrow="Newsletter"
-          title="Stay ahead in"
-          titleAccent="digital marketing"
-          description="Get strategies, insights, and growth tactics from our team — delivered weekly to your inbox."
+          title="Stay ahead in digital marketing"
+          description="Weekly strategies and growth tactics from the CreativeIQ team, delivered to your inbox."
           align="center"
         />
 
-        <section className="border-t border-black/[0.05] pb-20 pt-4">
+        <section className="border-t border-[var(--c-border)] bg-[var(--c-surface-2)] pb-20 pt-10">
           <div className="mx-auto max-w-lg px-5 sm:px-6">
-            <div className="rounded-[22px] border border-black/[0.06] bg-white p-8 shadow-[0_20px_48px_-24px_rgba(0,0,0,0.12)] sm:p-10">
+            <div className="border border-[var(--c-border)] bg-white p-8 sm:p-10">
               <AnimatePresence mode="wait">
                 {success ? (
                   <motion.div

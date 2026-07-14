@@ -13,6 +13,7 @@ import HighLevelOffers from "../components/services/HighLevelOffers";
 import GrowthInfra from "../components/services/GrowthInfra";
 import ServicesContact from "../components/services/ServicesContact";
 import GHLValueTable from "../components/landing/GHLValueTable";
+import servicesAtmosphere from "../assets/sections/section-services-atmosphere.jpg";
 
 export default function ServicesPage() {
   const { hash } = useLocation();
@@ -104,6 +105,16 @@ export default function ServicesPage() {
 
       <ServicesHero />
 
+      <div className="relative h-40 overflow-hidden border-b border-[var(--c-border)] sm:h-52 lg:h-64">
+        <img
+          src={servicesAtmosphere}
+          alt=""
+          className="absolute inset-0 size-full object-cover"
+          loading="eager"
+        />
+        <div className="absolute inset-0 bg-black/25" />
+      </div>
+
       <div id="website-seo" className="scroll-mt-32">
         <BundlePricing />
         <BundleTable />
@@ -124,8 +135,10 @@ export default function ServicesPage() {
         />
       </div>
 
-      <div className="max-w-3xl mx-auto px-6 py-8">
-        <GuideInlineCTA source="services_page" />
+      <div className="border-t border-[var(--c-border)] bg-white px-[var(--container-pad)] py-10">
+        <div className="mx-auto max-w-[var(--container-max)]">
+          <GuideInlineCTA source="services_page" />
+        </div>
       </div>
 
       <ServicesContact />

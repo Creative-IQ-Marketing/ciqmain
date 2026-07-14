@@ -189,7 +189,7 @@ export default function PrivacyPolicyPage() {
           </div>
         </div>
 
-        <div className="py-16 md:py-20">
+        <div className="bg-[#f5f6f8] py-14 md:py-16">
           <div className="mx-auto max-w-3xl space-y-14 px-5 sm:px-6">
             {sections.map((section, idx) => (
               <section
@@ -221,7 +221,7 @@ export default function PrivacyPolicyPage() {
             ))}
 
             <div className="mt-12 border-t border-black/[0.05] pt-14">
-              <div className="rounded-[22px] border border-black/[0.06] bg-[#fafafa] p-8 text-center md:p-10">
+              <div className="rounded-[var(--radius-card)] border border-black/[0.06] bg-[#fafafa] p-8 text-center md:p-10">
                 <h3 className="font-sans text-2xl font-extrabold tracking-[-0.03em] text-[#0f0f0f] md:text-3xl">
                   Data subject rights
                 </h3>

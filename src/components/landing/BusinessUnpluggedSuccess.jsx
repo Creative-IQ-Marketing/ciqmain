@@ -34,7 +34,7 @@ export default function BusinessUnpluggedSuccess({
         You&apos;re on the list{firstName ? `, ${firstName}` : ""}!
       </h3>
       <p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed text-slate-600">
-        Thank you for RSVPing. We&apos;ll send a confirmation shortly — see you
+        Thank you for RSVPing. We&apos;ll send a confirmation shortly. See you
         at Business Unplugged.
       </p>
 

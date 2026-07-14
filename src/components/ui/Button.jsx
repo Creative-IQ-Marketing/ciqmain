@@ -1,45 +1,52 @@
-const Button = ({
-  children,
-  variant = "primary",
-  size = "md",
-  href,
-  onClick,
-  className = "",
-  ...props
-}) => {
-  const baseStyles =
-    "font-semibold rounded-lg transition-all duration-200 inline-flex items-center justify-center";
+import { Slot } from "@radix-ui/react-slot";
+import { cva } from "class-variance-authority";
+import { forwardRef } from "react";
+import { cn } from "../../lib/utils";
 
-  const variants = {
-    primary:
-      "bg-blue-700 text-white hover:shadow-xl hover:scale-105 hover:bg-blue-600",
-    secondary:
-      "bg-white border-2 border-blue-600 text-blue-600 hover:bg-blue-50",
-    outline:
-      "border-2 border-white text-white hover:bg-white hover:text-blue-600",
-  };
+const buttonVariants = cva(
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap font-sans text-[15px] font-semibold transition-[background-color,border-color,color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98]",
+  {
+    variants: {
+      variant: {
+        primary:
+          "rounded-[var(--radius-pill)] bg-[var(--c-cta)] text-white hover:bg-[var(--c-cta-hover)]",
+        secondary:
+          "rounded-[var(--radius-pill)] border border-[var(--c-border-strong)] bg-white text-[var(--c-ink)] hover:border-[var(--c-ink)]/40",
+        accent:
+          "rounded-[var(--radius-pill)] bg-[var(--c-accent)] text-white hover:bg-[#2f5fd9]",
+        ghost:
+          "rounded-[var(--radius-pill)] text-[var(--c-ink)] hover:bg-black/[0.04]",
+        link: "rounded-none font-medium text-[var(--c-accent)] underline-offset-4 hover:underline",
+      },
+      size: {
+        sm: "h-10 px-5 text-sm",
+        md: "h-11 px-7",
+        lg: "h-12 px-8",
+      },
+    },
+    defaultVariants: {
+      variant: "primary",
+      size: "md",
+    },
+  },
+);
 
-  const sizes = {
-    sm: "px-4 py-2 text-sm",
-    md: "px-6 py-3 text-base",
-    lg: "px-8 py-4 text-lg",
-  };
-
-  const classes = `${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`;
-
-  if (href) {
+const Button = forwardRef(
+  (
+    { className, variant, size, asChild = false, type = "button", ...props },
+    ref,
+  ) => {
+    const Comp = asChild ? Slot : "button";
     return (
-      <a href={href} className={classes} {...props}>
-        {children}
-      </a>
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        type={asChild ? undefined : type}
+        {...props}
+      />
     );
-  }
+  },
+);
+Button.displayName = "Button";
 
-  return (
-    <button onClick={onClick} className={classes} {...props}>
-      {children}
-    </button>
-  );
-};
-
-export default Button;
+export { Button, buttonVariants };

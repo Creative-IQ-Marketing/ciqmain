@@ -30,7 +30,7 @@ const TIERS = [
       "1 automated email sequence",
       "Monthly analytics report",
     ],
-    color: "border-l-slate-500",
+    color: "border-l-[var(--c-accent)]",
     badge: null,
   },
   {
@@ -55,7 +55,7 @@ const TIERS = [
       "SMS follow-up sequences",
       "Reputation management system",
     ],
-    color: "border-l-blue-500",
+    color: "border-l-[var(--c-accent)]",
     badge: "Ad spend separate",
   },
   {
@@ -79,7 +79,7 @@ const TIERS = [
       "Advanced YouTube SEO",
       "Brand storytelling campaigns",
     ],
-    color: "border-l-blue-600",
+    color: "border-l-[var(--c-accent)]",
     badge: null,
   },
   {
@@ -104,7 +104,7 @@ const TIERS = [
       "Loyalty & referral automation",
       "Revenue forecasting model",
     ],
-    color: "border-l-indigo-500",
+    color: "border-l-[var(--c-accent)]",
     badge: null,
   },
   {
@@ -129,7 +129,7 @@ const TIERS = [
       "Executive-level KPI reporting",
       "Competitive intelligence research",
     ],
-    color: "border-l-blue-400",
+    color: "border-l-[var(--c-accent)]",
     badge: "By application only",
   },
 ];
@@ -149,7 +149,10 @@ export default function GrowthInfra() {
   };
 
   return (
-    <section id="growth-infra" className="scroll-mt-32 border-t border-black/[0.05] bg-white py-16 sm:py-20 lg:py-24">
+    <section
+      id="growth-infra"
+      className="scroll-mt-32 border-t border-black/[0.05] bg-white py-16 sm:py-20 lg:py-24"
+    >
       <div className="mx-auto max-w-[1320px] px-5 sm:px-6 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -158,16 +161,13 @@ export default function GrowthInfra() {
           transition={{ duration: 0.6 }}
           className="mb-6 text-center"
         >
-          <span className="mb-3 block font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
-            Growth Infrastructure
-          </span>
           <h2 className="mb-4 font-sans text-[clamp(1.75rem,3vw,2.75rem)] font-extrabold tracking-[-0.03em] text-[#0f0f0f]">
-            5 Elite Growth Tiers
+            Growth infrastructure tiers
           </h2>
           <p className="mx-auto max-w-2xl font-sans text-base leading-relaxed text-[#5c5c5c] lg:text-lg">
-            Where are you in your growth stage? Each tier is designed to scale
-            systematically— from first digital impression to full enterprise
-            dominance.
+            Match the stage you are in. Each tier scales from first digital
+            foothold to enterprise-grade growth command without restarting from
+            zero.
           </p>
         </motion.div>
 
@@ -177,7 +177,7 @@ export default function GrowthInfra() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="mx-auto mb-16 max-w-3xl rounded-[22px] border border-[#3B6FF0]/20 bg-[#3B6FF0]/[0.04] p-6 text-center sm:p-8"
+          className="mx-auto mb-16 max-w-3xl rounded-[var(--radius-card)] border border-[#3B6FF0]/20 bg-[#3B6FF0]/[0.04] p-6 text-center sm:p-8"
         >
           <p className="font-sans text-lg font-semibold text-[#0f0f0f]">
             Most agencies sell services. We build growth infrastructure.
@@ -196,7 +196,7 @@ export default function GrowthInfra() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className="overflow-hidden rounded-[22px] border border-black/[0.06] bg-white transition-colors duration-300 hover:border-black/[0.12]"
+                className="group overflow-hidden rounded-[var(--radius-card)] border border-black/[0.06] bg-white transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-black/[0.12] hover:shadow-[var(--shadow-soft)]"
               >
                 <div className="p-6 sm:p-8">
                   <div className="flex flex-col sm:flex-row sm:items-start gap-6">

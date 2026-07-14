@@ -6,10 +6,7 @@ import Clients from "./components/landing/Clients";
 import About from "./components/landing/About";
 import ServicesShowcase from "./components/landing/ServicesShowcase";
 import Stats from "./components/landing/Stats";
-import GHLValueTable from "./components/landing/GHLValueTable";
-import GuideDownload from "./components/landing/GuideDownload";
 import Testimonials from "./components/landing/Testimonials";
-import FAQ from "./components/landing/FAQ";
 import Contact from "./components/landing/Contact";
 import Footer from "./components/landing/Footer";
 import SEO from "./components/SEO";
@@ -31,6 +28,7 @@ import {
   NEWSLETTER_POPUP_ENABLED,
   SITE_TOP_BANNER,
 } from "./constants/siteBanner";
+import ScrollProgress from "./components/layout/ScrollProgress";
 
 function Layout() {
   const { pathname } = useLocation();
@@ -48,6 +46,7 @@ function Layout() {
             : ""
         }`}
       >
+        <ScrollProgress />
         <Header />
         <Outlet />
         <Footer />
@@ -68,9 +67,6 @@ function HomePage() {
       <Stats />
       <Testimonials />
       <About />
-      <GHLValueTable />
-      <FAQ />
-      <GuideDownload />
       <Contact />
     </>
   );

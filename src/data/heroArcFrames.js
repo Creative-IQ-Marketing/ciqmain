@@ -1,26 +1,31 @@
+import eventImage from "../assets/hero/hero-frame-event.jpg";
+import brandImage from "../assets/hero/hero-frame-brands.jpg";
+import crmImage from "../assets/hero/hero-frame-crm.jpg";
+import seoPoster from "../assets/hero/hero-frame-seo.jpg";
+import socialPoster from "../assets/hero/hero-frame-social.jpg";
+import webPoster from "../assets/hero/hero-frame-web.jpg";
 import semVideo from "../assets/svid/seovid.mp4";
 import smmVideo from "../assets/svid/social media.mp4";
 import contentVideo from "../assets/svid/contentmgmt.mp4";
 import webVideo from "../assets/svid/webdev.mp4";
 import reelVideo from "../assets/svid/PinDown.io_@decorpixel0_1777042301 (1).mp4";
-import eventImage from "../assets/rsvp.jpeg";
-import brandPreview from "../assets/brands/imgi_1_width_800.webp";
-import mainLogo from "../assets/mainLogo.png";
 
-/** Hero cylindrical arc — videos & on-hand assets (screenshots slot in later). */
+/** Unified 3:4 proof frames: videos where available, cinematic stills as anchors. */
 export const HERO_ARC_FRAMES = [
   {
     id: "seo",
-    label: "SEO",
+    label: "SEO systems",
     type: "video",
     src: semVideo,
+    poster: seoPoster,
     contactValue: "bundle-essential",
   },
   {
     id: "social",
-    label: "Social",
+    label: "Social systems",
     type: "video",
     src: smmVideo,
+    poster: socialPoster,
     contactValue: "social-starter",
   },
   {
@@ -28,13 +33,15 @@ export const HERO_ARC_FRAMES = [
     label: "Content",
     type: "video",
     src: contentVideo,
+    poster: crmImage,
     contactValue: "video-production",
   },
   {
     id: "web",
-    label: "Web",
+    label: "Conversion sites",
     type: "video",
     src: webVideo,
+    poster: webPoster,
     contactValue: "bundle-essential",
   },
   {
@@ -42,6 +49,7 @@ export const HERO_ARC_FRAMES = [
     label: "Reels",
     type: "video",
     src: reelVideo,
+    poster: socialPoster,
     contactValue: "social-starter",
   },
   {
@@ -53,10 +61,9 @@ export const HERO_ARC_FRAMES = [
   },
   {
     id: "brands",
-    label: "Brands",
+    label: "Brand systems",
     type: "image",
-    src: brandPreview,
-    overlayLogo: mainLogo,
+    src: brandImage,
     contactValue: "other",
   },
 ];

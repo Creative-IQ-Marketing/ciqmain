@@ -34,7 +34,7 @@ export default function YoutubeSection() {
           </a>
         </div>
 
-        <div className="min-w-[280px] flex-1 overflow-hidden rounded-[22px] border border-black/[0.06] bg-black">
+        <div className="min-w-[280px] flex-1 overflow-hidden rounded-[var(--radius-card)] border border-black/[0.06] bg-black">
           <div className="relative aspect-video w-full">
             <iframe
               src={`https://www.youtube.com/embed/${FEATURED_VIDEO_ID}?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1`}

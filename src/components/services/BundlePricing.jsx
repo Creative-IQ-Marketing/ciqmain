@@ -8,16 +8,10 @@ const BUNDLES = [
     icon: TrendingUp,
     name: "Essential Visibility",
     interest: "bundle-essential",
-    tagline: "Visibility & credibility",
+    tagline: "Get found with a clean site, SEO foundation, and steady social.",
     monthly: "$999",
     biweekly: "$499.50",
     oneTime: "$299",
-    color: "border-slate-200",
-    headerBg: "bg-white",
-    headerText: "text-slate-900",
-    subText: "text-slate-500",
-    btnClass:
-      "border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white",
     features: [
       "SEO-Coded Website (1 Page)",
       "Website Maintenance",
@@ -34,15 +28,10 @@ const BUNDLES = [
     icon: Zap,
     name: "Growth Operations",
     interest: "bundle-growth",
-    tagline: "Organized hiring + stronger content",
+    tagline: "Visibility plus hiring ops and stronger multi-platform content.",
     monthly: "$2,222",
     biweekly: "$1,122",
     oneTime: "$699",
-    color: "border-blue-600",
-    headerBg: "bg-blue-700",
-    headerText: "text-white",
-    subText: "text-blue-100",
-    btnClass: "bg-white text-blue-700 hover:bg-blue-50 font-bold",
     features: [
       "Everything in Essential Visibility",
       "CORE HR CRM System",
@@ -50,7 +39,7 @@ const BUNDLES = [
       "Interview Scheduling + Reminders",
       "Onboarding Automations",
       "Growth Social Media (12 posts/mo)",
-      "3 platforms — story + carousel + reel/wk",
+      "3 platforms (story + carousel + reel/wk)",
       "Analytics + content calendar",
     ],
     bestFor:
@@ -61,24 +50,18 @@ const BUNDLES = [
     icon: Rocket,
     name: "Elite Automation",
     interest: "bundle-elite",
-    tagline: "Full automation + multi-platform dominance",
+    tagline: "Automation, AI assists, and multi-platform social at full cadence.",
     monthly: "$3,888",
     biweekly: "$1,950",
     oneTime: "$699",
-    afterNote: "→ $3,500/m after AI setup",
-    color: "border-slate-200",
-    headerBg: "bg-white",
-    headerText: "text-slate-900",
-    subText: "text-slate-500",
-    btnClass:
-      "border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white",
+    afterNote: "Then $3,500/mo after AI setup",
     features: [
       "Everything in Growth Operations",
       "AI Chat Widget ★",
       "AI HR Automation Suite ★",
       "Email Marketing Automation ★",
       "Elite Social Media (24 posts/mo)",
-      "4 platforms — 2 reels + 2 carousels/wk",
+      "4 platforms (2 reels + 2 carousels/wk)",
       "Social SEO (metadata + alt-text)",
       "Automated DMs + Hashtag rotation",
       "Advanced analytics dashboard",
@@ -103,7 +86,10 @@ export default function BundlePricing() {
   };
 
   return (
-    <section id="bundles" className="scroll-mt-32 border-t border-black/[0.05] bg-white py-16 sm:py-20 lg:py-24">
+    <section
+      id="bundles"
+      className="scroll-mt-32 border-t border-black/[0.05] bg-white py-16 sm:py-20 lg:py-24"
+    >
       <div className="mx-auto max-w-[1320px] px-5 sm:px-6 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -112,15 +98,12 @@ export default function BundlePricing() {
           transition={{ duration: 0.6 }}
           className="mb-16 text-center"
         >
-          <span className="mb-3 block font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
-            3-Tier Growth Ecosystem
-          </span>
           <h2 className="mb-4 font-sans text-[clamp(1.75rem,3vw,2.75rem)] font-extrabold tracking-[-0.03em] text-[#0f0f0f]">
-            Choose Your Growth System
+            Choose your growth system
           </h2>
           <p className="mx-auto max-w-xl font-sans text-base leading-relaxed text-[#5c5c5c] lg:text-lg">
-            Each bundle is a complete system—not a list of features. Pick the
-            stage that matches where you are today.
+            Each bundle is a complete operating stack, not a menu of add-ons.
+            Pick the stage that matches where you are today.
           </p>
         </motion.div>
 
@@ -138,22 +121,22 @@ export default function BundlePricing() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className={`relative flex flex-col overflow-hidden rounded-[22px] border transition-shadow duration-300 ${
+                className={`group relative flex flex-col overflow-hidden rounded-[var(--radius-card)] border transition-[border-color,background-color] duration-300 ${
                   isPopular
-                    ? "border-[#3B6FF0] bg-white shadow-[0_20px_48px_-20px_rgba(59,111,240,0.25)]"
-                    : "border-black/[0.06] bg-white"
+                    ? "border-[var(--c-accent)] bg-white"
+                    : "border-black/[0.08] bg-white hover:border-black/[0.16]"
                 }`}
               >
                 {bundle.badge && (
-                  <div className="border-b border-[#3B6FF0]/10 bg-[#3B6FF0]/5 px-7 py-2 text-center text-xs font-semibold uppercase tracking-wider text-[#3B6FF0]">
+                  <div className="border-b border-[var(--c-accent)]/15 bg-[var(--c-accent)]/[0.04] px-7 py-2 text-center text-xs font-semibold tracking-wide text-[var(--c-accent)]">
                     {bundle.badge}
                   </div>
                 )}
 
                 {/* Header */}
                 <div className="bg-white px-7 pb-7 pt-7">
-                  <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-lg bg-[#3B6FF0]/10">
-                    <Icon className="h-5 w-5 text-[#3B6FF0]" />
+                  <div className="mb-5 flex h-9 w-9 items-center justify-center rounded-md border border-black/[0.08]">
+                    <Icon className="h-4 w-4 text-[var(--c-ink)]" strokeWidth={1.75} />
                   </div>
 
                   <h3 className="mb-1 text-xl font-bold text-[#0f0f0f]">

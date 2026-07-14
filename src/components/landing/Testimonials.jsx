@@ -1,25 +1,25 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
+import gsap from "gsap";
 
 const testimonials = [
   {
     name: "Fernando Jesus",
     role: "Entrepreneur",
     quote:
-      "Had an awesome experience working with Vilma! She's super friendly, easy to work with, and really knows her stuff.",
+      "Had an awesome experience working with Vilma. She's super friendly, easy to work with, and really knows her stuff.",
   },
   {
     name: "Kassandra Ramirez",
     role: "Business Owner",
     quote:
-      "Partnering with Creative IQ marketing team has been a game changer for my business.",
+      "Partnering with the CreativeIQ marketing team has been a game changer for my business.",
   },
   {
     name: "Miguel Febus",
     role: "Client",
     quote:
-      "Very smart and hard working company that care about there customers!!",
+      "Very smart and hard working company that cares about their customers.",
   },
   {
     name: "Roderick Murdock",
@@ -37,93 +37,108 @@ const testimonials = [
     name: "Jonathan Barragan",
     role: "Local Guide / Client",
     quote:
-      "Amazing working with Vilma and her team! I have not only made more leads but also learned more about marketing.",
+      "Amazing working with Vilma and her team. I have not only made more leads but also learned more about marketing.",
   },
   {
     name: "Roger Guerrero",
     role: "Client",
     quote:
-      "We had a website created that was done quickly and efficiently. Great Job Vilma!",
+      "We had a website created that was done quickly and efficiently. Great job, Vilma.",
   },
 ];
 
 export default function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const quoteRef = useRef(null);
+  const current = testimonials[currentIndex];
+
+  const crossfade = (nextIndex) => {
+    const el = quoteRef.current;
+    if (!el) {
+      setCurrentIndex(nextIndex);
+      return;
+    }
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      setCurrentIndex(nextIndex);
+      return;
+    }
+    gsap.to(el, {
+      autoAlpha: 0,
+      y: 12,
+      duration: 0.25,
+      ease: "power2.in",
+      onComplete: () => {
+        setCurrentIndex(nextIndex);
+        gsap.fromTo(
+          el,
+          { autoAlpha: 0, y: 16 },
+          { autoAlpha: 1, y: 0, duration: 0.45, ease: "power3.out" },
+        );
+      },
+    });
+  };
 
   const prev = () =>
-    setCurrentIndex(
-      (i) => (i - 1 + testimonials.length) % testimonials.length,
-    );
-  const next = () =>
-    setCurrentIndex((i) => (i + 1) % testimonials.length);
+    crossfade((currentIndex - 1 + testimonials.length) % testimonials.length);
+  const next = () => crossfade((currentIndex + 1) % testimonials.length);
 
   return (
     <section
       id="testimonials"
-      className="border-t border-black/[0.05] bg-white py-16 sm:py-20 lg:py-24"
+      className="relative overflow-hidden border-t border-[var(--c-border)] bg-[var(--c-base)]"
     >
-      <div className="mx-auto max-w-[1320px] px-5 sm:px-6 lg:px-10">
-        <div className="grid grid-cols-1 items-start gap-12 md:grid-cols-2 md:gap-16 lg:gap-20">
-          <div className="space-y-5">
-            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
-              Testimonials
-            </p>
-            <h2 className="font-sans text-[clamp(2rem,4vw,3.25rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-[#0f0f0f]">
-              What clients say
-            </h2>
-            <p className="max-w-md font-sans text-base leading-relaxed text-[#5c5c5c]">
-              Results and relationships speak louder than promises.
-            </p>
+      <div className="mx-auto max-w-[var(--container-max)] px-[var(--container-pad)] py-12 sm:py-14">
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-6 sm:mb-10">
+          <h2 className="max-w-md font-sans text-[clamp(1.85rem,3.5vw,2.75rem)] font-extrabold leading-[1.05] tracking-[-0.04em] text-[var(--c-ink)]">
+            What clients say
+          </h2>
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={prev}
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--c-border-strong)] text-[var(--c-ink)] transition hover:border-[var(--c-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)]"
+              aria-label="Previous testimonial"
+            >
+              <ChevronLeft size={18} strokeWidth={1.75} />
+            </button>
+            <button
+              type="button"
+              onClick={next}
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--c-border-strong)] text-[var(--c-ink)] transition hover:border-[var(--c-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)]"
+              aria-label="Next testimonial"
+            >
+              <ChevronRight size={18} strokeWidth={1.75} />
+            </button>
+            <span className="ml-1 font-sans text-xs tabular-nums text-[var(--c-text-muted)]">
+              {String(currentIndex + 1).padStart(2, "0")} /{" "}
+              {String(testimonials.length).padStart(2, "0")}
+            </span>
           </div>
+        </div>
 
-          <div className="md:border-l md:border-black/[0.06] md:pl-12 lg:pl-16">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentIndex}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="space-y-6"
-              >
-                <p className="font-sans text-base leading-relaxed text-[#252525] md:text-lg">
-                  &ldquo;{testimonials[currentIndex].quote}&rdquo;
-                </p>
-                <div>
-                  <p className="font-sans text-sm font-semibold text-[#0f0f0f]">
-                    {testimonials[currentIndex].name}
-                  </p>
-                  <p className="mt-1 font-sans text-xs font-medium uppercase tracking-[0.12em] text-[#737373]">
-                    {testimonials[currentIndex].role}
-                  </p>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-
-            <div className="mt-8 flex items-center justify-between border-t border-black/[0.06] pt-6">
-              <p className="font-sans text-xs text-[#737373]">
-                {currentIndex + 1} of {testimonials.length}
-              </p>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={prev}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-[#d4d4d4] text-[#252525] transition hover:border-[#aaa]"
-                  aria-label="Previous testimonial"
-                >
-                  <ChevronLeft size={16} strokeWidth={1.75} />
-                </button>
-                <button
-                  type="button"
-                  onClick={next}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-[#d4d4d4] text-[#252525] transition hover:border-[#aaa]"
-                  aria-label="Next testimonial"
-                >
-                  <ChevronRight size={16} strokeWidth={1.75} />
-                </button>
-              </div>
-            </div>
-          </div>
+        <div ref={quoteRef} className="relative mx-auto max-w-4xl text-center">
+          <span
+            className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/3 font-sans text-[clamp(8rem,22vw,16rem)] font-extrabold leading-none text-[var(--c-accent)]/[0.08] select-none"
+            aria-hidden
+          >
+            &ldquo;
+          </span>
+          <blockquote className="relative">
+            <p className="font-sans text-[clamp(1.25rem,2.6vw,2rem)] font-semibold leading-[1.25] tracking-[-0.03em] text-[var(--c-ink)] text-balance">
+              {current.quote}
+            </p>
+            <footer className="mt-7">
+              <cite className="not-italic">
+                <span className="block font-sans text-base font-semibold text-[var(--c-ink)]">
+                  {current.name}
+                </span>
+                <span className="mt-1 block font-sans text-sm text-[var(--c-text-muted)]">
+                  {current.role}
+                </span>
+              </cite>
+            </footer>
+          </blockquote>
         </div>
       </div>
     </section>

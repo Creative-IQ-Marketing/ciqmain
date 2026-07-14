@@ -16,9 +16,8 @@ export default function ServicesHero() {
 
   return (
     <PageHeader
-      eyebrow="Services"
-      title="Systems that grow with you."
-      description="Website, SEO, social, CRM, and consulting — tiered packages and custom systems for brands ready to scale."
+      title="Systems that grow with you"
+      description="Website, SEO, social, CRM, and consulting in clear tiers. Packages and custom systems for brands ready to scale with one stack."
     >
       <PageCtaPrimary onClick={scrollToPackages}>View packages</PageCtaPrimary>
       <PageCtaSecondary
