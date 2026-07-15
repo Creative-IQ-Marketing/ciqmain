@@ -40,7 +40,7 @@ function FrameMedia({ frame, eager }) {
         muted
         loop
         playsInline
-        preload={eager ? "auto" : "metadata"}
+        preload="none"
         className="size-full object-cover"
       />
     );
@@ -53,7 +53,7 @@ function FrameMedia({ frame, eager }) {
       height={CARD_H}
       loading={eager ? "eager" : "lazy"}
       decoding="async"
-      fetchPriority={eager ? "high" : "auto"}
+      fetchPriority="auto"
       className="size-full object-cover"
     />
   );
@@ -65,24 +65,6 @@ export default function HeroArcGallery({ reducedMotion = false }) {
   const [scroll, setScroll] = useState(0);
   const tiltRef = useRef({ x: 0, y: 0 });
   const stageRef = useRef(null);
-  const preloaded = useRef(false);
-
-  useEffect(() => {
-    if (preloaded.current) return;
-    preloaded.current = true;
-    HERO_ARC_FRAMES.forEach((frame) => {
-      if (frame.type === "video") {
-        const v = document.createElement("video");
-        v.src = frame.src;
-        v.muted = true;
-        v.preload = "auto";
-        v.load();
-        return;
-      }
-      const img = new Image();
-      img.src = frame.src;
-    });
-  }, []);
 
   useEffect(() => {
     if (reducedMotion) return undefined;

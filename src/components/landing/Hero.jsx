@@ -106,8 +106,7 @@ export default function Hero() {
             return;
           }
 
-          gsap.set(".hero-line", { autoAlpha: 0, y: 36 });
-          gsap.set(".hero-accent", { autoAlpha: 0, y: 20, filter: "blur(6px)" });
+          // Headline (.hero-line / .hero-accent) paints immediately for LCP text.
           gsap.set([".hero-probe", ".hero-support", ".hero-ctas"], {
             autoAlpha: 0,
             y: 18,
@@ -119,14 +118,7 @@ export default function Hero() {
             defaults: { ease: "power3.out" },
           });
 
-          tl.to(".hero-line-a", { autoAlpha: 1, y: 0, duration: 0.9 }, 0.06)
-            .to(".hero-line-b", { autoAlpha: 1, y: 0, duration: 0.9 }, 0.18)
-            .to(
-              ".hero-accent",
-              { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 0.95 },
-              0.28,
-            )
-            .to(".hero-probe", { autoAlpha: 1, y: 0, duration: 0.7 }, "-=0.45")
+          tl.to(".hero-probe", { autoAlpha: 1, y: 0, duration: 0.7 }, 0.15)
             .to(".hero-support", { autoAlpha: 1, y: 0, duration: 0.7 }, "-=0.5")
             .to(".hero-ctas", { autoAlpha: 1, y: 0, duration: 0.7 }, "-=0.45")
             .to(".hero-decor", { autoAlpha: 1, duration: 0.8 }, "-=0.55")

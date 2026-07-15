@@ -1,9 +1,9 @@
-import eventImage from "../assets/hero/hero-frame-event.jpg";
-import brandImage from "../assets/hero/hero-frame-brands.jpg";
-import crmImage from "../assets/hero/hero-frame-crm.jpg";
-import seoPoster from "../assets/hero/hero-frame-seo.jpg";
-import socialPoster from "../assets/hero/hero-frame-social.jpg";
-import webPoster from "../assets/hero/hero-frame-web.jpg";
+import eventImage from "../assets/hero/hero-frame-event.webp";
+import brandImage from "../assets/hero/hero-frame-brands.webp";
+import crmImage from "../assets/hero/hero-frame-crm.webp";
+import seoPoster from "../assets/hero/hero-frame-seo.webp";
+import socialPoster from "../assets/hero/hero-frame-social.webp";
+import webPoster from "../assets/hero/hero-frame-web.webp";
 import semVideo from "../assets/svid/seovid.mp4";
 import smmVideo from "../assets/svid/social media.mp4";
 import contentVideo from "../assets/svid/contentmgmt.mp4";

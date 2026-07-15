@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Routes, Route, Outlet, useLocation } from "react-router-dom";
 import Header from "./components/landing/Header";
 import Hero from "./components/landing/Hero";
@@ -11,24 +11,33 @@ import Contact from "./components/landing/Contact";
 import Footer from "./components/landing/Footer";
 import SEO from "./components/SEO";
 import StructuredData from "./components/StructuredData";
-import ServicesPage from "./pages/ServicesPage";
-import ContactPage from "./pages/ContactPage";
-import BookPage from "./pages/BookPage";
-import FreeSeoAuditPage from "./pages/FreeSeoAuditPage";
-import BusinessUnpluggedPage from "./pages/BusinessUnpluggedPage";
-import NewsletterPage from "./pages/NewsletterPage";
-import UnsubscribedPage from "./pages/UnsubscribedPage";
-import TermsAndConditionsPage from "./pages/TermsAndConditionsPage";
-import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import { NewsletterProvider } from "./context/NewsletterContext";
-import NewsletterPopup from "./components/ui/NewsletterPopup";
-import SocialMediaFreeTrialPage from "./pages/SocialMediaFreeTrialPage";
 import { initializeAnalytics } from "./services/analytics";
 import {
   NEWSLETTER_POPUP_ENABLED,
   SITE_TOP_BANNER,
 } from "./constants/siteBanner";
 import ScrollProgress from "./components/layout/ScrollProgress";
+
+const ServicesPage = lazy(() => import("./pages/ServicesPage"));
+const ContactPage = lazy(() => import("./pages/ContactPage"));
+const BookPage = lazy(() => import("./pages/BookPage"));
+const FreeSeoAuditPage = lazy(() => import("./pages/FreeSeoAuditPage"));
+const BusinessUnpluggedPage = lazy(() => import("./pages/BusinessUnpluggedPage"));
+const NewsletterPage = lazy(() => import("./pages/NewsletterPage"));
+const UnsubscribedPage = lazy(() => import("./pages/UnsubscribedPage"));
+const TermsAndConditionsPage = lazy(
+  () => import("./pages/TermsAndConditionsPage"),
+);
+const PrivacyPolicyPage = lazy(() => import("./pages/PrivacyPolicyPage"));
+const SocialMediaFreeTrialPage = lazy(
+  () => import("./pages/SocialMediaFreeTrialPage"),
+);
+const NewsletterPopup = lazy(() => import("./components/ui/NewsletterPopup"));
+
+function RouteFallback() {
+  return <div className="min-h-[40vh] bg-white" aria-hidden />;
+}
 
 function Layout() {
   const { pathname } = useLocation();
@@ -48,9 +57,15 @@ function Layout() {
       >
         <ScrollProgress />
         <Header />
-        <Outlet />
+        <Suspense fallback={<RouteFallback />}>
+          <Outlet />
+        </Suspense>
         <Footer />
-        {NEWSLETTER_POPUP_ENABLED ? <NewsletterPopup /> : null}
+        {NEWSLETTER_POPUP_ENABLED ? (
+          <Suspense fallback={null}>
+            <NewsletterPopup />
+          </Suspense>
+        ) : null}
       </div>
     </NewsletterProvider>
   );
@@ -79,24 +94,26 @@ function App() {
   }, []);
 
   return (
-    <Routes>
-      <Route element={<Layout />}>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/book" element={<BookPage />} />
-        <Route path="/free-ai-seo-audit" element={<FreeSeoAuditPage />} />
-        <Route path="/services" element={<ServicesPage />} />
-        <Route
-          path="/social-media-free-trial"
-          element={<SocialMediaFreeTrialPage />}
-        />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/newsletter/unsubscribed" element={<UnsubscribedPage />} />
-        <Route path="/terms" element={<TermsAndConditionsPage />} />
-        <Route path="/privacy" element={<PrivacyPolicyPage />} />
-      </Route>
-      <Route path="/newsletter" element={<NewsletterPage />} />
-      <Route path="/business-unplugged" element={<BusinessUnpluggedPage />} />
-    </Routes>
+    <Suspense fallback={<RouteFallback />}>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/book" element={<BookPage />} />
+          <Route path="/free-ai-seo-audit" element={<FreeSeoAuditPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route
+            path="/social-media-free-trial"
+            element={<SocialMediaFreeTrialPage />}
+          />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/newsletter/unsubscribed" element={<UnsubscribedPage />} />
+          <Route path="/terms" element={<TermsAndConditionsPage />} />
+          <Route path="/privacy" element={<PrivacyPolicyPage />} />
+        </Route>
+        <Route path="/newsletter" element={<NewsletterPage />} />
+        <Route path="/business-unplugged" element={<BusinessUnpluggedPage />} />
+      </Routes>
+    </Suspense>
   );
 }
 

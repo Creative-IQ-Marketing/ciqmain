@@ -13,7 +13,7 @@ function FrameMedia({ frame }) {
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="none"
         className="size-full object-cover"
       />
     );
@@ -22,7 +22,7 @@ function FrameMedia({ frame }) {
     <img
       src={frame.src}
       alt=""
-      loading="eager"
+      loading="lazy"
       decoding="async"
       className="size-full object-cover"
     />
