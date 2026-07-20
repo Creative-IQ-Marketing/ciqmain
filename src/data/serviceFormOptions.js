@@ -44,6 +44,9 @@ export const SERVICE_FORM_OPTIONS = [
 /** Default interest when landing on a services section via hash nav */
 export const SECTION_INTEREST_MAP = {
   "website-seo": "bundle-growth",
+  bundles: "bundle-growth",
+  "growth-infra": "tier-growth-engine",
+  "high-level": "audit",
   "content-creation": "social-starter",
   consulting: "consulting-hourly",
   "crm-solutions": "crm-automation",

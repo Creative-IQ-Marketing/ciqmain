@@ -53,7 +53,7 @@ function FrameMedia({ frame, eager }) {
       height={CARD_H}
       loading={eager ? "eager" : "lazy"}
       decoding="async"
-      fetchPriority="auto"
+      fetchPriority="low"
       className="size-full object-cover"
     />
   );
@@ -157,7 +157,7 @@ export default function HeroArcGallery({ reducedMotion = false }) {
                 }}
                 aria-label={frame.label}
               >
-                <FrameMedia frame={frame} eager={index < 2 && cycle === 0} />
+                <FrameMedia frame={frame} eager={false} />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-white/5" />
                 {near ? (
                   <span className="absolute bottom-3 left-3 font-sans text-[10px] font-semibold uppercase tracking-[0.14em] text-white/90">

@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 import { ArrowUpRight, Calendar } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import { trackButtonClick } from "../../services/analytics";
 import Reveal from "../primitives/Reveal";
-import atmosphere from "../../assets/sections/section-about-atmosphere.jpg";
+import atmosphere from "../../assets/sections/section-about-atmosphere.webp";
+import { Button } from "../ui/button";
 
 const POINTS = [
   {
@@ -24,8 +25,6 @@ const POINTS = [
 ];
 
 export default function About() {
-  const navigate = useNavigate();
-
   return (
     <section
       id="about"
@@ -73,28 +72,27 @@ export default function About() {
           </div>
 
           <div className="mt-10 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-6">
-            <button
-              type="button"
-              onClick={() => {
-                trackButtonClick("About CTA", "about_cta", "About");
-                navigate("/book");
-              }}
-              className="inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--c-cta)] px-7 py-3 font-sans text-[15px] font-semibold text-white transition hover:bg-[var(--c-cta-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)]"
-            >
-              <Calendar size={15} strokeWidth={1.75} aria-hidden />
-              Book a strategy call
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                trackButtonClick("About Audit CTA", "about_audit_cta", "About");
-                navigate("/free-ai-seo-audit");
-              }}
+            <Button asChild>
+              <Link
+                to="/book"
+                onClick={() =>
+                  trackButtonClick("About CTA", "about_cta", "About")
+                }
+              >
+                <Calendar size={15} strokeWidth={1.75} aria-hidden />
+                Book a strategy call
+              </Link>
+            </Button>
+            <Link
+              to="/free-ai-seo-audit"
+              onClick={() =>
+                trackButtonClick("About Audit CTA", "about_audit_cta", "About")
+              }
               className="inline-flex items-center gap-1.5 font-sans text-[15px] font-medium text-[var(--c-accent)] transition hover:text-[#2f5ad4] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)]"
             >
               Free AI SEO audit
               <ArrowUpRight size={14} strokeWidth={1.75} aria-hidden />
-            </button>
+            </Link>
           </div>
         </Reveal>
       </div>

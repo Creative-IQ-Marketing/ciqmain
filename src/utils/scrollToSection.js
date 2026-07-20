@@ -21,10 +21,16 @@ export function scrollToHashFromHref(href, pathname, navigate, offset = HEADER_S
   const scrollToHash = () => scrollToSection(hash, offset);
 
   if (pathname === targetPath) {
-    scrollToHash();
+    // Update hash so selective views (e.g. Services lanes) can react.
+    // Falling back to scroll if the target id already exists in the DOM.
+    if (window.location.hash !== `#${hash}`) {
+      navigate(`${targetPath}#${hash}`);
+    } else {
+      scrollToHash();
+    }
     return;
   }
 
-  navigate(targetPath);
+  navigate(`${targetPath}#${hash}`);
   window.setTimeout(scrollToHash, 350);
 }

@@ -2,7 +2,7 @@ import { Download } from "lucide-react";
 import { trackButtonClick } from "../../services/analytics";
 import { Button } from "../ui/button";
 import Reveal from "../primitives/Reveal";
-import guideCover from "../../assets/hero/guide-cover-2026.jpg";
+import guideCover from "../../assets/hero/guide-cover-2026.webp";
 
 let pdfCached = false;
 function warmCache() {

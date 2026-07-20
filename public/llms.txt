@@ -1,29 +1,32 @@
 # CreativeIQ Marketing
 
-> AI-powered digital marketing agency based in San Antonio, Texas. Specializing in SEO, web design, CRM automation, and social media management for growing businesses.
+> AI-powered digital marketing agency based in San Antonio, Texas. Specializing in AI-ready SEO, websites, CRM automation, and social media systems that convert.
 
 ## Services
-- SEO: technical SEO, on-page optimization, local SEO, AI SEO audits
-- Web Design & Development: conversion-focused websites, landing pages, performance optimization
-- CRM Automation: GoHighLevel setup, workflow automation, lead nurturing sequences
-- Social Media Management: content strategy, paid and organic social
-- Email Marketing: campaign management, automation, list growth
+- Website & SEO systems: technical SEO, on-page, local SEO, AI/GEO readiness
+- Social content packages: strategy, posting, captions, cross-platform formatting
+- Consulting: growth strategy, neuromarketing, AI ecosystems
+- CRM automation: GoHighLevel setup, workflows, lead nurturing
 
 ## Tools & Resources
-- Free AI SEO Audit Tool: https://www.creativeiq.marketing/free-ai-seo-audit
-- Services Overview: https://www.creativeiq.marketing/services
+- Free AI SEO Audit Tool: https://creativeiq.marketing/free-ai-seo-audit
+- Services Overview: https://creativeiq.marketing/services
+- Book a strategy call: https://creativeiq.marketing/book
 
 ## Contact
-- Website: https://www.creativeiq.marketing
+- Website: https://creativeiq.marketing
 - Email: CiQ@creativeiq.marketing
 - Phone: +1 (210) 838-0177
 - Location: San Antonio, Texas
 
 ## Key Pages
-- https://www.creativeiq.marketing/
-- https://www.creativeiq.marketing/services
-- https://www.creativeiq.marketing/free-ai-seo-audit
-- https://www.creativeiq.marketing/contact
+- https://creativeiq.marketing/
+- https://creativeiq.marketing/services
+- https://creativeiq.marketing/about/creativeiq
+- https://creativeiq.marketing/about/vilma
+- https://creativeiq.marketing/free-ai-seo-audit
+- https://creativeiq.marketing/contact
+- https://creativeiq.marketing/book
 
 ## About
-CreativeIQ is a San Antonio digital marketing agency built around AI-first strategies. The agency serves small to mid-sized businesses looking to grow their online presence through search, automation, and conversion-optimized web experiences. Known for transparent reporting, technical depth, and measurable results.
+CreativeIQ builds marketing systems that earn trust from customers and AI platforms. Founded by Vilma Tovar. Serves businesses in San Antonio and nationwide with transparent reporting, technical depth, and measurable growth.

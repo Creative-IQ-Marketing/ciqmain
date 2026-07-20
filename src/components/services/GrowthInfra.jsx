@@ -1,25 +1,26 @@
-import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  Building2,
-  Flame,
-  LineChart,
-  Cpu,
-  Crown,
-} from "lucide-react";
+import { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, Check } from "lucide-react";
 import { scrollToServicesContact } from "../../utils/formInterest";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../ui/accordion";
+import DesktopOnlyImage from "../ui/DesktopOnlyImage";
+import imgSystems from "../../assets/generated/services-hero-systems.webp";
 
 const TIERS = [
   {
-    number: "1",
-    icon: Building2,
-    name: "The Foundation System",
+    id: "foundation",
+    number: "01",
+    name: "Foundation",
     interest: "tier-foundation",
-    subtitle: "Digital Authority Build",
+    subtitle: "Digital authority build",
     bestFor: "New businesses, local clinics, startups",
-    setup: "$2,500 – $5,000 setup",
-    monthly: null,
-    goal: "Establish digital credibility + lead capture infrastructure.",
+    price: "$2,500 - $5,000 setup",
+    goal: "Establish digital credibility and lead capture.",
     features: [
       "Custom conversion-optimized website",
       "Technical SEO setup",
@@ -30,44 +31,39 @@ const TIERS = [
       "1 automated email sequence",
       "Monthly analytics report",
     ],
-    color: "border-l-[var(--c-accent)]",
-    badge: null,
   },
   {
-    number: "2",
-    icon: Flame,
-    name: "The Growth Engine",
+    id: "growth",
+    number: "02",
+    name: "Growth Engine",
     interest: "tier-growth-engine",
-    subtitle: "Lead Generation & Conversion System",
+    subtitle: "Lead generation and conversion",
     bestFor: "Clinics, law firms, med spas, home services",
-    setup: null,
-    monthly: "$3,500 – $6,500/mo",
-    goal: "Predictable lead flow + automated follow-up. Competes with larger Texas firms.",
+    price: "$3,500 - $6,500/mo",
+    note: "Ad spend separate",
+    goal: "Predictable lead flow with automated follow-up.",
     features: [
       "Everything in Foundation",
       "Google Ads management",
       "Meta Ads management",
       "Retargeting funnel",
       "Landing page A/B testing",
-      "SEO content (2–4 blogs/month)",
+      "SEO content (2-4 blogs/month)",
       "Advanced CRM automations",
       "Missed-call text-back system",
       "SMS follow-up sequences",
       "Reputation management system",
     ],
-    color: "border-l-[var(--c-accent)]",
-    badge: "Ad spend separate",
   },
   {
-    number: "3",
-    icon: LineChart,
-    name: "The Brand Authority System",
+    id: "authority",
+    number: "03",
+    name: "Brand Authority",
     interest: "tier-brand-authority",
-    subtitle: "Omnipresence & Market Positioning",
+    subtitle: "Omnipresence and positioning",
     bestFor: "Established brands scaling visibility",
-    setup: null,
-    monthly: "$6,500 – $10,000/mo",
-    goal: "Position client as market leader, not just advertiser.",
+    price: "$6,500 - $10,000/mo",
+    goal: "Position as market leader, not just advertiser.",
     features: [
       "Everything in Growth Engine",
       "70+ social posts/month (multi-platform)",
@@ -79,44 +75,39 @@ const TIERS = [
       "Advanced YouTube SEO",
       "Brand storytelling campaigns",
     ],
-    color: "border-l-[var(--c-accent)]",
-    badge: null,
   },
   {
-    number: "4",
-    icon: Cpu,
-    name: "The Revenue Maximizer",
+    id: "revenue",
+    number: "04",
+    name: "Revenue Maximizer",
     interest: "tier-revenue",
-    subtitle: "Automation & AI Scale Suite",
+    subtitle: "Automation and AI scale",
     bestFor: "Multi-location, high-volume businesses",
-    setup: null,
-    monthly: "$8,000 – $15,000/mo",
-    goal: "Increase LTV, reduce lost leads, scale revenue without scaling payroll.",
+    price: "$8,000 - $15,000/mo",
+    goal: "Raise LTV and cut lost leads without growing payroll.",
     features: [
       "Everything in Brand Authority",
       "AI chat widget",
       "AI voice assistant for inbound calls",
       "Full pipeline automation",
       "Sales team tracking dashboard",
-      "Heatmaps & conversion tracking",
+      "Heatmaps and conversion tracking",
       "Advanced attribution reporting",
       "Customer reactivation campaigns",
-      "Loyalty & referral automation",
+      "Loyalty and referral automation",
       "Revenue forecasting model",
     ],
-    color: "border-l-[var(--c-accent)]",
-    badge: null,
   },
   {
-    number: "5",
-    icon: Crown,
-    name: "Enterprise Growth Partner",
+    id: "enterprise",
+    number: "05",
+    name: "Enterprise Partner",
     interest: "tier-enterprise",
-    subtitle: "Fractional CMO + Full Digital Division",
+    subtitle: "Fractional CMO + full digital division",
     bestFor: "Developers, franchises, healthcare groups, investors",
-    setup: null,
-    monthly: "$15,000 – $40,000/mo",
-    goal: "Act as in-house marketing department without internal overhead. Competes with Houston & Dallas enterprise firms.",
+    price: "$15,000 - $40,000/mo",
+    note: "By application",
+    goal: "Operate as your marketing department without internal overhead.",
     features: [
       "Everything from previous tiers",
       "Multi-location marketing management",
@@ -129,171 +120,167 @@ const TIERS = [
       "Executive-level KPI reporting",
       "Competitive intelligence research",
     ],
-    color: "border-l-[var(--c-accent)]",
-    badge: "By application only",
   },
 ];
 
-const cardVariants = {
-  hidden: { opacity: 0, x: -20 },
-  visible: (i) => ({
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.5, delay: i * 0.1, ease: "easeOut" },
-  }),
-};
-
 export default function GrowthInfra() {
-  const scrollToContact = (interest) => {
-    scrollToServicesContact(interest, `growth-tier:${interest}`);
-  };
+  const reduceMotion = useReducedMotion();
+  const [open, setOpen] = useState("growth");
 
   return (
     <section
       id="growth-infra"
-      className="scroll-mt-32 border-t border-black/[0.05] bg-white py-16 sm:py-20 lg:py-24"
+      className="scroll-mt-32 border-t border-[var(--c-border)] bg-[var(--c-ink)] py-[var(--section-pad)] text-white"
     >
-      <div className="mx-auto max-w-[1320px] px-5 sm:px-6 lg:px-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-6 text-center"
-        >
-          <h2 className="mb-4 font-sans text-[clamp(1.75rem,3vw,2.75rem)] font-extrabold tracking-[-0.03em] text-[#0f0f0f]">
-            Growth infrastructure tiers
-          </h2>
-          <p className="mx-auto max-w-2xl font-sans text-base leading-relaxed text-[#5c5c5c] lg:text-lg">
-            Match the stage you are in. Each tier scales from first digital
-            foothold to enterprise-grade growth command without restarting from
-            zero.
-          </p>
-        </motion.div>
+      <div className="mx-auto max-w-[var(--container-max)] px-[var(--container-pad)]">
+        <div className="grid items-end gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-12">
+          <div className="max-w-2xl">
+            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--c-accent)]">
+              Infrastructure ladder
+            </p>
+            <h2 className="mt-3 font-sans text-[clamp(1.85rem,3.5vw,2.85rem)] font-extrabold leading-[1.02] tracking-[-0.04em] text-balance">
+              Growth infrastructure{" "}
+              <span className="text-[var(--c-accent)]">tiers</span>
+            </h2>
+            <p className="mt-4 font-sans text-base leading-relaxed text-white/65 lg:text-lg">
+              A ladder from first foothold to enterprise command. Open a tier only
+              when you want the details.
+            </p>
+          </div>
+          <div className="hidden overflow-hidden rounded-[var(--radius-card)] border border-white/10 lg:block">
+            <DesktopOnlyImage
+              src={imgSystems}
+              width={1280}
+              height={853}
+              imgClassName="aspect-[16/10] w-full object-cover opacity-80"
+              sizes="(min-width: 1024px) 36vw, 1px"
+            />
+          </div>
+        </div>
 
-        {/* Context banner */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mx-auto mb-16 max-w-3xl rounded-[var(--radius-card)] border border-[#3B6FF0]/20 bg-[#3B6FF0]/[0.04] p-6 text-center sm:p-8"
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-10 max-w-xl border-l-2 border-[var(--c-accent)] pl-5"
         >
-          <p className="font-sans text-lg font-semibold text-[#0f0f0f]">
+          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--c-accent)]">
+            Positioning
+          </p>
+          <p className="mt-2 font-sans text-base font-semibold leading-snug text-white sm:text-lg">
             Most agencies sell services. We build growth infrastructure.
           </p>
         </motion.div>
 
-        {/* Tier cards */}
-        <div className="space-y-6">
-          {TIERS.map((tier, i) => {
-            const Icon = tier.icon;
-            return (
-              <motion.div
-                key={tier.name}
-                custom={i}
-                variants={cardVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                className="group overflow-hidden rounded-[var(--radius-card)] border border-black/[0.06] bg-white transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-black/[0.12] hover:shadow-[var(--shadow-soft)]"
-              >
-                <div className="p-6 sm:p-8">
-                  <div className="flex flex-col sm:flex-row sm:items-start gap-6">
-                    {/* Tier number + icon */}
-                    <div className="flex items-center gap-4 shrink-0">
-                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#3B6FF0]/10">
-                        <Icon className="h-6 w-6 text-[#3B6FF0]" />
-                      </div>
-                      <div>
-                        <span className="text-xs font-bold uppercase tracking-widest text-[#737373]">
-                          Tier {tier.number}
+        <div className="mt-10 overflow-hidden rounded-[var(--radius-card)] border border-white/12 bg-[#161616]">
+          <Accordion
+            type="single"
+            collapsible
+            value={open}
+            onValueChange={setOpen}
+            className="w-full"
+          >
+            {TIERS.map((tier) => {
+              const isOpen = open === tier.id;
+              return (
+                <AccordionItem
+                  key={tier.id}
+                  value={tier.id}
+                  className={`relative border-b border-white/10 px-5 last:border-b-0 sm:px-7 ${
+                    isOpen ? "bg-[#1c1c1c]" : "bg-[#161616]"
+                  }`}
+                >
+                  <span
+                    className="pointer-events-none absolute right-4 top-3 font-sans text-[clamp(2.5rem,6vw,4rem)] font-extrabold leading-none tracking-[-0.06em] text-white/[0.05] tabular-nums"
+                    aria-hidden
+                  >
+                    {tier.number}
+                  </span>
+                  <AccordionTrigger className="py-6 text-white hover:text-white hover:no-underline [&_svg]:text-white/50">
+                    <span className="flex min-w-0 flex-1 flex-col gap-2 text-left sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+                      <span className="min-w-0">
+                        <span className="flex items-center gap-3">
+                          <span className="font-sans text-xs font-bold tabular-nums text-[var(--c-accent)]">
+                            {tier.number}
+                          </span>
+                          <span className="font-sans text-base font-bold tracking-[-0.02em] sm:text-lg">
+                            {tier.name}
+                          </span>
                         </span>
-                        <h3 className="text-xl font-bold leading-tight text-[#0f0f0f]">
-                          {tier.name}
-                        </h3>
-                        <p className="text-sm font-medium text-[#3B6FF0]">
+                        <span className="mt-1 block font-sans text-sm text-white/50 sm:pl-8">
                           {tier.subtitle}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Right section */}
-                    <div className="flex-1 grid sm:grid-cols-2 gap-6">
-                      {/* Features */}
+                        </span>
+                      </span>
+                      <span className="shrink-0 font-sans text-sm font-semibold tabular-nums text-[var(--c-accent)] sm:text-right">
+                        {tier.price}
+                      </span>
+                    </span>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-white/70">
+                    <div className="grid gap-6 pb-2 sm:grid-cols-[1.2fr_0.8fr] sm:gap-10">
                       <div>
-                        <p className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+                        <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-white/40">
                           Includes
                         </p>
-                        <ul className="space-y-1.5">
+                        <ul className="mt-3 grid gap-2.5 sm:grid-cols-2">
                           {tier.features.map((f) => (
                             <li
                               key={f}
-                              className="flex items-start gap-2 text-sm text-slate-600"
+                              className="flex items-start gap-2 font-sans text-sm leading-relaxed text-white/70"
                             >
-                              <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
+                              <Check
+                                className="mt-0.5 size-3.5 shrink-0 text-[var(--c-accent)]"
+                                strokeWidth={2.5}
+                                aria-hidden
+                              />
                               {f}
                             </li>
                           ))}
                         </ul>
                       </div>
-
-                      {/* Meta */}
-                      <div className="space-y-4">
+                      <div className="space-y-4 rounded-[var(--radius-control)] border border-white/10 bg-[#111] p-4 sm:p-5">
                         <div>
-                          <p className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">
-                            Investment
+                          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-white/40">
+                            Best for
                           </p>
-                          {tier.setup && (
-                            <p className="text-sm text-slate-700 font-medium">
-                              {tier.setup}
-                            </p>
-                          )}
-                          {tier.monthly && (
-                            <p className="text-lg font-bold text-blue-700">
-                              {tier.monthly}
-                            </p>
-                          )}
-                          {tier.badge && (
-                            <span className="inline-block mt-1 text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 font-semibold">
-                              {tier.badge}
-                            </span>
-                          )}
-                        </div>
-
-                        <div>
-                          <p className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">
-                            Best For
-                          </p>
-                          <p className="text-sm text-slate-600">
+                          <p className="mt-1.5 font-sans text-sm text-white">
                             {tier.bestFor}
                           </p>
                         </div>
-
-                        <div className="rounded-xl border border-black/[0.06] bg-[#fafafa] p-3">
-                          <p className="text-xs text-slate-500">
-                            <span className="font-semibold text-slate-700">
-                              Goal:{" "}
-                            </span>
+                        <div>
+                          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-white/40">
+                            Goal
+                          </p>
+                          <p className="mt-1.5 font-sans text-sm text-white/70">
                             {tier.goal}
                           </p>
                         </div>
-
-                        <motion.button
-                          whileHover={{ scale: 1.03 }}
-                          whileTap={{ scale: 0.97 }}
-                          onClick={() => scrollToContact(tier.interest)}
-                          className="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors"
+                        {tier.note ? (
+                          <p className="font-sans text-xs font-medium text-[var(--c-accent)]">
+                            {tier.note}
+                          </p>
+                        ) : null}
+                        <button
+                          type="button"
+                          onClick={() =>
+                            scrollToServicesContact(
+                              tier.interest,
+                              `growth-tier:${tier.interest}`,
+                            )
+                          }
+                          className="inline-flex items-center gap-2 font-sans text-sm font-semibold text-white transition-colors hover:text-[var(--c-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--c-ink)]"
                         >
-                          Discuss this tier <ArrowRight className="w-4 h-4" />
-                        </motion.button>
+                          Discuss this tier
+                          <ArrowRight className="size-4" aria-hidden />
+                        </button>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
+                  </AccordionContent>
+                </AccordionItem>
+              );
+            })}
+          </Accordion>
         </div>
       </div>
     </section>

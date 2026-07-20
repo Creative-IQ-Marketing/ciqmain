@@ -9,7 +9,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "rounded-[var(--radius-pill)] bg-[var(--c-cta)] text-white hover:bg-[var(--c-cta-hover)]",
+          "rounded-[var(--radius-pill)] bg-[var(--c-accent)] text-white hover:bg-[#2f5fd9]",
         secondary:
           "rounded-[var(--radius-pill)] border border-[var(--c-border-strong)] bg-white text-[var(--c-ink)] hover:border-[var(--c-ink)]/40",
         accent:

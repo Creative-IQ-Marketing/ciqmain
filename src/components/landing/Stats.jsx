@@ -4,7 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { useCountUp } from "../../hooks/useCountUp";
 import { useInView } from "framer-motion";
-import texture from "../../assets/sections/section-stats-texture.jpg";
+import texture from "../../assets/sections/section-stats-texture.webp";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -70,6 +70,8 @@ export default function Stats() {
         alt=""
         aria-hidden
         className="pointer-events-none absolute inset-0 size-full object-cover opacity-40"
+        loading="lazy"
+        decoding="async"
       />
       <div className="relative mx-auto max-w-[var(--container-max)] px-[var(--container-pad)] py-12 sm:py-14 lg:py-16">
         <div className="mb-8 max-w-2xl sm:mb-10">

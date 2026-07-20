@@ -1,15 +1,19 @@
-import { motion } from "framer-motion";
-import { Brain, RefreshCcw, ArrowRight } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, Check } from "lucide-react";
 import { scrollToServicesContact } from "../../utils/formInterest";
+import { Button } from "../ui/button";
+import { IconScan } from "../../assets/icons/ServiceIcons";
+import DesktopOnlyImage from "../ui/DesktopOnlyImage";
+import imgSeo from "../../assets/generated/services-seo-structure.webp";
+import imgCrm from "../../assets/generated/services-crm-pipeline.webp";
 
 const OFFERS = [
   {
-    icon: Brain,
     name: "Conversion Intelligence Audit",
     interest: "audit",
-    price: "$2K – $7K",
+    price: "$2K - $7K",
     tagline:
-      "Find exactly why traffic stalls before booking, then leave with a 30-day blueprint to fix the leaks.",
+      "Find why traffic stalls before booking, then leave with a 30-day fix blueprint.",
     pitch: [
       "Website behavior breakdown",
       "Heatmap analysis",
@@ -18,19 +22,18 @@ const OFFERS = [
       "Competitor positioning gaps",
     ],
     example: {
-      client: "Med Spa Client",
-      problem: "Good traffic, low bookings",
+      client: "Med spa",
       result:
-        "Reframed service messaging into a measurable conversion lift within 30 days.",
+        "Reframed service messaging into a measurable conversion lift in 30 days.",
     },
+    dark: false,
   },
   {
-    icon: RefreshCcw,
     name: "Conversion Optimization Retainer",
     interest: "retainer",
-    price: "$3K – $15K/mo",
+    price: "$3K - $15K/mo",
     tagline:
-      "Turn the traffic you already have into paying clients through continuous testing and funnel discipline.",
+      "Turn existing traffic into paying clients through continuous testing and funnel discipline.",
     pitch: [
       "Monthly landing page A/B tests",
       "Messaging rewrites with psychology triggers",
@@ -39,96 +42,155 @@ const OFFERS = [
       "Behavior data analysis + strategy adjustments",
     ],
     example: {
-      client: "Roofing Client",
-      problem: "Lead form with zero follow-up",
+      client: "Roofing",
       result:
-        "Instant SMS and urgency emails doubled the lead-to-appointment rate.",
+        "Instant SMS and urgency emails doubled lead-to-appointment rate.",
     },
+    dark: true,
   },
 ];
 
 export default function HighLevelOffers() {
-  const scrollToContact = (interest) => {
-    scrollToServicesContact(interest, `high-level:${interest}`);
-  };
+  const reduceMotion = useReducedMotion();
 
   return (
     <section
       id="high-level"
-      className="scroll-mt-32 border-t border-black/[0.05] bg-[#f5f6f8] py-16 sm:py-20 lg:py-24"
+      className="scroll-mt-32 border-t border-[var(--c-border)] bg-[var(--c-surface-2)] py-[var(--section-pad)]"
     >
-      <div className="mx-auto max-w-[1320px] px-5 sm:px-6 lg:px-10">
-        <div className="max-w-2xl">
-          <h2 className="font-sans text-[clamp(1.75rem,3vw,2.25rem)] font-extrabold tracking-[-0.03em] text-[#0f0f0f] sm:text-4xl">
-            Conversion intelligence
-          </h2>
-          <p className="mt-4 font-sans text-base leading-relaxed text-[#5c5c5c] lg:text-lg">
-            For brands ready to work at the strategic layer: psychology, site
-            infrastructure, and accountable spend in one workstream.
-          </p>
+      <div className="mx-auto max-w-[var(--container-max)] px-[var(--container-pad)]">
+        <div className="grid items-end gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-10">
+          <div className="max-w-2xl">
+            <p className="mb-3 inline-flex items-center gap-2 font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--c-accent)]">
+              <IconScan className="size-3.5" />
+              Conversion layer
+            </p>
+            <h2 className="font-sans text-[clamp(1.85rem,3.5vw,2.85rem)] font-extrabold leading-[1.02] tracking-[-0.04em] text-[var(--c-ink)] text-balance">
+              Conversion{" "}
+              <span className="text-[var(--c-accent)]">intelligence</span>
+            </h2>
+            <p className="mt-4 font-sans text-base leading-relaxed text-[var(--c-text-secondary)] lg:text-lg">
+              For brands ready to work at the strategic layer: psychology, site
+              infrastructure, and accountable spend.
+            </p>
+          </div>
+          <div className="hidden grid-cols-2 gap-3 lg:grid">
+            <div className="overflow-hidden rounded-[var(--radius-card)] border border-[var(--c-border)]">
+              <DesktopOnlyImage
+                src={imgSeo}
+                width={550}
+                height={688}
+                imgClassName="aspect-[4/5] w-full object-cover"
+                sizes="(min-width: 1024px) 20vw, 1px"
+              />
+            </div>
+            <div className="overflow-hidden rounded-[var(--radius-card)] border border-[var(--c-border)]">
+              <DesktopOnlyImage
+                src={imgCrm}
+                width={550}
+                height={688}
+                imgClassName="aspect-[4/5] w-full object-cover"
+                sizes="(min-width: 1024px) 20vw, 1px"
+              />
+            </div>
+          </div>
         </div>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">
-          {OFFERS.map((offer, i) => {
-            const Icon = offer.icon;
-            return (
-              <motion.article
-                key={offer.name}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: i * 0.08 }}
-                className="group flex flex-col rounded-[var(--radius-card)] border border-black/[0.08] bg-white p-8 transition-[border-color] duration-300 hover:border-black/[0.16]"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-md border border-black/[0.08]">
-                    <Icon className="h-4 w-4 text-[var(--c-ink)]" strokeWidth={1.75} />
-                  </div>
-                  <p className="text-sm font-semibold text-[#3B6FF0]">
-                    {offer.price}
-                  </p>
-                </div>
-                <h3 className="mt-5 text-xl font-bold text-[#0f0f0f]">
+        <div className="mt-10 grid gap-4 lg:grid-cols-2">
+          {OFFERS.map((offer, i) => (
+            <motion.article
+              key={offer.name}
+              initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{
+                duration: 0.45,
+                delay: i * 0.08,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className={`flex flex-col rounded-[var(--radius-card)] p-5 sm:p-7 lg:p-8 ${
+                offer.dark
+                  ? "bg-[var(--c-ink)] text-white"
+                  : "bg-white text-[var(--c-ink)]"
+              }`}
+            >
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+                <h3
+                  className={`font-sans text-xl font-bold tracking-[-0.03em] sm:max-w-[16ch] sm:text-2xl ${
+                    offer.dark ? "text-white" : "text-[var(--c-ink)]"
+                  }`}
+                >
                   {offer.name}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-[#5c5c5c]">
-                  {offer.tagline}
+                <p className="shrink-0 font-sans text-sm font-semibold tabular-nums text-[var(--c-accent)]">
+                  {offer.price}
                 </p>
+              </div>
+              <p
+                className={`mt-3 max-w-[42ch] font-sans text-sm leading-relaxed ${
+                  offer.dark ? "text-white/70" : "text-[var(--c-text-secondary)]"
+                }`}
+              >
+                {offer.tagline}
+              </p>
 
-                <ul className="mt-6 flex-1 space-y-2.5">
-                  {offer.pitch.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-start gap-2.5 text-sm text-[#5c5c5c]"
-                    >
-                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[#3B6FF0]" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+              <ul className="mt-6 flex-1 space-y-2.5">
+                {offer.pitch.map((item) => (
+                  <li
+                    key={item}
+                    className={`flex items-start gap-2.5 font-sans text-sm ${
+                      offer.dark
+                        ? "text-white/75"
+                        : "text-[var(--c-text-secondary)]"
+                    }`}
+                  >
+                    <Check
+                      className="mt-0.5 size-3.5 shrink-0 text-[var(--c-accent)]"
+                      strokeWidth={2.5}
+                      aria-hidden
+                    />
+                    {item}
+                  </li>
+                ))}
+              </ul>
 
-                <div className="mt-6 rounded-xl border border-black/[0.06] bg-[#fafafa] p-4">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-[#737373]">
-                    Example: {offer.example.client}
-                  </p>
-                  <p className="mt-2 text-sm text-[#5c5c5c]">
-                    {offer.example.problem}
-                  </p>
-                  <p className="mt-2 text-sm font-medium text-[#0f0f0f]">
-                    {offer.example.result}
-                  </p>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => scrollToContact(offer.interest)}
-                  className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#3B6FF0] transition hover:text-[#2f5ad4]"
+              <div
+                className={`mt-6 rounded-[var(--radius-control)] border p-4 ${
+                  offer.dark
+                    ? "border-white/12 bg-[#161616]"
+                    : "border-[var(--c-border)] bg-[var(--c-surface-2)]"
+                }`}
+              >
+                <p
+                  className={`font-sans text-[11px] font-semibold uppercase tracking-[0.14em] ${
+                    offer.dark ? "text-white/45" : "text-[var(--c-text-muted)]"
+                  }`}
                 >
-                  Inquire <ArrowRight className="h-4 w-4" />
-                </button>
-              </motion.article>
-            );
-          })}
+                  Example · {offer.example.client}
+                </p>
+                <p
+                  className={`mt-2 font-sans text-sm leading-relaxed ${
+                    offer.dark ? "text-white" : "text-[var(--c-ink)]"
+                  }`}
+                >
+                  {offer.example.result}
+                </p>
+              </div>
+
+              <Button
+                variant={offer.dark ? "accent" : "secondary"}
+                className="mt-6 self-start"
+                onClick={() =>
+                  scrollToServicesContact(
+                    offer.interest,
+                    `high-level:${offer.interest}`,
+                  )
+                }
+              >
+                Inquire <ArrowRight className="size-4" aria-hidden />
+              </Button>
+            </motion.article>
+          ))}
         </div>
       </div>
     </section>

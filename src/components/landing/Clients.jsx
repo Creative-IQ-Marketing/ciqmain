@@ -5,7 +5,7 @@ import FadeUp from "../primitives/FadeUp";
 
 gsap.registerPlugin(useGSAP);
 
-const logoModules = import.meta.glob("../../assets/transparent/*.png", {
+const logoModules = import.meta.glob("../../assets/transparent/*.webp", {
   eager: true,
 });
 

@@ -1,16 +1,25 @@
-import { motion } from "framer-motion";
-import { ArrowRight, Check } from "lucide-react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, Check, ChevronDown } from "lucide-react";
 import { scrollToServicesContact } from "../../utils/formInterest";
+import { Button } from "../ui/button";
+import PlanRail from "./PlanRail";
+import DesktopOnlyImage from "../ui/DesktopOnlyImage";
+import { IconSocial } from "../../assets/icons/ServiceIcons";
+import imgSocial from "../../assets/generated/services-social-content.webp";
 
 const PACKAGES = [
   {
+    id: "starter",
+    index: "01",
     name: "Social Starter",
     interest: "social-starter",
-    subtitle: "Presence System",
+    subtitle: "Presence",
     monthly: "$589",
     biweekly: "$299",
     trial: true,
+    preview: ["Up to 2 platforms", "8 posts/month", "Captions + hashtags"],
     features: [
       "Monthly strategy meeting",
       "Up to 2 platforms",
@@ -19,14 +28,22 @@ const PACKAGES = [
       "Cross-platform formatting",
       "Monthly engagement summary",
     ],
-    buying: "Reliable posting rhythm and basic visibility without a full in-house team.",
+    buying: "Reliable posting without a full in-house team.",
   },
   {
+    id: "classic",
+    index: "02",
     name: "The Classic",
     interest: "social-classic",
-    subtitle: "Foundation Visibility System",
+    subtitle: "Foundation",
     monthly: "$999",
     biweekly: "$599",
+    featured: true,
+    preview: [
+      "Everything in Starter",
+      "3 platforms",
+      "12 posts/month + short-form",
+    ],
     features: [
       "Everything in Starter",
       "1 content production day/month",
@@ -35,15 +52,21 @@ const PACKAGES = [
       "Short-form video integration",
       "1 LinkedIn blog (if applicable)",
     ],
-    buying: "Stronger creative quality and clearer brand positioning across three platforms.",
-    featured: true,
+    buying: "Stronger creative quality across three platforms.",
   },
   {
+    id: "refined",
+    index: "03",
     name: "The Refined",
     interest: "social-refined",
-    subtitle: "Authority Building System",
+    subtitle: "Authority",
     monthly: "$1,469",
     biweekly: "$799",
+    preview: [
+      "Everything in Classic",
+      "15 posts/month",
+      "Branded content calendar",
+    ],
     features: [
       "Everything in Classic",
       "2 content production days/month",
@@ -52,14 +75,17 @@ const PACKAGES = [
       "Automated scheduling",
       "Monthly analytics report",
     ],
-    buying: "Cadence plus strategy and performance tracking for teams that outgrew ad-hoc posting.",
+    buying: "Cadence plus strategy for teams past ad-hoc posting.",
   },
   {
+    id: "signature",
+    index: "04",
     name: "The Signature",
     interest: "social-signature",
-    subtitle: "Multi-Channel Growth Engine",
+    subtitle: "Multi-channel",
     monthly: "$2,369",
     biweekly: "$1,199",
+    preview: ["Up to 4 platforms", "18 posts/month", "Cross-platform repurposing"],
     features: [
       "Up to 4 platforms",
       "18 posts/month",
@@ -68,14 +94,17 @@ const PACKAGES = [
       "Trend + creative direction",
       "Up to 2 LinkedIn blogs",
     ],
-    buying: "Broader reach with smarter distribution when one channel is no longer enough.",
+    buying: "Broader reach when one channel is no longer enough.",
   },
   {
-    name: "Elite Social System",
+    id: "elite",
+    index: "05",
+    name: "Elite Social",
     interest: "social-elite",
-    subtitle: "Digital Authority Infrastructure",
+    subtitle: "Authority infrastructure",
     monthly: "$2,999",
     biweekly: null,
+    preview: ["Up to 5 platforms", "27 posts/month", "Social SEO + DM flows"],
     features: [
       "Up to 5 platforms",
       "27 posts/month",
@@ -84,118 +113,277 @@ const PACKAGES = [
       "Automated DM & inquiry flows",
       "Advanced analytics dashboard",
     ],
-    buying: "Authority, lead capture, and system-driven growth across your full social surface.",
+    buying: "Authority, lead capture, and system-driven social growth.",
   },
 ];
 
 const VIDEO_PACKAGES = [
-  { count: 1, price: "$399" },
-  { count: 2, price: "$599" },
-  { count: 3, price: "$999" },
+  { count: 1, price: "$399", label: "Single brand cut" },
+  { count: 2, price: "$599", label: "Pair for A/B or series" },
+  { count: 3, price: "$999", label: "Campaign set" },
 ];
 
+function PackagePanel({ pkg }) {
+  const [open, setOpen] = useState(false);
+  const visible = open ? pkg.features : pkg.preview;
+
+  return (
+    <article
+      className={`relative flex h-full min-w-0 flex-col overflow-hidden rounded-[var(--radius-card)] transition-[box-shadow,background-color] duration-300 lg:hover:shadow-[var(--shadow-soft)] ${
+        pkg.featured
+          ? "bg-white"
+          : pkg.trial
+            ? "bg-[var(--c-accent-dim)]/50"
+            : "bg-[var(--c-surface-2)] hover:bg-white"
+      }`}
+    >
+      <div
+        className={`px-5 pb-4 pt-5 ${
+          pkg.featured ? "bg-[var(--c-ink)] text-white" : ""
+        }`}
+      >
+        <div className="flex items-start justify-between gap-2">
+          <span
+            className={`font-sans text-[11px] font-bold tabular-nums ${
+              pkg.featured ? "text-[var(--c-accent)]" : "text-[var(--c-text-muted)]"
+            }`}
+          >
+            {pkg.index}
+          </span>
+          {pkg.trial ? (
+            <Link
+              to="/social-media-free-trial"
+              className="rounded-[var(--radius-pill)] border border-[var(--c-accent)]/40 bg-white/80 px-2.5 py-1 font-sans text-[10px] font-semibold text-[var(--c-accent)] transition hover:bg-white"
+            >
+              30-day trial
+            </Link>
+          ) : pkg.featured ? (
+            <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--c-accent)]">
+              Most chosen
+            </span>
+          ) : null}
+        </div>
+
+        <p
+          className={`mt-4 font-sans text-[11px] font-semibold uppercase tracking-[0.14em] ${
+            pkg.featured ? "text-white/50" : "text-[var(--c-text-muted)]"
+          }`}
+        >
+          {pkg.subtitle}
+        </p>
+        <h3
+          className={`mt-1 font-sans text-lg font-bold tracking-[-0.02em] ${
+            pkg.featured ? "text-white" : "text-[var(--c-ink)]"
+          }`}
+        >
+          {pkg.name}
+        </h3>
+
+        <div className="mt-4 flex flex-wrap items-baseline gap-1">
+          <span
+            className={`font-sans text-2xl font-extrabold tracking-[-0.03em] tabular-nums ${
+              pkg.featured ? "text-white" : "text-[var(--c-ink)]"
+            }`}
+          >
+            {pkg.monthly}
+          </span>
+          <span
+            className={`font-sans text-xs ${
+              pkg.featured ? "text-white/55" : "text-[var(--c-text-muted)]"
+            }`}
+          >
+            /mo
+          </span>
+        </div>
+        {pkg.biweekly ? (
+          <p
+            className={`mt-1 font-sans text-[11px] tabular-nums ${
+              pkg.featured ? "text-white/50" : "text-[var(--c-text-muted)]"
+            }`}
+          >
+            {pkg.biweekly} bi-weekly
+          </p>
+        ) : null}
+      </div>
+
+      <div className="flex flex-1 flex-col px-5 py-4">
+        <ul className="space-y-2">
+          {visible.map((f) => (
+            <li
+              key={f}
+              className="flex items-start gap-2 font-sans text-sm leading-snug text-[var(--c-text-secondary)]"
+            >
+              <Check
+                className="mt-0.5 size-3.5 shrink-0 text-[var(--c-accent)]"
+                strokeWidth={2.5}
+                aria-hidden
+              />
+              {f}
+            </li>
+          ))}
+        </ul>
+
+        {pkg.features.length > pkg.preview.length ? (
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            className="mt-3 inline-flex items-center gap-1.5 self-start font-sans text-sm font-semibold text-[var(--c-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)] focus-visible:ring-offset-2"
+            aria-expanded={open}
+          >
+            {open ? "Show less" : "Full inclusions"}
+            <ChevronDown
+              className={`size-4 transition-transform duration-200 ${
+                open ? "rotate-180" : ""
+              }`}
+              aria-hidden
+            />
+          </button>
+        ) : null}
+
+        <p className="mt-4 font-sans text-xs leading-relaxed text-[var(--c-text-muted)]">
+          {pkg.buying}
+        </p>
+      </div>
+
+      <div className="px-5 pb-5">
+        <Button
+          variant={pkg.featured ? "accent" : "secondary"}
+          size="sm"
+          className="w-full"
+          onClick={() =>
+            scrollToServicesContact(pkg.interest, `social-package:${pkg.interest}`)
+          }
+        >
+          Get started <ArrowRight className="size-4" aria-hidden />
+        </Button>
+      </div>
+    </article>
+  );
+}
+
 export default function SocialMediaPackages() {
-  const scrollToContact = (interest) => {
-    scrollToServicesContact(interest, `social-package:${interest}`);
-  };
+  const reduceMotion = useReducedMotion();
+  const [activeId, setActiveId] = useState("classic");
+  const active = PACKAGES.find((p) => p.id === activeId) ?? PACKAGES[1];
 
   return (
     <section
       id="content-creation"
-      className="scroll-mt-32 border-t border-black/[0.05] bg-[#f5f6f8] py-16 sm:py-20 lg:py-24"
+      className="scroll-mt-32 border-t border-[var(--c-border)] bg-[var(--c-surface-2)] py-[var(--section-pad)]"
     >
-      <div className="mx-auto max-w-[1320px] px-5 sm:px-6 lg:px-10">
-        <div className="max-w-2xl">
-          <h2 className="font-sans text-[clamp(1.75rem,3vw,2.25rem)] font-extrabold tracking-[-0.03em] text-[#0f0f0f] sm:text-4xl">
-            Social growth systems
-          </h2>
-          <p className="mt-4 font-sans text-base leading-relaxed text-[#5c5c5c] lg:text-lg">
-            A tiered content and social ecosystem, from consistent presence to
-            full digital authority. Video production available à la carte.
-          </p>
+      <div className="mx-auto max-w-[var(--container-max)] px-[var(--container-pad)]">
+        <div className="grid items-end gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-12">
+          <div className="max-w-2xl">
+            <p className="mb-3 inline-flex items-center gap-2 font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--c-accent)]">
+              <IconSocial className="size-3.5" />
+              Content systems
+            </p>
+            <h2 className="font-sans text-[clamp(1.85rem,3.5vw,2.85rem)] font-extrabold leading-[1.02] tracking-[-0.04em] text-[var(--c-ink)] text-balance">
+              Social{" "}
+              <span className="text-[var(--c-accent)]">growth systems</span>
+            </h2>
+            <p className="mt-4 font-sans text-base leading-relaxed text-[var(--c-text-secondary)] lg:text-lg">
+              From consistent presence to full digital authority. Pick a cadence,
+              then expand inclusions if you need them.
+            </p>
+          </div>
+          <div className="hidden overflow-hidden rounded-[var(--radius-card)] border border-[var(--c-border)] lg:block">
+            <DesktopOnlyImage
+              src={imgSocial}
+              width={1100}
+              height={733}
+              imgClassName="aspect-[16/10] w-full object-cover"
+              sizes="(min-width: 1024px) 40vw, 1px"
+            />
+          </div>
         </div>
 
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-          {PACKAGES.map((pkg, i) => (
-            <motion.article
-              key={pkg.name}
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
-              className={`group flex flex-col rounded-[var(--radius-card)] border bg-white p-7 transition-[border-color] duration-300 ${
-                pkg.featured
-                  ? "border-[var(--c-accent)]"
-                  : "border-black/[0.08] hover:border-black/[0.16]"
-              }`}
-            >
-              {pkg.trial && (
-                <Link
-                  to="/social-media-free-trial"
-                  className="mb-4 inline-flex w-fit border border-[var(--c-accent)]/30 px-3 py-1 text-[11px] font-semibold tracking-wide text-[var(--c-accent)] transition hover:bg-[var(--c-accent)]/[0.04]"
-                >
-                  30-day free trial
-                </Link>
-              )}
-              <p className="text-xs font-medium text-[#737373]">
-                {pkg.subtitle}
-              </p>
-              <h3 className="mt-1 text-xl font-bold text-[#0f0f0f]">
-                {pkg.name}
-              </h3>
-              <div className="mt-4 flex items-baseline gap-1">
-                <span className="text-2xl font-bold text-[#0f0f0f]">
-                  {pkg.monthly}
-                </span>
-                <span className="text-sm text-[#737373]">/mo</span>
-              </div>
-              {pkg.biweekly && (
-                <p className="mt-0.5 text-xs text-[#737373]">
-                  {pkg.biweekly} bi-weekly
-                </p>
-              )}
-              <ul className="mt-5 flex-1 space-y-2.5">
-                {pkg.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2.5 text-sm text-[#5c5c5c]">
-                    <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#3B6FF0]" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-5 border-t border-black/[0.06] pt-4 text-xs text-[#737373]">
-                <span className="font-medium text-[#0f0f0f]">You get: </span>
-                {pkg.buying}
-              </p>
-              <button
-                type="button"
-                onClick={() => scrollToContact(pkg.interest)}
-                className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#3B6FF0]"
+        <div className="mt-10 2xl:hidden">
+          <PlanRail
+            ariaLabel="Social packages"
+            value={activeId}
+            onChange={setActiveId}
+            options={PACKAGES.map((p) => ({
+              id: p.id,
+              label: p.name.replace(/^The\s/, ""),
+              meta: `${p.monthly}/mo`,
+            }))}
+          />
+          <motion.div
+            key={active.id}
+            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-5"
+          >
+            <PackagePanel pkg={active} />
+          </motion.div>
+        </div>
+
+        <div className="relative mt-12 hidden 2xl:block">
+          <div
+            className="pointer-events-none absolute left-0 right-0 top-[4.25rem] h-px bg-[var(--c-border-strong)]"
+            aria-hidden
+          />
+          <div className="grid min-w-0 grid-cols-5 gap-3">
+            {PACKAGES.map((pkg, i) => (
+              <motion.div
+                key={pkg.id}
+                initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{
+                  duration: 0.4,
+                  delay: i * 0.05,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className="relative min-w-0"
               >
-                Get started <ArrowRight className="h-4 w-4" />
-              </button>
-            </motion.article>
-          ))}
+                <span
+                  className="absolute left-1/2 top-[4.25rem] z-10 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--c-accent)] ring-4 ring-[var(--c-surface-2)]"
+                  aria-hidden
+                />
+                <PackagePanel pkg={pkg} />
+              </motion.div>
+            ))}
+          </div>
         </div>
 
-        <div className="mt-14 rounded-[var(--radius-card)] border border-black/[0.06] bg-white p-8 sm:p-10">
-          <h3 className="text-xl font-bold text-[#0f0f0f]">
-            Video production à la carte
-          </h3>
-          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[#5c5c5c]">
-            Professional filmed brand videos with raw footage delivered. Under 60
-            seconds; add $100 per additional minute.
-          </p>
-          <div className="mt-6 grid gap-4 sm:grid-cols-3">
-            {VIDEO_PACKAGES.map((v) => (
+        <div className="mt-14 overflow-hidden rounded-[var(--radius-card)] border border-[var(--c-border)] bg-white">
+          <div className="border-b border-[var(--c-border)] px-6 py-6 sm:px-8">
+            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--c-accent)]">
+              À la carte
+            </p>
+            <h3 className="mt-2 font-sans text-xl font-bold tracking-[-0.02em] text-[var(--c-ink)]">
+              Video production
+            </h3>
+            <p className="mt-2 max-w-2xl font-sans text-sm leading-relaxed text-[var(--c-text-secondary)]">
+              Filmed brand videos with raw footage delivered. Under 60 seconds;
+              add $100 per additional minute.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-3">
+            {VIDEO_PACKAGES.map((v, i) => (
               <div
                 key={v.count}
-                className="rounded-xl border border-black/[0.06] bg-[#fafafa] p-5"
+                className={`px-6 py-7 sm:px-8 ${
+                  i < VIDEO_PACKAGES.length - 1
+                    ? "border-b border-[var(--c-border)] sm:border-b-0 sm:border-r"
+                    : ""
+                }`}
               >
-                <p className="text-2xl font-bold text-[#0f0f0f]">{v.price}</p>
-                <p className="mt-1 text-sm text-[#5c5c5c]">
-                  {v.count} professional brand video{v.count > 1 ? "s" : ""}
+                <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--c-text-muted)]">
+                  {v.count} video{v.count > 1 ? "s" : ""}
                 </p>
-                <p className="mt-2 text-xs text-[#737373]">One-time</p>
+                <p className="mt-3 font-sans text-3xl font-extrabold tracking-[-0.04em] tabular-nums text-[var(--c-ink)]">
+                  {v.price}
+                </p>
+                <p className="mt-2 font-sans text-sm text-[var(--c-text-secondary)]">
+                  {v.label}
+                </p>
+                <p className="mt-1 font-sans text-xs text-[var(--c-text-muted)]">
+                  One-time
+                </p>
               </div>
             ))}
           </div>

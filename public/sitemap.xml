@@ -7,7 +7,7 @@
   <!-- Home -->
   <url>
     <loc>https://creativeiq.marketing/</loc>
-    <lastmod>2026-04-28</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -15,15 +15,39 @@
   <!-- Services -->
   <url>
     <loc>https://creativeiq.marketing/services</loc>
-    <lastmod>2026-04-28</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+  </url>
+
+  <!-- About CreativeIQ -->
+  <url>
+    <loc>https://creativeiq.marketing/about/creativeiq</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- About Vilma -->
+  <url>
+    <loc>https://creativeiq.marketing/about/vilma</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
 
   <!-- Contact -->
   <url>
     <loc>https://creativeiq.marketing/contact</loc>
-    <lastmod>2026-04-28</lastmod>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Book -->
+  <url>
+    <loc>https://creativeiq.marketing/book</loc>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -31,7 +55,7 @@
   <!-- Free AI SEO Audit -->
   <url>
     <loc>https://creativeiq.marketing/free-ai-seo-audit</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -39,7 +63,7 @@
   <!-- Social Media Free Trial -->
   <url>
     <loc>https://creativeiq.marketing/social-media-free-trial</loc>
-    <lastmod>2026-06-23</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -47,7 +71,7 @@
   <!-- Business Unplugged RSVP -->
   <url>
     <loc>https://creativeiq.marketing/business-unplugged</loc>
-    <lastmod>2026-07-09</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
@@ -55,7 +79,7 @@
   <!-- Newsletter -->
   <url>
     <loc>https://creativeiq.marketing/newsletter</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

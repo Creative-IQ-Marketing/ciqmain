@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { HERO_ARC_FRAMES } from "../../data/heroArcFrames";
 import { executeHeroFrameAction } from "../../utils/heroFrameAction";
 
-function FrameMedia({ frame }) {
+function FrameMedia({ frame, priority = false }) {
   if (frame.type === "video") {
     return (
       <video
@@ -13,7 +13,7 @@ function FrameMedia({ frame }) {
         muted
         loop
         playsInline
-        preload="none"
+        preload={priority ? "metadata" : "none"}
         className="size-full object-cover"
       />
     );
@@ -22,14 +22,23 @@ function FrameMedia({ frame }) {
     <img
       src={frame.src}
       alt=""
-      loading="lazy"
+      loading={priority ? "eager" : "lazy"}
       decoding="async"
+      fetchPriority={priority ? "high" : "low"}
       className="size-full object-cover"
     />
   );
 }
 
-function GalleryTile({ frame, className = "", aspectClass, delay = 0, onSelect, reduce }) {
+function GalleryTile({
+  frame,
+  className = "",
+  aspectClass,
+  delay = 0,
+  onSelect,
+  reduce,
+  priority = false,
+}) {
   return (
     <motion.button
       type="button"
@@ -41,7 +50,7 @@ function GalleryTile({ frame, className = "", aspectClass, delay = 0, onSelect, 
       style={{ borderRadius: "var(--radius-card)" }}
       aria-label={frame.label}
     >
-      <FrameMedia frame={frame} />
+      <FrameMedia frame={frame} priority={priority} />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent opacity-85" />
       <span className="absolute bottom-2.5 left-3 font-sans text-[11px] font-semibold tracking-[0.04em] text-white">
         {frame.label}

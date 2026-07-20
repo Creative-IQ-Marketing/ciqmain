@@ -52,7 +52,7 @@ export default function ContactSection({
                 href={`tel:${PHONE_TEL}`}
                 className="group flex items-center gap-3 transition hover:text-[var(--c-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)]"
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--c-border)] bg-white text-[var(--c-accent)] transition group-hover:border-[var(--c-accent)]/40">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--c-surface-2)] text-[var(--c-accent)] transition group-hover:bg-[var(--c-accent-dim)]">
                   <Phone size={16} strokeWidth={1.75} aria-hidden />
                 </span>
                 {PHONE_DISPLAY}
@@ -61,7 +61,7 @@ export default function ContactSection({
                 href={PHONE_SMS}
                 className="group flex items-center gap-3 transition hover:text-[var(--c-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)]"
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--c-border)] bg-white text-[var(--c-accent)] transition group-hover:border-[var(--c-accent)]/40">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--c-surface-2)] text-[var(--c-accent)] transition group-hover:bg-[var(--c-accent-dim)]">
                   <MessageSquare size={16} strokeWidth={1.75} aria-hidden />
                 </span>
                 Text us
@@ -70,27 +70,28 @@ export default function ContactSection({
                 href={`mailto:${EMAIL}`}
                 className="group flex items-center gap-3 transition hover:text-[var(--c-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)]"
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--c-border)] bg-white text-[var(--c-accent)] transition group-hover:border-[var(--c-accent)]/40">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--c-surface-2)] text-[var(--c-accent)] transition group-hover:bg-[var(--c-accent-dim)]">
                   <Mail size={16} strokeWidth={1.75} aria-hidden />
                 </span>
                 {EMAIL}
               </a>
               <div className="flex items-center gap-3 pt-1">
-                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--c-border)] bg-white text-[var(--c-accent)]">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--c-surface-2)] text-[var(--c-accent)]">
                   <Globe size={16} strokeWidth={1.75} aria-hidden />
                 </span>
                 International clients welcome
               </div>
             </div>
-            {variant === "home" ? (
-              <div className="mt-8">
-                <GuideInlineCTA source="home_contact" />
-              </div>
-            ) : null}
+
+            <div className="mt-8">
+              <GuideInlineCTA
+                source={variant === "services" ? "services_contact" : "home_contact"}
+              />
+            </div>
           </Reveal>
 
           <Reveal delay={0.08}>
-            <div className="rounded-[var(--radius-card)] border border-[var(--c-border)] bg-[var(--c-surface-2)] p-7 sm:p-9">
+            <div className="rounded-[var(--radius-card)] bg-[var(--c-surface-2)] p-6 sm:p-8">
               <ContactForm
                 formId={copy.formId}
                 analyticsContext={copy.analyticsContext}

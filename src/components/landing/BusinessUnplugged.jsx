@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import flyerImg from "../../assets/rsvp.jpeg";
+import flyerImg from "../../assets/rsvp.webp";
 import BusinessUnpluggedForm from "./BusinessUnpluggedForm";
 
 export default function BusinessUnplugged() {
@@ -10,6 +10,9 @@ export default function BusinessUnplugged() {
         src={flyerImg}
         alt="Business Unplugged at Hotel Valencia Riverwalk"
         className="absolute inset-0 h-full w-full object-cover object-top"
+        loading="eager"
+        fetchPriority="high"
+        decoding="async"
       />
 
       <div className="relative z-10 flex min-h-dvh items-start justify-center px-4 pb-12 pt-[42vh] sm:px-6 sm:pt-[44vh] md:pt-[46vh] lg:pt-[48vh]">
