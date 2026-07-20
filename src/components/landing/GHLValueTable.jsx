@@ -6,6 +6,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { Button } from "../ui/button";
+import DesktopOnlyImage from "../ui/DesktopOnlyImage";
+import crmVisual from "../../assets/generated/services-crm-pipeline.webp";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -140,15 +142,26 @@ export default function GHLValueTable({
       ) : null}
 
       <div className="relative z-[2] mx-auto max-w-[1100px] px-4 py-14 sm:px-6 sm:py-16">
-        <div className="mb-10 max-w-2xl text-center sm:mx-auto sm:mb-12">
-          <h2 className="font-sans text-[clamp(1.85rem,4.5vw,3.25rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-white text-balance">
-            One CRM stack instead of{" "}
-            <span className="text-[var(--c-accent)]">tool sprawl</span>
-          </h2>
-          <p className="mt-4 font-sans text-base leading-relaxed text-white/65">
-            CIQ&apos;s CRM bundles the channels most teams buy separately.
-            Compare a la carte cost against what is already included.
-          </p>
+        <div className="mb-10 grid items-end gap-8 lg:mb-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-10">
+          <div className="max-w-2xl text-left sm:mx-auto sm:text-center lg:mx-0 lg:text-left">
+            <h2 className="font-sans text-[clamp(1.85rem,4.5vw,3.25rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-white text-balance">
+              One CRM stack instead of{" "}
+              <span className="text-[var(--c-accent)]">tool sprawl</span>
+            </h2>
+            <p className="mt-4 font-sans text-base leading-relaxed text-white/65">
+              CIQ&apos;s CRM bundles the channels most teams buy separately.
+              Compare a la carte cost against what is already included.
+            </p>
+          </div>
+          <div className="hidden overflow-hidden rounded-[var(--radius-card)] border border-white/10 lg:block">
+            <DesktopOnlyImage
+              src={crmVisual}
+              width={1100}
+              height={733}
+              imgClassName="aspect-[16/10] w-full object-cover opacity-90"
+              sizes="(min-width: 1024px) 36vw, 1px"
+            />
+          </div>
         </div>
 
         <div className="w-full overflow-x-auto">

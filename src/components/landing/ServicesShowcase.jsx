@@ -7,11 +7,14 @@ import {
   Share2,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { trackButtonClick, trackServiceSelection } from "../../services/analytics";
+import {
+  trackButtonClick,
+  trackServiceSelection,
+} from "../../services/analytics";
 import { normalizeFormInterest } from "../../data/serviceFormOptions";
 import { Button } from "../ui/button";
 import Reveal from "../primitives/Reveal";
-import atmosphere from "../../assets/sections/section-services-atmosphere.jpg";
+import atmosphere from "../../assets/sections/section-services-atmosphere.webp";
 
 const SERVICES = [
   {
@@ -64,7 +67,11 @@ export default function ServicesShowcase() {
     trackServiceSelection(serviceValue);
     trackButtonClick(serviceValue, "service_card", "ServicesShowcase");
     const interest = normalizeFormInterest(serviceValue) || serviceValue;
-    navigate(`/?interest=${interest}#contact`);
+    navigate({
+      pathname: "/",
+      search: `?interest=${encodeURIComponent(interest)}`,
+      hash: "#contact",
+    });
   };
 
   const current = SERVICES[active];
@@ -109,6 +116,8 @@ export default function ServicesShowcase() {
                     className={`absolute inset-0 size-full object-cover transition duration-700 ${
                       isActive ? "opacity-55 scale-105" : "opacity-25 scale-100"
                     }`}
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/20" />
                   <div className="relative z-10 flex h-full flex-col justify-between p-5 xl:p-6">
@@ -156,14 +165,6 @@ export default function ServicesShowcase() {
                 {current.summary}
               </p>
             </div>
-            <button
-              type="button"
-              onClick={() => goToContact(current.contactValue)}
-              className="mt-8 inline-flex items-center gap-2 font-sans text-sm font-semibold text-[var(--c-ink)] transition hover:text-[var(--c-accent)]"
-            >
-              Explore this system
-              <ArrowUpRight size={15} strokeWidth={1.75} />
-            </button>
           </div>
         </Reveal>
 
@@ -215,7 +216,11 @@ export default function ServicesShowcase() {
             <Link
               to="/book"
               onClick={() =>
-                trackButtonClick("Book a call", "services_cta", "ServicesShowcase")
+                trackButtonClick(
+                  "Book a call",
+                  "services_cta",
+                  "ServicesShowcase",
+                )
               }
             >
               Book a call

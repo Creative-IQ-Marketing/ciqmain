@@ -2,8 +2,8 @@ import { useEffect, useMemo } from "react";
 
 export default function SEO({
   title = "CreativeIQ | AI Digital Marketing Agency San Antonio",
-  description = "Are you showing up on AI platforms—not just Google? Is your website converting leads? CreativeIQ builds AI-ready SEO ecosystems that drive real growth. San Antonio's top digital marketing agency.",
-  keywords = "AI SEO, AI search optimization, ChatGPT SEO, Gemini SEO, Claude SEO, Perplexity SEO, GEO optimization, generative engine optimization, search engine optimization, technical SEO, local SEO, conversion rate optimization, CRO, website development, landing pages, CRM automation, GoHighLevel CRM, email marketing, social media marketing, Facebook ads, Google ads, PPC advertising, pay-per-click San Antonio, Google Business Profile optimization, digital marketing agency San Antonio TX, marketing agency San Antonio, SEO agency San Antonio, AI-ready marketing, digital marketing strategy, content marketing, lead generation San Antonio",
+  description = "AI-ready SEO, social, websites, and CRM systems that convert. CreativeIQ helps brands rank, get recommended by AI platforms, and turn traffic into revenue.",
+  keywords = "AI SEO agency San Antonio, digital marketing San Antonio, GEO optimization, ChatGPT SEO, website development, CRM automation, social media marketing, CreativeIQ",
   ogImage = "/og-image.jpg",
   ogImageAlt = null,
   canonical = null,

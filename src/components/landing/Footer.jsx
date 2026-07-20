@@ -8,11 +8,11 @@ import {
   Phone,
   Youtube,
 } from "lucide-react";
-import mainLogo from "../../assets/mainLogo.png";
+import mainLogo from "../../assets/mainLogo.webp";
 import { trackButtonClick } from "../../services/analytics";
 import { EMAIL, PHONE_DISPLAY, PHONE_TEL } from "../../utils/contact";
 import { SERVICES_NAV } from "../../data/servicesNav";
-import footerVoid from "../../assets/sections/section-footer-void.jpg";
+import footerVoid from "../../assets/sections/section-footer-void.webp";
 
 const SOCIALS = [
   {
@@ -44,6 +44,7 @@ const SOCIALS = [
 
 const NAV = [
   { label: "Home", href: "/" },
+  { label: "About", href: "/about/creativeiq" },
   { label: "Services", href: "/services" },
   { label: "Book a call", href: "/book" },
   { label: "Free SEO Audit", href: "/free-ai-seo-audit" },
@@ -59,6 +60,8 @@ export default function Footer() {
           alt=""
           aria-hidden
           className="absolute inset-0 size-full object-cover opacity-90"
+          loading="lazy"
+          decoding="async"
         />
         <div className="absolute inset-0 bg-[var(--c-ink)]/75" />
         <div className="relative mx-auto flex max-w-[var(--container-max)] flex-col items-start justify-between gap-10 px-[var(--container-pad)] py-20 sm:py-24 md:flex-row md:items-end lg:py-28">
@@ -204,7 +207,9 @@ export default function Footer() {
                   </a>
                 </li>
               </ul>
-              <p className="mt-4 text-white/45">International clients welcome</p>
+              <p className="mt-4 text-white/45">
+                International clients welcome
+              </p>
             </div>
           </div>
 
@@ -222,7 +227,7 @@ export default function Footer() {
               </a>
               <a
                 href="/newsletter/unsubscribed"
-                className="transition hover:text-white/80"
+                className="hidden transition hover:text-white/80"
               >
                 Unsubscribe
               </a>

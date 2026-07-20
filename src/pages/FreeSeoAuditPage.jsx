@@ -1,58 +1,58 @@
 import { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
 import {
   ArrowRight,
   CircleAlert,
   CircleCheckBig,
-  Globe,
   LoaderCircle,
-  Mail,
   ShieldCheck,
-  UserRound,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
 import GuideInlineCTA from "../components/ui/GuideInlineCTA";
+import { Input } from "../components/ui/input";
+import { Button } from "../components/ui/button";
 import { trackButtonClick, trackFormSubmission } from "../services/analytics";
 import { requestSeoAuditReport } from "../services/seoAuditTool";
 import { upsertSeoAuditLead } from "../services/ghl";
+import {
+  IconCommercial,
+  IconMobile,
+  IconSeo,
+} from "../assets/icons/ServiceIcons";
 
 const BENEFITS = [
   {
     label: "Technical signals",
-    body: "Crawlability, structure, speed posture, and the issues that quietly suppress visibility.",
+    body: "Crawlability, structure, speed posture, and issues that quietly suppress visibility.",
+    icon: IconSeo,
   },
   {
     label: "Mobile experience",
-    body: "A practical read on how the site behaves when real users and search systems land on it.",
+    body: "How the site behaves when real users and search systems land on it.",
+    icon: IconMobile,
   },
   {
     label: "Commercial readiness",
-    body: "Whether the site feels credible enough to earn the click, the trust, and the next action.",
+    body: "Whether the site earns the click, the trust, and the next action.",
+    icon: IconCommercial,
   },
-];
-
-const TRUST_POINTS = [
-  "Accepted instantly",
-  "2 free reports per email",
-  "Delivered by email",
 ];
 
 const FAQS = [
   {
     question: "What do I need to submit?",
     answer:
-      "Only your email and the website URL you want reviewed. The tool is intentionally simple so the request takes less than a minute.",
+      "Your name, email, and the website URL. The request takes less than a minute.",
   },
   {
-    question: "Why does the page confirm before the report is finished?",
+    question: "Why confirm before the report is finished?",
     answer:
-      "The report request is accepted first, then processed asynchronously. That 202 accepted response keeps the UX fast instead of making the visitor wait on-page.",
+      "We accept the request first, then process asynchronously so you are not waiting on the page.",
   },
   {
     question: "How many free reports can I request?",
     answer:
-      "Each email address gets two free reports per month. If your team needs more, contact CreativeIQ and we can register you for ongoing access.",
+      "Two free reports per email each month. Need more? Contact us for ongoing access.",
   },
 ];
 
@@ -82,22 +82,22 @@ function StatusPanel({ status, message }) {
   const toneMap = {
     success: {
       title: "Report accepted",
-      className: "border-[#3b6ff0]/30 bg-[#f8fbff] text-slate-900",
+      className: "bg-[var(--c-accent-dim)] text-[var(--c-ink)]",
       icon: CircleCheckBig,
     },
     limited: {
       title: "Free limit reached",
-      className: "border-[var(--c-accent)]/30 bg-[var(--c-accent-dim)] text-[var(--c-ink)]",
+      className: "bg-[var(--c-surface-2)] text-[var(--c-ink)]",
       icon: CircleAlert,
     },
     error: {
       title: "Request could not be submitted",
-      className: "border-slate-300 bg-white text-slate-900",
+      className: "bg-[var(--c-surface-2)] text-[var(--c-ink)]",
       icon: CircleAlert,
     },
     submitting: {
       title: "Submitting request",
-      className: "border-slate-200 bg-[#f8fafc] text-slate-800",
+      className: "bg-[var(--c-surface-2)] text-[var(--c-ink)]",
       icon: LoaderCircle,
     },
   };
@@ -106,21 +106,21 @@ function StatusPanel({ status, message }) {
   const StatusIcon = tone.icon;
 
   return (
-    <div className={`mt-5 rounded-3xl border px-5 py-4 ${tone.className}`}>
+    <div className={`mt-5 rounded-[var(--radius-control)] px-5 py-4 ${tone.className}`}>
       <div className="flex items-center gap-2.5">
         <StatusIcon
-          className={`h-4.5 w-4.5 ${status === "submitting" ? "animate-spin" : ""}`}
+          className={`size-4 ${status === "submitting" ? "animate-spin" : ""}`}
         />
-        <p className="text-sm font-semibold">{tone.title}</p>
+        <p className="font-sans text-sm font-semibold">{tone.title}</p>
       </div>
-      <p className="mt-1 text-sm leading-7">
+      <p className="mt-1 font-sans text-sm leading-relaxed text-[var(--c-text-secondary)]">
         {message || "Please wait while we submit your request."}
       </p>
       {status === "limited" && (
         <div className="mt-4">
           <Link
             to="/contact"
-            className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#18181b] px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-[#2a2a2a]"
+            className="inline-flex min-h-11 items-center justify-center rounded-full bg-[var(--c-cta)] px-4 py-2.5 font-sans text-xs font-semibold text-white transition hover:bg-[var(--c-cta-hover)]"
           >
             Contact us for more access
           </Link>
@@ -214,7 +214,7 @@ export default function FreeSeoAuditPage() {
   const submitLabel =
     status === "submitting"
       ? "Generating your report..."
-      : "Get My Visibility Report";
+      : "Get my visibility report";
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -276,7 +276,6 @@ export default function FreeSeoAuditPage() {
         setMessage(result.message);
       }
     } catch (error) {
-      // Safely access error properties with null checks
       const errorStatus = error?.status ?? null;
       const errorMessage = error?.message ?? "Unknown error";
 
@@ -294,13 +293,6 @@ export default function FreeSeoAuditPage() {
           ? errorMessage
           : "We could not queue your report right now. Please try again.",
       );
-
-      // Log the full error for debugging
-      console.error("SEO audit form submission error:", {
-        status: errorStatus,
-        message: errorMessage,
-        error,
-      });
     }
   };
 
@@ -314,208 +306,165 @@ export default function FreeSeoAuditPage() {
         pageType="website"
       />
 
-      <main className="relative overflow-hidden bg-white text-[#0f0f0f]">
-        <section className="relative mx-auto max-w-3xl border-b border-black/[0.05] px-4 pb-14 pt-[calc(var(--hero-header-offset)+1.75rem)] text-center sm:px-6 md:pb-16">
-          <motion.h1
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.05 }}
-            className="font-sans text-[clamp(2rem,4.5vw,3.25rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-[#0f0f0f]"
-          >
-            Audit My Site
-            <span className="sr-only">
-              {" "}
-              Free AI SEO Audit Tool from CreativeIQ Marketing
-            </span>
-          </motion.h1>
+      <main className="bg-white text-[var(--c-ink)]">
+        <section className="border-b border-[var(--c-border)] pt-[calc(var(--hero-header-offset)+1.5rem)] pb-12 sm:pb-14">
+          <div className="mx-auto grid max-w-[var(--container-max)] gap-10 px-[var(--container-pad)] lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-14 lg:items-start">
+            <div className="max-w-xl">
+              <p className="mb-3 font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--c-accent)]">
+                Free AI SEO audit
+              </p>
+              <h1 className="font-sans text-[clamp(2rem,4.5vw,3.25rem)] font-extrabold leading-[1.05] tracking-[-0.04em] text-balance">
+                Audit My Site
+                <span className="sr-only">
+                  {" "}
+                  Free AI SEO Audit Tool from CreativeIQ Marketing
+                </span>
+              </h1>
+              <p className="mt-4 font-sans text-base leading-relaxed text-[var(--c-text-secondary)]">
+                Technical foundations fail before copy does. This audit covers
+                signals, mobile experience, and commercial readiness — then
+                emails your report.
+              </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.1 }}
-            className="mx-auto mt-5 max-w-2xl font-sans text-base leading-relaxed text-[#5c5c5c]"
-          >
-            <p>
-              Most sites underperform because technical foundations are thin,
-              not because the copy is boring. This free AI audit covers
-              technical signals, mobile experience, and commercial readiness,
-              then emails your visibility report.
-            </p>
-          </motion.div>
+              <ul className="mt-8 space-y-5">
+                {BENEFITS.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <li key={item.label} className="flex gap-3">
+                      <span className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-full bg-[var(--c-accent-dim)] text-[var(--c-accent)]">
+                        <Icon className="size-4" />
+                      </span>
+                      <div>
+                        <p className="font-sans text-sm font-semibold text-[var(--c-ink)]">
+                          {item.label}
+                        </p>
+                        <p className="mt-1 font-sans text-sm leading-relaxed text-[var(--c-text-secondary)]">
+                          {item.body}
+                        </p>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="mx-auto mt-10 max-w-2xl"
-          >
-            <div className="rounded-[var(--radius-card)] border border-black/[0.08] bg-[#f5f6f8] p-5 text-left sm:p-7">
-              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-black/[0.06] pb-4">
+            <div className="rounded-[var(--radius-card)] bg-[var(--c-surface-2)] p-5 sm:p-7">
+              <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <h2 className="font-sans text-2xl font-extrabold tracking-[-0.03em] text-[#0f0f0f] sm:text-3xl">
-                    Get My Visibility Report
+                  <h2 className="font-sans text-xl font-extrabold tracking-[-0.03em] text-[var(--c-ink)] sm:text-2xl">
+                    Get my visibility report
                   </h2>
-                  <p className="mt-3 max-w-lg font-sans text-sm leading-relaxed text-[#5c5c5c]">
-                    Technical SEO, mobile usability, speed, and content visibility
-                    — actionable insights for agencies, service businesses, and
-                    e-commerce.
+                  <p className="mt-2 max-w-md font-sans text-sm leading-relaxed text-[var(--c-text-secondary)]">
+                    Technical SEO, mobile usability, speed, and content
+                    visibility.
                   </p>
                 </div>
-                <span className="inline-flex min-h-10 items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3.5 py-2 font-sans text-[11px] font-semibold uppercase tracking-[0.08em] text-emerald-700">
-                  <ShieldCheck className="h-4 w-4" />2 per email
+                <span className="inline-flex items-center gap-1.5 font-sans text-[11px] font-semibold text-[var(--c-text-muted)]">
+                  <ShieldCheck className="size-3.5 text-[var(--c-accent)]" />
+                  2 per email
                 </span>
               </div>
 
-              <form onSubmit={handleSubmit} className="mt-5 space-y-4">
+              <form onSubmit={handleSubmit} className="mt-6 space-y-4">
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <label className="block">
-                    <span className="font-sans mb-2 block text-sm font-semibold text-slate-700">
+                  <label className="block space-y-2">
+                    <span className="block font-sans text-xs font-semibold uppercase tracking-wider text-[var(--c-text-muted)]">
                       First name
                     </span>
-                    <div className="relative">
-                      <UserRound className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-                      <input
-                        type="text"
-                        value={firstName}
-                        onChange={(event) => setFirstName(event.target.value)}
-                        placeholder="John"
-                        className="font-sans h-14 w-full rounded-2xl border border-slate-300 bg-white pl-11 pr-4 text-base text-slate-900 outline-none transition focus:border-[#3b6ff0] focus:ring-4 focus:ring-[#3b6ff0]/10"
-                        required
-                      />
-                    </div>
+                    <Input
+                      type="text"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      placeholder="John"
+                      required
+                      autoComplete="given-name"
+                    />
                   </label>
-
-                  <label className="block">
-                    <span className="font-sans mb-2 block text-sm font-semibold text-slate-700">
+                  <label className="block space-y-2">
+                    <span className="block font-sans text-xs font-semibold uppercase tracking-wider text-[var(--c-text-muted)]">
                       Last name
                     </span>
-                    <div className="relative">
-                      <UserRound className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-                      <input
-                        type="text"
-                        value={lastName}
-                        onChange={(event) => setLastName(event.target.value)}
-                        placeholder="Smith"
-                        className="font-sans h-14 w-full rounded-2xl border border-slate-300 bg-white pl-11 pr-4 text-base text-slate-900 outline-none transition focus:border-[#3b6ff0] focus:ring-4 focus:ring-[#3b6ff0]/10"
-                        required
-                      />
-                    </div>
+                    <Input
+                      type="text"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      placeholder="Smith"
+                      required
+                      autoComplete="family-name"
+                    />
                   </label>
                 </div>
 
-                <label className="block">
-                  <span className="font-sans mb-2 block text-sm font-semibold text-slate-700">
+                <label className="block space-y-2">
+                  <span className="block font-sans text-xs font-semibold uppercase tracking-wider text-[var(--c-text-muted)]">
                     Work email
                   </span>
-                  <div className="relative">
-                    <Mail className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(event) => setEmail(event.target.value)}
-                      placeholder="you@company.com"
-                      className="font-sans h-14 w-full rounded-2xl border border-slate-300 bg-white pl-11 pr-4 text-base text-slate-900 outline-none transition focus:border-[#3b6ff0] focus:ring-4 focus:ring-[#3b6ff0]/10"
-                      required
-                    />
-                  </div>
+                  <Input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@company.com"
+                    required
+                    autoComplete="email"
+                  />
                 </label>
 
-                <label className="block">
-                  <span className="font-sans mb-2 block text-sm font-semibold text-slate-700">
+                <label className="block space-y-2">
+                  <span className="block font-sans text-xs font-semibold uppercase tracking-wider text-[var(--c-text-muted)]">
                     Website URL
                   </span>
-                  <div className="relative">
-                    <Globe className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-                    <input
-                      type="text"
-                      value={url}
-                      onChange={(event) => setUrl(event.target.value)}
-                      placeholder="example.com"
-                      className="font-sans h-14 w-full rounded-2xl border border-slate-300 bg-white pl-11 pr-4 text-base text-slate-900 outline-none transition focus:border-[#3b6ff0] focus:ring-4 focus:ring-[#3b6ff0]/10"
-                      required
-                    />
-                  </div>
+                  <Input
+                    type="text"
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                    placeholder="example.com"
+                    required
+                    autoComplete="url"
+                  />
                 </label>
 
-                <button
+                <Button
                   type="submit"
+                  variant="primary"
                   disabled={status === "submitting"}
-                  className="inline-flex min-h-14 w-full items-center justify-center rounded-full bg-[#18181b] px-6 py-4 font-sans text-[15px] font-semibold text-white transition hover:bg-[#2a2a2a] disabled:cursor-not-allowed disabled:opacity-70"
+                  className="h-12 w-full"
                 >
                   {submitLabel}
-                </button>
+                </Button>
               </form>
-
-              <div className="mt-4 flex flex-wrap gap-2.5">
-                {TRUST_POINTS.map((item) => (
-                  <span
-                    key={item}
-                    className="inline-flex min-h-10 items-center rounded-full border border-black/[0.06] bg-white px-3.5 py-2 font-sans text-xs font-semibold text-[#5c5c5c]"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
 
               <StatusPanel status={status} message={message} />
 
-              <p className="font-sans mt-4 text-xs leading-6 text-slate-500">
-                Need more than two reports each month? Contact CreativeIQ to get
-                registered for broader access.
+              <p className="mt-4 font-sans text-xs leading-relaxed text-[var(--c-text-muted)]">
+                Need more than two reports each month? Contact CreativeIQ for
+                broader access.
               </p>
             </div>
-          </motion.div>
-        </section>
-
-        <section className="relative mx-auto max-w-4xl px-4 pb-14 sm:px-6 md:pb-18">
-          <div className="grid gap-3 sm:grid-cols-3">
-            {BENEFITS.map((item) => (
-              <div
-                key={item.label}
-                className="rounded-3xl border border-slate-200 bg-white/80 p-5 shadow-[0_14px_34px_rgba(15,23,42,0.04)]"
-              >
-                <p className="font-sans text-sm font-bold text-slate-950">
-                  {item.label}
-                </p>
-                <p className="font-sans mt-2 text-sm leading-7 text-slate-600">
-                  {item.body}
-                </p>
-              </div>
-            ))}
           </div>
         </section>
 
         <section
           id="audit-faq"
-          className="relative mx-auto max-w-3xl px-4 pb-18 sm:px-6 lg:pb-24"
+          className="bg-[var(--c-surface-2)] py-14 lg:py-16"
         >
-          <div className="rounded-4xl border border-slate-200 bg-white p-6 shadow-[0_20px_50px_rgba(15,23,42,0.05)] sm:p-8">
-            <div className="text-center">
-              <p className="font-sans text-xs font-bold uppercase tracking-[0.22em] text-[#3b6ff0]">
-                Frequently asked
-              </p>
-              <h2 className="mt-3 text-[clamp(2rem,5vw,3.2rem)] leading-[0.98] tracking-[-0.05em] text-slate-950">
-                <span className="audit-serif italic">Minimal on purpose.</span>
-              </h2>
-            </div>
-
-            <div className="mt-8 space-y-4">
+          <div className="mx-auto max-w-2xl px-[var(--container-pad)]">
+            <h2 className="font-sans text-[clamp(1.5rem,3vw,2rem)] font-extrabold tracking-[-0.03em] text-[var(--c-ink)]">
+              Frequently asked
+            </h2>
+            <div className="mt-8 space-y-6">
               {FAQS.map(({ question, answer }) => (
-                <article
-                  key={question}
-                  className="rounded-3xl border border-slate-200 bg-[#fbfaf7] p-5"
-                >
-                  <h3 className="font-sans text-base font-extrabold tracking-[-0.02em] text-slate-950">
+                <article key={question}>
+                  <h3 className="font-sans text-base font-semibold tracking-[-0.02em] text-[var(--c-ink)]">
                     {question}
                   </h3>
-                  <p className="font-sans mt-2 text-sm leading-7 text-slate-600">
+                  <p className="mt-2 font-sans text-sm leading-relaxed text-[var(--c-text-secondary)]">
                     {answer}
                   </p>
                 </article>
               ))}
             </div>
 
-            <div className="mt-8 flex justify-center">
+            <div className="mt-10">
               <Link
                 to="/contact"
                 onClick={() =>
@@ -525,14 +474,13 @@ export default function FreeSeoAuditPage() {
                     "Lead Magnet",
                   )
                 }
-                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-[#18181b] px-5 py-3 font-sans text-sm font-semibold text-white transition hover:bg-[#2a2a2a]"
+                className="inline-flex items-center gap-2 font-sans text-sm font-semibold text-[var(--c-ink)] transition hover:text-[var(--c-accent)]"
               >
                 Need more access
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="size-4" />
               </Link>
             </div>
 
-            {/* Guide resource */}
             <div className="mt-8">
               <GuideInlineCTA source="seo_audit_page" />
             </div>

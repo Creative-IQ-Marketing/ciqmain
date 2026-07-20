@@ -37,7 +37,8 @@ export function publishFormInterest(interest, { source, updateUrl = true } = {})
   if (updateUrl && typeof window !== "undefined") {
     const url = new URL(window.location.href);
     url.searchParams.set("interest", normalized);
-    window.history.replaceState({}, "", url);
+    // Keep hash (e.g. #services-contact / #contact) while updating interest.
+    window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
   }
 
   window.dispatchEvent(
@@ -48,17 +49,24 @@ export function publishFormInterest(interest, { source, updateUrl = true } = {})
 }
 
 export function scrollToContactForm(interest, source, anchorId) {
+  const targetId = anchorId ?? getContactAnchorId();
+
   if (interest) {
     publishFormInterest(interest, { source });
   }
 
-  const targetId = anchorId ?? getContactAnchorId();
-
-  window.setTimeout(() => {
-    document
-      .getElementById(targetId)
-      ?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, interest ? 50 : 0);
+  // Wait a tick so the form can apply interest, then scroll to it.
+  window.requestAnimationFrame(() => {
+    window.setTimeout(() => {
+      const el = document.getElementById(targetId);
+      if (!el) return;
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      // Re-dispatch so late-mounted listeners still pick up the selection.
+      if (interest) {
+        publishFormInterest(interest, { source, updateUrl: false });
+      }
+    }, 80);
+  });
 }
 
 /** @deprecated Use scrollToContactForm */

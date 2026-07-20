@@ -175,10 +175,10 @@ export default function ContactForm({
           name="service"
           value={formData.service}
           onChange={handleChange}
-          className={`flex h-11 w-full rounded-[var(--radius-control)] border bg-white px-3.5 py-2 font-sans text-[15px] text-[var(--c-ink)] transition focus-visible:border-[var(--c-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)]/25 ${
+          className={`flex h-11 w-full appearance-none rounded-[var(--radius-control)] border border-[var(--c-border-strong)] bg-white px-3.5 font-sans text-[15px] text-[var(--c-ink)] shadow-none transition-[border-color,box-shadow] hover:border-[var(--c-ink)]/20 focus-visible:border-[var(--c-accent)] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[var(--c-accent)]/15 ${
             servicePulse
-              ? "border-[var(--c-accent)] ring-2 ring-[var(--c-accent)]/20"
-              : "border-[var(--c-border-strong)]"
+              ? "border-[var(--c-accent)] ring-[3px] ring-[var(--c-accent)]/15"
+              : ""
           }`}
         >
           <option value="">Select a service or package</option>

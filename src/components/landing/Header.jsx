@@ -1,37 +1,40 @@
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ChevronDown, Menu, Phone, X } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
-import mainLogo from "../../assets/mainLogo.png";
+import mainLogo from "../../assets/mainLogo.webp";
 import { PHONE_TEL } from "../../utils/contact";
 import { trackButtonClick } from "../../services/analytics";
 import { SERVICES_NAV } from "../../data/servicesNav";
+import { ABOUT_NAV } from "../../data/aboutNav";
 import {
   scrollToHashFromHref,
   scrollToSection,
 } from "../../utils/scrollToSection";
 import SiteTopBanner from "../layout/SiteTopBanner";
+import NavMegaMenu from "../layout/NavMegaMenu";
+import MobileNavSheet from "../layout/MobileNavSheet";
 import { SITE_TOP_BANNER } from "../../constants/siteBanner";
+import { warmRoute } from "../../utils/prefetchAssets";
 
 const ease = [0.22, 1, 0.36, 1];
 
 const NAV = [
   { label: "Home", href: "/" },
+  ABOUT_NAV,
   SERVICES_NAV,
   { label: "Book a call", href: "/book" },
   { label: "Contact", href: "/contact" },
-  { label: "Free SEO Audit", href: "/free-ai-seo-audit" },
 ];
 
 export default function Header() {
   const [visible, setVisible] = useState(true);
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
-  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [openMenuId, setOpenMenuId] = useState(null);
   const lastScroll = useRef(0);
   const hideTimer = useRef(null);
-  const servicesTimer = useRef(null);
+  const menuTimer = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -58,27 +61,40 @@ export default function Header() {
     return () => {
       window.removeEventListener("scroll", onScroll);
       clearTimeout(hideTimer.current);
+      clearTimeout(menuTimer.current);
     };
   }, []);
 
   useEffect(() => {
     setOpen(false);
-    setMobileServicesOpen(false);
-    setServicesOpen(false);
+    setOpenMenuId(null);
   }, [location.pathname]);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
+  const closeMobile = () => {
+    setOpen(false);
+  };
 
   const handleNav = (e, href) => {
     e.preventDefault();
     trackButtonClick(href, "nav_link", "Header");
-    setOpen(false);
-    setMobileServicesOpen(false);
-    setServicesOpen(false);
+    closeMobile();
+    setOpenMenuId(null);
 
     if (href.includes("#")) {
       scrollToHashFromHref(href, location.pathname, navigate);
       return;
     }
     if (href.startsWith("/")) {
+      warmRoute(href);
       navigate(href);
       return;
     }
@@ -91,12 +107,14 @@ export default function Header() {
     scrollToSection(id, 80);
   };
 
-  const openServicesMenu = () => {
-    clearTimeout(servicesTimer.current);
-    setServicesOpen(true);
+  const openMenu = (id) => {
+    clearTimeout(menuTimer.current);
+    setOpenMenuId(id);
+    const item = NAV.find((n) => n.id === id);
+    if (item?.href) warmRoute(item.href);
   };
-  const closeServicesMenu = () => {
-    servicesTimer.current = setTimeout(() => setServicesOpen(false), 120);
+  const closeMenu = () => {
+    menuTimer.current = setTimeout(() => setOpenMenuId(null), 120);
   };
 
   const headerNavTopClass = SITE_TOP_BANNER.enabled
@@ -117,8 +135,8 @@ export default function Header() {
           <div
             className={`flex h-14 items-center gap-3 rounded-[var(--radius-pill)] border px-3 transition-all duration-300 sm:h-[3.6rem] sm:px-4 ${
               scrolled
-                ? "border-black/[0.08] bg-white/85 shadow-[0_12px_40px_-18px_rgba(15,15,15,0.28)] backdrop-blur-xl"
-                : "border-transparent bg-white/55 backdrop-blur-md"
+                ? "border-black/[0.08] bg-white shadow-[0_12px_40px_-18px_rgba(15,15,15,0.28)]"
+                : "border-transparent bg-white/90"
             }`}
           >
             <a
@@ -130,7 +148,11 @@ export default function Header() {
                 <img
                   src={mainLogo}
                   alt="CreativeIQ"
+                  width={40}
+                  height={40}
                   className="h-6 w-6 object-contain brightness-0 invert sm:h-7 sm:w-7"
+                  decoding="async"
+                  fetchPriority="high"
                 />
               </span>
               <span className="hidden font-sans text-[1.05rem] font-bold tracking-[-0.03em] text-[var(--c-ink)] sm:inline">
@@ -139,71 +161,48 @@ export default function Header() {
             </a>
 
             <nav className="ml-2 hidden flex-1 items-center justify-center gap-0.5 md:flex">
-              {NAV.map((item, i) => {
+              {NAV.map((item) => {
                 if (!item.children) {
                   return (
                     <a
                       key={item.label}
                       href={item.href}
                       onClick={(e) => handleNav(e, item.href)}
+                      onMouseEnter={() => warmRoute(item.href)}
+                      onFocus={() => warmRoute(item.href)}
                       className="rounded-full px-3.5 py-2 font-sans text-[13px] font-medium text-[var(--c-ink-soft)] transition hover:bg-black/[0.04] hover:text-[var(--c-ink)] lg:px-4 lg:text-[14px]"
                     >
                       {item.label}
                     </a>
                   );
                 }
+                const isOpen = openMenuId === item.id;
                 return (
                   <div
                     key={item.label}
                     className="relative"
-                    onMouseEnter={openServicesMenu}
-                    onMouseLeave={closeServicesMenu}
+                    onMouseEnter={() => openMenu(item.id)}
+                    onMouseLeave={closeMenu}
                   >
                     <a
                       href={item.href}
                       onClick={(e) => handleNav(e, item.href)}
                       className="inline-flex items-center gap-1 rounded-full px-3.5 py-2 font-sans text-[13px] font-medium text-[var(--c-ink-soft)] transition hover:bg-black/[0.04] hover:text-[var(--c-ink)] lg:px-4 lg:text-[14px]"
+                      aria-expanded={isOpen}
                     >
                       {item.label}
                       <ChevronDown
                         size={13}
-                        className={`transition-transform ${servicesOpen ? "rotate-180" : ""}`}
+                        className={`transition-transform ${isOpen ? "rotate-180" : ""}`}
                       />
                     </a>
-                    <AnimatePresence>
-                      {servicesOpen ? (
-                        <motion.div
-                          initial={{ opacity: 0, y: 6, scale: 0.98 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: 6, scale: 0.98 }}
-                          transition={{ duration: 0.18, ease }}
-                          className="absolute left-1/2 top-full z-50 w-[18rem] -translate-x-1/2 pt-3"
-                          onMouseEnter={openServicesMenu}
-                          onMouseLeave={closeServicesMenu}
-                        >
-                          <div className="overflow-hidden rounded-[var(--radius-card)] border border-black/[0.07] bg-white/95 p-2 shadow-[0_20px_50px_-20px_rgba(15,15,15,0.35)] backdrop-blur-xl">
-                            <a
-                              href={item.href}
-                              onClick={(e) => handleNav(e, item.href)}
-                              className="block rounded-[12px] px-3 py-2.5 text-[13px] font-semibold text-[var(--c-accent)] transition hover:bg-[var(--c-accent-dim)]"
-                            >
-                              All services
-                            </a>
-                            <div className="my-1.5 border-t border-black/[0.06]" />
-                            {item.children.map((child) => (
-                              <a
-                                key={child.href}
-                                href={child.href}
-                                onClick={(e) => handleNav(e, child.href)}
-                                className="block rounded-[12px] px-3 py-2.5 text-[13px] text-[var(--c-text-secondary)] transition hover:bg-black/[0.035] hover:text-[var(--c-ink)]"
-                              >
-                                {child.label}
-                              </a>
-                            ))}
-                          </div>
-                        </motion.div>
-                      ) : null}
-                    </AnimatePresence>
+                    <NavMegaMenu
+                      open={isOpen}
+                      item={item}
+                      onNavigate={handleNav}
+                      onMouseEnter={() => openMenu(item.id)}
+                      onMouseLeave={closeMenu}
+                    />
                   </div>
                 );
               })}
@@ -234,95 +233,26 @@ export default function Header() {
 
             <button
               type="button"
-              onClick={() => setOpen(!open)}
+              onClick={() => {
+                if (open) closeMobile();
+                else setOpen(true);
+              }}
               className="ml-auto flex h-10 w-10 items-center justify-center rounded-full text-[var(--c-ink)] transition hover:bg-black/[0.05] md:hidden"
               aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
         </div>
-
-        <AnimatePresence>
-          {open ? (
-            <motion.div
-              key="mobile-menu"
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.22, ease }}
-              className="mx-3 mt-2 overflow-hidden rounded-[var(--radius-card)] border border-black/[0.07] bg-white/95 shadow-[0_20px_50px_-20px_rgba(15,15,15,0.3)] backdrop-blur-xl md:hidden"
-            >
-              <nav className="flex flex-col px-3 py-3">
-                {NAV.map((item) => {
-                  if (!item.children) {
-                    return (
-                      <a
-                        key={item.label}
-                        href={item.href}
-                        onClick={(e) => handleNav(e, item.href)}
-                        className="rounded-[12px] px-3 py-3 font-sans text-[15px] font-medium text-[var(--c-ink)] transition hover:bg-black/[0.04]"
-                      >
-                        {item.label}
-                      </a>
-                    );
-                  }
-                  return (
-                    <div key={item.label} className="border-t border-black/[0.05]">
-                      <button
-                        type="button"
-                        onClick={() => setMobileServicesOpen((v) => !v)}
-                        className="flex w-full items-center justify-between rounded-[12px] px-3 py-3 font-sans text-[15px] font-medium text-[var(--c-ink)]"
-                      >
-                        {item.label}
-                        <ChevronDown
-                          size={16}
-                          className={`transition-transform ${mobileServicesOpen ? "rotate-180" : ""}`}
-                        />
-                      </button>
-                      <AnimatePresence>
-                        {mobileServicesOpen ? (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            className="overflow-hidden pb-2 pl-2"
-                          >
-                            <a
-                              href={item.href}
-                              onClick={(e) => handleNav(e, item.href)}
-                              className="block rounded-lg px-3 py-2 text-sm font-semibold text-[var(--c-accent)]"
-                            >
-                              All services
-                            </a>
-                            {item.children.map((child) => (
-                              <a
-                                key={child.href}
-                                href={child.href}
-                                onClick={(e) => handleNav(e, child.href)}
-                                className="block rounded-lg px-3 py-2 text-sm text-[var(--c-text-secondary)]"
-                              >
-                                {child.label}
-                              </a>
-                            ))}
-                          </motion.div>
-                        ) : null}
-                      </AnimatePresence>
-                    </div>
-                  );
-                })}
-                <a
-                  href="/free-ai-seo-audit"
-                  onClick={(e) => handleNav(e, "/free-ai-seo-audit")}
-                  className="mt-2 rounded-full bg-[var(--c-cta)] py-3.5 text-center font-sans text-sm font-semibold text-white"
-                >
-                  Audit My Site
-                </a>
-              </nav>
-            </motion.div>
-          ) : null}
-        </AnimatePresence>
       </motion.header>
+
+      <MobileNavSheet
+        open={open}
+        nav={NAV}
+        onClose={closeMobile}
+        onNavigate={handleNav}
+      />
     </>
   );
 }

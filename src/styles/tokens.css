@@ -79,6 +79,13 @@
   }
 }
 
+html[data-site-banner="off"] {
+  --site-mobile-banner-height: 0px;
+  --site-banner-height: 0px;
+  --header-nav-top-with-banner: 0px;
+  --hero-header-offset: var(--header-bar-height);
+}
+
 .ciq-dark {
   background-color: var(--c-footer);
   color: #f5f5f5;

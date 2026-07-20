@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { trackButtonClick } from "../../services/analytics";
@@ -35,7 +35,6 @@ function usePrefersReducedMotion() {
 }
 
 export default function Hero() {
-  const navigate = useNavigate();
   const rootRef = useRef(null);
   const reducedMotion = usePrefersReducedMotion();
   const [typedText, setTypedText] = useState(
@@ -174,22 +173,25 @@ export default function Hero() {
         </p>
 
         <div className="hero-ctas mt-6 flex flex-wrap items-center justify-center gap-3 sm:mt-7">
-          <Button
-            onClick={() => {
-              trackButtonClick("Start a project", "hero_cta", "Hero");
-              navigate("/contact");
-            }}
-          >
-            Start a project
+          <Button asChild>
+            <Link
+              to="/contact"
+              onClick={() =>
+                trackButtonClick("Start a project", "hero_cta", "Hero")
+              }
+            >
+              Start a project
+            </Link>
           </Button>
-          <Button
-            variant="secondary"
-            onClick={() => {
-              trackButtonClick("Free Audit", "hero_cta", "Hero");
-              navigate("/free-ai-seo-audit");
-            }}
-          >
-            Audit my site
+          <Button asChild variant="secondary">
+            <Link
+              to="/free-ai-seo-audit"
+              onClick={() =>
+                trackButtonClick("Free Audit", "hero_cta", "Hero")
+              }
+            >
+              Audit my site
+            </Link>
           </Button>
         </div>
 

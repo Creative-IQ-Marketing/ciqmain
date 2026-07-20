@@ -1,3 +1,4 @@
 https://creativeiq.marketing/*  https://creativeiqmarketing.com/:splat  301!
+/about                 /about/creativeiq                302
 /business-unplugged    /business-unplugged/index.html   200
 /*                     /index.html                      200

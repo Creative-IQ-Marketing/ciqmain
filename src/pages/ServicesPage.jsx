@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useLocation, useNavigate } from "react-router-dom";
 import SEO from "../components/SEO";
-import { useLocation } from "react-router-dom";
-import { scrollToSection } from "../utils/scrollToSection";
 import { publishFormInterest, SECTION_INTEREST_MAP } from "../utils/formInterest";
-import GuideInlineCTA from "../components/ui/GuideInlineCTA";
 import ServicesHero from "../components/services/ServicesHero";
+import ServicesLaneSwitch from "../components/services/ServicesLaneSwitch";
 import BundlePricing from "../components/services/BundlePricing";
 import BundleTable from "../components/services/BundleTable";
 import SocialMediaPackages from "../components/services/SocialMediaPackages";
@@ -13,23 +13,87 @@ import HighLevelOffers from "../components/services/HighLevelOffers";
 import GrowthInfra from "../components/services/GrowthInfra";
 import ServicesContact from "../components/services/ServicesContact";
 import GHLValueTable from "../components/landing/GHLValueTable";
-import servicesAtmosphere from "../assets/sections/section-services-atmosphere.jpg";
+
+export const SERVICE_LANES = [
+  {
+    id: "website-seo",
+    label: "Growth systems",
+    aliases: ["website-seo", "bundles", "growth-infra", "high-level"],
+  },
+  {
+    id: "content-creation",
+    label: "Social packages",
+    aliases: ["content-creation"],
+  },
+  {
+    id: "consulting",
+    label: "Consulting",
+    aliases: ["consulting"],
+  },
+  {
+    id: "crm-solutions",
+    label: "CRM",
+    aliases: ["crm-solutions"],
+  },
+];
+
+const DEFAULT_LANE = "website-seo";
+
+function resolveLane(hashId) {
+  if (!hashId) return DEFAULT_LANE;
+  const match = SERVICE_LANES.find((lane) => lane.aliases.includes(hashId));
+  return match?.id ?? DEFAULT_LANE;
+}
 
 export default function ServicesPage() {
   const { hash } = useLocation();
+  const navigate = useNavigate();
+  const reduceMotion = useReducedMotion();
+  const [lane, setLane] = useState(() =>
+    resolveLane(hash ? hash.replace("#", "") : ""),
+  );
+
+  const syncHash = useCallback(
+    (nextLane) => {
+      navigate(`/services#${nextLane}`, { replace: true });
+    },
+    [navigate],
+  );
+
+  const selectLane = useCallback(
+    (nextLane, { scroll = true } = {}) => {
+      setLane(nextLane);
+      syncHash(nextLane);
+      const interest = SECTION_INTEREST_MAP[nextLane];
+      if (interest) {
+        publishFormInterest(interest, { source: `lane:${nextLane}` });
+      }
+      if (scroll) {
+        window.requestAnimationFrame(() => {
+          document
+            .getElementById("services-lanes")
+            ?.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
+    },
+    [syncHash],
+  );
 
   useEffect(() => {
     if (!hash) return;
     const id = hash.replace("#", "");
+    if (id === "services-contact" || id === "contact") return;
+    const next = resolveLane(id);
+    setLane(next);
+    const interest = SECTION_INTEREST_MAP[next];
+    if (interest) {
+      publishFormInterest(interest, { source: `section:${id}` });
+    }
     const timer = window.setTimeout(() => {
-      scrollToSection(id);
-      if (id !== "services-contact") {
-        const interest = SECTION_INTEREST_MAP[id];
-        if (interest) {
-          publishFormInterest(interest, { source: `section:${id}` });
-        }
-      }
-    }, 300);
+      document
+        .getElementById("services-lanes")
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 120);
     return () => window.clearTimeout(timer);
   }, [hash]);
 
@@ -94,51 +158,103 @@ export default function ServicesPage() {
     return () => scripts.forEach((s) => s.remove());
   }, []);
 
+  const panelMotion = useMemo(
+    () =>
+      reduceMotion
+        ? { initial: false, animate: { opacity: 1 }, exit: { opacity: 1 } }
+        : {
+            initial: { opacity: 0, y: 10 },
+            animate: { opacity: 1, y: 0 },
+            exit: { opacity: 0, y: -6 },
+            transition: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
+          },
+    [reduceMotion],
+  );
+
   return (
     <main>
       <SEO
-        title="Digital Marketing Services | CreativeIQ"
-        description="Website & SEO, content creation, CRM automation, and strategic consulting. Tiered growth systems for brands ready to scale — worldwide."
-        keywords="digital marketing services, SEO services, social media marketing, CRM automation, videography, marketing consulting"
+        title="Digital Marketing Services | SEO, Social, CRM | CreativeIQ"
+        description="Choose a growth lane: website & SEO systems, social content packages, consulting, or CRM automation. Clear tiers for brands ready to scale."
+        keywords="digital marketing services, SEO services San Antonio, social media packages, CRM automation GoHighLevel, marketing consulting, CreativeIQ services"
         canonical="https://creativeiq.marketing/services"
       />
 
       <ServicesHero />
 
-      <div className="relative h-40 overflow-hidden border-b border-[var(--c-border)] sm:h-52 lg:h-64">
-        <img
-          src={servicesAtmosphere}
-          alt=""
-          className="absolute inset-0 size-full object-cover"
-          loading="eager"
-        />
-        <div className="absolute inset-0 bg-black/25" />
-      </div>
+      <ServicesLaneSwitch
+        lanes={SERVICE_LANES}
+        value={lane}
+        onChange={(id) => selectLane(id, { scroll: false })}
+      />
 
-      <div id="website-seo" className="scroll-mt-32">
-        <BundlePricing />
-        <BundleTable />
-        <GrowthInfra />
-      </div>
+      <div className="relative min-h-[40vh]">
+        <AnimatePresence mode="wait">
+          {lane === "website-seo" ? (
+            <motion.div
+              key="website-seo"
+              id="services-panel-website-seo"
+              role="tabpanel"
+              aria-labelledby="services-tab-website-seo"
+              {...panelMotion}
+            >
+              <div id="website-seo">
+                <div id="bundles">
+                  <BundlePricing />
+                </div>
+                <BundleTable />
+                <div id="growth-infra">
+                  <GrowthInfra />
+                </div>
+                <div id="high-level">
+                  <HighLevelOffers />
+                </div>
+              </div>
+            </motion.div>
+          ) : null}
 
-      <SocialMediaPackages />
+          {lane === "content-creation" ? (
+            <motion.div
+              key="content-creation"
+              id="services-panel-content-creation"
+              role="tabpanel"
+              aria-labelledby="services-tab-content-creation"
+              {...panelMotion}
+            >
+              <SocialMediaPackages />
+            </motion.div>
+          ) : null}
 
-      <ConsultingSection />
+          {lane === "consulting" ? (
+            <motion.div
+              key="consulting"
+              id="services-panel-consulting"
+              role="tabpanel"
+              aria-labelledby="services-tab-consulting"
+              {...panelMotion}
+            >
+              <ConsultingSection />
+            </motion.div>
+          ) : null}
 
-      <HighLevelOffers />
-
-      <div id="crm-solutions" className="scroll-mt-32">
-        <GHLValueTable
-          showTopTrialBanner={false}
-          showBottomTrialCta={false}
-          sectionId="crm-solutions"
-        />
-      </div>
-
-      <div className="border-t border-[var(--c-border)] bg-white px-[var(--container-pad)] py-10">
-        <div className="mx-auto max-w-[var(--container-max)]">
-          <GuideInlineCTA source="services_page" />
-        </div>
+          {lane === "crm-solutions" ? (
+            <motion.div
+              key="crm-solutions"
+              id="services-panel-crm-solutions"
+              role="tabpanel"
+              aria-labelledby="services-tab-crm-solutions"
+              {...panelMotion}
+            >
+              <div id="crm-solutions">
+                <GHLValueTable
+                  showTopTrialBanner={false}
+                  showBottomTrialCta={false}
+                  sectionId="crm-solutions"
+                />
+              </div>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
       </div>
 
       <ServicesContact />
