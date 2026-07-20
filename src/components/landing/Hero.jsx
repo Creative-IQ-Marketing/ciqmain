@@ -1,9 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import { trackButtonClick } from "../../services/analytics";
+import { Button } from "../ui/button";
 import HeroArcGallery from "./HeroArcGallery";
 import HeroMobileGallery from "./HeroMobileGallery";
 import HeroDecorations from "./HeroDecorations";
+
+gsap.registerPlugin(useGSAP);
 
 const ROTATING_PHRASES = [
   "Does your business appear?",
@@ -15,13 +20,36 @@ const ROTATING_PHRASES = [
   "Can you compete with AI search?",
 ];
 
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setReduced(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  return reduced;
+}
+
 export default function Hero() {
   const navigate = useNavigate();
-  const [typedText, setTypedText] = useState("");
+  const rootRef = useRef(null);
+  const reducedMotion = usePrefersReducedMotion();
+  const [typedText, setTypedText] = useState(
+    reducedMotion ? ROTATING_PHRASES[0] : "",
+  );
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
+    if (reducedMotion) {
+      setTypedText(ROTATING_PHRASES[0]);
+      return undefined;
+    }
+
     const currentPhrase = ROTATING_PHRASES[phraseIndex];
     let timeoutId;
 
@@ -49,56 +77,128 @@ export default function Hero() {
     );
 
     return () => clearTimeout(timeoutId);
-  }, [typedText, isDeleting, phraseIndex]);
+  }, [typedText, isDeleting, phraseIndex, reducedMotion]);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+
+      mm.add(
+        {
+          reduceMotion: "(prefers-reduced-motion: reduce)",
+          motionOk: "(prefers-reduced-motion: no-preference)",
+        },
+        (context) => {
+          const { reduceMotion } = context.conditions;
+          if (reduceMotion) {
+            gsap.set(
+              [
+                ".hero-line",
+                ".hero-accent",
+                ".hero-probe",
+                ".hero-support",
+                ".hero-ctas",
+                ".hero-decor",
+                ".hero-gallery-wrap",
+              ],
+              { autoAlpha: 1, y: 0, rotateX: 0 },
+            );
+            return;
+          }
+
+          // Headline (.hero-line / .hero-accent) paints immediately for LCP text.
+          gsap.set([".hero-probe", ".hero-support", ".hero-ctas"], {
+            autoAlpha: 0,
+            y: 18,
+          });
+          gsap.set(".hero-decor", { autoAlpha: 0 });
+          gsap.set(".hero-gallery-wrap", { autoAlpha: 0, y: 28 });
+
+          const tl = gsap.timeline({
+            defaults: { ease: "power3.out" },
+          });
+
+          tl.to(".hero-probe", { autoAlpha: 1, y: 0, duration: 0.7 }, 0.15)
+            .to(".hero-support", { autoAlpha: 1, y: 0, duration: 0.7 }, "-=0.5")
+            .to(".hero-ctas", { autoAlpha: 1, y: 0, duration: 0.7 }, "-=0.45")
+            .to(".hero-decor", { autoAlpha: 1, duration: 0.8 }, "-=0.55")
+            .to(
+              ".hero-gallery-wrap",
+              { autoAlpha: 1, y: 0, duration: 1 },
+              "-=0.55",
+            );
+        },
+        rootRef,
+      );
+
+      return () => mm.revert();
+    },
+    { scope: rootRef },
+  );
 
   return (
-    <section className="relative flex flex-col overflow-x-clip bg-white pb-8 pt-[var(--hero-header-offset)] lg:min-h-dvh lg:pb-4">
-      <HeroDecorations />
+    <section
+      ref={rootRef}
+      className="relative flex flex-col overflow-x-clip bg-[var(--c-base)] pb-6 pt-[var(--hero-header-offset)] lg:min-h-[100dvh] lg:pb-2"
+    >
+      <div className="hero-decor">
+        <HeroDecorations />
+      </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-4xl flex-1 px-4 pt-5 text-center sm:px-6 sm:pt-7 lg:max-w-[920px] lg:pt-8">
-        <h1 className="font-sans text-[clamp(2.25rem,9vw,5rem)] font-extrabold leading-[1.04] tracking-[-0.03em] text-[#0f0f0f]">
-          Built to Rank.
-          <br />
-          Designed to <span className="text-[#3B6FF0]">Convert.</span>
+      <div className="relative z-10 mx-auto w-full max-w-4xl flex-1 px-4 pt-5 text-center sm:px-6 sm:pt-7 lg:max-w-[920px] lg:pt-8 lg:pb-2">
+        <h1 className="font-sans text-[clamp(2.25rem,8.5vw,4.75rem)] font-extrabold leading-[1.06] tracking-[-0.035em] text-[var(--c-ink)] text-balance">
+          <span className="hero-line hero-line-a block">Built to Rank.</span>
+          <span className="hero-line hero-line-b mt-[0.08em] block">
+            Designed to{" "}
+            <span className="hero-accent inline-block text-[var(--c-accent)] italic [font-synthesis:none]">
+              Convert.
+            </span>
+          </span>
         </h1>
 
-        <p className="mx-auto mt-3 min-h-[1.4em] font-sans text-[15px] font-normal leading-normal text-[#737373]">
+        <p
+          className="hero-probe mx-auto mt-3 min-h-[1.4em] font-sans text-[15px] font-medium leading-normal text-[var(--c-text-muted)]"
+          aria-live="polite"
+        >
           {typedText}
-          <span className="text-[#bbb]">|</span>
+          {!reducedMotion ? (
+            <span className="ml-0.5 text-[#bbb]" aria-hidden>
+              |
+            </span>
+          ) : null}
         </p>
 
-        <p className="mx-auto mt-2.5 max-w-[620px] font-sans text-base font-normal leading-relaxed text-[#5c5c5c]">
-          SEO, social, content, and websites — one team building systems that
-          turn attention into revenue.
+        <p className="hero-support mx-auto mt-3 max-w-[34rem] font-sans text-base font-normal leading-relaxed text-[var(--c-text-secondary)] text-pretty">
+          One team for SEO, social, content, and websites. Systems that turn
+          attention into revenue.
         </p>
 
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:mt-7">
-          <button
-            type="button"
+        <div className="hero-ctas mt-6 flex flex-wrap items-center justify-center gap-3 sm:mt-7">
+          <Button
             onClick={() => {
               trackButtonClick("Start a project", "hero_cta", "Hero");
               navigate("/contact");
             }}
-            className="inline-flex items-center justify-center rounded-full bg-[#18181b] px-7 py-3 font-sans text-[15px] font-semibold text-white transition hover:bg-[#2a2a2a] sm:px-8"
           >
             Start a project
-          </button>
-          <button
-            type="button"
+          </Button>
+          <Button
+            variant="secondary"
             onClick={() => {
               trackButtonClick("Free Audit", "hero_cta", "Hero");
               navigate("/free-ai-seo-audit");
             }}
-            className="inline-flex items-center justify-center rounded-full border border-[#d4d4d4] bg-white px-7 py-3 font-sans text-[15px] font-medium text-[#252525] transition hover:border-[#aaa] sm:px-8"
           >
             Audit my site
-          </button>
+          </Button>
         </div>
 
-        <HeroMobileGallery />
+        <HeroMobileGallery reducedMotion={reducedMotion} />
       </div>
 
-      <HeroArcGallery />
+      <div className="hero-gallery-wrap mt-auto">
+        <HeroArcGallery reducedMotion={reducedMotion} />
+      </div>
     </section>
   );
 }

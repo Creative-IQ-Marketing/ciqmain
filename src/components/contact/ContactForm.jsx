@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { useCallback, useState } from "react";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import { submitToGHL } from "../../services/ghl";
@@ -12,6 +11,9 @@ import {
   getServiceFormLabel,
 } from "../../data/serviceFormOptions";
 import { useFormInterest } from "../../hooks/useFormInterest";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
+import { Button } from "../ui/button";
 
 export default function ContactForm({
   formId = "contact-interest",
@@ -88,14 +90,14 @@ export default function ContactForm({
 
   if (success) {
     return (
-      <div className="text-center py-12">
-        <div className="w-16 h-16 rounded-full bg-[#3B6FF0]/10 flex items-center justify-center mx-auto mb-4">
-          <CheckCircle className="w-8 h-8 text-[#3B6FF0]" />
+      <div className="py-12 text-center">
+        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[var(--c-accent-dim)]">
+          <CheckCircle className="h-8 w-8 text-[var(--c-accent)]" />
         </div>
-        <h3 className="mb-2 font-sans text-xl font-extrabold text-[#0f0f0f]">
-          Message received!
+        <h3 className="mb-2 font-sans text-xl font-extrabold text-[var(--c-ink)]">
+          Message received
         </h3>
-        <p className="font-sans text-sm text-[#737373]">
+        <p className="font-sans text-sm text-[var(--c-text-muted)]">
           We&apos;ll reach out within 24 hours with a custom proposal.
         </p>
       </div>
@@ -104,53 +106,68 @@ export default function ContactForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
-      <div className="grid sm:grid-cols-2 gap-5">
-        <div>
-          <label className="font-sans block text-xs font-semibold text-[#737373] mb-1.5 uppercase tracking-wider">
-            Full Name *
+      <div className="grid gap-5 sm:grid-cols-2">
+        <div className="space-y-2">
+          <label
+            htmlFor={`${formId}-name`}
+            className="block font-sans text-xs font-semibold uppercase tracking-wider text-[var(--c-text-muted)]"
+          >
+            Full name *
           </label>
-          <input
+          <Input
+            id={`${formId}-name`}
             type="text"
             name="name"
             required
             value={formData.name}
             onChange={handleChange}
             placeholder="Jane Smith"
-            className="font-sans w-full bg-white border border-black/[0.08] rounded-xl px-4 py-3 text-[#0f0f0f] placeholder-[#a3a3a3] text-sm focus:outline-none focus:border-[#3B6FF0] focus:ring-2 focus:ring-[#3B6FF0]/10 transition-colors"
+            autoComplete="name"
           />
         </div>
-        <div>
-          <label className="font-sans block text-xs font-semibold text-[#737373] mb-1.5 uppercase tracking-wider">
+        <div className="space-y-2">
+          <label
+            htmlFor={`${formId}-phone`}
+            className="block font-sans text-xs font-semibold uppercase tracking-wider text-[var(--c-text-muted)]"
+          >
             Phone
           </label>
-          <input
+          <Input
+            id={`${formId}-phone`}
             type="tel"
             name="phone"
             value={formData.phone}
             onChange={handleChange}
             placeholder="(555) 000-0000"
-            className="font-sans w-full bg-white border border-black/[0.08] rounded-xl px-4 py-3 text-[#0f0f0f] placeholder-[#a3a3a3] text-sm focus:outline-none focus:border-[#3B6FF0] focus:ring-2 focus:ring-[#3B6FF0]/10 transition-colors"
+            autoComplete="tel"
           />
         </div>
       </div>
 
-      <div>
-        <label className="font-sans block text-xs font-semibold text-[#737373] mb-1.5 uppercase tracking-wider">
+      <div className="space-y-2">
+        <label
+          htmlFor={`${formId}-email`}
+          className="block font-sans text-xs font-semibold uppercase tracking-wider text-[var(--c-text-muted)]"
+        >
           Email *
         </label>
-        <input
+        <Input
+          id={`${formId}-email`}
           type="email"
           name="email"
           required
           value={formData.email}
           onChange={handleChange}
           placeholder="jane@company.com"
-          className="font-sans w-full bg-white border border-black/[0.08] rounded-xl px-4 py-3 text-[#0f0f0f] placeholder-[#a3a3a3] text-sm focus:outline-none focus:border-[#3B6FF0] focus:ring-2 focus:ring-[#3B6FF0]/10 transition-colors"
+          autoComplete="email"
         />
       </div>
 
-      <div>
-        <label className="font-sans block text-xs font-semibold text-[#737373] mb-1.5 uppercase tracking-wider">
+      <div className="space-y-2">
+        <label
+          htmlFor={formId}
+          className="block font-sans text-xs font-semibold uppercase tracking-wider text-[var(--c-text-muted)]"
+        >
           I&apos;m interested in
         </label>
         <select
@@ -158,13 +175,13 @@ export default function ContactForm({
           name="service"
           value={formData.service}
           onChange={handleChange}
-          className={`font-sans w-full rounded-xl border bg-white px-4 py-3 text-sm text-[#0f0f0f] transition-all focus:border-[#3B6FF0] focus:outline-none focus:ring-2 focus:ring-[#3B6FF0]/10 ${
+          className={`flex h-11 w-full rounded-[var(--radius-control)] border bg-white px-3.5 py-2 font-sans text-[15px] text-[var(--c-ink)] transition focus-visible:border-[var(--c-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)]/25 ${
             servicePulse
-              ? "border-[#3B6FF0] ring-2 ring-[#3B6FF0]/20"
-              : "border-black/[0.08]"
+              ? "border-[var(--c-accent)] ring-2 ring-[var(--c-accent)]/20"
+              : "border-[var(--c-border-strong)]"
           }`}
         >
-          <option value="">Select a service or package…</option>
+          <option value="">Select a service or package</option>
           {SERVICE_FORM_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value}>
               {opt.label}
@@ -173,58 +190,58 @@ export default function ContactForm({
         </select>
       </div>
 
-      <div>
-        <label className="font-sans block text-xs font-semibold text-[#737373] mb-1.5 uppercase tracking-wider">
+      <div className="space-y-2">
+        <label
+          htmlFor={`${formId}-message`}
+          className="block font-sans text-xs font-semibold uppercase tracking-wider text-[var(--c-text-muted)]"
+        >
           Tell us about your goals
         </label>
-        <textarea
+        <Textarea
+          id={`${formId}-message`}
           name="message"
           value={formData.message}
           onChange={handleChange}
           rows={4}
           placeholder="What's your biggest growth challenge right now?"
-          className="font-sans w-full bg-white border border-black/[0.08] rounded-xl px-4 py-3 text-[#0f0f0f] placeholder-[#a3a3a3] text-sm focus:outline-none focus:border-[#3B6FF0] focus:ring-2 focus:ring-[#3B6FF0]/10 transition-colors resize-none"
         />
       </div>
 
-      <label className="flex items-start gap-3 cursor-pointer">
+      <label className="flex cursor-pointer items-start gap-3">
         <input
           type="checkbox"
           name="consent"
           checked={formData.consent}
           onChange={handleChange}
-          className="mt-0.5 w-4 h-4 accent-[#3B6FF0]"
+          className="mt-0.5 h-4 w-4 accent-[var(--c-accent)]"
         />
-        <span className="font-sans text-xs leading-relaxed text-[#737373]">
+        <span className="font-sans text-xs leading-relaxed text-[var(--c-text-muted)]">
           I consent to CreativeIQ contacting me about their services. I
           understand I can unsubscribe at any time.
         </span>
       </label>
 
-      {error && (
-        <p className="font-sans text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg p-3">
+      {error ? (
+        <p
+          role="alert"
+          className="rounded-[var(--radius-control)] border border-red-200 bg-red-50 p-3 font-sans text-sm text-red-700"
+        >
           {error}
         </p>
-      )}
+      ) : null}
 
-      <motion.button
-        type="submit"
-        disabled={loading}
-        whileHover={{ scale: loading ? 1 : 1.02 }}
-        whileTap={{ scale: loading ? 1 : 0.98 }}
-        className="flex w-full items-center justify-center gap-2 rounded-full bg-[#18181b] py-4 text-sm font-semibold text-white transition-all hover:bg-[#2a2a2a] disabled:opacity-60"
-      >
+      <Button type="submit" disabled={loading} className="h-12 w-full">
         {loading ? (
           <span className="flex items-center gap-2">
-            <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-            Sending…
+            <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+            Sending
           </span>
         ) : (
           <>
-            Send My Request <ArrowRight className="w-4 h-4" />
+            Send my request <ArrowRight className="h-4 w-4" />
           </>
         )}
-      </motion.button>
+      </Button>
     </form>
   );
 }

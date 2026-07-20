@@ -1,24 +1,32 @@
 /* ============================================================
    CreativeIQ — Design System Tokens
-   All CSS custom properties live here. Every component reads
-   from these tokens. Never hardcode a design value elsewhere.
+   Ink-on-white performance studio. One accent. One radius system.
    ============================================================ */
 
 :root {
   /* ── Colors ──────────────────────────────────────────────── */
-  --c-base: #f7f6f1;
+  --c-base: #ffffff;
+  --c-cream: #f7f6f1;
   --c-surface: #ffffff;
-  --c-surface-2: #f0f0f9;
+  --c-surface-2: #f5f6f8;
+  --c-ink: #0f0f0f;
+  --c-ink-soft: #1a1a1a;
   --c-accent: #3b6ff0;
-  --c-accent-dim: rgba(59, 130, 246, 0.1);
-  --c-glow: rgba(59, 130, 246, 0.18);
+  --c-accent-dim: rgba(59, 111, 240, 0.1);
+  --c-glow: rgba(59, 111, 240, 0.16);
 
-  --c-text-primary: #0d0d14;
-  --c-text-secondary: #6b7280;
-  --c-text-ghost: rgba(59, 130, 246, 0.05);
+  --c-text-primary: #0f0f0f;
+  --c-text-secondary: #5c5c5c;
+  --c-text-muted: #737373;
+  --c-text-ghost: rgba(59, 111, 240, 0.05);
 
   --c-border: rgba(0, 0, 0, 0.07);
-  --c-border-bright: rgba(59, 130, 246, 0.4);
+  --c-border-strong: rgba(0, 0, 0, 0.12);
+  --c-border-bright: rgba(59, 111, 240, 0.4);
+
+  --c-cta: #18181b;
+  --c-cta-hover: #2a2a2a;
+  --c-footer: #0f0f0f;
 
   /* ── Typography ──────────────────────────────────────────── */
   --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
@@ -26,24 +34,24 @@
   --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
   --font-hand: "Caveat", "Segoe Script", cursive;
 
-  --size-hero: clamp(3.2rem, 8vw, 7.5rem);
-  --size-section-title: clamp(2rem, 4vw, 3.5rem);
-  --size-label: 0.7rem;
-  --tracking-label: 0.2em;
+  --size-hero: clamp(2.25rem, 7.5vw, 4.75rem);
+  --size-section-title: clamp(1.85rem, 4vw, 3.15rem);
+  --size-label: 0.6875rem;
+  --tracking-label: 0.18em;
 
   /* ── Easing ──────────────────────────────────────────────── */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
 
   /* ── Durations ───────────────────────────────────────────── */
-  --dur-fast: 400ms;
-  --dur-base: 700ms;
-  --dur-slow: 1200ms;
+  --dur-fast: 200ms;
+  --dur-base: 450ms;
+  --dur-slow: 900ms;
 
   /* ── Spacing ─────────────────────────────────────────────── */
-  --section-pad: clamp(5rem, 10vw, 9rem);
-  --container-max: 1200px;
-  --container-pad: clamp(1.5rem, 5vw, 5rem);
+  --section-pad: clamp(2.75rem, 5vw, 4.75rem);
+  --container-max: 1320px;
+  --container-pad: clamp(1.25rem, 4vw, 2.5rem);
 
   /* ── Site banner ─────────────────────────────────────────── */
   --site-mobile-banner-height: 3.75rem;
@@ -53,9 +61,14 @@
   --header-nav-top-with-banner: var(--header-nav-top);
   --hero-header-offset: calc(var(--header-nav-top) + var(--header-bar-height));
 
-  /* ── Radii ───────────────────────────────────────────────── */
+  /* ── Radii (one system) ──────────────────────────────────── */
   --radius-card: 16px;
+  --radius-control: 12px;
   --radius-pill: 999px;
+
+  /* ── Shadows ─────────────────────────────────────────────── */
+  --shadow-frame: 0 20px 48px -14px rgba(15, 15, 15, 0.28);
+  --shadow-soft: 0 12px 32px -16px rgba(15, 15, 15, 0.12);
 }
 
 @media (min-width: 1024px) {
@@ -66,18 +79,23 @@
   }
 }
 
-/* ── Global resets for accent sections ───────────────────── */
 .ciq-dark {
-  background-color: var(--c-base);
-  color: var(--c-text-primary);
+  background-color: var(--c-footer);
+  color: #f5f5f5;
 }
 
-/* ── Grain filter reference (SVG defined in index.html) ───── */
 .grain-overlay {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.04;
+  opacity: 0.035;
   filter: url(#grain);
   background: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-safe-only {
+    animation: none !important;
+    transition: none !important;
+  }
 }

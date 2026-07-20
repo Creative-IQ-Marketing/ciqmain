@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   ArrowUpRight,
   FileText,
@@ -8,45 +9,56 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { trackButtonClick, trackServiceSelection } from "../../services/analytics";
 import { normalizeFormInterest } from "../../data/serviceFormOptions";
-import FadeUp from "../primitives/FadeUp";
+import { Button } from "../ui/button";
+import Reveal from "../primitives/Reveal";
+import atmosphere from "../../assets/sections/section-services-atmosphere.jpg";
 
 const SERVICES = [
   {
     id: "sem",
+    index: "01",
     title: "Search Engine Marketing",
     contactValue: "bundle-essential",
     summary:
-      "SEO, paid search, and analytics — built to get you found by buyers ready to act.",
+      "Technical SEO, AI search readiness, and paid search wired to analytics so buyers already looking for you can find and choose you.",
+    proof: "Rank + recommend",
     Icon: Search,
   },
   {
     id: "smm",
+    index: "02",
     title: "Social Media Marketing",
     contactValue: "social-starter",
     summary:
-      "Campaigns and content that keep your brand top-of-mind across every major platform.",
+      "Consistent presence and paid amplification across the platforms your audience already uses, aimed at pipeline rather than vanity.",
+    proof: "Presence that converts",
     Icon: Share2,
   },
   {
     id: "content",
+    index: "03",
     title: "Content Marketing",
     contactValue: "video-production",
     summary:
-      "Blogs, video, email, and copy that turn attention into qualified pipeline.",
+      "Editorial calendars, video, email, and long-form that educate buyers and move them from curiosity to a conversation.",
+    proof: "Stories with commercial spine",
     Icon: FileText,
   },
   {
     id: "web",
+    index: "04",
     title: "Web Design & Development",
     contactValue: "bundle-essential",
     summary:
-      "Fast, conversion-focused sites — modern stacks, sharp UX, performance included.",
+      "Fast conversion sites with clear offers, clean UX, and the performance foundation SEO and ads need to pay off.",
+    proof: "Sites built to close",
     Icon: LayoutTemplate,
   },
 ];
 
 export default function ServicesShowcase() {
   const navigate = useNavigate();
+  const [active, setActive] = useState(0);
 
   const goToContact = (serviceValue) => {
     trackServiceSelection(serviceValue);
@@ -55,86 +67,162 @@ export default function ServicesShowcase() {
     navigate(`/?interest=${interest}#contact`);
   };
 
-  return (
-    <FadeUp
-      as="section"
-      id="services"
-      className="border-t border-black/[0.05] bg-white py-16 sm:py-20 lg:py-24"
-    >
-      <div className="mx-auto max-w-[1320px] px-5 sm:px-6 lg:px-10">
-        <div className="max-w-2xl">
-          <p className="mb-4 font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
-            What we do
-          </p>
-          <h2 className="font-sans text-[clamp(2rem,4.5vw,3.25rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-[#0f0f0f]">
-            Marketing systems that grow revenue
-          </h2>
-          <p className="mt-5 font-sans text-base leading-relaxed text-[#5c5c5c]">
-            Search, social, content, and websites — one team building the full
-            stack your business needs to turn attention into customers.
-          </p>
-        </div>
+  const current = SERVICES[active];
 
-        <ul className="mt-12 divide-y divide-black/[0.06] border-y border-black/[0.06]">
-          {SERVICES.map((service) => (
-            <li key={service.id}>
-              <button
-                type="button"
-                onClick={() => goToContact(service.contactValue)}
-                className="group flex w-full gap-5 py-7 text-left transition-colors hover:bg-neutral-50/80 sm:items-center sm:justify-between sm:gap-10 sm:py-8"
-              >
-                <div className="flex min-w-0 flex-1 items-start gap-4 sm:items-center sm:gap-5">
-                  <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-black/[0.06] bg-white text-[#3B6FF0] sm:mt-0">
-                    <service.Icon size={18} strokeWidth={1.75} aria-hidden />
-                  </span>
-                  <div className="max-w-xl min-w-0">
-                    <h3 className="font-sans text-lg font-semibold tracking-[-0.02em] text-[#0f0f0f] sm:text-xl">
-                      {service.title}
-                    </h3>
-                    <p className="mt-1.5 font-sans text-[15px] leading-relaxed text-[#5c5c5c]">
-                      {service.summary}
-                    </p>
-                  </div>
-                </div>
-                <span className="inline-flex shrink-0 items-center gap-1 font-sans text-sm font-medium text-[#737373] transition group-hover:text-[#0f0f0f]">
-                  Learn more
-                  <ArrowUpRight
-                    size={15}
-                    strokeWidth={1.75}
-                    className="transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                    aria-hidden
+  return (
+    <section
+      id="services"
+      className="relative overflow-hidden border-t border-[var(--c-border)] bg-[var(--c-base)] py-12 sm:py-14 lg:py-16"
+    >
+      <div className="mx-auto max-w-[var(--container-max)] px-[var(--container-pad)]">
+        <Reveal className="mb-8 max-w-xl">
+          <h2 className="font-sans text-[clamp(2rem,4vw,3.25rem)] font-extrabold leading-[0.98] tracking-[-0.04em] text-[var(--c-ink)] text-balance">
+            One stack.{" "}
+            <span className="text-[var(--c-accent)]">Full growth.</span>
+          </h2>
+          <p className="mt-4 max-w-md font-sans text-base leading-relaxed text-[var(--c-text-secondary)]">
+            Search, social, content, and web run as a single system. Open a lane
+            to start the conversation.
+          </p>
+        </Reveal>
+
+        {/* Desktop: hover-accordion slices + detail panel */}
+        <Reveal className="hidden lg:grid lg:grid-cols-[1.35fr_0.65fr] lg:gap-5">
+          <div className="flex h-[320px] overflow-hidden rounded-[var(--radius-card)] border border-[var(--c-border)] bg-[var(--c-ink)]">
+            {SERVICES.map((service, i) => {
+              const isActive = active === i;
+              return (
+                <button
+                  key={service.id}
+                  type="button"
+                  onMouseEnter={() => setActive(i)}
+                  onFocus={() => setActive(i)}
+                  onClick={() => goToContact(service.contactValue)}
+                  className={`group relative flex h-full flex-col justify-between overflow-hidden border-r border-white/10 text-left transition-[flex] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] last:border-r-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--c-accent)] ${
+                    isActive ? "flex-[2.4]" : "flex-[0.7]"
+                  }`}
+                  aria-pressed={isActive}
+                >
+                  <img
+                    src={atmosphere}
+                    alt=""
+                    className={`absolute inset-0 size-full object-cover transition duration-700 ${
+                      isActive ? "opacity-55 scale-105" : "opacity-25 scale-100"
+                    }`}
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/20" />
+                  <div className="relative z-10 flex h-full flex-col justify-between p-5 xl:p-6">
+                    <div className="flex items-start justify-between gap-2">
+                      <span className="font-sans text-xs font-bold tabular-nums text-[var(--c-accent)]">
+                        {service.index}
+                      </span>
+                      <service.Icon
+                        size={18}
+                        className="text-white/70"
+                        strokeWidth={1.5}
+                      />
+                    </div>
+                    <div>
+                      <h3
+                        className={`font-sans font-bold tracking-[-0.02em] text-white transition ${
+                          isActive
+                            ? "text-2xl xl:text-[1.7rem]"
+                            : "text-sm [writing-mode:vertical-rl] rotate-180"
+                        }`}
+                      >
+                        {service.title}
+                      </h3>
+                      {isActive ? (
+                        <p className="mt-3 max-w-sm font-sans text-sm leading-relaxed text-white/70">
+                          {service.summary}
+                        </p>
+                      ) : null}
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="flex flex-col justify-between rounded-[var(--radius-card)] border border-[var(--c-border)] bg-white p-7 shadow-[var(--shadow-soft)]">
+            <div>
+              <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--c-text-muted)]">
+                {current.proof}
+              </p>
+              <h3 className="mt-3 font-sans text-2xl font-extrabold tracking-[-0.03em] text-[var(--c-ink)]">
+                {current.title}
+              </h3>
+              <p className="mt-4 font-sans text-sm leading-relaxed text-[var(--c-text-secondary)]">
+                {current.summary}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => goToContact(current.contactValue)}
+              className="mt-8 inline-flex items-center gap-2 font-sans text-sm font-semibold text-[var(--c-ink)] transition hover:text-[var(--c-accent)]"
+            >
+              Explore this system
+              <ArrowUpRight size={15} strokeWidth={1.75} />
+            </button>
+          </div>
+        </Reveal>
+
+        {/* Mobile */}
+        <div className="space-y-3 lg:hidden">
+          {SERVICES.map((service) => (
+            <button
+              key={service.id}
+              type="button"
+              onClick={() => goToContact(service.contactValue)}
+              className="flex w-full flex-col gap-3 rounded-[var(--radius-card)] border border-[var(--c-border)] bg-white p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)]"
+            >
+              <div className="flex items-center justify-between">
+                <span className="font-sans text-xs font-semibold text-[var(--c-accent)]">
+                  {service.index}
                 </span>
-              </button>
-            </li>
+                <service.Icon
+                  size={18}
+                  className="text-[var(--c-accent)]"
+                  strokeWidth={1.75}
+                />
+              </div>
+              <h3 className="font-sans text-lg font-bold tracking-[-0.02em] text-[var(--c-ink)]">
+                {service.title}
+              </h3>
+              <p className="font-sans text-sm leading-relaxed text-[var(--c-text-secondary)]">
+                {service.summary}
+              </p>
+            </button>
           ))}
-        </ul>
+        </div>
 
         <div className="mt-10 flex flex-wrap gap-3">
-          <Link
-            to="/services"
-            onClick={() =>
-              trackButtonClick(
-                "Browse Services",
-                "services_cta",
-                "ServicesShowcase",
-              )
-            }
-            className="inline-flex items-center justify-center rounded-full bg-[#18181b] px-7 py-3 font-sans text-[15px] font-semibold text-white transition hover:bg-[#2a2a2a]"
-          >
-            Browse services
-          </Link>
-          <Link
-            to="/book"
-            onClick={() =>
-              trackButtonClick("Book a call", "services_cta", "ServicesShowcase")
-            }
-            className="inline-flex items-center justify-center rounded-full border border-[#d4d4d4] bg-white px-7 py-3 font-sans text-[15px] font-medium text-[#252525] transition hover:border-[#aaa]"
-          >
-            Book a call
-          </Link>
+          <Button asChild>
+            <Link
+              to="/services"
+              onClick={() =>
+                trackButtonClick(
+                  "Browse Services",
+                  "services_cta",
+                  "ServicesShowcase",
+                )
+              }
+            >
+              Browse services
+            </Link>
+          </Button>
+          <Button asChild variant="secondary">
+            <Link
+              to="/book"
+              onClick={() =>
+                trackButtonClick("Book a call", "services_cta", "ServicesShowcase")
+              }
+            >
+              Book a call
+            </Link>
+          </Button>
         </div>
       </div>
-    </FadeUp>
+    </section>
   );
 }

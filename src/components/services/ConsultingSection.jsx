@@ -10,7 +10,7 @@ const PACKAGES = [
     period: "per year",
     detail: "6 one-hour strategy sessions",
     description:
-      "Planning, content ideas, execution strategies, and ongoing guidance.",
+      "Best for founders who need a sounding board for planning, content, and execution without a full retainer.",
     icon: Clock,
   },
   {
@@ -21,7 +21,7 @@ const PACKAGES = [
     featured: true,
     detail: "12 one-hour strategy sessions",
     description:
-      "More hands-on planning, accountability, and implementation support.",
+      "Best for operators who want denser accountability and hands-on implementation guidance across the year.",
     icon: Layers,
   },
   {
@@ -31,7 +31,7 @@ const PACKAGES = [
     period: "per month",
     detail: "Ongoing strategic access",
     description:
-      "For teams that need consistent strategic guidance without session limits.",
+      "Best for teams that need recurring strategic access without rationing session credits.",
     icon: Infinity,
   },
 ];
@@ -42,13 +42,13 @@ export default function ConsultingSection() {
   };
 
   return (
-    <section id="consulting" className="scroll-mt-32 border-t border-black/[0.05] bg-white py-16 sm:py-20 lg:py-24">
+    <section
+      id="consulting"
+      className="scroll-mt-32 border-t border-black/[0.05] bg-white py-16 sm:py-20 lg:py-24"
+    >
       <div className="mx-auto max-w-[1320px] px-5 sm:px-6 lg:px-10">
         <div className="max-w-2xl">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#3B6FF0]">
-            Consulting
-          </p>
-          <h2 className="mt-3 font-sans text-[clamp(1.75rem,3vw,2.25rem)] font-extrabold tracking-[-0.03em] text-[#0f0f0f] sm:text-4xl">
+          <h2 className="font-sans text-[clamp(1.75rem,3vw,2.25rem)] font-extrabold tracking-[-0.03em] text-[#0f0f0f] sm:text-4xl">
             Strategy sessions that move the needle
           </h2>
           <p className="mt-4 font-sans text-base leading-relaxed text-[#5c5c5c] lg:text-lg">
@@ -69,14 +69,14 @@ export default function ConsultingSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: i * 0.08 }}
-                className={`flex flex-col rounded-[22px] border p-7 ${
+                className={`group flex flex-col rounded-[var(--radius-card)] border p-7 transition-[border-color] duration-300 ${
                   pkg.featured
-                    ? "border-[#3B6FF0] bg-white shadow-[0_20px_48px_-20px_rgba(59,111,240,0.2)]"
-                    : "border-black/[0.06] bg-white"
+                    ? "border-[var(--c-accent)] bg-white"
+                    : "border-black/[0.08] bg-white hover:border-black/[0.16]"
                 }`}
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#3B6FF0]/10">
-                  <Icon className="h-5 w-5 text-[#3B6FF0]" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-md border border-black/[0.08]">
+                  <Icon className="h-4 w-4 text-[var(--c-ink)]" strokeWidth={1.75} />
                 </div>
                 <h3 className="mt-5 text-lg font-semibold text-[#0f0f0f]">
                   {pkg.name}

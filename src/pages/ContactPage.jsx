@@ -1,5 +1,12 @@
 import { useState, useEffect } from "react";
-import { Download, Check, Phone, Mail, MessageSquare, ArrowUpRight } from "lucide-react";
+import {
+  Download,
+  Check,
+  Phone,
+  Mail,
+  MessageSquare,
+  ArrowUpRight,
+} from "lucide-react";
 import ContactSection from "../components/contact/ContactSection";
 import PageHeader, { PageCtaSecondary } from "../components/layout/PageHeader";
 import { useLocation } from "react-router-dom";
@@ -58,6 +65,22 @@ export default function ContactPage() {
     return () => script.remove();
   }, []);
 
+  const channels = [
+    {
+      label: "Call",
+      href: `tel:${PHONE_TEL}`,
+      text: PHONE_DISPLAY,
+      icon: Phone,
+    },
+    { label: "Email", href: `mailto:${EMAIL}`, text: EMAIL, icon: Mail },
+    {
+      label: "Text",
+      href: PHONE_SMS,
+      text: "Message us",
+      icon: MessageSquare,
+    },
+  ];
+
   return (
     <>
       <SEO
@@ -70,9 +93,8 @@ export default function ContactPage() {
 
       <PageHeader
         align="center"
-        eyebrow="Get in touch"
-        title="Let's work together."
-        description="Call, text, email, or save our contact — then tell us what you're building."
+        title="Let's work together"
+        description="Call, text, email, or save our vCard. Then tell us what you are building."
       >
         {!saved ? (
           <button
@@ -103,37 +125,38 @@ export default function ContactPage() {
         </PageCtaSecondary>
       </PageHeader>
 
-      <section className="border-b border-black/[0.05] bg-white py-10 sm:py-12">
-        <div className="mx-auto grid max-w-[1320px] grid-cols-2 gap-3 px-5 sm:grid-cols-4 sm:gap-4 sm:px-6 lg:px-10">
-          {[
-            { label: "Call", href: `tel:${PHONE_TEL}`, text: PHONE_DISPLAY, icon: Phone },
-            { label: "Email", href: `mailto:${EMAIL}`, text: EMAIL, icon: Mail },
-            { label: "Text", href: PHONE_SMS, text: "Message us", icon: MessageSquare },
-          ].map(({ label, href, text, icon: Icon }) => (
+      <section className="border-b border-[var(--c-border)] bg-white">
+        <div className="mx-auto grid max-w-[var(--container-max)] grid-cols-2 divide-x divide-y divide-[var(--c-border)] border-x border-[var(--c-border)] sm:grid-cols-4 sm:divide-y-0">
+          {channels.map(({ label, href, text, icon: Icon }) => (
             <a
               key={label}
               href={href}
-              className="rounded-[18px] border border-black/[0.06] bg-white p-4 transition hover:border-black/[0.12] sm:p-5"
+              className="group px-5 py-7 transition hover:bg-[var(--c-surface-2)] sm:px-7 sm:py-9"
             >
-              <Icon size={16} className="mb-2 text-[#3B6FF0]" strokeWidth={1.75} aria-hidden />
-              <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-[#737373]">
+              <Icon
+                size={16}
+                className="mb-4 text-[var(--c-accent)]"
+                strokeWidth={1.75}
+                aria-hidden
+              />
+              <p className="font-sans text-sm font-medium text-[var(--c-text-muted)]">
                 {label}
               </p>
-              <p className="mt-1 font-sans text-sm font-medium text-[#0f0f0f] break-words">
+              <p className="mt-1 font-sans text-[15px] font-semibold tracking-[-0.01em] text-[var(--c-ink)] break-words group-hover:text-[var(--c-accent)]">
                 {text}
               </p>
             </a>
           ))}
-          <div className="rounded-[18px] border border-black/[0.06] bg-white p-4 sm:p-5">
-            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-[#737373]">
+          <div className="px-5 py-7 sm:px-7 sm:py-9">
+            <p className="font-sans text-sm font-medium text-[var(--c-text-muted)]">
               Coverage
             </p>
-            <p className="mt-1 font-sans text-sm font-medium text-[#0f0f0f]">
+            <p className="mt-1 font-sans text-[15px] font-semibold tracking-[-0.01em] text-[var(--c-ink)]">
               International
             </p>
           </div>
         </div>
-        <div className="mx-auto mt-8 max-w-[1320px] px-5 sm:px-6 lg:px-10">
+        <div className="mx-auto max-w-[var(--container-max)] px-[var(--container-pad)] py-10">
           <GuideInlineCTA source="contact_page" />
         </div>
       </section>

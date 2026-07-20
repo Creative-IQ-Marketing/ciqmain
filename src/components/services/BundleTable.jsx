@@ -153,7 +153,10 @@ export default function BundleTable() {
   const groups = [...new Set(ROWS.map((r) => r.group))];
 
   return (
-    <section id="comparison-table" className="scroll-mt-32 border-t border-black/[0.05] bg-white py-16 sm:py-20 lg:py-24">
+    <section
+      id="comparison-table"
+      className="scroll-mt-32 border-t border-black/[0.05] bg-[#f5f6f8] py-16 sm:py-20 lg:py-24"
+    >
       <div className="mx-auto max-w-[1320px] px-5 sm:px-6 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -175,7 +178,7 @@ export default function BundleTable() {
         </motion.div>
 
         {/* Table wrapper — horizontal scroll on mobile */}
-        <div className="overflow-x-auto rounded-[22px] border border-black/[0.06] shadow-[0_20px_48px_-24px_rgba(0,0,0,0.12)]">
+        <div className="overflow-x-auto border border-black/[0.08] bg-white">
           <table className="w-full min-w-[700px] border-collapse">
             {/* Sticky header */}
             <thead>

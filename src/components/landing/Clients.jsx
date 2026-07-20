@@ -1,6 +1,9 @@
-import { motion, useInView, AnimatePresence } from "framer-motion";
-import { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import FadeUp from "../primitives/FadeUp";
+
+gsap.registerPlugin(useGSAP);
 
 const logoModules = import.meta.glob("../../assets/transparent/*.png", {
   eager: true,
@@ -12,127 +15,87 @@ const clients = Object.entries(logoModules).map(([path, mod], index) => ({
   alt: `CreativeIQ client partner logo ${index + 1}`,
 }));
 
-const Clients = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [hoveredId, setHoveredId] = useState(null);
+export default function Clients() {
+  const trackRef = useRef(null);
   const sectionRef = useRef(null);
-  const inView = useInView(sectionRef, {
-    margin: "-15% 0px -15% 0px",
-  });
 
-  useEffect(() => {
-    if (!inView) {
-      return undefined;
-    }
-
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % clients.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [inView]);
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference) and (min-width: 768px)", () => {
+        const track = trackRef.current;
+        if (!track) return;
+        const tween = gsap.to(track, {
+          xPercent: -50,
+          duration: 38,
+          ease: "none",
+          repeat: -1,
+        });
+        const pause = () => tween.pause();
+        const play = () => tween.play();
+        sectionRef.current?.addEventListener("mouseenter", pause);
+        sectionRef.current?.addEventListener("mouseleave", play);
+        return () => {
+          sectionRef.current?.removeEventListener("mouseenter", pause);
+          sectionRef.current?.removeEventListener("mouseleave", play);
+        };
+      });
+      return () => mm.revert();
+    },
+    { scope: sectionRef },
+  );
 
   return (
     <FadeUp
       as="section"
       ref={sectionRef}
-      className="relative overflow-hidden border-y border-black/[0.05] bg-white py-12 sm:py-14"
+      className="relative overflow-hidden border-y border-[var(--c-border)] bg-[var(--c-base)] py-10 sm:py-12"
+      aria-label="Trusted by"
     >
-      <div className="mx-auto mb-10 max-w-[1320px] px-5 text-center sm:px-6 lg:px-10">
-        <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#737373]">
-          Trusted by
+      <div className="mx-auto mb-8 flex max-w-[var(--container-max)] items-end justify-between gap-6 px-[var(--container-pad)]">
+        <p className="font-sans text-sm font-medium text-[var(--c-text-muted)]">
+          Trusted by operators across healthcare, law, real estate, and professional services
         </p>
+        <span className="hidden font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--c-accent)] sm:block">
+          {clients.length}+ partners
+        </span>
       </div>
 
-      <div className="relative hidden w-full overflow-hidden md:block">
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-28 bg-gradient-to-r from-white to-transparent sm:w-36" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-28 bg-gradient-to-l from-white to-transparent sm:w-36" />
-
-        <div className="flex">
-          <motion.div
-            className="flex flex-nowrap items-center gap-14 sm:gap-16"
-            animate={
-              inView && hoveredId === null ? { x: ["0%", "-50%"] } : { x: "0%" }
-            }
-            transition={{
-              x: {
-                repeat: Infinity,
-                repeatType: "loop",
-                duration: 32,
-                ease: "linear",
-              },
-            }}
-          >
-            {[...clients, ...clients].map((client, index) => {
-              const active = hoveredId === client.id;
-              return (
-                <motion.div
-                  key={`${client.id}-${index}`}
-                  className="relative flex h-20 w-44 shrink-0 cursor-default items-center justify-center sm:h-24 sm:w-48"
-                  onMouseEnter={() => setHoveredId(client.id)}
-                  onMouseLeave={() => setHoveredId(null)}
-                  whileHover={{ y: 0 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                >
-                  <motion.img
-                    src={client.src}
-                    alt={client.alt}
-                    className="max-h-full max-w-full object-contain"
-                    animate={{
-                      filter: active ? "grayscale(0%)" : "grayscale(100%)",
-                      opacity: active ? 1 : 0.45,
-                      scale: active ? 1.05 : 1,
-                    }}
-                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  />
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        </div>
-      </div>
-
-      <div className="block px-4 md:hidden">
-        <div className="relative mx-auto h-36 max-w-sm">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentIndex}
-              className="absolute inset-0 flex items-center justify-center"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+      <div className="relative hidden overflow-hidden md:block">
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-white to-transparent lg:w-40" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-white to-transparent lg:w-40" />
+        <div ref={trackRef} className="flex w-max items-center gap-16 px-10 will-change-transform">
+          {[...clients, ...clients].map((client, index) => (
+            <div
+              key={`${client.id}-${index}`}
+              className="flex h-16 w-40 shrink-0 items-center justify-center opacity-45 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0 sm:h-20 sm:w-48"
             >
-              <motion.img
-                src={clients[currentIndex].src}
-                alt={clients[currentIndex].alt}
-                className="max-h-full max-w-[85%] object-contain"
-                animate={{
-                  filter: "grayscale(100%)",
-                  opacity: 0.5,
-                }}
-                whileTap={{
-                  filter: "grayscale(0%)",
-                  opacity: 1,
-                  scale: 1.04,
-                }}
-                transition={{ duration: 0.3 }}
+              <img
+                src={client.src}
+                alt={client.alt}
+                className="max-h-full max-w-full object-contain"
+                loading="lazy"
               />
-            </motion.div>
-          </AnimatePresence>
+            </div>
+          ))}
         </div>
+      </div>
 
-        <div className="mx-auto mt-8 h-px max-w-xs overflow-hidden rounded-full bg-black/[0.08]">
-          <motion.div
-            className="h-full rounded-full bg-[#3B6FF0]/40"
-            animate={{
-              width: `${((currentIndex + 1) / clients.length) * 100}%`,
-            }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          />
-        </div>
+      <div className="grid grid-cols-3 gap-6 px-6 md:hidden">
+        {clients.slice(0, 6).map((client) => (
+          <div
+            key={client.id}
+            className="flex h-14 items-center justify-center opacity-50 grayscale"
+          >
+            <img
+              src={client.src}
+              alt={client.alt}
+              className="max-h-full max-w-full object-contain"
+              loading="lazy"
+            />
+          </div>
+        ))}
       </div>
     </FadeUp>
   );
-};
-
-export default Clients;
+}

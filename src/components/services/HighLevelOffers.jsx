@@ -9,7 +9,7 @@ const OFFERS = [
     interest: "audit",
     price: "$2K – $7K",
     tagline:
-      "We identify exactly why your traffic isn't converting—and give you a blueprint to fix it within 30 days.",
+      "Find exactly why traffic stalls before booking, then leave with a 30-day blueprint to fix the leaks.",
     pitch: [
       "Website behavior breakdown",
       "Heatmap analysis",
@@ -21,7 +21,7 @@ const OFFERS = [
       client: "Med Spa Client",
       problem: "Good traffic, low bookings",
       result:
-        "Reframed service messaging → measurable conversion lift within 30 days.",
+        "Reframed service messaging into a measurable conversion lift within 30 days.",
     },
   },
   {
@@ -30,7 +30,7 @@ const OFFERS = [
     interest: "retainer",
     price: "$3K – $15K/mo",
     tagline:
-      "We don't just bring traffic—we turn your existing traffic into paying clients.",
+      "Turn the traffic you already have into paying clients through continuous testing and funnel discipline.",
     pitch: [
       "Monthly landing page A/B tests",
       "Messaging rewrites with psychology triggers",
@@ -42,7 +42,7 @@ const OFFERS = [
       client: "Roofing Client",
       problem: "Lead form with zero follow-up",
       result:
-        "Instant SMS + urgency emails → lead-to-appointment rate doubled.",
+        "Instant SMS and urgency emails doubled the lead-to-appointment rate.",
     },
   },
 ];
@@ -53,18 +53,18 @@ export default function HighLevelOffers() {
   };
 
   return (
-    <section id="high-level" className="scroll-mt-32 border-t border-black/[0.05] bg-white py-16 sm:py-20 lg:py-24">
+    <section
+      id="high-level"
+      className="scroll-mt-32 border-t border-black/[0.05] bg-[#f5f6f8] py-16 sm:py-20 lg:py-24"
+    >
       <div className="mx-auto max-w-[1320px] px-5 sm:px-6 lg:px-10">
         <div className="max-w-2xl">
-          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
-            Advanced Services
-          </p>
-          <h2 className="mt-3 font-sans text-[clamp(1.75rem,3vw,2.25rem)] font-extrabold tracking-[-0.03em] text-[#0f0f0f] sm:text-4xl">
+          <h2 className="font-sans text-[clamp(1.75rem,3vw,2.25rem)] font-extrabold tracking-[-0.03em] text-[#0f0f0f] sm:text-4xl">
             Conversion intelligence
           </h2>
           <p className="mt-4 font-sans text-base leading-relaxed text-[#5c5c5c] lg:text-lg">
-            For brands ready to work at the strategic level—where psychology
-            meets infrastructure and every dollar is accountable.
+            For brands ready to work at the strategic layer: psychology, site
+            infrastructure, and accountable spend in one workstream.
           </p>
         </div>
 
@@ -78,11 +78,11 @@ export default function HighLevelOffers() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: i * 0.08 }}
-                className="flex flex-col rounded-[22px] border border-black/[0.06] bg-white p-8"
+                className="group flex flex-col rounded-[var(--radius-card)] border border-black/[0.08] bg-white p-8 transition-[border-color] duration-300 hover:border-black/[0.16]"
               >
                 <div className="flex items-start justify-between gap-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#3B6FF0]/10">
-                    <Icon className="h-5 w-5 text-[#3B6FF0]" />
+                  <div className="flex h-9 w-9 items-center justify-center rounded-md border border-black/[0.08]">
+                    <Icon className="h-4 w-4 text-[var(--c-ink)]" strokeWidth={1.75} />
                   </div>
                   <p className="text-sm font-semibold text-[#3B6FF0]">
                     {offer.price}
@@ -109,7 +109,7 @@ export default function HighLevelOffers() {
 
                 <div className="mt-6 rounded-xl border border-black/[0.06] bg-[#fafafa] p-4">
                   <p className="text-xs font-semibold uppercase tracking-wider text-[#737373]">
-                    Example — {offer.example.client}
+                    Example: {offer.example.client}
                   </p>
                   <p className="mt-2 text-sm text-[#5c5c5c]">
                     {offer.example.problem}
