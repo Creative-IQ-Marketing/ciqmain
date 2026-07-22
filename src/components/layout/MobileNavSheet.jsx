@@ -12,8 +12,8 @@ export default function MobileNavSheet({
   nav,
   onClose,
   onNavigate,
-  ctaHref = "/free-ai-seo-audit",
-  ctaLabel = "Audit my site",
+  ctaHref = "/book",
+  ctaLabel = "Book a call",
 }) {
   const [expandedId, setExpandedId] = useState(null);
 
@@ -89,7 +89,13 @@ export default function MobileNavSheet({
                       className="flex w-full items-center justify-between px-4 py-5 text-left"
                       aria-expanded={expanded}
                     >
-                      <span className="font-sans text-[1.25rem] font-semibold tracking-[-0.03em] text-[var(--c-ink)]">
+                      <span
+                        className={`font-sans text-[1.25rem] font-semibold tracking-[-0.03em] ${
+                          item.accent
+                            ? "text-[var(--c-accent)]"
+                            : "text-[var(--c-ink)]"
+                        }`}
+                      >
                         {item.label}
                       </span>
                       <ChevronDown
@@ -110,18 +116,23 @@ export default function MobileNavSheet({
                           className="overflow-hidden"
                         >
                           <div className="pb-3 pl-2">
-                            <a
-                              href={item.href}
-                              onClick={(e) => onNavigate(e, item.href)}
-                              className="block px-4 py-3 font-sans text-[15px] font-semibold text-[var(--c-accent)]"
-                            >
-                              {item.overviewLabel || `All ${item.label}`}
-                            </a>
+                            {item.overviewLabel ? (
+                              <a
+                                href={item.href}
+                                onClick={(e) => onNavigate(e, item.href)}
+                                className="block px-4 py-3 font-sans text-[15px] font-semibold text-[var(--c-accent)]"
+                              >
+                                {item.overviewLabel}
+                              </a>
+                            ) : null}
                             {item.children.map((child) => (
                               <a
                                 key={child.href}
                                 href={child.href}
                                 onClick={(e) => onNavigate(e, child.href)}
+                                {...(child.external
+                                  ? { target: "_blank", rel: "noopener noreferrer" }
+                                  : {})}
                                 className="block px-4 py-3 font-sans text-[15px] font-medium text-[var(--c-ink)]"
                               >
                                 {child.label}

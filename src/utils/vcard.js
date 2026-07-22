@@ -84,7 +84,7 @@ export async function downloadVCard() {
       "TITLE:AI Driven Digital Marketing Agency",
       "TEL;TYPE=WORK,VOICE:+18303556028",
       "EMAIL;TYPE=WORK,INTERNET:CiQ@creativeiq.marketing",
-      "URL:https://creativeiq.marketing",
+      "URL:https://creativeiqmarketing.com",
     ];
 
     // Only add PHOTO if logo was successfully loaded

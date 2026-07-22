@@ -39,6 +39,7 @@ const SocialMediaFreeTrialPage = lazy(
 const AboutCiqPage = lazy(() => import("./pages/AboutCiqPage"));
 const AboutVilmaPage = lazy(() => import("./pages/AboutVilmaPage"));
 const NewsletterPopup = lazy(() => import("./components/ui/NewsletterPopup"));
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
 function RouteFallback() {
   return <div className="min-h-[40vh] bg-white" aria-hidden />;
@@ -130,7 +131,7 @@ function HomePage() {
         title="CreativeIQ | AI Digital Marketing Agency San Antonio"
         description="AI-ready SEO, social, websites, and CRM systems that convert. CreativeIQ helps brands rank, get recommended by AI platforms, and turn traffic into revenue."
         keywords="AI SEO agency San Antonio, digital marketing San Antonio, GEO optimization, ChatGPT SEO, website development, CRM automation, social media marketing, CreativeIQ"
-        canonical="https://creativeiq.marketing/"
+        canonical="https://creativeiqmarketing.com/"
       />
       <StructuredData />
       <Hero />
@@ -169,6 +170,7 @@ function App() {
           <Route path="/newsletter/unsubscribed" element={<UnsubscribedPage />} />
           <Route path="/terms" element={<TermsAndConditionsPage />} />
           <Route path="/privacy" element={<PrivacyPolicyPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
         <Route path="/newsletter" element={<NewsletterPage />} />
         <Route path="/business-unplugged" element={<BusinessUnpluggedPage />} />

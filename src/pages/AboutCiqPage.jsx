@@ -42,7 +42,7 @@ export default function AboutCiqPage() {
         title="About CreativeIQ | Growth Systems Built on Trust"
         description="CreativeIQ builds AI-ready marketing ecosystems so businesses earn confidence from customers, search engines, and intelligent systems."
         keywords="about CreativeIQ, AI digital marketing agency, AEO, SEO systems, San Antonio marketing"
-        canonical="https://creativeiq.marketing/about/creativeiq"
+        canonical="https://creativeiqmarketing.com/about/creativeiq"
       />
 
       <PageHeader

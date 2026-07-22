@@ -7,9 +7,9 @@ export default function StructuredData() {
     const websiteSchema = {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "@id": "https://creativeiq.marketing/#website",
+      "@id": "https://creativeiqmarketing.com/#website",
       name: "CreativeIQ Marketing",
-      url: "https://creativeiq.marketing",
+      url: "https://creativeiqmarketing.com",
       description:
         "AI-ready SEO, conversion-focused websites, social media marketing, and CRM automation designed for modern digital discovery and real business growth.",
     };
@@ -23,7 +23,7 @@ export default function StructuredData() {
       worksFor: {
         "@type": "Organization",
         name: "CreativeIQ Marketing",
-        url: "https://creativeiq.marketing",
+        url: "https://creativeiqmarketing.com",
       },
       knowsAbout: [
         "AI SEO",
@@ -138,9 +138,9 @@ export default function StructuredData() {
       "@context": "https://schema.org",
       "@type": "Organization",
       name: "CreativeIQ Marketing",
-      url: "https://creativeiq.marketing",
-      logo: "https://creativeiq.marketing/logo.png",
-      image: "https://creativeiq.marketing/og-image.jpg",
+      url: "https://creativeiqmarketing.com",
+      logo: "https://creativeiqmarketing.com/logo.png",
+      image: "https://creativeiqmarketing.com/og-image.jpg",
       description:
         "CreativeIQ Digital Marketing engineers AI-ready SEO, social media marketing, conversion-focused websites, chat experiences, and CRM automation designed for AI-driven discovery and real conversions.",
       foundingDate: "2016",
@@ -174,12 +174,12 @@ export default function StructuredData() {
     const localBusinessSchema = {
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
-      "@id": "https://creativeiq.marketing",
+      "@id": "https://creativeiqmarketing.com",
       name: "CreativeIQ Marketing",
-      image: "https://creativeiq.marketing/og-image.jpg",
+      image: "https://creativeiqmarketing.com/og-image.jpg",
       description:
         "Digital marketing agency specializing in AI-ready SEO, social media marketing, conversion websites, chat experiences, and CRM automation that turns visitors into qualified leads.",
-      url: "https://creativeiq.marketing",
+      url: "https://creativeiqmarketing.com",
       telephone: "+1-830-355-6028",
       email: "CiQ@creativeiq.marketing",
       priceRange: "$$$",
@@ -222,8 +222,8 @@ export default function StructuredData() {
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
       name: "CreativeIQ Marketing",
-      url: "https://creativeiq.marketing",
-      image: "https://creativeiq.marketing/og-image.jpg",
+      url: "https://creativeiqmarketing.com",
+      image: "https://creativeiqmarketing.com/og-image.jpg",
       description:
         "Professional digital marketing services specializing in AI-ready SEO, PPC, social media, conversion websites, and CRM automation.",
       telephone: "+1-830-355-6028",
@@ -255,25 +255,25 @@ export default function StructuredData() {
           "@type": "ListItem",
           position: 1,
           name: "Home",
-          item: "https://creativeiq.marketing/",
+          item: "https://creativeiqmarketing.com/",
         },
         {
           "@type": "ListItem",
           position: 2,
           name: "Services",
-          item: "https://creativeiq.marketing/services",
+          item: "https://creativeiqmarketing.com/services",
         },
         {
           "@type": "ListItem",
           position: 3,
           name: "Free SEO Audit",
-          item: "https://creativeiq.marketing/free-ai-seo-audit",
+          item: "https://creativeiqmarketing.com/free-ai-seo-audit",
         },
         {
           "@type": "ListItem",
           position: 4,
           name: "Contact",
-          item: "https://creativeiq.marketing/contact",
+          item: "https://creativeiqmarketing.com/contact",
         },
       ],
     };

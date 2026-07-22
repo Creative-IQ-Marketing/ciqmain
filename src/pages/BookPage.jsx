@@ -7,7 +7,7 @@ export default function BookPage() {
       <SEO
         title="Book a Strategy Call | CreativeIQ"
         description="Schedule a strategy call with CreativeIQ. Discuss your growth goals and map a plan for SEO, web, content, and marketing systems."
-        canonical="https://creativeiq.marketing/book"
+        canonical="https://creativeiqmarketing.com/book"
       />
       <Booking />
     </>

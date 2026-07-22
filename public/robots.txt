@@ -5,10 +5,10 @@ Allow: /
 Disallow: /newsletter/unsubscribed
 
 # Sitemap
-Sitemap: https://creativeiq.marketing/sitemap.xml
+Sitemap: https://creativeiqmarketing.com/sitemap.xml
 
 # LLM-readable site summary
-# https://creativeiq.marketing/llms.txt
+# https://creativeiqmarketing.com/llms.txt
 
 # Crawl-delay
 Crawl-delay: 1

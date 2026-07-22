@@ -44,7 +44,7 @@ export default function AboutVilmaPage() {
         title="About Vilma Tovar | Founder & CEO of CreativeIQ"
         description="Vilma Tovar is Founder and CEO of CreativeIQ Marketing. AI strategist, speaker, and growth consultant building trust-first digital ecosystems."
         keywords="Vilma Tovar, CreativeIQ founder, AI marketing strategist, neuromarketing, San Antonio entrepreneur"
-        canonical="https://creativeiq.marketing/about/vilma"
+        canonical="https://creativeiqmarketing.com/about/vilma"
       />
 
       <PageHeader

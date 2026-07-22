@@ -138,7 +138,7 @@ export default function FreeSeoAuditPage() {
   const [status, setStatus] = useState("idle");
   const [message, setMessage] = useState("");
 
-  const canonical = "https://creativeiq.marketing/free-ai-seo-audit";
+  const canonical = "https://creativeiqmarketing.com/free-ai-seo-audit";
 
   const structuredData = useMemo(
     () => ({
@@ -159,7 +159,7 @@ export default function FreeSeoAuditPage() {
         publisher: {
           "@type": "Organization",
           name: "CreativeIQ Marketing",
-          url: "https://creativeiq.marketing",
+          url: "https://creativeiqmarketing.com",
         },
       },
       faq: {
@@ -182,7 +182,7 @@ export default function FreeSeoAuditPage() {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://creativeiq.marketing/",
+            item: "https://creativeiqmarketing.com/",
           },
           {
             "@type": "ListItem",
