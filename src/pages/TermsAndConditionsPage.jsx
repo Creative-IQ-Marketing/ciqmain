@@ -122,13 +122,13 @@ export default function TermsAndConditionsPage() {
           "@type": "ListItem",
           position: 1,
           name: "Home",
-          item: "https://creativeiq.marketing/",
+          item: "https://creativeiqmarketing.com/",
         },
         {
           "@type": "ListItem",
           position: 2,
           name: "Terms & Conditions",
-          item: "https://creativeiq.marketing/terms",
+          item: "https://creativeiqmarketing.com/terms",
         },
       ],
     };
@@ -146,7 +146,7 @@ export default function TermsAndConditionsPage() {
         title="Terms & Conditions | CreativeIQ Marketing"
         description="Read CreativeIQ's terms and conditions governing our digital marketing services including SEO, PPC, social media, and CRM automation in San Antonio."
         keywords="terms and conditions, terms of service, legal terms, CreativeIQ"
-        canonical="https://creativeiq.marketing/terms"
+        canonical="https://creativeiqmarketing.com/terms"
         pageType="website"
       />
 

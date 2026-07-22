@@ -60,7 +60,7 @@ export default function NewsletterPage() {
         title="Newsletter | CreativeIQ"
         description="Subscribe to CreativeIQ's newsletter for digital marketing insights, growth strategies, and industry updates — delivered weekly to your inbox."
         keywords="newsletter, marketing insights, digital marketing tips"
-        canonical="https://creativeiq.marketing/newsletter"
+        canonical="https://creativeiqmarketing.com/newsletter"
         pageType="website"
       />
 

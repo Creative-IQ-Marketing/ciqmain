@@ -7,6 +7,7 @@ import { PHONE_TEL } from "../../utils/contact";
 import { trackButtonClick } from "../../services/analytics";
 import { SERVICES_NAV } from "../../data/servicesNav";
 import { ABOUT_NAV } from "../../data/aboutNav";
+import { TOOLS_NAV } from "../../data/toolsNav";
 import {
   scrollToHashFromHref,
   scrollToSection,
@@ -25,6 +26,7 @@ const NAV = [
   SERVICES_NAV,
   { label: "Book a call", href: "/book" },
   { label: "Contact", href: "/contact" },
+  TOOLS_NAV,
 ];
 
 export default function Header() {
@@ -89,6 +91,10 @@ export default function Header() {
     closeMobile();
     setOpenMenuId(null);
 
+    if (/^https?:\/\//i.test(href)) {
+      window.open(href, "_blank", "noopener,noreferrer");
+      return;
+    }
     if (href.includes("#")) {
       scrollToHashFromHref(href, location.pathname, navigate);
       return;
@@ -177,6 +183,9 @@ export default function Header() {
                   );
                 }
                 const isOpen = openMenuId === item.id;
+                const linkTone = item.accent
+                  ? "text-[var(--c-accent)] hover:bg-[var(--c-accent)]/8 hover:text-[#2f5fd9]"
+                  : "text-[var(--c-ink-soft)] hover:bg-black/[0.04] hover:text-[var(--c-ink)]";
                 return (
                   <div
                     key={item.label}
@@ -187,7 +196,7 @@ export default function Header() {
                     <a
                       href={item.href}
                       onClick={(e) => handleNav(e, item.href)}
-                      className="inline-flex items-center gap-1 rounded-full px-3.5 py-2 font-sans text-[13px] font-medium text-[var(--c-ink-soft)] transition hover:bg-black/[0.04] hover:text-[var(--c-ink)] lg:px-4 lg:text-[14px]"
+                      className={`inline-flex items-center gap-1 rounded-full px-3.5 py-2 font-sans text-[13px] font-semibold transition lg:px-4 lg:text-[14px] ${linkTone}`}
                       aria-expanded={isOpen}
                     >
                       {item.label}
@@ -220,14 +229,14 @@ export default function Header() {
                 Call us
               </a>
               <a
-                href="/free-ai-seo-audit"
+                href="/book"
                 onClick={(e) => {
-                  trackButtonClick("Free Audit", "header_cta", "Header");
-                  handleNav(e, "/free-ai-seo-audit");
+                  trackButtonClick("Book a call", "header_cta", "Header");
+                  handleNav(e, "/book");
                 }}
                 className="rounded-full bg-[var(--c-cta)] px-5 py-2.5 font-sans text-[13px] font-semibold text-white transition hover:bg-[var(--c-cta-hover)]"
               >
-                Audit My Site
+                Book a call
               </a>
             </div>
 

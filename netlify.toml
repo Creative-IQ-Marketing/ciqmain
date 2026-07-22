@@ -2,10 +2,8 @@
   command = "npm run build"
   publish = "dist"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# SPA route rewrites live in public/_redirects (explicit paths only).
+# Do not add /* → /index.html 200 here — that causes Soft 404s in GSC.
 
 [[headers]]
   for = "/dist/*"

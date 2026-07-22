@@ -13,9 +13,9 @@ const SEO = {
   title: "Business Unplugged | You're Invited — Aug 6 at Hotel Valencia",
   description:
     "RSVP for Business Unplugged — August 6 at Hotel Valencia Riverwalk, San Antonio. An evening of connection, conversation, and cocktails. First 20 guests receive complimentary VIP parking.",
-  image: "https://creativeiq.marketing/og-business-unplugged.jpg",
+  image: "https://creativeiqmarketing.com/og-business-unplugged.jpg",
   imageAlt: "Business Unplugged — August 6 at Hotel Valencia Riverwalk, San Antonio",
-  url: "https://creativeiq.marketing/business-unplugged",
+  url: "https://creativeiqmarketing.com/business-unplugged",
 };
 
 function replaceMeta(html, attr, key, value) {

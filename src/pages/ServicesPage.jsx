@@ -106,13 +106,13 @@ export default function ServicesPage() {
           "@type": "ListItem",
           position: 1,
           name: "Home",
-          item: "https://creativeiq.marketing/",
+          item: "https://creativeiqmarketing.com/",
         },
         {
           "@type": "ListItem",
           position: 2,
           name: "Services",
-          item: "https://creativeiq.marketing/services",
+          item: "https://creativeiqmarketing.com/services",
         },
       ],
     };
@@ -177,7 +177,7 @@ export default function ServicesPage() {
         title="Digital Marketing Services | SEO, Social, CRM | CreativeIQ"
         description="Choose a growth lane: website & SEO systems, social content packages, consulting, or CRM automation. Clear tiers for brands ready to scale."
         keywords="digital marketing services, SEO services San Antonio, social media packages, CRM automation GoHighLevel, marketing consulting, CreativeIQ services"
-        canonical="https://creativeiq.marketing/services"
+        canonical="https://creativeiqmarketing.com/services"
       />
 
       <ServicesHero />

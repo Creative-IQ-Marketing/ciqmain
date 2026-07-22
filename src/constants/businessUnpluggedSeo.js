@@ -7,6 +7,6 @@ export const BUSINESS_UNPLUGGED_SEO = {
     "Business Unplugged, San Antonio networking event, Hotel Valencia Riverwalk, business event RSVP, Creative IQ event",
   ogImage: "/og-business-unplugged.jpg",
   ogImageAlt: "Business Unplugged — August 6 at Hotel Valencia Riverwalk, San Antonio",
-  canonical: "https://creativeiq.marketing/business-unplugged",
+  canonical: "https://creativeiqmarketing.com/business-unplugged",
   pageType: "website",
 };

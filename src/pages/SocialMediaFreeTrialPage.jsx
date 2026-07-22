@@ -22,7 +22,7 @@ export default function SocialMediaFreeTrialPage() {
         title="30-Day Social Media Free Trial | CreativeIQ"
         description="Try CreativeIQ's Social Starter package free for 30 days."
         keywords="social media free trial, social media management"
-        canonical="https://creativeiq.marketing/social-media-free-trial"
+        canonical="https://creativeiqmarketing.com/social-media-free-trial"
       />
 
       <PageHeader

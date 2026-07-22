@@ -46,7 +46,7 @@ export default function UnsubscribedPage() {
       <SEO
         title="Unsubscribed | CreativeIQ"
         description="You have been successfully unsubscribed from CreativeIQ marketing emails."
-        canonical="https://creativeiq.marketing/newsletter/unsubscribed"
+        canonical="https://creativeiqmarketing.com/newsletter/unsubscribed"
         noindex={true}
       />
       <main className="bg-white">

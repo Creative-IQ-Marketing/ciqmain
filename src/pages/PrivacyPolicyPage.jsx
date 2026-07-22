@@ -120,13 +120,13 @@ export default function PrivacyPolicyPage() {
           "@type": "ListItem",
           position: 1,
           name: "Home",
-          item: "https://creativeiq.marketing/",
+          item: "https://creativeiqmarketing.com/",
         },
         {
           "@type": "ListItem",
           position: 2,
           name: "Privacy Policy",
-          item: "https://creativeiq.marketing/privacy",
+          item: "https://creativeiqmarketing.com/privacy",
         },
       ],
     };
@@ -144,7 +144,7 @@ export default function PrivacyPolicyPage() {
         title="Privacy Policy | CreativeIQ Marketing"
         description="Read CreativeIQ's privacy policy to understand how we collect and protect your personal data as San Antonio's leading digital marketing agency."
         keywords="privacy policy, data protection, GDPR, privacy, CreativeIQ"
-        canonical="https://creativeiq.marketing/privacy"
+        canonical="https://creativeiqmarketing.com/privacy"
         pageType="website"
       />
 

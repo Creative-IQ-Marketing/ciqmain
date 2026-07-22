@@ -1,4 +1,35 @@
+# Domain migration — old host → current primary
 https://creativeiq.marketing/*  https://creativeiqmarketing.com/:splat  301!
-/about                 /about/creativeiq                302
-/business-unplugged    /business-unplugged/index.html   200
-/*                     /index.html                      200
+
+# Aliases
+/about                 /about/creativeiq    301
+/about/                /about/creativeiq    301
+
+# Trailing slash → no slash (matches sitemap/canonicals)
+/book/                           /book                           301
+/free-ai-seo-audit/              /free-ai-seo-audit              301
+/services/                       /services                       301
+/about/creativeiq/               /about/creativeiq               301
+/about/vilma/                    /about/vilma                    301
+/social-media-free-trial/        /social-media-free-trial        301
+/contact/                        /contact                        301
+/newsletter/                     /newsletter                     301
+/newsletter/unsubscribed/        /newsletter/unsubscribed        301
+/terms/                          /terms                          301
+/privacy/                        /privacy                        301
+/business-unplugged/             /business-unplugged             301
+
+# Known SPA routes → index.html (HTTP 200)
+# Do NOT use /* /index.html 200 (soft 404s in GSC).
+/book                            /index.html    200
+/free-ai-seo-audit               /index.html    200
+/services                        /index.html    200
+/about/creativeiq                /index.html    200
+/about/vilma                     /index.html    200
+/social-media-free-trial         /index.html    200
+/contact                         /index.html    200
+/newsletter                      /index.html    200
+/newsletter/unsubscribed         /index.html    200
+/terms                           /index.html    200
+/privacy                         /index.html    200
+/business-unplugged              /business-unplugged/index.html    200

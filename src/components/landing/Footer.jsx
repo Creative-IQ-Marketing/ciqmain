@@ -46,8 +46,13 @@ const NAV = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about/creativeiq" },
   { label: "Services", href: "/services" },
+  { label: "SEO Audit by CIQ", href: "/free-ai-seo-audit" },
+  {
+    label: "Events by CIQ",
+    href: "https://events.creativeiqmarketing.com",
+    external: true,
+  },
   { label: "Book a call", href: "/book" },
-  { label: "Free SEO Audit", href: "/free-ai-seo-audit" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -137,6 +142,9 @@ export default function Footer() {
                       onClick={() =>
                         trackButtonClick(item.label, "footer_nav", "Footer")
                       }
+                      {...(item.external
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
                       className="text-white/65 transition hover:text-white"
                     >
                       {item.label}

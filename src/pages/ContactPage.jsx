@@ -47,13 +47,13 @@ export default function ContactPage() {
           "@type": "ListItem",
           position: 1,
           name: "Home",
-          item: "https://creativeiq.marketing/",
+          item: "https://creativeiqmarketing.com/",
         },
         {
           "@type": "ListItem",
           position: 2,
           name: "Contact",
-          item: "https://creativeiq.marketing/contact",
+          item: "https://creativeiqmarketing.com/contact",
         },
       ],
     };
@@ -87,7 +87,7 @@ export default function ContactPage() {
         title="Contact CreativeIQ | Get Your Digital Marketing Strategy"
         description="Ready to grow? Contact CreativeIQ Marketing in San Antonio for a free strategy session."
         keywords="contact marketing agency, San Antonio marketing, digital marketing strategy"
-        canonical="https://creativeiq.marketing/contact"
+        canonical="https://creativeiqmarketing.com/contact"
         pageType="website"
       />
 
