@@ -1,70 +1,36 @@
 /**
- * BrandLyft-adjacent pen accent — handwritten note pointing to the gallery.
- * Single signature moment. Not decoration spam.
+ * Single intentional pen accent — points from the headline toward the CTAs.
+ * No stray doodles. Desktop only.
  */
 export default function HeroDecorations() {
   return (
     <div
-      className="pointer-events-none absolute inset-0 hidden lg:block"
+      className="pointer-events-none absolute inset-0 z-[1] hidden lg:block"
       aria-hidden
     >
-      <svg
-        viewBox="0 0 56 64"
-        fill="none"
-        className="absolute left-[max(1rem,calc(50%-520px))] top-[38%] h-14 w-14 text-[var(--c-ink)]"
-        style={{ opacity: 0.2 }}
-      >
-        <path
-          d="M14 18 L14 26 M10 22 L18 22"
-          stroke="currentColor"
-          strokeWidth="1.25"
-          strokeLinecap="round"
-        />
-        <path
-          d="M22 34 L28 28 M28 34 L22 28"
-          stroke="currentColor"
-          strokeWidth="1.25"
-          strokeLinecap="round"
-        />
-        <path
-          d="M8 42 C12 38, 16 36, 20 32"
-          stroke="currentColor"
-          strokeWidth="1.15"
-          strokeLinecap="round"
-        />
-      </svg>
-
-      <div
-        className="absolute right-[max(1.5rem,calc(50%-480px))] top-[36%] flex flex-col items-end"
-        style={{ opacity: 0.92 }}
-      >
-        <p
-          className="mb-0 max-w-[140px] text-right text-[1.55rem] leading-[1.15] text-[var(--c-ink)]/55 pb-1"
-          style={{
-            fontFamily: "var(--font-hand)",
-            transform: "rotate(-8deg) translateX(8px)",
-          }}
-        >
+      <div className="absolute top-[clamp(11.5rem,22vh,15rem)] left-[calc(50%+min(17rem,28vw))] flex w-[9.5rem] flex-col items-start">
+        <p className="origin-bottom-left -rotate-6 font-[family-name:var(--font-hand)] text-[1.65rem] font-medium leading-none tracking-[-0.01em] text-[var(--c-accent)]">
           Built to convert
         </p>
         <svg
-          viewBox="0 0 120 140"
+          viewBox="0 0 88 72"
           fill="none"
-          className="-mt-1 mr-2 h-[130px] w-[100px] text-[var(--c-ink)]"
-          style={{ opacity: 0.28 }}
+          className="-ml-1 mt-1 h-[4.25rem] w-[5.25rem] text-[var(--c-accent)]"
         >
           <path
-            d="M92 12 C88 36, 82 58, 68 78 C54 98, 36 112, 14 128"
+            d="M18 4 C22 18, 28 32, 40 42 C52 52, 64 56, 76 58"
             stroke="currentColor"
-            strokeWidth="1.35"
+            strokeWidth="1.5"
             strokeLinecap="round"
+            opacity="0.55"
           />
           <path
-            d="M8 124 L14 132 L22 122"
+            d="M68 52 L76 58 L70 64"
             stroke="currentColor"
-            strokeWidth="1.35"
+            strokeWidth="1.5"
             strokeLinecap="round"
             strokeLinejoin="round"
+            opacity="0.55"
           />
         </svg>
       </div>

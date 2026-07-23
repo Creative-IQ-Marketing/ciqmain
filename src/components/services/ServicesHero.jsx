@@ -6,7 +6,7 @@ import heroSystems from "../../assets/generated/services-hero-systems.webp";
  */
 export default function ServicesHero() {
   return (
-    <section className="relative overflow-hidden border-b border-[var(--c-border)] pt-[calc(var(--hero-header-offset)+1.5rem)] pb-10 sm:pb-12 lg:pb-14">
+    <section className="mt-12 relative overflow-hidden border-b border-[var(--c-border)] pt-[calc(var(--hero-header-offset)+1.5rem)] pb-10 sm:pb-12 lg:pb-14">
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <img
           src={heroSystems}
@@ -23,9 +23,6 @@ export default function ServicesHero() {
       </div>
 
       <div className="relative mx-auto max-w-[var(--container-max)] px-[var(--container-pad)]">
-        <p className="mb-3 font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--c-accent)]">
-          Services
-        </p>
         <h1 className="max-w-3xl font-sans text-[clamp(2.15rem,5vw,3.5rem)] font-extrabold leading-[1.05] tracking-[-0.04em] text-[var(--c-ink)] text-balance">
           Services built as{" "}
           <span className="text-[var(--c-accent)]">systems</span>

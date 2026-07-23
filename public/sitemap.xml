@@ -15,9 +15,17 @@
   <!-- Services -->
   <url>
     <loc>https://creativeiqmarketing.com/services</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+  </url>
+
+  <!-- What is CRM -->
+  <url>
+    <loc>https://creativeiqmarketing.com/services/what-is-crm</loc>
+    <lastmod>2026-07-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
   </url>
 
   <!-- About CreativeIQ -->

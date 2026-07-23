@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Check, ChevronDown } from "lucide-react";
 import { scrollToServicesContact } from "../../utils/formInterest";
@@ -8,6 +8,7 @@ import PlanRail from "./PlanRail";
 import DesktopOnlyImage from "../ui/DesktopOnlyImage";
 import { IconSocial } from "../../assets/icons/ServiceIcons";
 import imgSocial from "../../assets/generated/services-social-content.webp";
+import { trackButtonClick } from "../../services/analytics";
 
 const PACKAGES = [
   {
@@ -16,7 +17,7 @@ const PACKAGES = [
     name: "Social Starter",
     interest: "social-starter",
     subtitle: "Presence",
-    monthly: "$589",
+    monthly: "$569",
     biweekly: "$299",
     trial: true,
     preview: ["Up to 2 platforms", "8 posts/month", "Captions + hashtags"],
@@ -28,7 +29,7 @@ const PACKAGES = [
       "Cross-platform formatting",
       "Monthly engagement summary",
     ],
-    buying: "Reliable posting without a full in-house team.",
+    buying: "Consistency + basic visibility.",
   },
   {
     id: "classic",
@@ -125,7 +126,21 @@ const VIDEO_PACKAGES = [
 
 function PackagePanel({ pkg }) {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   const visible = open ? pkg.features : pkg.preview;
+
+  const onCta = () => {
+    if (pkg.trial) {
+      trackButtonClick(
+        "Access free trial",
+        "social_trial_cta",
+        "SocialMediaPackages",
+      );
+      navigate("/social-media-free-trial");
+      return;
+    }
+    scrollToServicesContact(pkg.interest, `social-package:${pkg.interest}`);
+  };
 
   return (
     <article
@@ -153,9 +168,16 @@ function PackagePanel({ pkg }) {
           {pkg.trial ? (
             <Link
               to="/social-media-free-trial"
-              className="rounded-[var(--radius-pill)] border border-[var(--c-accent)]/40 bg-white/80 px-2.5 py-1 font-sans text-[10px] font-semibold text-[var(--c-accent)] transition hover:bg-white"
+              onClick={() =>
+                trackButtonClick(
+                  "30-day trial badge",
+                  "social_trial_badge",
+                  "SocialMediaPackages",
+                )
+              }
+              className="rounded-[var(--radius-pill)] bg-[var(--c-accent)] px-2.5 py-1 font-sans text-[10px] font-semibold text-white shadow-sm transition hover:bg-[#2f5fd9]"
             >
-              30-day trial
+              30-day free trial →
             </Link>
           ) : pkg.featured ? (
             <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--c-accent)]">
@@ -247,14 +269,13 @@ function PackagePanel({ pkg }) {
 
       <div className="px-5 pb-5">
         <Button
-          variant={pkg.featured ? "accent" : "secondary"}
+          variant={pkg.trial || pkg.featured ? "accent" : "secondary"}
           size="sm"
           className="w-full"
-          onClick={() =>
-            scrollToServicesContact(pkg.interest, `social-package:${pkg.interest}`)
-          }
+          onClick={onCta}
         >
-          Get started <ArrowRight className="size-4" aria-hidden />
+          {pkg.trial ? "Access free trial" : "Get started"}{" "}
+          <ArrowRight className="size-4" aria-hidden />
         </Button>
       </div>
     </article>

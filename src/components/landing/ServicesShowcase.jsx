@@ -21,7 +21,7 @@ const SERVICES = [
     id: "sem",
     index: "01",
     title: "Search Engine Marketing",
-    contactValue: "bundle-essential",
+    contactValue: "bundle-launch",
     summary:
       "Technical SEO, AI search readiness, and paid search wired to analytics so buyers already looking for you can find and choose you.",
     proof: "Rank + recommend",
@@ -51,7 +51,7 @@ const SERVICES = [
     id: "web",
     index: "04",
     title: "Web Design & Development",
-    contactValue: "bundle-essential",
+    contactValue: "bundle-launch",
     summary:
       "Fast conversion sites with clear offers, clean UX, and the performance foundation SEO and ads need to pay off.",
     proof: "Sites built to close",

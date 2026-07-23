@@ -18,7 +18,7 @@ export const HERO_ARC_FRAMES = [
     type: "video",
     src: semVideo,
     poster: seoPoster,
-    contactValue: "bundle-essential",
+    contactValue: "bundle-launch",
   },
   {
     id: "social",
@@ -42,7 +42,7 @@ export const HERO_ARC_FRAMES = [
     type: "video",
     src: webVideo,
     poster: webPoster,
-    contactValue: "bundle-essential",
+    contactValue: "bundle-launch",
   },
   {
     id: "reel",
