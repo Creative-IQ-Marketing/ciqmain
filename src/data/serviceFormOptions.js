@@ -1,11 +1,12 @@
 export const SERVICE_FORM_OPTIONS = [
   {
-    value: "bundle-essential",
-    label: "Bundle 1 — Essential Visibility ($999/m)",
+    value: "bundle-launch",
+    label: "CIQ Launch System ($1,198/m)",
   },
-  { value: "bundle-growth", label: "Bundle 2 — Growth Operations ($2,222/m)" },
-  { value: "bundle-elite", label: "Bundle 3 — Elite Automation ($3,888/m)" },
-  { value: "social-starter", label: "Social Starter — 30-Day Trial ($589/m)" },
+  { value: "bundle-growth", label: "CIQ Growth System ($1,999/m)" },
+  { value: "bundle-authority", label: "CIQ Authority System ($2,999/m)" },
+  { value: "bundle-dominance", label: "CIQ Dominance System ($4,997+/m)" },
+  { value: "social-starter", label: "Social Starter — 30-Day Trial ($569/m)" },
   { value: "social-classic", label: "The Classic — Social Package ($999/m)" },
   { value: "social-refined", label: "The Refined — Social Package ($1,469/m)" },
   {
@@ -17,6 +18,15 @@ export const SERVICE_FORM_OPTIONS = [
     label: "Elite Social System ($2,999/m)",
   },
   { value: "video-production", label: "Video Production (à la carte)" },
+  { value: "seo-foundation", label: "SEO Foundation (from $299/m)" },
+  { value: "seo-growth", label: "SEO Growth (from $499/m)" },
+  { value: "seo-authority", label: "SEO Authority (from $799/m)" },
+  { value: "seo-dominance", label: "SEO Dominance (from $999+/m)" },
+  { value: "crm-starter", label: "DIY CRM Starter ($97/m)" },
+  { value: "crm-pro", label: "CRM Pro ($397/m)" },
+  { value: "crm-elite", label: "CRM Elite ($497/m)" },
+  { value: "brand-identity", label: "Brand Identity ($550 one-time)" },
+  { value: "paid-ads", label: "Paid Advertising (from $599 setup)" },
   { value: "consulting-hourly", label: "Consulting — $199/hr" },
   {
     value: "consulting-699",
@@ -30,14 +40,6 @@ export const SERVICE_FORM_OPTIONS = [
     value: "consulting-unlimited",
     label: "Consulting — Unlimited Access ($499/mo)",
   },
-  { value: "crm-automation", label: "CRM Solutions & Automation" },
-  { value: "audit", label: "Conversion Intelligence Audit" },
-  { value: "retainer", label: "Conversion Optimization Retainer" },
-  { value: "tier-foundation", label: "Tier 1 — Foundation System" },
-  { value: "tier-growth-engine", label: "Tier 2 — Growth Engine" },
-  { value: "tier-brand-authority", label: "Tier 3 — Brand Authority System" },
-  { value: "tier-revenue", label: "Tier 4 — Revenue Maximizer" },
-  { value: "tier-enterprise", label: "Tier 5 — Enterprise Growth Partner" },
   { value: "other", label: "Not sure yet — let's talk" },
 ];
 
@@ -45,25 +47,35 @@ export const SERVICE_FORM_OPTIONS = [
 export const SECTION_INTEREST_MAP = {
   "website-seo": "bundle-growth",
   bundles: "bundle-growth",
-  "growth-infra": "tier-growth-engine",
-  "high-level": "audit",
+  "growth-infra": "seo-growth",
+  "high-level": "paid-ads",
   "content-creation": "social-starter",
   consulting: "consulting-hourly",
-  "crm-solutions": "crm-automation",
+  "crm-solutions": "crm-pro",
 };
 
 /** Maps legacy / short query values to form option values */
 export const INTEREST_ALIASES = {
   social: "social-starter",
   consulting: "consulting-hourly",
-  crm: "crm-automation",
-  seo: "bundle-essential",
-  web: "bundle-essential",
-  ppc: "bundle-growth",
-  gmb: "bundle-essential",
+  crm: "crm-pro",
+  "crm-automation": "crm-pro",
+  seo: "seo-growth",
+  web: "bundle-launch",
+  ppc: "paid-ads",
+  gmb: "seo-foundation",
   content: "video-production",
   other: "other",
-  ai: "consulting-hourly",
+  ai: "crm-elite",
+  audit: "seo-foundation",
+  retainer: "paid-ads",
+  "bundle-essential": "bundle-launch",
+  "bundle-elite": "bundle-dominance",
+  "tier-foundation": "seo-foundation",
+  "tier-growth-engine": "seo-growth",
+  "tier-brand-authority": "seo-authority",
+  "tier-revenue": "seo-dominance",
+  "tier-enterprise": "bundle-dominance",
 };
 
 export function getServiceFormLabel(value) {

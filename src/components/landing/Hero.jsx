@@ -140,17 +140,14 @@ export default function Hero() {
       ref={rootRef}
       className="relative flex flex-col overflow-x-clip bg-[var(--c-base)] pb-6 pt-[var(--hero-header-offset)] lg:min-h-[100dvh] lg:pb-2"
     >
-      <div className="hero-decor">
-        <HeroDecorations />
-      </div>
-
       <div className="relative z-10 mx-auto w-full max-w-4xl flex-1 px-4 pt-5 text-center sm:px-6 sm:pt-7 lg:max-w-[920px] lg:pt-8 lg:pb-2">
-        <h1 className="font-sans text-[clamp(2.25rem,8.5vw,4.75rem)] font-extrabold leading-[1.06] tracking-[-0.035em] text-[var(--c-ink)] text-balance">
+        <h1 className="relative font-sans text-[clamp(2.25rem,8.5vw,4.75rem)] font-extrabold leading-[1.06] tracking-[-0.035em] text-[var(--c-ink)] text-balance">
           <span className="hero-line hero-line-a block">Built to Rank.</span>
           <span className="hero-line hero-line-b mt-[0.08em] block">
             Designed to{" "}
-            <span className="hero-accent inline-block text-[var(--c-accent)] italic [font-synthesis:none]">
+            <span className="hero-accent relative inline-block text-[var(--c-accent)] italic [font-synthesis:none]">
               Convert.
+              {/* Mobile/tablet: skip; desktop uses HeroDecorations */}
             </span>
           </span>
         </h1>
@@ -186,9 +183,7 @@ export default function Hero() {
           <Button asChild variant="secondary">
             <Link
               to="/free-ai-seo-audit"
-              onClick={() =>
-                trackButtonClick("Free Audit", "hero_cta", "Hero")
-              }
+              onClick={() => trackButtonClick("Free Audit", "hero_cta", "Hero")}
             >
               Audit my site
             </Link>

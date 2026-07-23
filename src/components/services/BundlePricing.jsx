@@ -10,89 +10,113 @@ import imgSeo from "../../assets/generated/services-seo-structure.webp";
 
 const BUNDLES = [
   {
-    id: "essential",
+    id: "launch",
     badge: null,
-    name: "Essential Visibility",
-    interest: "bundle-essential",
-    outcome: "Visibility foundation",
-    tagline: "Get found with a clean site, SEO foundation, and steady social.",
-    monthly: "$999",
-    biweekly: "$499.50",
-    oneTime: "$699",
+    name: "CIQ Launch System",
+    interest: "bundle-launch",
+    outcome: "Lead capture foundation",
+    tagline:
+      "Website + SEO + social + CRM starter — a functional presence that captures leads from day one.",
+    monthly: "$1,198",
+    structure: "6-month structure",
+    value: "$1,332/mo value",
+    savings: "Save $154/mo",
     preview: [
-      "SEO-coded website (1 page)",
-      "Website maintenance",
-      "HR SEO Pro plan",
-      "Starter social (8 posts/mo)",
+      "1 coded website page (+$999 each extra)",
+      "SEO Growth setup",
+      "Social Starter (8 posts/mo)",
+      "DIY CRM Starter",
     ],
     features: [
-      "SEO-Coded Website (1 Page)",
-      "Website Maintenance",
-      "HR SEO PRO PLAN",
-      "Starter Social Media (8 posts/mo)",
-      "2 platforms",
-      "1 carousel + 1 reel / week",
-      "Insights + repurposing strategy",
+      "1 fully coded website page (+$999 per additional page)",
+      "SEO setup (indexing, speed, mobile optimization)",
+      "Social media system (8 posts per month)",
+      "CRM lead capture (forms embedded on site)",
+      "Contact database + basic pipeline",
+      "Missed call text-back + chat widget",
     ],
-    bestFor: "Teams building visibility before automating hiring.",
+    bestFor: "Businesses establishing a complete digital foothold.",
   },
   {
     id: "growth",
     badge: "Most chosen",
-    name: "Growth Operations",
+    name: "CIQ Growth System",
     interest: "bundle-growth",
-    outcome: "Hiring + visibility ops",
-    tagline: "Visibility plus hiring ops and stronger multi-platform content.",
-    monthly: "$2,222",
-    biweekly: "$1,122",
-    oneTime: "$699",
+    outcome: "Lead generation + conversion",
+    tagline:
+      "Multi-page site, SEO Growth, Classic social, and CRM Pro — inbound that converts.",
+    monthly: "$1,999",
+    structure: null,
+    value: "$2,294/mo value",
+    savings: "Save $295/mo",
     preview: [
-      "Everything in Essential",
-      "Core HR CRM + ATS",
-      "Interview scheduling",
-      "Growth social (12 posts/mo)",
+      "2–3 coded website pages",
+      "SEO Growth + Core Web Vitals",
+      "The Classic social (12+ posts)",
+      "CRM Pro funnels + booking",
     ],
     features: [
-      "Everything in Essential Visibility",
-      "CORE HR CRM System",
-      "Applicant Tracking & Pipelines",
-      "Interview Scheduling + Reminders",
-      "Onboarding Automations",
-      "Growth Social Media (12 posts/mo)",
-      "3 platforms (story + carousel + reel/wk)",
-      "Analytics + content calendar",
+      "2–3 fully coded website pages",
+      "SEO optimization + crawl/index fixes + Core Web Vitals",
+      "Social media system (12–18 posts + production days)",
+      "CRM funnels + booking + automation",
+      "Lead tracking + tagging",
     ],
-    bestFor: "Teams that need visibility and organized hiring together.",
+    bestFor: "Teams ready for consistent lead generation and capture.",
   },
   {
-    id: "elite",
+    id: "authority",
     badge: null,
-    name: "Elite Automation",
-    interest: "bundle-elite",
-    outcome: "AI-led scale",
-    tagline: "Automation, AI assists, and multi-platform social at full cadence.",
-    monthly: "$3,888",
-    biweekly: "$1,950",
-    oneTime: "$699",
-    afterNote: "Then $3,500/mo after AI setup",
+    name: "CIQ Authority System",
+    interest: "bundle-authority",
+    outcome: "Visibility + trust + content",
+    tagline:
+      "Larger site, SEO Authority, Refined social, and CRM Pro — inbound with authority.",
+    monthly: "$2,999",
+    structure: null,
+    value: "$3,497/mo value",
+    savings: "Save $498/mo",
     preview: [
-      "Everything in Growth",
-      "AI chat + HR automation",
-      "Email marketing automation",
-      "Elite social (24 posts/mo)",
+      "4–6 coded website pages",
+      "SEO Authority (schema + AEO)",
+      "The Refined social",
+      "CRM automation + AI chat",
     ],
     features: [
-      "Everything in Growth Operations",
-      "AI Chat Widget",
-      "AI HR Automation Suite",
-      "Email Marketing Automation",
-      "Elite Social Media (24 posts/mo)",
-      "4 platforms (2 reels + 2 carousels/wk)",
-      "Social SEO (metadata + alt-text)",
-      "Automated DMs + hashtag rotation",
-      "Advanced analytics dashboard",
+      "4–6 fully coded website pages",
+      "Advanced SEO (schema, AEO, technical optimization)",
+      "Social media system (12–18 posts + production days)",
+      "CRM automation + AI chat + review system",
     ],
-    bestFor: "Teams ready for maximum visibility and automated HR.",
+    bestFor: "Brands building trust and predictable inbound leads.",
+  },
+  {
+    id: "dominance",
+    badge: null,
+    name: "CIQ Dominance System",
+    interest: "bundle-dominance",
+    outcome: "Full growth engine",
+    tagline:
+      "Full site, SEO Dominance, Elite social, CRM, and ads — marketing that scales revenue.",
+    monthly: "$4,997+",
+    structure: null,
+    value: "$6,728+/mo value",
+    savings: "Save $1,731+/mo",
+    preview: [
+      "7–10+ coded website pages",
+      "SEO Dominance + AI search",
+      "Elite social + content engine",
+      "CRM + Google & Meta ads",
+    ],
+    features: [
+      "7–10+ fully coded website pages",
+      "Full SEO + AI search optimization",
+      "Elite social media + content engine",
+      "CRM automation + AI agents + membership portal",
+      "Google Ads + Meta Ads management",
+      "Retargeting + revenue tracking",
+    ],
+    bestFor: "Businesses ready to run marketing and scale revenue as one system.",
   },
 ];
 
@@ -112,11 +136,7 @@ function BundlePanel({ bundle, featured = false }) {
         }`}
       >
         {bundle.badge ? (
-          <p
-            className={`mb-3 font-sans text-[11px] font-semibold uppercase tracking-[0.14em] ${
-              featured ? "text-[var(--c-accent)]" : "text-[var(--c-accent)]"
-            }`}
-          >
+          <p className="mb-3 font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--c-accent)]">
             {bundle.badge}
           </p>
         ) : (
@@ -131,7 +151,7 @@ function BundlePanel({ bundle, featured = false }) {
           {bundle.name}
         </h3>
         <p
-          className={`mt-2 max-w-[34ch] font-sans text-sm leading-relaxed ${
+          className={`mt-2 max-w-[36ch] font-sans text-sm leading-relaxed ${
             featured ? "text-white/70" : "text-[var(--c-text-secondary)]"
           }`}
         >
@@ -154,11 +174,7 @@ function BundlePanel({ bundle, featured = false }) {
             /mo
           </span>
         </div>
-        <p
-          className={`mt-2 font-sans text-xs font-medium uppercase tracking-[0.12em] ${
-            featured ? "text-[var(--c-accent)]" : "text-[var(--c-accent)]"
-          }`}
-        >
+        <p className="mt-2 font-sans text-xs font-medium uppercase tracking-[0.12em] text-[var(--c-accent)]">
           {bundle.outcome}
         </p>
         <p
@@ -166,17 +182,27 @@ function BundlePanel({ bundle, featured = false }) {
             featured ? "text-white/55" : "text-[var(--c-text-muted)]"
           }`}
         >
-          Bi-weekly {bundle.biweekly}
-          <span className="mx-1.5 opacity-40">/</span>
-          Setup {bundle.oneTime}
+          {bundle.value}
+          {bundle.savings ? (
+            <>
+              <span className="mx-1.5 opacity-40">·</span>
+              <span
+                className={
+                  featured ? "text-[var(--c-accent)]" : "text-[var(--c-accent)]"
+                }
+              >
+                {bundle.savings}
+              </span>
+            </>
+          ) : null}
         </p>
-        {bundle.afterNote ? (
+        {bundle.structure ? (
           <p
             className={`mt-1.5 font-sans text-xs font-medium ${
-              featured ? "text-white/80" : "text-[var(--c-accent)]"
+              featured ? "text-white/80" : "text-[var(--c-text-secondary)]"
             }`}
           >
-            {bundle.afterNote}
+            {bundle.structure}
           </p>
         ) : null}
       </div>
@@ -238,6 +264,13 @@ function BundlePanel({ bundle, featured = false }) {
   );
 }
 
+const SHORT_LABELS = {
+  launch: "Launch",
+  growth: "Growth",
+  authority: "Authority",
+  dominance: "Dominance",
+};
+
 export default function BundlePricing() {
   const reduceMotion = useReducedMotion();
   const [activeId, setActiveId] = useState("growth");
@@ -253,14 +286,15 @@ export default function BundlePricing() {
           <div className="max-w-2xl">
             <p className="mb-3 inline-flex items-center gap-2 font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--c-accent)]">
               <IconSeo className="size-3.5" />
-              Website · SEO · Social
+              Website · SEO · Social · CRM
             </p>
             <h2 className="font-sans text-[clamp(1.85rem,3.5vw,2.85rem)] font-extrabold leading-[1.02] tracking-[-0.04em] text-[var(--c-ink)] text-balance">
-              Choose your{" "}
-              <span className="text-[var(--c-accent)]">growth system</span>
+              CIQ{" "}
+              <span className="text-[var(--c-accent)]">growth systems</span>
             </h2>
             <p className="mt-4 font-sans text-base leading-relaxed text-[var(--c-text-secondary)] lg:text-lg">
-              Three complete stacks. Start with the stage you are in today.
+              Built as one system. Priced to scale. Website starting at $799 for
+              one SEO-coded page; additional pages from $999.
             </p>
           </div>
           <div className="hidden overflow-hidden rounded-[var(--radius-card)] border border-[var(--c-border)] lg:block">
@@ -281,12 +315,7 @@ export default function BundlePricing() {
             onChange={setActiveId}
             options={BUNDLES.map((b) => ({
               id: b.id,
-              label:
-                b.id === "essential"
-                  ? "Essential"
-                  : b.id === "growth"
-                    ? "Growth"
-                    : "Elite",
+              label: SHORT_LABELS[b.id],
               meta: `${b.monthly}/mo`,
             }))}
           />
@@ -301,7 +330,7 @@ export default function BundlePricing() {
           </motion.div>
         </div>
 
-        <div className="mt-12 hidden gap-5 md:grid md:grid-cols-3">
+        <div className="mt-12 hidden gap-5 md:grid md:grid-cols-2 xl:grid-cols-4">
           {BUNDLES.map((bundle, i) => (
             <motion.div
               key={bundle.id}
@@ -323,7 +352,8 @@ export default function BundlePricing() {
         </div>
 
         <p className="mt-8 font-sans text-sm text-[var(--c-text-muted)] md:text-center">
-          Onboarding included. Prices in USD. Ad spend billed separately.
+          Prices in USD. Ad spend billed separately. Payment plans available for
+          apps, websites, and portals.
         </p>
       </div>
     </section>

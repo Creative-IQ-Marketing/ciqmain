@@ -28,7 +28,7 @@ export default function SocialMediaFreeTrialPage() {
       <PageHeader
         align="left"
         title="Social Starter Presence System"
-        description="Consistency before growth. Professional posting, captions, and cross-platform formatting for 30 days free, then $589/mo if you continue."
+        description="Consistency before growth. Professional posting, captions, and cross-platform formatting for 30 days free, then $569/mo if you continue."
       >
         <PageCtaPrimary to="/services?interest=social-starter#services-contact">
           Start free trial
@@ -68,7 +68,7 @@ export default function SocialMediaFreeTrialPage() {
               </p>
               <div className="mt-3 flex items-baseline gap-1">
                 <span className="font-sans text-5xl font-extrabold tracking-[-0.04em] text-[var(--c-ink)]">
-                  $589
+                  $569
                 </span>
                 <span className="font-sans text-sm text-[var(--c-text-muted)]">
                   /month

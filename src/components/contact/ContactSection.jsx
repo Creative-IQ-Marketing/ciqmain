@@ -6,7 +6,6 @@ import {
   PHONE_TEL,
 } from "../../utils/contact";
 import ContactForm from "./ContactForm";
-import Reveal from "../primitives/Reveal";
 import GuideInlineCTA from "../ui/GuideInlineCTA";
 
 const COPY = {
@@ -39,7 +38,7 @@ export default function ContactSection({
     >
       <div className="relative z-10 mx-auto max-w-[var(--container-max)] px-[var(--container-pad)] py-12 sm:py-14 lg:py-16">
         <div className="grid items-start gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-          <Reveal>
+          <div>
             <h2 className="mb-4 font-sans text-[clamp(1.9rem,3.5vw,2.85rem)] font-extrabold leading-[1.05] tracking-[-0.04em] text-[var(--c-ink)] text-balance">
               {copy.title}
             </h2>
@@ -85,19 +84,19 @@ export default function ContactSection({
 
             <div className="mt-8">
               <GuideInlineCTA
-                source={variant === "services" ? "services_contact" : "home_contact"}
+                source={
+                  variant === "services" ? "services_contact" : "home_contact"
+                }
               />
             </div>
-          </Reveal>
+          </div>
 
-          <Reveal delay={0.08}>
-            <div className="rounded-[var(--radius-card)] bg-[var(--c-surface-2)] p-6 sm:p-8">
-              <ContactForm
-                formId={copy.formId}
-                analyticsContext={copy.analyticsContext}
-              />
-            </div>
-          </Reveal>
+          <div className="rounded-[var(--radius-card)] bg-[var(--c-surface-2)] p-6 sm:p-8">
+            <ContactForm
+              formId={copy.formId}
+              analyticsContext={copy.analyticsContext}
+            />
+          </div>
         </div>
       </div>
     </section>

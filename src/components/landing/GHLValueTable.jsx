@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -18,22 +18,22 @@ const ROWS = [
     cost: "$800",
   },
   {
-    feature: "SEO",
+    feature: "SEO insights",
     replaces: ["Semrush", "Ahrefs", "Moz"],
     cost: "$2,500",
   },
   {
-    feature: "Google Ads",
+    feature: "Google Ads tools",
     replaces: ["Google Ads", "PPC Agency"],
     cost: "$2,000",
   },
   {
-    feature: "Meta Ads",
+    feature: "Meta Ads tools",
     replaces: ["Meta Ads", "AdEspresso"],
     cost: "$1,500",
   },
   {
-    feature: "Website",
+    feature: "Website / funnels",
     replaces: ["Webflow", "WordPress", "Wix"],
     cost: "$1,200",
   },
@@ -43,7 +43,7 @@ const ROWS = [
     cost: "$600",
   },
   {
-    feature: "Social",
+    feature: "Social scheduling",
     replaces: ["Hootsuite", "Later", "Buffer"],
     cost: "$1,800",
   },
@@ -58,7 +58,7 @@ const ROWS = [
     cost: "$800",
   },
   {
-    feature: "Strategy",
+    feature: "Strategy support",
     replaces: ["Consultant"],
     cost: "$1,500",
   },
@@ -87,13 +87,13 @@ function TableRow({ feature, replaces, cost, onSelect }) {
   );
 }
 
+/**
+ * Value comparison: buying tools a la carte vs CIQ CRM stack.
+ */
 export default function GHLValueTable({
-  showTopTrialBanner = true,
-  showBottomTrialCta = true,
-  trialPath = "/social-media-free-trial",
-  sectionId = "ciq-value",
+  sectionId = "ciq-crm-value",
+  showPackagesCta = true,
 }) {
-  const navigate = useNavigate();
   const [activeRow, setActiveRow] = useState(null);
   const rootRef = useRef(null);
 
@@ -125,32 +125,19 @@ export default function GHLValueTable({
       ref={rootRef}
       className="relative overflow-hidden bg-[var(--c-footer)]"
     >
-      {showTopTrialBanner ? (
-        <div className="relative z-[1] flex flex-wrap items-center justify-center gap-4 bg-[var(--c-accent)] px-5 py-4">
-          <p className="font-sans text-sm font-semibold text-white">
-            Ready for consistent social without juggling five tools?
-          </p>
-          <Button
-            variant="secondary"
-            size="sm"
-            className="border-transparent bg-white text-[var(--c-ink)] hover:bg-white/90"
-            onClick={() => navigate(trialPath)}
-          >
-            30-day social free trial
-          </Button>
-        </div>
-      ) : null}
-
       <div className="relative z-[2] mx-auto max-w-[1100px] px-4 py-14 sm:px-6 sm:py-16">
         <div className="mb-10 grid items-end gap-8 lg:mb-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-10">
-          <div className="max-w-2xl text-left sm:mx-auto sm:text-center lg:mx-0 lg:text-left">
-            <h2 className="font-sans text-[clamp(1.85rem,4.5vw,3.25rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-white text-balance">
-              One CRM stack instead of{" "}
-              <span className="text-[var(--c-accent)]">tool sprawl</span>
+          <div className="max-w-2xl text-left">
+            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--c-accent)]">
+              The stack, not the sprawl
+            </p>
+            <h2 className="mt-3 font-sans text-[clamp(1.85rem,4.5vw,3.25rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-white text-balance">
+              One CRM instead of{" "}
+              <span className="text-[var(--c-accent)]">ten subscriptions</span>
             </h2>
             <p className="mt-4 font-sans text-base leading-relaxed text-white/65">
-              CIQ&apos;s CRM bundles the channels most teams buy separately.
-              Compare a la carte cost against what is already included.
+              Most teams buy these tools separately. CIQ CRM includes the
+              channels in one system — so you pay for outcomes, not a tool zoo.
             </p>
           </div>
           <div className="hidden overflow-hidden rounded-[var(--radius-card)] border border-white/10 lg:block">
@@ -168,10 +155,10 @@ export default function GHLValueTable({
           <div className="min-w-[640px]">
             <div className="mb-4 grid grid-cols-[minmax(0,1.7fr)_minmax(0,1.7fr)_minmax(0,1fr)_56px] gap-3 border-b border-white/10 px-4 pb-3 sm:gap-4 sm:px-[18px]">
               <span className="font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-white/65">
-                Features
+                Capability
               </span>
               <span className="font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-white/65">
-                Replaces
+                Buying separately
               </span>
               <span className="text-right font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-white/65">
                 Their cost
@@ -193,35 +180,33 @@ export default function GHLValueTable({
 
             <div className="mt-4 grid grid-cols-[minmax(0,1.7fr)_minmax(0,1.7fr)_minmax(0,1fr)_56px] items-center gap-3 rounded-[var(--radius-control)] border border-[var(--c-accent)]/35 bg-[var(--c-accent)]/12 px-4 py-4 sm:gap-4 sm:px-[18px]">
               <span className="font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--c-accent)]">
-                Overall price
+                Overall
               </span>
               <span className="font-sans text-sm font-semibold text-white/70 line-through">
-                $13,050/mo
+                ~$13,050/mo
               </span>
               <div className="col-span-2 flex flex-col items-center justify-center sm:col-span-1 sm:col-start-3">
-                <span className="font-sans text-[26px] font-extrabold leading-none tracking-[-0.03em] text-white">
-                  $99
+                <span className="font-sans text-[22px] font-extrabold leading-none tracking-[-0.03em] text-white">
+                  From $97
                 </span>
                 <span className="mt-1 font-sans text-[10px] uppercase tracking-[0.06em] text-white/60">
-                  /mo
+                  /mo · up to $497 Elite
                 </span>
               </div>
             </div>
           </div>
         </div>
 
-        {showBottomTrialCta ? (
-          <div className="mt-8 text-center">
-            <Button
-              variant="secondary"
-              className="border-white/20 bg-white text-[var(--c-footer)] hover:bg-white/90"
-              onClick={() => navigate(trialPath)}
-            >
-              Start your free trial
-              <ArrowRight size={15} aria-hidden />
+        {showPackagesCta ? (
+          <div className="mt-10 flex flex-wrap items-center gap-4">
+            <Button asChild variant="accent">
+              <Link to="/services#crm-solutions">
+                See CRM packages
+                <ArrowRight size={15} aria-hidden />
+              </Link>
             </Button>
-            <p className="mt-3.5 font-sans text-[11px] tracking-[0.02em] text-white/60">
-              30-day social media trial. No long-term contracts.
+            <p className="font-sans text-sm text-white/55">
+              Starter $97 · Pro $397 · Elite $497
             </p>
           </div>
         ) : null}
@@ -251,7 +236,7 @@ export default function GHLValueTable({
               <div className="flex items-center justify-between gap-3 border-b border-black/[0.08] px-[18px] py-4">
                 <div className="min-w-0">
                   <p className="font-sans text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--c-accent)]">
-                    Feature
+                    Included in CIQ CRM
                   </p>
                   <p
                     id="crm-feature-title"
@@ -281,14 +266,14 @@ export default function GHLValueTable({
                 <div className="flex items-center justify-between gap-3 rounded-[var(--radius-control)] border border-black/10 bg-black/[0.03] p-3">
                   <div>
                     <p className="font-sans text-[11px] font-bold uppercase tracking-[0.12em] text-black/55">
-                      Their cost
+                      Typical separate cost
                     </p>
                     <p className="mt-1.5 font-sans text-sm font-extrabold">
                       {activeRow.cost}/mo
                     </p>
                   </div>
                   <span className="rounded-[var(--radius-pill)] bg-[var(--c-accent)] px-3 py-2 font-sans text-[11px] font-bold uppercase tracking-[0.1em] text-white">
-                    Included
+                    In CIQ
                   </span>
                 </div>
               </div>

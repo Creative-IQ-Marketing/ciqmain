@@ -12,7 +12,7 @@ import ConsultingSection from "../components/services/ConsultingSection";
 import HighLevelOffers from "../components/services/HighLevelOffers";
 import GrowthInfra from "../components/services/GrowthInfra";
 import ServicesContact from "../components/services/ServicesContact";
-import GHLValueTable from "../components/landing/GHLValueTable";
+import CrmPackages from "../components/services/CrmPackages";
 
 export const SERVICE_LANES = [
   {
@@ -98,6 +98,15 @@ export default function ServicesPage() {
   }, [hash]);
 
   useEffect(() => {
+    const id = window.setTimeout(() => {
+      import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
+        ScrollTrigger.refresh();
+      });
+    }, 200);
+    return () => window.clearTimeout(id);
+  }, [lane]);
+
+  useEffect(() => {
     const breadcrumb = {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
@@ -133,7 +142,7 @@ export default function ServicesPage() {
           name: "How much do digital marketing services cost?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "CreativeIQ offers tiered packages from $589/mo for social starter through enterprise-level engagements. Contact us for a custom quote.",
+            text: "CreativeIQ offers tiered packages from $97/mo CRM starter and $569/mo social starter through full CIQ Dominance systems. Contact us for a custom quote.",
           },
         },
         {
@@ -246,11 +255,7 @@ export default function ServicesPage() {
               {...panelMotion}
             >
               <div id="crm-solutions">
-                <GHLValueTable
-                  showTopTrialBanner={false}
-                  showBottomTrialCta={false}
-                  sectionId="crm-solutions"
-                />
+                <CrmPackages />
               </div>
             </motion.div>
           ) : null}
