@@ -26,4 +26,15 @@ export default defineConfig([
       'no-unused-vars': 'off',
     },
   },
+  {
+    files: ['vite.paymentFormApi.js', 'netlify/functions/**/*.{js,mjs}'],
+    languageOptions: {
+      ecmaVersion: 2022,
+      globals: globals.node,
+      sourceType: 'module',
+    },
+    rules: {
+      'no-unused-vars': 'off',
+    },
+  },
 ])

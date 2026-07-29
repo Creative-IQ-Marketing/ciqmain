@@ -28,6 +28,7 @@ const BookPage = lazy(() => import("./pages/BookPage"));
 const FreeSeoAuditPage = lazy(() => import("./pages/FreeSeoAuditPage"));
 const BusinessUnpluggedPage = lazy(() => import("./pages/BusinessUnpluggedPage"));
 const NewsletterPage = lazy(() => import("./pages/NewsletterPage"));
+const PaymentFormPage = lazy(() => import("./pages/PaymentFormPage"));
 const UnsubscribedPage = lazy(() => import("./pages/UnsubscribedPage"));
 const TermsAndConditionsPage = lazy(
   () => import("./pages/TermsAndConditionsPage"),
@@ -175,6 +176,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Route>
         <Route path="/newsletter" element={<NewsletterPage />} />
+        <Route path="/paymentform" element={<PaymentFormPage />} />
         <Route path="/business-unplugged" element={<BusinessUnpluggedPage />} />
       </Routes>
     </Suspense>

@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/generate-business-unplugged-html.mjs",
+    "prebuild": "node scripts/generate-seo-files.mjs",
+    "build": "vite build && node scripts/generate-business-unplugged-html.mjs && node scripts/prerender-routes.mjs",
+    "seo:generate": "node scripts/generate-seo-files.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
