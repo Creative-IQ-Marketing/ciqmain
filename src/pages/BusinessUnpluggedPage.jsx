@@ -1,12 +1,7 @@
-import SEO from "../components/SEO";
-import BusinessUnplugged from "../components/landing/BusinessUnplugged";
-import { BUSINESS_UNPLUGGED_SEO } from "../constants/businessUnpluggedSeo";
+/**
+ * @deprecated Prefer EventRsvpPage + ACTIVE_EVENT.
+ * Kept so old imports / prerender aliases still resolve.
+ */
+import EventRsvpPage from "./EventRsvpPage";
 
-export default function BusinessUnpluggedPage() {
-  return (
-    <>
-      <SEO {...BUSINESS_UNPLUGGED_SEO} />
-      <BusinessUnplugged />
-    </>
-  );
-}
+export default EventRsvpPage;

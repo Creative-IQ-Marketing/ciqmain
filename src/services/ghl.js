@@ -1,4 +1,4 @@
-import { BU_GHL_TAGS, BU_EVENT } from "../data/businessUnplugged.js";
+import { ACTIVE_EVENT } from "../data/activeEvent.js";
 
 const GHL_API_KEY = (import.meta.env.VITE_GHL_API_KEY || "").trim();
 const GHL_LOCATION_ID = (import.meta.env.VITE_GHL_LOCATION_ID || "").trim();
@@ -269,18 +269,11 @@ export async function unsubscribeEmailFromNewsletter(email, context = {}) {
 }
 
 /**
- * Business Unplugged event RSVP
+ * Active event RSVP (driven by ACTIVE_EVENT config).
  */
-export async function submitBusinessUnpluggedRsvp(formData) {
-  const tags = [
-    BU_GHL_TAGS.RSVP,
-    BU_GHL_TAGS.EVENT,
-    BU_GHL_TAGS.SOURCE,
-  ];
-
-  if (formData.vendorOrSpeaker) {
-    tags.push(BU_GHL_TAGS.VENDOR_SPEAKER);
-  }
+export async function submitEventRsvp(formData) {
+  const { name, nextDate, schedule, time, ghl } = ACTIVE_EVENT;
+  const tags = [ghl.tags.RSVP, ghl.tags.EVENT, ghl.tags.SOURCE];
 
   const contactData = {
     firstName: formData.firstName.trim(),
@@ -291,16 +284,20 @@ export async function submitBusinessUnpluggedRsvp(formData) {
     locationId: GHL_LOCATION_ID,
     tags,
     customFields: [
-      { key: "event_name", field_value: BU_EVENT.name },
-      { key: "event_date", field_value: BU_EVENT.date },
+      { key: "event_name", field_value: name },
       {
-        key: "vendor_or_speaker",
-        field_value: formData.vendorOrSpeaker ? "Yes" : "No",
+        key: "event_date",
+        field_value: nextDate || `${schedule} · ${time}`,
       },
-      { key: "source", field_value: BU_GHL_TAGS.SOURCE },
+      { key: "source", field_value: ghl.tags.SOURCE },
     ],
   };
 
   const data = await makeGHLRequest("/contacts/upsert", "POST", contactData);
   return { success: true, contact: data.contact || data };
+}
+
+/** @deprecated Use submitEventRsvp */
+export async function submitBusinessUnpluggedRsvp(formData) {
+  return submitEventRsvp(formData);
 }

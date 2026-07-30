@@ -204,20 +204,20 @@ export const SEO_PAGES = [
     ogImageAlt: "CreativeIQ Marketing privacy policy",
   },
   {
-    path: "/business-unplugged",
-    title: "Business Unplugged | You're Invited — Aug 6 at Hotel Valencia",
+    path: "/live-music",
+    title: "Live Music at Smash'd | Austin Ausley — RSVP Free",
     description:
-      "RSVP for Business Unplugged — August 6 at Hotel Valencia Riverwalk, San Antonio. An evening of connection, conversation, and cocktails. First 20 guests receive complimentary VIP parking.",
+      "RSVP for free live music at Smash'd featuring Austin Ausley. 1st and 3rd Wednesdays, 6:30–9:30 PM at 520 E Grayson St. Free entry and parking.",
     keywords:
-      "Business Unplugged, San Antonio networking event, Hotel Valencia Riverwalk, business event RSVP, Creative IQ event",
+      "Smash'd live music, Austin Ausley, San Antonio live music, free concert San Antonio, Creative IQ event",
     pageType: "website",
     priority: "0.95",
     changefreq: "weekly",
-    breadcrumbs: crumbs(["Business Unplugged", "/business-unplugged"]),
+    breadcrumbs: crumbs(["Live Music", "/live-music"]),
     schemaType: "WebPage",
-    ogImage: `${SITE_URL}/og-business-unplugged.jpg`,
+    ogImage: `${SITE_URL}/og-live-music.jpg`,
     ogImageAlt:
-      "Business Unplugged — August 6 at Hotel Valencia Riverwalk, San Antonio",
+      "Live Music at Smash'd featuring Austin Ausley — free entry and parking",
   },
   {
     path: "/paymentform",
@@ -242,11 +242,11 @@ export const IMAGE_SITEMAP = [
     images: [{ loc: OG_IMAGE, title: "CreativeIQ Marketing" }],
   },
   {
-    path: "/business-unplugged",
+    path: "/live-music",
     images: [
       {
-        loc: `${SITE_URL}/og-business-unplugged.jpg`,
-        title: "Business Unplugged at Hotel Valencia Riverwalk",
+        loc: `${SITE_URL}/og-live-music.jpg`,
+        title: "Live Music at Smash'd featuring Austin Ausley",
       },
     ],
   },

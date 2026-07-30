@@ -147,7 +147,6 @@ export default function Hero() {
             Designed to{" "}
             <span className="hero-accent relative inline-block text-[var(--c-accent)] italic [font-synthesis:none]">
               Convert.
-              {/* Mobile/tablet: skip; desktop uses HeroDecorations */}
             </span>
           </span>
         </h1>

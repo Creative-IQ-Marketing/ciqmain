@@ -17,6 +17,7 @@ import {
   NEWSLETTER_POPUP_ENABLED,
   SITE_TOP_BANNER,
 } from "./constants/siteBanner";
+import { ACTIVE_EVENT } from "./data/activeEvent";
 import ScrollProgress from "./components/layout/ScrollProgress";
 import { scrollToSection } from "./utils/scrollToSection";
 import VilmaIntro from "./components/landing/VilmaIntro";
@@ -26,6 +27,7 @@ const ServicesPage = lazy(() => import("./pages/ServicesPage"));
 const ContactPage = lazy(() => import("./pages/ContactPage"));
 const BookPage = lazy(() => import("./pages/BookPage"));
 const FreeSeoAuditPage = lazy(() => import("./pages/FreeSeoAuditPage"));
+const EventRsvpPage = lazy(() => import("./pages/EventRsvpPage"));
 const BusinessUnpluggedPage = lazy(() => import("./pages/BusinessUnpluggedPage"));
 const NewsletterPage = lazy(() => import("./pages/NewsletterPage"));
 const PaymentFormPage = lazy(() => import("./pages/PaymentFormPage"));
@@ -52,7 +54,7 @@ function Layout() {
   const [bannerPad, setBannerPad] = useState(() => {
     if (!SITE_TOP_BANNER.enabled) return false;
     try {
-      return sessionStorage.getItem("ciq_site_banner_dismissed") !== "1";
+      return sessionStorage.getItem(`ciq_site_banner_dismissed_${ACTIVE_EVENT?.id || "default"}`) !== "1";
     } catch {
       return true;
     }
@@ -177,6 +179,8 @@ function App() {
         </Route>
         <Route path="/newsletter" element={<NewsletterPage />} />
         <Route path="/paymentform" element={<PaymentFormPage />} />
+        <Route path="/live-music" element={<EventRsvpPage />} />
+        {/* Legacy Business Unplugged URL → same RSVP experience */}
         <Route path="/business-unplugged" element={<BusinessUnpluggedPage />} />
       </Routes>
     </Suspense>

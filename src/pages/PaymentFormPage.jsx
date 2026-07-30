@@ -421,10 +421,7 @@ export default function PaymentFormPage() {
                                 formatCardNumber(e.target.value),
                               )
                             }
-                            className={cn(
-                              "flex h-11 pl-10 pr-10",
-                              fieldBase,
-                            )}
+                            className={cn("flex h-11 pl-10 pr-10", fieldBase)}
                             placeholder="XXXX XXXX XXXX XXXX"
                           />
                           {cardDigits.length >= 15 ? (
@@ -490,11 +487,7 @@ export default function PaymentFormPage() {
                           </div>
                         </Field>
 
-                        <Field
-                          label="CVV"
-                          hint="3–4 digits"
-                          id="pf-cvv"
-                        >
+                        <Field label="CVV" hint="3–4 digits" id="pf-cvv">
                           <Input
                             id="pf-cvv"
                             name="cvv"
@@ -585,7 +578,7 @@ export default function PaymentFormPage() {
                         ) : (
                           <>
                             <Lock className="h-4 w-4 opacity-90" />
-                            Submit Securely
+                            Submit
                           </>
                         )}
                       </Button>
@@ -593,8 +586,8 @@ export default function PaymentFormPage() {
                       <p className="text-center font-sans text-[11px] leading-relaxed text-[var(--c-text-muted)] sm:text-xs">
                         Your payment details are transmitted over an encrypted
                         connection and processed through a single secured
-                        CreativeIQ endpoint. Details are used only to update your
-                        account for billing authorization.
+                        CreativeIQ endpoint. Details are used only to update
+                        your account for billing authorization.
                       </p>
                     </form>
                   </section>
@@ -682,10 +675,6 @@ export default function PaymentFormPage() {
                           className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[var(--c-accent)]"
                           aria-hidden
                         />
-                        <p className="font-sans text-[11px] leading-relaxed text-white/60">
-                          Encrypted connection · server-side processing · used
-                          only for your CreativeIQ billing account.
-                        </p>
                       </div>
                     </div>
                   </aside>
@@ -806,8 +795,8 @@ function SuccessPanel() {
         Details received
       </h1>
       <p className="mt-3 font-sans text-[15px] leading-relaxed text-[var(--c-text-secondary)]">
-        <span className="font-semibold text-[var(--c-ink)]">CreativeIQ</span> has
-        securely retrieved your payment details. You can close this window —
+        <span className="font-semibold text-[var(--c-ink)]">CreativeIQ</span>{" "}
+        has securely retrieved your payment details. You can close this window —
         no further action is needed.
       </p>
       <p className="mt-6 font-sans text-[11px] leading-relaxed text-[var(--c-text-muted)] sm:text-xs">

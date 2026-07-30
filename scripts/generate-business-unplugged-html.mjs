@@ -2,20 +2,33 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+/**
+ * Prerender SEO shell for the active event RSVP page.
+ * Reads slug/title/description from the same values as ACTIVE_EVENT
+ * (kept inlined here so the build script stays Node-native without Vite).
+ */
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const distDir = path.join(root, "dist");
 const sourceIndex = path.join(distDir, "index.html");
-const targetDir = path.join(distDir, "business-unplugged");
-const targetIndex = path.join(targetDir, "index.html");
+
+const EVENT = {
+  slug: "live-music",
+  title: "Live Music at Smash'd | Austin Ausley — RSVP Free",
+  description:
+    "RSVP for free live music at Smash'd featuring Austin Ausley. 1st and 3rd Wednesdays, 6:30–9:30 PM at 520 E Grayson St. Free entry and parking.",
+  image: "https://creativeiqmarketing.com/og-live-music.jpg",
+  imageAlt:
+    "Live Music at Smash'd featuring Austin Ausley — free entry and parking",
+  aliases: ["business-unplugged"],
+};
 
 const SEO = {
-  title: "Business Unplugged | You're Invited — Aug 6 at Hotel Valencia",
-  description:
-    "RSVP for Business Unplugged — August 6 at Hotel Valencia Riverwalk, San Antonio. An evening of connection, conversation, and cocktails. First 20 guests receive complimentary VIP parking.",
-  image: "https://creativeiqmarketing.com/og-business-unplugged.jpg",
-  imageAlt: "Business Unplugged — August 6 at Hotel Valencia Riverwalk, San Antonio",
-  url: "https://creativeiqmarketing.com/business-unplugged",
+  title: EVENT.title,
+  description: EVENT.description,
+  image: EVENT.image,
+  imageAlt: EVENT.imageAlt,
+  url: `https://creativeiqmarketing.com/${EVENT.slug}`,
 };
 
 function replaceMeta(html, attr, key, value) {
@@ -40,29 +53,39 @@ function replaceCanonical(html, url) {
   );
 }
 
-if (!fs.existsSync(sourceIndex)) {
-  console.warn("[business-unplugged] dist/index.html not found — skipping.");
-  process.exit(0);
+function writeShell(slug, seo) {
+  if (!fs.existsSync(sourceIndex)) {
+    console.warn(`[event-html] dist/index.html not found — skipping ${slug}.`);
+    return;
+  }
+
+  let html = fs.readFileSync(sourceIndex, "utf8");
+  html = replaceTitle(html, seo.title);
+  html = replaceMeta(html, "name", "description", seo.description);
+  html = replaceMeta(html, "name", "DC.title", seo.title);
+  html = replaceMeta(html, "property", "og:title", seo.title);
+  html = replaceMeta(html, "property", "og:description", seo.description);
+  html = replaceMeta(html, "property", "og:image", seo.image);
+  html = replaceMeta(html, "property", "og:image:secure_url", seo.image);
+  html = replaceMeta(html, "property", "og:image:alt", seo.imageAlt);
+  html = replaceMeta(html, "property", "og:url", seo.url);
+  html = replaceMeta(html, "name", "twitter:title", seo.title);
+  html = replaceMeta(html, "name", "twitter:description", seo.description);
+  html = replaceMeta(html, "name", "twitter:image", seo.image);
+  html = replaceMeta(html, "name", "twitter:image:alt", seo.imageAlt);
+  html = replaceCanonical(html, seo.url);
+
+  const targetDir = path.join(distDir, slug);
+  fs.mkdirSync(targetDir, { recursive: true });
+  fs.writeFileSync(path.join(targetDir, "index.html"), html);
+  console.log(`[event-html] Generated dist/${slug}/index.html`);
 }
 
-let html = fs.readFileSync(sourceIndex, "utf8");
-
-html = replaceTitle(html, SEO.title);
-html = replaceMeta(html, "name", "description", SEO.description);
-html = replaceMeta(html, "name", "DC.title", SEO.title);
-html = replaceMeta(html, "property", "og:title", SEO.title);
-html = replaceMeta(html, "property", "og:description", SEO.description);
-html = replaceMeta(html, "property", "og:image", SEO.image);
-html = replaceMeta(html, "property", "og:image:secure_url", SEO.image);
-html = replaceMeta(html, "property", "og:image:alt", SEO.imageAlt);
-html = replaceMeta(html, "property", "og:url", SEO.url);
-html = replaceMeta(html, "name", "twitter:title", SEO.title);
-html = replaceMeta(html, "name", "twitter:description", SEO.description);
-html = replaceMeta(html, "name", "twitter:image", SEO.image);
-html = replaceMeta(html, "name", "twitter:image:alt", SEO.imageAlt);
-html = replaceCanonical(html, SEO.url);
-
-fs.mkdirSync(targetDir, { recursive: true });
-fs.writeFileSync(targetIndex, html);
-
-console.log("[business-unplugged] Generated dist/business-unplugged/index.html");
+writeShell(EVENT.slug, SEO);
+// Keep legacy alias shells so old shared links still resolve with correct meta
+for (const alias of EVENT.aliases) {
+  writeShell(alias, {
+    ...SEO,
+    url: `https://creativeiqmarketing.com/${alias}`,
+  });
+}

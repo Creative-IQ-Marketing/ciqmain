@@ -42,6 +42,8 @@ export function warmRoute(path) {
     import("../pages/AboutCiqPage");
   } else if (path.startsWith("/free-ai-seo-audit")) {
     import("../pages/FreeSeoAuditPage");
+  } else if (path.startsWith("/live-music") || path.startsWith("/business-unplugged")) {
+    import("../pages/EventRsvpPage");
   } else if (path === "/contact" || path.startsWith("/contact")) {
     import("../pages/ContactPage");
   } else if (path === "/book") {

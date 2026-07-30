@@ -1,19 +1,20 @@
+import { ACTIVE_EVENT, EVENT_PATH } from "../data/activeEvent";
+
 /**
- * Site-wide top banner configuration.
- * Visible on all breakpoints with responsive layouts.
- * Set `enabled: false` to remove the banner and reset header offset.
+ * Site-wide top banner — mirrors ACTIVE_EVENT.
+ * Set ACTIVE_EVENT banner off by disabling here if needed.
  */
 export const SITE_TOP_BANNER = {
   enabled: true,
-  eventName: "Business Unplugged",
-  mobileSubline: "TBA · Hotel Valencia Riverwalk",
-  desktopMessage: "You're invited — Business Unplugged · TBA · Hotel Valencia Riverwalk",
+  eventName: ACTIVE_EVENT.banner.eventName,
+  mobileSubline: ACTIVE_EVENT.banner.mobileSubline,
+  desktopMessage: ACTIVE_EVENT.banner.desktopMessage,
   cta: {
-    label: "RSVP Now",
-    mobileLabel: "RSVP",
-    href: "/business-unplugged",
-    trackingLabel: "Business Unplugged Banner",
-    trackingId: "top_banner_cta",
+    label: ACTIVE_EVENT.banner.ctaLabel,
+    mobileLabel: ACTIVE_EVENT.banner.ctaMobileLabel,
+    href: EVENT_PATH,
+    trackingLabel: ACTIVE_EVENT.banner.trackingLabel,
+    trackingId: ACTIVE_EVENT.banner.trackingId,
   },
 };
 

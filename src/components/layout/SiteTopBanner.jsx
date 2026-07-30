@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { SITE_TOP_BANNER } from "../../constants/siteBanner";
+import { ACTIVE_EVENT } from "../../data/activeEvent";
 import { trackButtonClick } from "../../services/analytics";
 
-const DISMISS_KEY = "ciq_site_banner_dismissed";
+const DISMISS_KEY = `ciq_site_banner_dismissed_${ACTIVE_EVENT.id}`;
 
 function readDismissed() {
   try {
@@ -15,6 +16,7 @@ function readDismissed() {
 
 /**
  * Event strip — desktop top / mobile bottom. Dismissible with X.
+ * RSVP CTA uses a soft pulse so it draws the eye without looking gimmicky.
  */
 export default function SiteTopBanner({ onNavigate }) {
   const [dismissed, setDismissed] = useState(readDismissed);
@@ -67,7 +69,7 @@ export default function SiteTopBanner({ onNavigate }) {
             <a
               href={cta.href}
               onClick={handleCta}
-              className="shrink-0 rounded-full bg-[var(--c-accent)] px-3.5 py-2 font-sans text-[11px] font-semibold text-white transition hover:bg-[#2f5ad4]"
+              className="site-banner-cta shrink-0 rounded-full bg-[var(--c-accent)] px-3.5 py-2 font-sans text-[11px] font-semibold text-white transition hover:bg-[#2f5ad4]"
             >
               {cta.mobileLabel}
             </a>
@@ -97,7 +99,7 @@ export default function SiteTopBanner({ onNavigate }) {
             <a
               href={cta.href}
               onClick={handleCta}
-              className="inline-flex items-center gap-1 rounded-full bg-white/15 px-3.5 py-1 font-sans text-[11px] font-semibold text-white transition hover:bg-white/25"
+              className="site-banner-cta inline-flex items-center gap-1 rounded-full bg-white px-3.5 py-1 font-sans text-[11px] font-semibold text-[var(--c-accent)] transition hover:bg-white/90"
             >
               {cta.label} →
             </a>

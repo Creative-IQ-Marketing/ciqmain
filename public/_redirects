@@ -18,7 +18,8 @@ https://creativeiq.marketing/*  https://creativeiqmarketing.com/:splat  301!
 /newsletter/unsubscribed/        /newsletter/unsubscribed        301
 /terms/                          /terms                          301
 /privacy/                        /privacy                        301
-/business-unplugged/             /business-unplugged             301
+/business-unplugged/             /live-music                    301
+/live-music/                     /live-music                    301
 /paymentform/                    /paymentform                    301
 
 # Known SPA routes → prerendered route shells (HTTP 200)
@@ -35,5 +36,6 @@ https://creativeiq.marketing/*  https://creativeiqmarketing.com/:splat  301!
 /newsletter/unsubscribed         /newsletter/unsubscribed/index.html    200
 /terms                           /terms/index.html    200
 /privacy                         /privacy/index.html    200
-/business-unplugged              /business-unplugged/index.html    200
+/live-music                      /live-music/index.html    200
+/business-unplugged              /live-music/index.html    200
 /paymentform                     /paymentform/index.html    200

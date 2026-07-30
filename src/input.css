@@ -283,6 +283,45 @@
     background: rgba(184, 148, 63, 0.1);
   }
 
+  /* Soft attention pulse for banner RSVP CTA */
+  @keyframes site-banner-cta-pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.45);
+      transform: scale(1);
+    }
+    50% {
+      box-shadow: 0 0 0 6px rgba(255, 255, 255, 0);
+      transform: scale(1.03);
+    }
+  }
+
+  @keyframes site-banner-cta-pulse-mobile {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgba(59, 111, 240, 0.45);
+    }
+    50% {
+      box-shadow: 0 0 0 7px rgba(59, 111, 240, 0);
+    }
+  }
+
+  .site-banner-cta {
+    animation: site-banner-cta-pulse 2.4s ease-in-out infinite;
+  }
+
+  @media (max-width: 1023px) {
+    .site-banner-cta {
+      animation: site-banner-cta-pulse-mobile 2.4s ease-in-out infinite;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-banner-cta {
+      animation: none;
+    }
+  }
+
   /* Keep the Stripe buy button embed contained and full-width */
   .stripe-buy-button-wrap {
     width: 100%;
