@@ -6,7 +6,8 @@ export default function EventRsvpSuccess({
   embedded = false,
   onClose,
 }) {
-  const { name, schedule, time, addressShort, featuredName } = ACTIVE_EVENT;
+  const { name, host, schedule, time, addressShort, featuredName } =
+    ACTIVE_EVENT;
 
   return (
     <div className="py-2 text-center">
@@ -37,8 +38,9 @@ export default function EventRsvpSuccess({
       </h3>
       <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-slate-600">
         Thanks for RSVPing to {name}
-        {featuredName ? ` featuring ${featuredName}` : ""}. We&apos;ll send a
-        confirmation shortly.
+        {host ? ` hosted by ${host}` : ""}
+        {featuredName ? ` — live music by ${featuredName}` : ""}. We&apos;ll
+        send a confirmation shortly.
       </p>
       <p className="mx-auto mt-4 max-w-xs rounded-xl bg-slate-50 px-4 py-3 font-sans text-xs leading-relaxed text-slate-600">
         {schedule}

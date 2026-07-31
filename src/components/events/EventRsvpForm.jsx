@@ -8,8 +8,17 @@ export default function EventRsvpForm({ embedded = false, onClose }) {
   const [status, setStatus] = useState("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [firstName, setFirstName] = useState("");
-  const { name, featuredName, schedule, time, addressShort, perks, theme } =
-    ACTIVE_EVENT;
+  const {
+    name,
+    host,
+    featuredLabel,
+    featuredName,
+    schedule,
+    time,
+    addressShort,
+    perks,
+    theme,
+  } = ACTIVE_EVENT;
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -63,10 +72,20 @@ export default function EventRsvpForm({ embedded = false, onClose }) {
             <h2 className="mt-1.5 text-xl font-medium tracking-tight text-[#202124] sm:text-2xl">
               {name}
             </h2>
-            <p className="mt-1 text-sm text-[#5f6368]">
-              Featuring{" "}
-              <span className="font-semibold text-[#202124]">{featuredName}</span>
-            </p>
+            {host ? (
+              <p className="mt-1 text-sm text-[#5f6368]">
+                Hosted by{" "}
+                <span className="font-semibold text-[#202124]">{host}</span>
+              </p>
+            ) : null}
+            {featuredName ? (
+              <p className="mt-0.5 text-sm text-[#5f6368]">
+                {featuredLabel || "Featuring"}{" "}
+                <span className="font-semibold text-[#202124]">
+                  {featuredName}
+                </span>
+              </p>
+            ) : null}
 
             <ul className="mt-4 space-y-2 font-sans text-sm text-[#5f6368]">
               <li className="flex items-center gap-2">

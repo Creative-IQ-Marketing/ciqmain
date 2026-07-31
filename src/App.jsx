@@ -179,8 +179,8 @@ function App() {
         </Route>
         <Route path="/newsletter" element={<NewsletterPage />} />
         <Route path="/paymentform" element={<PaymentFormPage />} />
+        <Route path="/lets-connect" element={<EventRsvpPage />} />
         <Route path="/live-music" element={<EventRsvpPage />} />
-        {/* Legacy Business Unplugged URL → same RSVP experience */}
         <Route path="/business-unplugged" element={<BusinessUnpluggedPage />} />
       </Routes>
     </Suspense>

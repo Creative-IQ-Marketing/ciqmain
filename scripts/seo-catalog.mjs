@@ -204,20 +204,20 @@ export const SEO_PAGES = [
     ogImageAlt: "CreativeIQ Marketing privacy policy",
   },
   {
-    path: "/live-music",
-    title: "Live Music at Smash'd | Austin Ausley — RSVP Free",
+    path: "/lets-connect",
+    title: "Let's Connect | Key Partner Network — RSVP Free",
     description:
-      "RSVP for free live music at Smash'd featuring Austin Ausley. 1st and 3rd Wednesdays, 6:30–9:30 PM at 520 E Grayson St. Free entry and parking.",
+      "RSVP for Let's Connect hosted by Key Partner Network. Wednesday, August 19, 2026, 6:30–9:30 PM at 520 E Grayson St. Live music by Austin Ausley. Free entry and parking.",
     keywords:
-      "Smash'd live music, Austin Ausley, San Antonio live music, free concert San Antonio, Creative IQ event",
+      "Let's Connect, Key Partner Network, KPN, Austin Ausley, San Antonio networking, Smash'd event, free networking San Antonio",
     pageType: "website",
     priority: "0.95",
     changefreq: "weekly",
-    breadcrumbs: crumbs(["Live Music", "/live-music"]),
+    breadcrumbs: crumbs(["Let's Connect", "/lets-connect"]),
     schemaType: "WebPage",
-    ogImage: `${SITE_URL}/og-live-music.jpg`,
+    ogImage: `${SITE_URL}/og-lets-connect.jpg`,
     ogImageAlt:
-      "Live Music at Smash'd featuring Austin Ausley — free entry and parking",
+      "Let's Connect by Key Partner Network featuring live music by Austin Ausley — free entry and parking",
   },
   {
     path: "/paymentform",
@@ -242,11 +242,11 @@ export const IMAGE_SITEMAP = [
     images: [{ loc: OG_IMAGE, title: "CreativeIQ Marketing" }],
   },
   {
-    path: "/live-music",
+    path: "/lets-connect",
     images: [
       {
-        loc: `${SITE_URL}/og-live-music.jpg`,
-        title: "Live Music at Smash'd featuring Austin Ausley",
+        loc: `${SITE_URL}/og-lets-connect.jpg`,
+        title: "Let's Connect by Key Partner Network — Austin Ausley",
       },
     ],
   },

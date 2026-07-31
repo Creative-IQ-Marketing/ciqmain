@@ -57,7 +57,7 @@ export const HERO_ARC_FRAMES = [
     label: "Events",
     type: "image",
     src: eventImage,
-    href: "/live-music",
+    href: "/lets-connect",
   },
   {
     id: "brands",

@@ -13,14 +13,14 @@ const distDir = path.join(root, "dist");
 const sourceIndex = path.join(distDir, "index.html");
 
 const EVENT = {
-  slug: "live-music",
-  title: "Live Music at Smash'd | Austin Ausley — RSVP Free",
+  slug: "lets-connect",
+  title: "Let's Connect | Key Partner Network — RSVP Free",
   description:
-    "RSVP for free live music at Smash'd featuring Austin Ausley. 1st and 3rd Wednesdays, 6:30–9:30 PM at 520 E Grayson St. Free entry and parking.",
-  image: "https://creativeiqmarketing.com/og-live-music.jpg",
+    "RSVP for Let's Connect hosted by Key Partner Network. Wednesday, August 19, 2026, 6:30–9:30 PM at 520 E Grayson St. Live music by Austin Ausley. Free entry and parking.",
+  image: "https://creativeiqmarketing.com/og-lets-connect.jpg",
   imageAlt:
-    "Live Music at Smash'd featuring Austin Ausley — free entry and parking",
-  aliases: ["business-unplugged"],
+    "Let's Connect by Key Partner Network featuring live music by Austin Ausley — free entry and parking",
+  aliases: ["live-music", "business-unplugged"],
 };
 
 const SEO = {
