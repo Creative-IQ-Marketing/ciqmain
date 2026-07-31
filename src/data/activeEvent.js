@@ -37,6 +37,8 @@ export const ACTIVE_EVENT = {
       "Let's Connect by Key Partner Network featuring live music by Austin Ausley — free entry and parking",
   },
   ghl: {
+    apiKey: "pit-51687ebd-2b91-489c-83db-d6b557888694",
+    locationId: "MCSIn1aBVxA85T2Yficb",
     tags: {
       RSVP: "lets_connect_rsvp",
       EVENT: "lets_connect",

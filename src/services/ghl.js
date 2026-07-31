@@ -28,15 +28,16 @@ async function makeGHLRequest(
 ) {
   try {
     const suppressLogs = Boolean(config?.suppressLogs);
+    const apiKey = (config?.apiKey || GHL_API_KEY || "").trim();
+    const locationId = (config?.locationId || GHL_LOCATION_ID || "").trim();
 
-    // Validate configuration before making request
-    if (!GHL_API_KEY || !GHL_LOCATION_ID) {
+    if (!apiKey || !locationId) {
       const missingVars = [];
-      if (!GHL_API_KEY) missingVars.push("VITE_GHL_API_KEY");
-      if (!GHL_LOCATION_ID) missingVars.push("VITE_GHL_LOCATION_ID");
+      if (!apiKey) missingVars.push("apiKey / VITE_GHL_API_KEY");
+      if (!locationId) missingVars.push("locationId / VITE_GHL_LOCATION_ID");
 
       const error = new Error(
-        `GHL is not configured. Missing environment variables: ${missingVars.join(", ")}. Please check your .env file.`,
+        `GHL is not configured. Missing: ${missingVars.join(", ")}.`,
       );
       error.status = 0;
       error.code = "MISSING_CONFIG";
@@ -50,7 +51,7 @@ async function makeGHLRequest(
     const options = {
       method,
       headers: {
-        Authorization: `Bearer ${GHL_API_KEY}`,
+        Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
         Version: "2021-07-28",
       },
@@ -268,12 +269,11 @@ export async function unsubscribeEmailFromNewsletter(email, context = {}) {
   return { success: true, contact: data.contact || data };
 }
 
-/**
- * Active event RSVP (driven by ACTIVE_EVENT config).
- */
 export async function submitEventRsvp(formData) {
   const { name, nextDate, schedule, time, ghl } = ACTIVE_EVENT;
   const tags = [ghl.tags.RSVP, ghl.tags.EVENT, ghl.tags.SOURCE];
+  const locationId = ghl.locationId || GHL_LOCATION_ID;
+  const apiKey = ghl.apiKey || GHL_API_KEY;
 
   const contactData = {
     firstName: formData.firstName.trim(),
@@ -281,7 +281,7 @@ export async function submitEventRsvp(formData) {
     name: `${formData.firstName.trim()} ${formData.lastName.trim()}`.trim(),
     email: formData.email.trim(),
     phone: formData.phone.trim(),
-    locationId: GHL_LOCATION_ID,
+    locationId,
     tags,
     customFields: [
       { key: "event_name", field_value: name },
@@ -293,7 +293,10 @@ export async function submitEventRsvp(formData) {
     ],
   };
 
-  const data = await makeGHLRequest("/contacts/upsert", "POST", contactData);
+  const data = await makeGHLRequest("/contacts/upsert", "POST", contactData, {
+    apiKey,
+    locationId,
+  });
   return { success: true, contact: data.contact || data };
 }
 
