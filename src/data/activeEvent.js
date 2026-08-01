@@ -21,10 +21,10 @@ export const ACTIVE_EVENT = {
     "Let's Connect by Key Partner Network — Wednesday, August 19, 2026, 6:30–9:30 PM at 520 E Grayson St. Live music by Austin Ausley. Free entry and parking.",
   mode: "rsvp",
   theme: {
-    accent: "#c9a66b",
-    accentSoft: "rgba(201, 166, 107, 0.22)",
-    ink: "#0f1a2e",
-    card: "#f7f4ef",
+    accent: "#d4b37a",
+    accentSoft: "rgba(212, 179, 122, 0.22)",
+    ink: "#070d18",
+    card: "#0c1526",
   },
   seo: {
     title: "Let's Connect | Key Partner Network — RSVP Free",
