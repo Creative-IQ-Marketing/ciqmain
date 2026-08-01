@@ -6,7 +6,7 @@ export default function EventRsvpSuccess({
   embedded = false,
   onClose,
 }) {
-  const { name, schedule, time, addressShort, featuredName } = ACTIVE_EVENT;
+  const { name, schedule, time, address, featuredName } = ACTIVE_EVENT;
 
   if (embedded) {
     return (
@@ -34,23 +34,25 @@ export default function EventRsvpSuccess({
       <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#d4b37a]">
         Confirmed
       </p>
-      <h3 className="mt-4 text-[clamp(2rem,5vw,3rem)] font-bold leading-[1.05] tracking-tight text-[#ece7dc]">
-        You&apos;re on the list{firstName ? `, ${firstName}` : ""}.
+      <h3 className="lc-display mt-4 text-[clamp(2rem,5vw,3rem)] font-bold leading-[1.05] tracking-tight text-[#ece7dc]">
+        You&apos;re on the list
+        {firstName ? `, ${firstName}` : ""}.
       </h3>
       <p className="mt-5 max-w-sm text-[15px] leading-relaxed text-[#c9c2b4]">
-        Thanks for RSVPing to {name}. Confirmation is on the way.
+        Thanks for RSVPing to {name}. Confirmation is on the way — see you{" "}
+        {schedule.split(",")[0].toLowerCase()}.
       </p>
-      <div className="mt-8 border-y border-white/10 py-5 text-sm leading-relaxed text-[#ece7dc]">
+      <div className="mt-8 border-y border-[rgba(236,231,220,0.12)] py-5 text-sm leading-relaxed text-[#ece7dc]">
         {schedule}
         <br />
         {time}
         <br />
-        {addressShort}
+        {address}
       </div>
       <button
         type="button"
         onClick={onReset}
-        className="mt-8 text-xs font-bold uppercase tracking-[0.18em] text-[#d4b37a] underline-offset-4 hover:underline"
+        className="lc-display mt-8 text-xs font-bold uppercase tracking-[0.18em] text-[#d4b37a] underline-offset-4 hover:underline"
       >
         Submit another RSVP
       </button>

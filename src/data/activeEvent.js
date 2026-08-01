@@ -13,6 +13,9 @@ export const ACTIVE_EVENT = {
   venue: "Smash'd",
   address: "520 E Grayson St, San Antonio, TX 78215",
   addressShort: "520 E Grayson St.",
+  city: "San Antonio, TX 78215",
+  blurb:
+    "Join professionals, entrepreneurs, and leaders for an evening of meaningful connections and great conversations.",
   perks: ["Free entry", "Free parking"],
   host: "Key Partner Network",
   tagline: "Connect · Collaborate · Grow",

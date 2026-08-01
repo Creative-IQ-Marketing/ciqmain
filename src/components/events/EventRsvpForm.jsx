@@ -7,7 +7,7 @@ export default function EventRsvpForm({ embedded = false, onClose }) {
   const [status, setStatus] = useState("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [firstName, setFirstName] = useState("");
-  const { host, theme } = ACTIVE_EVENT;
+  const { host } = ACTIVE_EVENT;
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -37,27 +37,82 @@ export default function EventRsvpForm({ embedded = false, onClose }) {
     }
   }
 
-  const content =
-    status === "success" ? (
-      <EventRsvpSuccess
-        firstName={firstName}
-        embedded={embedded}
-        onClose={onClose}
-        onReset={() => {
-          setStatus("idle");
-          setErrorMsg("");
-        }}
-      />
-    ) : (
-      <form onSubmit={handleSubmit} className="space-y-1">
-        {!embedded ? (
-          <div className="mb-8">
-            <h3 className="text-2xl font-bold tracking-tight text-[#ece7dc]">
-              Confirm free RSVP
-            </h3>
-            <p className="mt-2 text-sm text-[#8b93a1]">Hosted by {host}</p>
-          </div>
+  if (status === "success") {
+    return (
+      <div className="mx-auto max-w-lg lg:ml-0 lg:max-w-xl">
+        <EventRsvpSuccess
+          firstName={firstName}
+          embedded={embedded}
+          onClose={onClose}
+          onReset={() => {
+            setStatus("idle");
+            setErrorMsg("");
+          }}
+        />
+      </div>
+    );
+  }
+
+  if (embedded) {
+    return (
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="grid gap-4 sm:grid-cols-2">
+          <EmbeddedField
+            label="First name"
+            id="event-firstName"
+            name="firstName"
+            required
+            autoComplete="given-name"
+          />
+          <EmbeddedField
+            label="Last name"
+            id="event-lastName"
+            name="lastName"
+            required
+            autoComplete="family-name"
+          />
+        </div>
+        <EmbeddedField
+          label="Email"
+          id="event-email"
+          name="email"
+          type="email"
+          required
+          autoComplete="email"
+        />
+        <EmbeddedField
+          label="Phone"
+          id="event-phone"
+          name="phone"
+          type="tel"
+          required
+          autoComplete="tel"
+        />
+        {status === "error" ? (
+          <p className="rounded-lg bg-red-50 px-3 py-2 text-center text-sm text-red-700">
+            {errorMsg}
+          </p>
         ) : null}
+        <button
+          type="submit"
+          disabled={status === "loading"}
+          className="h-12 w-full rounded-xl bg-[#1a1410] text-sm font-semibold text-white disabled:opacity-60"
+        >
+          {status === "loading" ? "Submitting…" : "Confirm free RSVP"}
+        </button>
+      </form>
+    );
+  }
+
+  return (
+    <div className="mx-auto max-w-lg lg:ml-0 lg:max-w-xl">
+      <form onSubmit={handleSubmit} className="space-y-1">
+        <div className="mb-8">
+          <h3 className="lc-display text-2xl font-bold tracking-tight text-[#ece7dc]">
+            Confirm free RSVP
+          </h3>
+          <p className="mt-2 text-sm text-[#8b93a1]">Hosted by {host}</p>
+        </div>
 
         <div className="grid gap-1 sm:grid-cols-2 sm:gap-8">
           <Field
@@ -66,8 +121,6 @@ export default function EventRsvpForm({ embedded = false, onClose }) {
             name="firstName"
             required
             autoComplete="given-name"
-            embedded={embedded}
-            accent={theme.accent}
           />
           <Field
             label="Last name"
@@ -75,8 +128,6 @@ export default function EventRsvpForm({ embedded = false, onClose }) {
             name="lastName"
             required
             autoComplete="family-name"
-            embedded={embedded}
-            accent={theme.accent}
           />
         </div>
         <Field
@@ -86,8 +137,6 @@ export default function EventRsvpForm({ embedded = false, onClose }) {
           type="email"
           required
           autoComplete="email"
-          embedded={embedded}
-          accent={theme.accent}
         />
         <Field
           label="Phone"
@@ -96,8 +145,6 @@ export default function EventRsvpForm({ embedded = false, onClose }) {
           type="tel"
           required
           autoComplete="tel"
-          embedded={embedded}
-          accent={theme.accent}
         />
 
         {status === "error" ? (
@@ -110,66 +157,51 @@ export default function EventRsvpForm({ embedded = false, onClose }) {
           <button
             type="submit"
             disabled={status === "loading"}
-            className={
-              embedded
-                ? "h-12 w-full rounded-xl bg-[#1a1410] text-sm font-semibold text-white transition hover:bg-[#2a211a] disabled:opacity-60"
-                : "flex min-h-[56px] w-full items-center justify-center text-[13px] font-bold uppercase tracking-[0.16em] text-[#070d18] disabled:opacity-50"
-            }
-            style={!embedded ? { background: theme.accent } : undefined}
+            className="lc-btn-submit"
           >
             {status === "loading" ? "Submitting…" : "Confirm free RSVP"}
           </button>
-          {!embedded ? (
-            <p className="mt-4 text-center text-[11px] text-[#8b93a1]">
-              No payment required.
-            </p>
-          ) : null}
+          <p className="mt-4 text-center text-[11px] text-[#8b93a1]">
+            No payment required.
+          </p>
         </div>
       </form>
-    );
-
-  if (embedded) return content;
-
-  return <div className="mx-auto max-w-lg lg:ml-0 lg:max-w-xl">{content}</div>;
+    </div>
+  );
 }
 
-function Field({
+function Field({ label, id, name, type = "text", required, autoComplete }) {
+  return (
+    <div className="py-3">
+      <label htmlFor={id} className="lc-field-label">
+        {label}
+      </label>
+      <input
+        id={id}
+        name={name}
+        type={type}
+        required={required}
+        autoComplete={autoComplete}
+        className="lc-field-input"
+        placeholder={label}
+      />
+    </div>
+  );
+}
+
+function EmbeddedField({
   label,
   id,
   name,
   type = "text",
   required,
   autoComplete,
-  embedded,
-  accent,
 }) {
-  if (embedded) {
-    return (
-      <div>
-        <label
-          htmlFor={id}
-          className="mb-1.5 block text-xs font-medium text-slate-600"
-        >
-          {label}
-        </label>
-        <input
-          id={id}
-          name={name}
-          type={type}
-          required={required}
-          autoComplete={autoComplete}
-          className="h-11 w-full rounded-xl border border-slate-200 bg-white px-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:ring-2"
-          placeholder={label}
-        />
-      </div>
-    );
-  }
-
   return (
-    <div className="py-3">
+    <div>
       <label
         htmlFor={id}
-        className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8b93a1]"
+        className="mb-1.5 block text-xs font-medium text-slate-600"
       >
         {label}
       </label>
@@ -179,14 +211,7 @@ function Field({
         type={type}
         required={required}
         autoComplete={autoComplete}
-        className="w-full border-0 border-b border-white/15 bg-transparent py-3.5 text-base text-[#ece7dc] outline-none transition placeholder:text-white/25 focus:border-b-2 sm:text-[15px]"
-        style={{ borderBottomColor: undefined }}
-        onFocus={(e) => {
-          e.currentTarget.style.borderBottomColor = accent;
-        }}
-        onBlur={(e) => {
-          e.currentTarget.style.borderBottomColor = "";
-        }}
+        className="h-11 w-full rounded-xl border border-slate-200 bg-white px-3.5 text-sm text-slate-900 outline-none"
         placeholder={label}
       />
     </div>

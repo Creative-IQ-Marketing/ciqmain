@@ -1,0 +1,182 @@
+.lc-page {
+  --lc-void: #070d18;
+  --lc-navy: #0c1526;
+  --lc-gold: #d4b37a;
+  --lc-bone: #ece7dc;
+  --lc-bone-dim: #c9c2b4;
+  --lc-muted: #8b93a1;
+  --lc-line: rgba(236, 231, 220, 0.12);
+  --lc-font-sans: "Manrope", "Plus Jakarta Sans", system-ui, sans-serif;
+  --lc-font-display: "Syne", "Plus Jakarta Sans", system-ui, sans-serif;
+
+  min-height: 100dvh;
+  overflow-x: hidden;
+  background: var(--lc-void);
+  color: var(--lc-bone);
+  font-family: var(--lc-font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.lc-page ::selection {
+  background: rgba(212, 179, 122, 0.35);
+  color: var(--lc-void);
+}
+
+.lc-page .lc-display {
+  font-family: var(--lc-font-display);
+}
+
+.lc-page .lc-grain {
+  position: relative;
+}
+
+.lc-page .lc-grain::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+
+.lc-page .lc-field-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lc-muted);
+}
+
+.lc-page .lc-field-input {
+  width: 100%;
+  padding: 14px 0;
+  font-size: 16px;
+  font-family: var(--lc-font-sans);
+  color: var(--lc-bone);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--lc-line);
+  border-radius: 0;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+@media (min-width: 640px) {
+  .lc-page .lc-field-input {
+    font-size: 15px;
+  }
+}
+
+.lc-page .lc-field-input::placeholder {
+  color: rgba(236, 231, 220, 0.28);
+}
+
+.lc-page .lc-field-input:focus {
+  border-bottom-color: var(--lc-gold);
+}
+
+.lc-page .lc-btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  padding: 0 28px;
+  font-family: var(--lc-font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lc-void);
+  background: var(--lc-gold);
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+  text-decoration: none;
+}
+
+.lc-page .lc-btn-gold:hover {
+  background: var(--lc-bone);
+}
+
+.lc-page .lc-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  padding: 0 24px;
+  font-family: var(--lc-font-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lc-bone);
+  background: transparent;
+  border: 1px solid rgba(236, 231, 220, 0.28);
+  border-radius: 0;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
+  text-decoration: none;
+}
+
+.lc-page .lc-btn-outline:hover {
+  border-color: var(--lc-gold);
+  color: var(--lc-gold);
+}
+
+.lc-page .lc-btn-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 56px;
+  padding: 0 24px;
+  font-family: var(--lc-font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lc-void);
+  background: var(--lc-gold);
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.lc-page .lc-btn-submit:hover {
+  background: var(--lc-bone);
+}
+
+.lc-page .lc-btn-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.lc-page .lc-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: lc-marquee 28s linear infinite;
+}
+
+@keyframes lc-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lc-page .lc-marquee-track {
+    animation: none;
+  }
+}
