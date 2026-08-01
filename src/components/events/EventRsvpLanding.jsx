@@ -28,7 +28,7 @@ export default function EventRsvpLanding() {
 
   return (
     <div className="lc-page relative">
-      <header className="lc-grain relative isolate min-h-[100dvh] overflow-hidden">
+      <header className="relative isolate min-h-[100dvh] overflow-hidden">
         <div
           className="pointer-events-none absolute inset-0"
           style={{
