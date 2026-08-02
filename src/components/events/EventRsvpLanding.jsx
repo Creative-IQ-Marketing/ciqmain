@@ -55,8 +55,8 @@ export default function EventRsvpLanding() {
               src={kpnLogo}
               alt={host}
               className="h-12 w-auto max-w-[min(100%,16rem)] object-contain object-left brightness-0 invert sm:h-14 sm:max-w-none lg:h-[4.5rem]"
-              width={413}
-              height={172}
+              width={411}
+              height={247}
               decoding="async"
             />
             <a href="#rsvp" className="lc-btn-outline hidden sm:inline-flex">
@@ -118,7 +118,7 @@ export default function EventRsvpLanding() {
               className="relative z-10 border-t border-[rgba(236,231,220,0.12)] pt-6 lg:col-span-5 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-1"
             >
               <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#d4b37a]">
-                Next gathering
+                Next Network
               </p>
               <div className="mt-4 flex items-end gap-3">
                 <p className="lc-display text-5xl font-bold tracking-tight text-[#ece7dc] sm:text-6xl">
@@ -253,8 +253,8 @@ export default function EventRsvpLanding() {
               src={kpnLogo}
               alt=""
               className="h-10 w-auto max-w-[13rem] object-contain brightness-0 invert sm:h-11"
-              width={413}
-              height={172}
+              width={411}
+              height={247}
               aria-hidden
             />
             <div
