@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
 import { ACTIVE_EVENT } from "../../data/activeEvent";
 import kpnLogo from "../../assets/events/kpn-logo.png";
+import ciqLogo from "../../assets/mainLogo.webp";
 import EventRsvpForm from "./EventRsvpForm";
 import "../../styles/lets-connect.css";
 
+const CIQ_URL = "https://creativeiqmarketing.com";
 const ease = [0.16, 1, 0.3, 1];
 
 export default function EventRsvpLanding() {
@@ -247,25 +249,54 @@ export default function EventRsvpLanding() {
       </section>
 
       <footer className="border-t border-[rgba(236,231,220,0.12)] bg-[#070d18]">
-        <div className="mx-auto flex max-w-7xl flex-col gap-8 px-5 py-10 sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-12 lg:px-12">
-          <div className="flex items-center gap-5">
-            <img
-              src={kpnLogo}
-              alt=""
-              className="h-10 w-auto max-w-[13rem] object-contain brightness-0 invert sm:h-11"
-              width={411}
-              height={247}
-              aria-hidden
-            />
-            <div
-              className="hidden h-8 w-px bg-[rgba(236,231,220,0.12)] sm:block"
-              aria-hidden
-            />
-            <p className="text-xs text-[#8b93a1] sm:text-sm">{host}</p>
+        <div className="mx-auto flex max-w-7xl flex-col gap-10 px-5 py-10 sm:px-8 sm:py-12 lg:px-12">
+          <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-5">
+              <img
+                src={kpnLogo}
+                alt={host}
+                className="h-10 w-auto max-w-[13rem] object-contain brightness-0 invert sm:h-11"
+                width={411}
+                height={247}
+              />
+              <div
+                className="hidden h-8 w-px bg-[rgba(236,231,220,0.12)] sm:block"
+                aria-hidden
+              />
+              <p className="text-xs text-[#8b93a1] sm:text-sm">{host}</p>
+            </div>
+            <p className="lc-display text-[11px] font-bold uppercase tracking-[0.2em] text-[rgba(236,231,220,0.4)]">
+              {name} · 08.19.26
+            </p>
           </div>
-          <p className="lc-display text-[11px] font-bold uppercase tracking-[0.2em] text-[rgba(236,231,220,0.4)]">
-            {name} · 08.19.26
-          </p>
+
+          <div className="flex flex-col gap-4 border-t border-[rgba(236,231,220,0.12)] pt-8 sm:flex-row sm:items-center sm:justify-between">
+            <a
+              href={CIQ_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 opacity-80 transition hover:opacity-100"
+            >
+              <img
+                src={ciqLogo}
+                alt="CreativeIQ"
+                className="h-8 w-8 object-contain brightness-0 invert sm:h-9 sm:w-9"
+                width={256}
+                height={242}
+              />
+              <span className="text-sm font-semibold tracking-tight text-[#ece7dc]">
+                Creative<span className="text-[#d4b37a]">IQ</span>
+              </span>
+            </a>
+            <a
+              href={CIQ_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-[#8b93a1] transition hover:text-[#d4b37a]"
+            >
+              creativeiqmarketing.com
+            </a>
+          </div>
         </div>
       </footer>
     </div>
