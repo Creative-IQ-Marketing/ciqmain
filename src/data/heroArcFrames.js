@@ -4,19 +4,17 @@ import crmImage from "../assets/hero/hero-frame-crm.webp";
 import seoPoster from "../assets/hero/hero-frame-seo.webp";
 import socialPoster from "../assets/hero/hero-frame-social.webp";
 import webPoster from "../assets/hero/hero-frame-web.webp";
-import semVideo from "../assets/svid/seovid.mp4";
-import smmVideo from "../assets/svid/social media.mp4";
-import contentVideo from "../assets/svid/contentmgmt.mp4";
-import webVideo from "../assets/svid/webdev.mp4";
-import reelVideo from "../assets/svid/PinDown.io_@decorpixel0_1777042301 (1).mp4";
 
-/** Unified 3:4 proof frames: videos where available, cinematic stills as anchors. */
+/**
+ * Poster-only frames for the initial hero graph.
+ * MP4 sources load via dynamic import in galleries after visibility/idle.
+ */
 export const HERO_ARC_FRAMES = [
   {
     id: "seo",
     label: "SEO systems",
     type: "video",
-    src: semVideo,
+    videoKey: "sem",
     poster: seoPoster,
     contactValue: "bundle-launch",
   },
@@ -24,7 +22,7 @@ export const HERO_ARC_FRAMES = [
     id: "social",
     label: "Social systems",
     type: "video",
-    src: smmVideo,
+    videoKey: "smm",
     poster: socialPoster,
     contactValue: "social-starter",
   },
@@ -32,7 +30,7 @@ export const HERO_ARC_FRAMES = [
     id: "content",
     label: "Content",
     type: "video",
-    src: contentVideo,
+    videoKey: "content",
     poster: crmImage,
     contactValue: "video-production",
   },
@@ -40,7 +38,7 @@ export const HERO_ARC_FRAMES = [
     id: "web",
     label: "Conversion sites",
     type: "video",
-    src: webVideo,
+    videoKey: "web",
     poster: webPoster,
     contactValue: "bundle-launch",
   },
@@ -48,7 +46,7 @@ export const HERO_ARC_FRAMES = [
     id: "reel",
     label: "Reels",
     type: "video",
-    src: reelVideo,
+    videoKey: "reel",
     poster: socialPoster,
     contactValue: "social-starter",
   },

@@ -3,12 +3,14 @@ import { useAnimationFrame } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { HERO_ARC_FRAMES } from "../../data/heroArcFrames";
 import { executeHeroFrameAction } from "../../utils/heroFrameAction";
+import HeroFrameMedia from "./HeroFrameMedia";
 
 const CARD_W = 196;
 const CARD_H = 262;
 const FRAME_COUNT = HERO_ARC_FRAMES.length;
 const CENTER = Math.floor(FRAME_COUNT / 2);
-const CYCLES = [-1, 0, 1];
+/** Single cycle — avoid tripling DOM/media nodes on the critical path. */
+const CYCLES = [0];
 const SPEED = 0.000085;
 const ARC_SPAN = 3.45;
 
@@ -28,35 +30,6 @@ function arcTransform(rel) {
   const p = arcValues(rel);
   const x = rel * (CARD_W - 4) * p.xSpread;
   return `translateX(${x}px) translateY(${p.y}px) translateZ(${p.z}px) rotateY(${p.rotY}deg) rotateX(${p.rotX}deg)`;
-}
-
-function FrameMedia({ frame, eager }) {
-  if (frame.type === "video") {
-    return (
-      <video
-        src={frame.src}
-        poster={frame.poster}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="none"
-        className="size-full object-cover"
-      />
-    );
-  }
-  return (
-    <img
-      src={frame.src}
-      alt=""
-      width={CARD_W}
-      height={CARD_H}
-      loading={eager ? "eager" : "lazy"}
-      decoding="async"
-      fetchPriority="low"
-      className="size-full object-cover"
-    />
-  );
 }
 
 export default function HeroArcGallery({ reducedMotion = false }) {
@@ -157,7 +130,12 @@ export default function HeroArcGallery({ reducedMotion = false }) {
                 }}
                 aria-label={frame.label}
               >
-                <FrameMedia frame={frame} eager={false} />
+                <HeroFrameMedia
+                  frame={frame}
+                  allowVideo={near}
+                  width={CARD_W}
+                  height={CARD_H}
+                />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-white/5" />
                 {near ? (
                   <span className="absolute bottom-3 left-3 font-sans text-[10px] font-semibold uppercase tracking-[0.14em] text-white/90">

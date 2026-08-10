@@ -2,13 +2,6 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import { Routes, Route, Outlet, useLocation } from "react-router-dom";
 import Header from "./components/landing/Header";
 import Hero from "./components/landing/Hero";
-import Clients from "./components/landing/Clients";
-import About from "./components/landing/About";
-import ServicesShowcase from "./components/landing/ServicesShowcase";
-import Stats from "./components/landing/Stats";
-import Testimonials from "./components/landing/Testimonials";
-import Contact from "./components/landing/Contact";
-import Footer from "./components/landing/Footer";
 import SEO from "./components/SEO";
 import StructuredData from "./components/StructuredData";
 import { NewsletterProvider } from "./context/NewsletterContext";
@@ -20,9 +13,18 @@ import {
 import { ACTIVE_EVENT } from "./data/activeEvent";
 import ScrollProgress from "./components/layout/ScrollProgress";
 import { scrollToSection } from "./utils/scrollToSection";
-import VilmaIntro from "./components/landing/VilmaIntro";
 import { warmRoute } from "./utils/prefetchAssets";
 
+const Clients = lazy(() => import("./components/landing/Clients"));
+const About = lazy(() => import("./components/landing/About"));
+const ServicesShowcase = lazy(
+  () => import("./components/landing/ServicesShowcase"),
+);
+const Stats = lazy(() => import("./components/landing/Stats"));
+const Testimonials = lazy(() => import("./components/landing/Testimonials"));
+const Contact = lazy(() => import("./components/landing/Contact"));
+const Footer = lazy(() => import("./components/landing/Footer"));
+const VilmaIntro = lazy(() => import("./components/landing/VilmaIntro"));
 const ServicesPage = lazy(() => import("./pages/ServicesPage"));
 const ContactPage = lazy(() => import("./pages/ContactPage"));
 const BookPage = lazy(() => import("./pages/BookPage"));
@@ -108,7 +110,9 @@ function Layout() {
         <Suspense fallback={<RouteFallback />}>
           <Outlet />
         </Suspense>
-        <Footer />
+        <Suspense fallback={null}>
+          <Footer />
+        </Suspense>
         {NEWSLETTER_POPUP_ENABLED ? (
           <Suspense fallback={null}>
             <NewsletterPopup />
@@ -139,13 +143,15 @@ function HomePage() {
       />
       <StructuredData />
       <Hero />
-      <Clients />
-      <VilmaIntro />
-      <ServicesShowcase />
-      <Stats />
-      <Testimonials />
-      <About />
-      <Contact />
+      <Suspense fallback={null}>
+        <Clients />
+        <VilmaIntro />
+        <ServicesShowcase />
+        <Stats />
+        <Testimonials />
+        <About />
+        <Contact />
+      </Suspense>
     </>
   );
 }

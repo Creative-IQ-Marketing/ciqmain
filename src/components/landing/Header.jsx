@@ -158,7 +158,7 @@ export default function Header() {
                   height={40}
                   className="h-6 w-6 object-contain brightness-0 invert sm:h-7 sm:w-7"
                   decoding="async"
-                  fetchPriority="high"
+                  fetchPriority="low"
                 />
               </span>
               <span className="hidden font-sans text-[1.05rem] font-bold tracking-[-0.03em] text-[var(--c-ink)] sm:inline">

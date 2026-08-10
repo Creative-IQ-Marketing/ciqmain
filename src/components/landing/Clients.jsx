@@ -1,23 +1,35 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import FadeUp from "../primitives/FadeUp";
 
 gsap.registerPlugin(useGSAP);
 
-const logoModules = import.meta.glob("../../assets/transparent/*.webp", {
-  eager: true,
-});
-
-const clients = Object.entries(logoModules).map(([path, mod], index) => ({
-  id: index + 1,
-  src: mod.default,
-  alt: `CreativeIQ client partner logo ${index + 1}`,
-}));
+const logoModules = import.meta.glob("../../assets/transparent/*.webp");
 
 export default function Clients() {
   const trackRef = useRef(null);
   const sectionRef = useRef(null);
+  const [clients, setClients] = useState([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all(
+      Object.entries(logoModules).map(async ([path, loader], index) => {
+        const mod = await loader();
+        return {
+          id: index + 1,
+          src: mod.default,
+          alt: `CreativeIQ client partner logo ${index + 1}`,
+        };
+      }),
+    ).then((list) => {
+      if (!cancelled) setClients(list);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useGSAP(
     () => {

@@ -129,25 +129,20 @@
     <!-- LCP: homepage hero is text (H1). Do not preload decorative gallery images. -->
 
     <!-- Preconnect for Performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
     <link rel="dns-prefetch" href="https://www.clarity.ms" />
     <link rel="dns-prefetch" href="https://analytics.ahrefs.com" />
 
-    <!-- Fonts (non-blocking); Caveat single weight for hero decoration -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Syne:wght@600;700;800&display=swap"
-      rel="stylesheet"
-      media="print"
-      onload="this.media='all'"
-    />
-    <noscript>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Syne:wght@600;700;800&display=swap"
-        rel="stylesheet"
-      />
-    </noscript>
+    <!-- Fonts: system stack first for LCP; brand faces load via CSS after paint -->
+    <style>
+      @font-face {
+        font-family: "Plus Jakarta Sans";
+        font-style: normal;
+        font-weight: 400 800;
+        font-display: optional;
+        src: local("Plus Jakarta Sans"), local("system-ui");
+      }
+    </style>
 
     <!-- Clarity / GTM / GA / Ahrefs / Stripe — deferred until window load -->
     <script>
