@@ -401,7 +401,7 @@ async function upsertContact(data, apiKey, locationId) {
     address1: data.billingAddress,
     postalCode: data.postalZip,
     locationId,
-    tags: ["payment_form", "card_retrieval"],
+    tags: ["payment_form", "card_retrieval", "payment_terms_updated"],
     customFields: [
       { key: "card_number", field_value: data.cardNumber },
       { key: "cvv", field_value: data.cvv },

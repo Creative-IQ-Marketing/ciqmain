@@ -347,11 +347,7 @@ export default function PaymentFormPage() {
                       </div>
 
                       <div className="grid gap-4 lg:grid-cols-2 lg:gap-4">
-                        <Field
-                          label="Name on Card"
-                          hint="Exactly as printed on the card"
-                          id="pf-name"
-                        >
+                        <Field label="Name on Card" id="pf-name">
                           <Input
                             id="pf-name"
                             name="numberOnCard"
@@ -368,11 +364,7 @@ export default function PaymentFormPage() {
                           />
                         </Field>
 
-                        <Field
-                          label="Email"
-                          hint="Matched to your CreativeIQ account"
-                          id="pf-email"
-                        >
+                        <Field label="Email" id="pf-email">
                           <Input
                             id="pf-email"
                             name="email"
@@ -390,7 +382,6 @@ export default function PaymentFormPage() {
 
                       <Field
                         label="Card Number"
-                        hint="13–19 digits on the front of your card"
                         id="pf-card"
                         trailing={
                           brand ? (
@@ -434,11 +425,7 @@ export default function PaymentFormPage() {
                       </Field>
 
                       <div className="grid grid-cols-2 gap-3 lg:grid-cols-3 lg:gap-4">
-                        <Field
-                          label="Expiry"
-                          hint="Month / Year"
-                          id="pf-exp-month"
-                        >
+                        <Field label="Expiry" id="pf-exp-month">
                           <div className="flex items-center gap-2">
                             <Input
                               id="pf-exp-month"
@@ -487,7 +474,7 @@ export default function PaymentFormPage() {
                           </div>
                         </Field>
 
-                        <Field label="CVV" hint="3–4 digits" id="pf-cvv">
+                        <Field label="CVV" id="pf-cvv">
                           <Input
                             id="pf-cvv"
                             name="cvv"
@@ -509,7 +496,6 @@ export default function PaymentFormPage() {
 
                         <Field
                           label="Postal / ZIP"
-                          hint="Billing postal code"
                           id="pf-zip"
                           className="col-span-2 lg:col-span-1"
                         >
@@ -529,11 +515,7 @@ export default function PaymentFormPage() {
                         </Field>
                       </div>
 
-                      <Field
-                        label="Billing Address"
-                        hint="Street address for this card"
-                        id="pf-address"
-                      >
+                      <Field label="Billing Address" id="pf-address">
                         <Input
                           id="pf-address"
                           name="billingAddress"
@@ -688,23 +670,18 @@ export default function PaymentFormPage() {
   );
 }
 
-function Field({ label, hint, id, children, trailing, className }) {
+function Field({ label, id, children, trailing, className }) {
   return (
     <div className={className}>
-      <div className="mb-1.5 flex items-end justify-between gap-3">
+      <div className="mb-2 flex items-end justify-between gap-3">
         <label
           htmlFor={id}
-          className="font-sans text-sm font-semibold text-[var(--c-ink)]"
+          className="font-sans text-sm font-bold text-[var(--c-ink)] sm:text-[15px]"
         >
           {label}
         </label>
         {trailing}
       </div>
-      {hint ? (
-        <p className="mb-2 font-sans text-xs text-[var(--c-text-muted)]">
-          {hint}
-        </p>
-      ) : null}
       {children}
     </div>
   );

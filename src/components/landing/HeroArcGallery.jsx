@@ -9,8 +9,8 @@ const CARD_W = 196;
 const CARD_H = 262;
 const FRAME_COUNT = HERO_ARC_FRAMES.length;
 const CENTER = Math.floor(FRAME_COUNT / 2);
-/** Single cycle — avoid tripling DOM/media nodes on the critical path. */
-const CYCLES = [0];
+/** Three cycles so the arc can scroll forever without a visible seam. */
+const CYCLES = [-1, 0, 1];
 const SPEED = 0.000085;
 const ARC_SPAN = 3.45;
 
