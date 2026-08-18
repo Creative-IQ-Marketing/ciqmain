@@ -154,7 +154,7 @@ export default function AiSeoGuidePage() {
                       setFirstName(e.target.value);
                       setError("");
                     }}
-                    placeholder="Vilma"
+                    placeholder="Your name"
                     disabled={loading}
                     required
                   />
