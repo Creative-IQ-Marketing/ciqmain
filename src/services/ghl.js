@@ -169,7 +169,10 @@ export async function upsertSeoAuditLead({
     name: fullName || undefined,
     email: cleanEmail,
     locationId: GHL_LOCATION_ID,
-    tags: ["seo_audit_lead", "website_form"],
+    // Important: the actual SEO report email is sent from our backend (Nodemailer).
+    // These tags exist for CRM tracking only, and we avoid using legacy tags
+    // that may trigger GHL email automations.
+    tags: ["website_form", "seo_audit_lead_backend"],
     customFields: [
       { key: "source", field_value: "free_ai_seo_audit" },
       {

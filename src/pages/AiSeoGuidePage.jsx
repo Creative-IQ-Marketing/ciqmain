@@ -6,6 +6,7 @@ import PageHeader from "../components/layout/PageHeader";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import { submitAiSeoGuideLead } from "../services/ghl";
+import { requestSeoGuideEmail } from "../services/seoGuideTool";
 import { trackButtonClick, trackFormSubmission } from "../services/analytics";
 import guideCover from "../assets/hero/guide-cover-2026.webp";
 
@@ -57,11 +58,30 @@ export default function AiSeoGuidePage() {
 
     setLoading(true);
     try {
-      await submitAiSeoGuideLead({ firstName: name, email: cleanEmail });
-      trackFormSubmission("ai_seo_guide");
-      setSuccess(true);
-    } catch {
-      setError("Something went wrong. Please try again.");
+      // Send the guide PDF via our backend (Nodemailer) to avoid GHL
+      // email-domain/spam issues.
+      let guideEmailOk = false;
+      try {
+        await requestSeoGuideEmail({ firstName: name, email: cleanEmail });
+        guideEmailOk = true;
+      } catch {
+        guideEmailOk = false;
+      }
+
+      // Always upsert the contact (even if email sending fails),
+      // so CRM tracking + reporting stays correct.
+      try {
+        await submitAiSeoGuideLead({ firstName: name, email: cleanEmail });
+      } catch {
+        // don't block user feedback based on tracking-only failures
+      }
+
+      if (guideEmailOk) {
+        trackFormSubmission("ai_seo_guide");
+        setSuccess(true);
+      } else {
+        setError("We couldn't email the guide right now. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
