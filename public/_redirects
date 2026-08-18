@@ -8,6 +8,9 @@ https://creativeiq.marketing/*  https://creativeiqmarketing.com/:splat  301!
 # Trailing slash → no slash (matches sitemap/canonicals)
 /book/                           /book                           301
 /free-ai-seo-audit/              /free-ai-seo-audit              301
+/ai-seo-guide/                   /ai-seo-guide                   301
+/guide/                          /ai-seo-guide                   301
+/guide                           /ai-seo-guide                   301
 /services/                       /services                       301
 /services/what-is-crm/           /services/what-is-crm           301
 /about/creativeiq/               /about/creativeiq               301
@@ -29,6 +32,7 @@ https://creativeiq.marketing/*  https://creativeiqmarketing.com/:splat  301!
 # Do NOT use /* /index.html 200 (soft 404s in GSC).
 /book                            /book/index.html    200
 /free-ai-seo-audit               /free-ai-seo-audit/index.html    200
+/ai-seo-guide                    /ai-seo-guide/index.html    200
 /services                        /services/index.html    200
 /services/what-is-crm            /services/what-is-crm/index.html    200
 /about/creativeiq                /about/creativeiq/index.html    200

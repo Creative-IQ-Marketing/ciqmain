@@ -3,7 +3,12 @@ import { useLocation } from "react-router-dom";
 import { useNewsletter } from "../../context/NewsletterContext";
 
 const AUTO_POPUP_KEY = "ciq_newsletter_auto_shown";
-const SKIP_PATHS = ["/newsletter", "/newsletter/unsubscribed"];
+const SKIP_PATHS = [
+  "/newsletter",
+  "/newsletter/unsubscribed",
+  "/ai-seo-guide",
+  "/guide",
+];
 
 export default function NewsletterAutoOpen() {
   const { open, openNewsletter } = useNewsletter();

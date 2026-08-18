@@ -187,6 +187,32 @@ export async function upsertSeoAuditLead({
   return { success: true, contact: data.contact || data };
 }
 
+export async function submitAiSeoGuideLead({ firstName, email }) {
+  const cleanEmail = normalizeEmail(email);
+  if (!cleanEmail) {
+    throw new Error("A valid email is required.");
+  }
+
+  const first = firstName?.trim() || undefined;
+  const contactData = {
+    firstName: first,
+    name: first,
+    email: cleanEmail,
+    locationId: GHL_LOCATION_ID,
+    tags: ["ai_seo_guide", "ai_seo_guide_lead", "ciqmain_website"],
+    customFields: [
+      { key: "source", field_value: "ai_seo_growth_guide" },
+      {
+        key: "message",
+        field_value: "AI SEO Growth Guide request — send PDF to inbox",
+      },
+    ],
+  };
+
+  const data = await makeGHLRequest("/contacts/upsert", "POST", contactData);
+  return { success: true, contact: data.contact || data };
+}
+
 export async function subscribeContactToNewsletter(email, context = {}) {
   const cleanEmail = normalizeEmail(email);
   if (!cleanEmail) {

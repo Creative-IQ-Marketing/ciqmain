@@ -29,6 +29,7 @@ const ServicesPage = lazy(() => import("./pages/ServicesPage"));
 const ContactPage = lazy(() => import("./pages/ContactPage"));
 const BookPage = lazy(() => import("./pages/BookPage"));
 const FreeSeoAuditPage = lazy(() => import("./pages/FreeSeoAuditPage"));
+const AiSeoGuidePage = lazy(() => import("./pages/AiSeoGuidePage"));
 const EventRsvpPage = lazy(() => import("./pages/EventRsvpPage"));
 const BusinessUnpluggedPage = lazy(() => import("./pages/BusinessUnpluggedPage"));
 const NewsletterPage = lazy(() => import("./pages/NewsletterPage"));
@@ -78,6 +79,7 @@ function Layout() {
       "/about/vilma",
       "/about/creativeiq",
       "/free-ai-seo-audit",
+      "/ai-seo-guide",
       "/contact",
       "/book",
     ];
@@ -169,6 +171,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/book" element={<BookPage />} />
           <Route path="/free-ai-seo-audit" element={<FreeSeoAuditPage />} />
+          <Route path="/ai-seo-guide" element={<AiSeoGuidePage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/services/what-is-crm" element={<WhatIsCrmPage />} />
           <Route path="/about/creativeiq" element={<AboutCiqPage />} />

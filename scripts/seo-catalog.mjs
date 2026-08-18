@@ -61,6 +61,20 @@ export const SEO_PAGES = [
     ogImageAlt: "Free AI SEO audit tool from CreativeIQ Marketing",
   },
   {
+    path: "/ai-seo-guide",
+    title: "AI SEO Growth Guide | CreativeIQ",
+    description:
+      "Get the CreativeIQ AI SEO Growth Guide in your inbox. Enter your name and email — the playbook for ranking on Google and showing up in AI answers.",
+    keywords:
+      "AI SEO guide, SEO growth guide, ChatGPT SEO, GEO, CreativeIQ PDF",
+    pageType: "website",
+    priority: "0.85",
+    changefreq: "monthly",
+    breadcrumbs: crumbs(["AI SEO Growth Guide", "/ai-seo-guide"]),
+    schemaType: "WebPage",
+    ogImageAlt: "CreativeIQ AI SEO Growth Guide",
+  },
+  {
     path: "/services",
     title: "Digital Marketing Services | SEO, Social, CRM | CreativeIQ",
     description:
