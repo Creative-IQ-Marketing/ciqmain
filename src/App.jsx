@@ -188,6 +188,8 @@ function App() {
         </Route>
         <Route path="/newsletter" element={<NewsletterPage />} />
         <Route path="/paymentform" element={<PaymentFormPage />} />
+        <Route path="/carshow" element={<EventRsvpPage />} />
+        <Route path="/showandshine" element={<EventRsvpPage />} />
         <Route path="/lets-connect" element={<EventRsvpPage />} />
         <Route path="/live-music" element={<EventRsvpPage />} />
         <Route path="/business-unplugged" element={<BusinessUnpluggedPage />} />

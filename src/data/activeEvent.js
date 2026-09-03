@@ -1,62 +1,69 @@
-import flyerImg from "../assets/events/lets-connect.jpg";
+import flyerImg from "../assets/events/show-and-shine.jpg";
 
 export const ACTIVE_EVENT = {
-  id: "lets-connect",
-  slug: "lets-connect",
-  name: "Let's Connect",
-  headline: "Let's Connect",
-  featuredLabel: "Live music by",
-  featuredName: "Austin Ausley",
-  schedule: "Wednesday, August 19, 2026",
-  time: "6:30 PM – 9:30 PM",
-  nextDate: "2026-08-19",
-  venue: "Smash'd",
-  address: "520 E Grayson St, San Antonio, TX 78215",
-  addressShort: "520 E Grayson St.",
-  city: "San Antonio, TX 78215",
+  id: "carshow",
+  slug: "carshow",
+  name: "Car Show",
+  headline: "Car Show",
+  featuredLabel: "Presented by",
+  featuredName: "San Antonio Dominion Rotary",
+  schedule: "Saturday, October 10, 2026",
+  time: "8:00 AM – 2:00 PM",
+  nextDate: "2026-10-10",
+  venue: "South Texas Blood & Tissue",
+  address: "6211 I-10 Bldg 2, San Antonio, TX 78201",
+  addressShort: "6211 I-10 Bldg 2",
+  city: "San Antonio, TX 78201",
   blurb:
-    "Join professionals, entrepreneurs, and leaders for an evening of meaningful connections and great conversations.",
-  perks: ["Free entry", "Free parking"],
-  host: "Key Partner Network",
-  tagline: "Connect · Collaborate · Grow",
+    "3rd Annual Dominion Rotary Car Show & Blood Drive. Food trucks, raffle, silent auction, family fun, and awards — free for spectators.",
+  perks: [
+    "Food trucks",
+    "Raffle",
+    "Silent auction",
+    "Family fun",
+    "Awards",
+  ],
+  host: "San Antonio Dominion Rotary",
+  tagline: "Car Show · Blood Drive",
   flyerImg,
   flyerAlt:
-    "Let's Connect by Key Partner Network — Wednesday, August 19, 2026, 6:30–9:30 PM at 520 E Grayson St. Live music by Austin Ausley. Free entry and parking.",
-  mode: "rsvp",
+    "3rd Annual Dominion Rotary Car Show & Blood Drive — Saturday, October 10, 2026, 8:00 AM–2:00 PM at South Texas Blood & Tissue, 6211 I-10 Bldg 2, San Antonio.",
+  mode: "external",
+  rsvpUrl: "https://dominionrotarysatx.com/showandshine",
   theme: {
-    accent: "#d4b37a",
-    accentSoft: "rgba(212, 179, 122, 0.22)",
-    ink: "#070d18",
-    card: "#0c1526",
+    accent: "#c8102e",
+    accentSoft: "rgba(200, 16, 46, 0.18)",
+    ink: "#0a0a0a",
+    card: "#111111",
   },
   seo: {
-    title: "Let's Connect | Key Partner Network — RSVP Free",
+    title: "Car Show | Dominion Rotary — Oct 10",
     description:
-      "RSVP for Let's Connect hosted by Key Partner Network. Wednesday, August 19, 2026, 6:30–9:30 PM at 520 E Grayson St. Live music by Austin Ausley. Free entry and parking.",
+      "RSVP for the 3rd Annual Dominion Rotary Car Show & Blood Drive. Saturday, October 10, 2026, 8:00 AM–2:00 PM at South Texas Blood & Tissue, San Antonio.",
     keywords:
-      "Let's Connect, Key Partner Network, KPN, Austin Ausley, San Antonio networking, Smash'd event, free networking San Antonio",
-    ogImage: "/og-lets-connect.jpg",
+      "Car Show, Dominion Rotary, car show San Antonio, blood drive, South Texas Blood & Tissue, October 10 2026",
+    ogImage: "/og-showandshine.jpg",
     ogImageAlt:
-      "Let's Connect by Key Partner Network featuring live music by Austin Ausley — free entry and parking",
+      "3rd Annual Dominion Rotary Car Show & Blood Drive — October 10, 2026",
   },
   ghl: {
-    apiKey: "pit-51687ebd-2b91-489c-83db-d6b557888694",
-    locationId: "MCSIn1aBVxA85T2Yficb",
+    apiKey: "",
+    locationId: "",
     tags: {
-      RSVP: "lets_connect_rsvp",
-      EVENT: "lets_connect",
-      SOURCE: "lets_connect_website",
+      RSVP: "show_and_shine_rsvp",
+      EVENT: "show_and_shine",
+      SOURCE: "ciqmain_website",
     },
   },
-  aliases: ["live-music", "business-unplugged"],
+  aliases: ["showandshine", "lets-connect", "live-music", "business-unplugged"],
   banner: {
-    eventName: "Let's Connect",
-    mobileSubline: "Aug 19 · KPN · Free",
+    eventName: "Car Show",
+    mobileSubline: "Oct 10 · Blood Drive",
     desktopMessage:
-      "You're invited — Let's Connect by Key Partner Network · Aug 19 · 6:30–9:30 PM · Live music by Austin Ausley · Free entry",
+      "You're invited — Dominion Rotary Car Show · Oct 10 · 8 AM–2 PM · Blood Drive · Free for spectators",
     ctaLabel: "RSVP Now",
     ctaMobileLabel: "RSVP",
-    trackingLabel: "Lets Connect Banner",
+    trackingLabel: "Car Show Banner",
     trackingId: "top_banner_cta",
   },
 };
@@ -65,6 +72,10 @@ export const EVENT_PATH = `/${ACTIVE_EVENT.slug}`;
 
 export function getEventCanonical() {
   return `https://creativeiqmarketing.com/${ACTIVE_EVENT.slug}`;
+}
+
+export function getEventRsvpUrl() {
+  return ACTIVE_EVENT.rsvpUrl || EVENT_PATH;
 }
 
 export function getEventSeo() {

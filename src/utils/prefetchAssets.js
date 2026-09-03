@@ -45,6 +45,8 @@ export function warmRoute(path) {
   } else if (path.startsWith("/ai-seo-guide") || path.startsWith("/guide")) {
     import("../pages/AiSeoGuidePage");
   } else if (
+    path.startsWith("/carshow") ||
+    path.startsWith("/showandshine") ||
     path.startsWith("/lets-connect") ||
     path.startsWith("/live-music") ||
     path.startsWith("/business-unplugged")

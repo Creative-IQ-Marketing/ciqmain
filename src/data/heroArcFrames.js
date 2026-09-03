@@ -55,7 +55,7 @@ export const HERO_ARC_FRAMES = [
     label: "Events",
     type: "image",
     src: eventImage,
-    href: "/lets-connect",
+    href: "https://dominionrotarysatx.com/showandshine",
   },
   {
     id: "brands",

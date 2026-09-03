@@ -218,20 +218,20 @@ export const SEO_PAGES = [
     ogImageAlt: "CreativeIQ Marketing privacy policy",
   },
   {
-    path: "/lets-connect",
-    title: "Let's Connect | Key Partner Network — RSVP Free",
+    path: "/carshow",
+    title: "Car Show | Dominion Rotary — Oct 10",
     description:
-      "RSVP for Let's Connect hosted by Key Partner Network. Wednesday, August 19, 2026, 6:30–9:30 PM at 520 E Grayson St. Live music by Austin Ausley. Free entry and parking.",
+      "RSVP for the 3rd Annual Dominion Rotary Car Show & Blood Drive. Saturday, October 10, 2026, 8:00 AM–2:00 PM at South Texas Blood & Tissue, San Antonio.",
     keywords:
-      "Let's Connect, Key Partner Network, KPN, Austin Ausley, San Antonio networking, Smash'd event, free networking San Antonio",
+      "Car Show, Dominion Rotary, car show San Antonio, blood drive, South Texas Blood & Tissue, October 10 2026",
     pageType: "website",
     priority: "0.95",
     changefreq: "weekly",
-    breadcrumbs: crumbs(["Let's Connect", "/lets-connect"]),
+    breadcrumbs: crumbs(["Car Show", "/carshow"]),
     schemaType: "WebPage",
-    ogImage: `${SITE_URL}/og-lets-connect.jpg`,
+    ogImage: `${SITE_URL}/og-showandshine.jpg`,
     ogImageAlt:
-      "Let's Connect by Key Partner Network featuring live music by Austin Ausley — free entry and parking",
+      "3rd Annual Dominion Rotary Car Show & Blood Drive — October 10, 2026",
   },
   {
     path: "/paymentform",
@@ -256,11 +256,11 @@ export const IMAGE_SITEMAP = [
     images: [{ loc: OG_IMAGE, title: "CreativeIQ Marketing" }],
   },
   {
-    path: "/lets-connect",
+    path: "/carshow",
     images: [
       {
-        loc: `${SITE_URL}/og-lets-connect.jpg`,
-        title: "Let's Connect by Key Partner Network — Austin Ausley",
+        loc: `${SITE_URL}/og-showandshine.jpg`,
+        title: "Dominion Rotary Car Show & Blood Drive",
       },
     ],
   },

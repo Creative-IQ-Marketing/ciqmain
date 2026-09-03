@@ -13,14 +13,14 @@ const distDir = path.join(root, "dist");
 const sourceIndex = path.join(distDir, "index.html");
 
 const EVENT = {
-  slug: "lets-connect",
-  title: "Let's Connect | Key Partner Network — RSVP Free",
+  slug: "carshow",
+  title: "Car Show | Dominion Rotary — Oct 10",
   description:
-    "RSVP for Let's Connect hosted by Key Partner Network. Wednesday, August 19, 2026, 6:30–9:30 PM at 520 E Grayson St. Live music by Austin Ausley. Free entry and parking.",
-  image: "https://creativeiqmarketing.com/og-lets-connect.jpg",
+    "RSVP for the 3rd Annual Dominion Rotary Car Show & Blood Drive. Saturday, October 10, 2026, 8:00 AM–2:00 PM at South Texas Blood & Tissue, San Antonio.",
+  image: "https://creativeiqmarketing.com/og-showandshine.jpg",
   imageAlt:
-    "Let's Connect by Key Partner Network featuring live music by Austin Ausley — free entry and parking",
-  aliases: ["live-music", "business-unplugged"],
+    "3rd Annual Dominion Rotary Car Show & Blood Drive — October 10, 2026",
+  aliases: ["showandshine", "lets-connect", "live-music", "business-unplugged"],
 };
 
 const SEO = {
@@ -82,7 +82,6 @@ function writeShell(slug, seo) {
 }
 
 writeShell(EVENT.slug, SEO);
-// Keep legacy alias shells so old shared links still resolve with correct meta
 for (const alias of EVENT.aliases) {
   writeShell(alias, {
     ...SEO,
