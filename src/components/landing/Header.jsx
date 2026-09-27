@@ -11,6 +11,7 @@ import SiteTopBanner from "../layout/SiteTopBanner";
 import { SITE_TOP_BANNER } from "../../constants/siteBanner";
 import { warmRoute } from "../../utils/prefetchAssets";
 import { Magnetic } from "../signal/primitives";
+import logoLight from "../../assets/brand/logo-light.webp";
 
 const NAV = [
   { label: "Home", href: "/" },
@@ -49,6 +50,7 @@ function useSanAntonioTime() {
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const overlay = useRef(null);
   const tl = useRef(null);
   const last = useRef(0);
@@ -59,6 +61,7 @@ export default function Header() {
   useEffect(() => {
     const onScroll = () => {
       const y = window.scrollY;
+      setScrolled(y > 40);
       setHidden(y > 160 && y > last.current + 2);
       if (y < last.current - 2 || y < 160) setHidden(false);
       last.current = y;
@@ -132,22 +135,27 @@ export default function Header() {
     <>
       <SiteTopBanner onNavigate={handleNav} />
 
-      {/* Blend layer: always legible over light or dark pages. */}
-      <div className={`pointer-events-none fixed inset-x-0 z-[60] mix-blend-difference ${top} ${slide}`}>
-        <div className="s-container flex h-[var(--header-bar-height)] items-center justify-between text-white">
+      <div
+        className={`pointer-events-none fixed inset-x-0 z-[60] ${top} ${slide}`}
+      >
+        <div
+          className={`absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[rgba(6,7,10,0.85)] to-transparent transition-opacity duration-500 ${scrolled && !open ? "opacity-100" : "opacity-0"}`}
+          aria-hidden
+        />
+        <div className="s-container relative flex h-[var(--header-bar-height)] items-center justify-between text-[var(--s-paper)]">
           <a
             href="/"
             onClick={(e) => handleNav(e, "/")}
-            className="pointer-events-auto flex items-baseline gap-2 text-[1.35rem] font-bold tracking-[-0.05em]"
+            className="pointer-events-auto flex items-center gap-3"
             aria-label="CreativeIQ home"
           >
-            C<span className="s-serif -mx-[0.1em] text-[1.5rem] font-normal">i</span>Q
-            <span className="s-label hidden text-[10px] font-normal tracking-[0.14em] opacity-60 sm:inline">
-              CreativeIQ Marketing
+            <img src={logoLight} alt="" width={46} height={44} className="h-11 w-auto" decoding="async" />
+            <span className="hidden text-[1.15rem] font-semibold tracking-[-0.03em] sm:inline">
+              Creative<span className="s-didone text-[1.3rem] text-[var(--s-signal)]">IQ</span>
             </span>
           </a>
-          <span className="s-label hidden text-[10px] opacity-60 lg:inline">
-            SATX {time} — Accepting projects
+          <span className="s-label hidden text-[10px] text-[var(--s-paper-ghost)] lg:inline">
+            San Antonio {time} — Accepting projects
           </span>
           <span className="w-[9.5rem] sm:w-[16rem]" />
         </div>
@@ -161,7 +169,7 @@ export default function Header() {
               trackButtonClick("Book a call", "header_cta", "Header");
               handleNav(e, "/book");
             }}
-            className={`hidden h-10 items-center rounded-full bg-[var(--s-signal)] px-5 text-[13px] font-semibold text-white transition hover:bg-[var(--s-signal-hot)] sm:inline-flex ${open ? "opacity-0" : ""}`}
+            className={`hidden h-10 items-center rounded-full bg-[var(--s-signal)] px-5 text-[13px] font-semibold text-[var(--s-ink)] transition hover:bg-[var(--s-signal-hot)] sm:inline-flex ${open ? "opacity-0" : ""}`}
           >
             Book a call
           </a>

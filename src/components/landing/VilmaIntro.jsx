@@ -140,7 +140,7 @@ export default function VilmaIntro() {
               onClick={() =>
                 trackButtonClick("About Vilma", "vilma_intro_cta", "VilmaIntro")
               }
-              className="mt-4 inline-flex items-center gap-2 font-sans text-sm font-semibold text-[var(--c-accent)] transition hover:text-[#2f5fd9]"
+              className="mt-4 inline-flex items-center gap-2 font-sans text-sm font-semibold text-[var(--c-accent)] transition hover:text-[#8a5252]"
             >
               About Vilma
               <ArrowUpRight className="size-4" strokeWidth={1.75} aria-hidden />

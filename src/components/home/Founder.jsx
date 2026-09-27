@@ -4,7 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { Eyebrow, SignalButton } from "../signal/primitives";
 import { trackButtonClick } from "../../services/analytics";
-import vilma from "../../assets/vilma/vilma-creative.webp";
+import vilma from "../../assets/vilma/vilma-bw-work-xl.webp";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -54,7 +54,7 @@ export default function Founder() {
           <img
             src={vilma}
             alt="Vilma Tovar, Founder and CEO of CreativeIQ"
-            className="h-full w-full object-cover object-[center_20%]"
+            className="h-full w-full object-cover object-[58%_30%]"
             loading="lazy"
             decoding="async"
           />
@@ -112,7 +112,7 @@ export default function Founder() {
               <li
                 key={t}
                 data-principle
-                className="group grid grid-cols-[3rem_1fr] gap-4 border-t border-[var(--s-line)] py-7 transition-colors duration-500 last:border-b hover:bg-[rgba(77,124,255,0.05)] sm:grid-cols-[4rem_1fr_1.3fr] sm:gap-6"
+                className="group grid grid-cols-[3rem_1fr] gap-4 border-t border-[var(--s-line)] py-7 transition-colors duration-500 last:border-b hover:bg-[rgba(201,139,135,0.05)] sm:grid-cols-[4rem_1fr_1.3fr] sm:gap-6"
               >
                 <span className="s-mono pt-1 text-[12px] text-[var(--s-signal)]">0{i + 1}</span>
                 <p className="text-[clamp(1.3rem,2vw,1.75rem)] font-semibold tracking-[-0.035em] text-[var(--s-paper)] transition-transform duration-500 group-hover:translate-x-2">

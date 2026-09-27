@@ -175,7 +175,7 @@ function PackagePanel({ pkg }) {
                   "SocialMediaPackages",
                 )
               }
-              className="rounded-[var(--radius-pill)] bg-[var(--c-accent)] px-2.5 py-1 font-sans text-[10px] font-semibold text-white shadow-sm transition hover:bg-[#2f5fd9]"
+              className="rounded-[var(--radius-pill)] bg-[var(--c-accent)] px-2.5 py-1 font-sans text-[10px] font-semibold text-white shadow-sm transition hover:bg-[#8a5252]"
             >
               30-day free trial →
             </Link>

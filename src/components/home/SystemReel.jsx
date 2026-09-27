@@ -189,7 +189,6 @@ export default function SystemReel() {
             <button
               type="button"
               onClick={() => go(s.contactValue)}
-              data-cursor="Start here"
               className="group relative block aspect-[4/3] w-full overflow-hidden rounded-[20px] sm:aspect-[16/10] lg:aspect-auto lg:h-[64vh] lg:w-[48%] lg:shrink-0"
               aria-label={`Start with ${s.title}`}
             >

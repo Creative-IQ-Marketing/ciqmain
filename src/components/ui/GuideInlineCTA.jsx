@@ -28,7 +28,7 @@ export default function GuideInlineCTA({ source = "inline_cta" }) {
       <button
         type="button"
         onClick={() => triggerDownload(source)}
-        className="inline-flex shrink-0 items-center gap-1.5 font-sans text-sm font-semibold text-[var(--c-accent)] transition hover:text-[#2f5fd9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)]"
+        className="inline-flex shrink-0 items-center gap-1.5 font-sans text-sm font-semibold text-[var(--c-accent)] transition hover:text-[#8a5252] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)]"
       >
         <Download size={14} strokeWidth={2} aria-hidden />
         Download

@@ -88,7 +88,7 @@ export default function About() {
               onClick={() =>
                 trackButtonClick("About Audit CTA", "about_audit_cta", "About")
               }
-              className="inline-flex items-center gap-1.5 font-sans text-[15px] font-medium text-[var(--c-accent)] transition hover:text-[#2f5ad4] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)]"
+              className="inline-flex items-center gap-1.5 font-sans text-[15px] font-medium text-[var(--c-accent)] transition hover:text-[#8a5252] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)]"
             >
               Free AI SEO audit
               <ArrowUpRight size={14} strokeWidth={1.75} aria-hidden />

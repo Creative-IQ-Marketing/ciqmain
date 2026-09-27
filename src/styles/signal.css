@@ -14,12 +14,14 @@
   --s-paper-ghost: rgba(241, 240, 235, 0.36);
   --s-line: rgba(241, 240, 235, 0.1);
   --s-line-strong: rgba(241, 240, 235, 0.2);
-  --s-signal: #4d7cff;
-  --s-signal-hot: #7ea2ff;
-  --s-signal-glow: rgba(77, 124, 255, 0.35);
+  /* Rose sampled from the logo ring (#a46464), lifted for contrast on ink. */
+  --s-signal: #c98b87;
+  --s-signal-hot: #e6b7b1;
+  --s-signal-deep: #a46464;
+  --s-signal-glow: rgba(201, 139, 135, 0.3);
 
   --f-display: "Inter Tight", system-ui, sans-serif;
-  --f-serif: "Instrument Serif", Georgia, serif;
+  --f-serif: "Bodoni Moda", "Instrument Serif", Georgia, serif;
   --f-mono: "JetBrains Mono", ui-monospace, monospace;
 
   --ease-signal: cubic-bezier(0.19, 1, 0.22, 1);
@@ -42,7 +44,7 @@ html.lenis body {
 
 ::selection {
   background: var(--s-signal);
-  color: #fff;
+  color: var(--s-ink);
 }
 
 .s-dark {
@@ -54,7 +56,14 @@ html.lenis body {
   font-family: var(--f-serif);
   font-weight: 400;
   font-style: italic;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
+  font-optical-sizing: auto;
+}
+.s-didone {
+  font-family: var(--f-serif);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: -0.02em;
 }
 
 .s-mono {
@@ -123,62 +132,57 @@ html.lenis body {
   100% { transform: translate(0, 0); }
 }
 
-/* ── Cursor ───────────────────────────────────────────────── */
-.s-cursor {
+/* ── Cursor: a point and an orbit ────────────────────────── */
+.s-cursor-dot,
+.s-cursor-ring {
   position: fixed;
   top: 0;
   left: 0;
   z-index: 200;
   pointer-events: none;
-  mix-blend-mode: difference;
-}
-.s-cursor__dot {
-  width: 10px;
-  height: 10px;
-  margin: -5px 0 0 -5px;
   border-radius: 999px;
-  background: #fff;
-  transition:
-    width 0.45s var(--ease-signal),
-    height 0.45s var(--ease-signal),
-    margin 0.45s var(--ease-signal);
+  opacity: 0;
 }
-.s-cursor[data-state="link"] .s-cursor__dot {
-  width: 64px;
-  height: 64px;
-  margin: -32px 0 0 -32px;
-}
-.s-cursor[data-state="label"] {
-  mix-blend-mode: normal;
-}
-.s-cursor[data-state="label"] .s-cursor__dot {
-  width: 104px;
-  height: 104px;
-  margin: -52px 0 0 -52px;
+.s-cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
   background: var(--s-signal);
 }
-.s-cursor__label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform: translate(-50%, -50%) scale(0.4);
-  opacity: 0;
-  color: #fff;
-  font-family: var(--f-mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  transition:
-    opacity 0.3s,
-    transform 0.45s var(--ease-signal);
+.s-cursor-ring {
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border: 1px solid rgba(201, 139, 135, 0.55);
 }
-.s-cursor[data-state="label"] .s-cursor__label {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
+.s-cursor-ring__inner {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  transition:
+    transform 0.5s var(--ease-signal),
+    background-color 0.4s,
+    border-color 0.4s;
+}
+.s-cursor-ring[data-state="link"] .s-cursor-ring__inner {
+  transform: scale(1.55);
+  background-color: rgba(201, 139, 135, 0.1);
+}
+.s-cursor-ring[data-state="hide"] .s-cursor-ring__inner {
+  transform: scale(0);
+}
+.s-cursor-ring[data-down="1"] .s-cursor-ring__inner {
+  transform: scale(0.7);
+}
+.s-cursor-ring {
+  border: 0;
+}
+.s-cursor-ring__inner {
+  border: 1px solid rgba(201, 139, 135, 0.55);
 }
 @media (hover: none), (pointer: coarse) {
-  .s-cursor {
+  .s-cursor-dot,
+  .s-cursor-ring {
     display: none;
   }
 }
@@ -215,7 +219,7 @@ html.lenis body {
 }
 .s-btn--signal {
   background: var(--s-signal);
-  color: #fff;
+  color: var(--s-ink);
 }
 .s-btn--signal::before {
   background: var(--s-paper);
@@ -292,7 +296,7 @@ html.lenis body {
   width: 7px;
   height: 7px;
   border-radius: 999px;
-  background: #3ddc84;
+  background: var(--s-signal);
 }
 .s-pulse-dot::after {
   content: "";

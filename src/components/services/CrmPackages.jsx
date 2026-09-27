@@ -121,7 +121,7 @@ export default function CrmPackages() {
           </div>
           <Link
             to="/services/what-is-crm"
-            className="inline-flex shrink-0 items-center gap-2 self-start border-b border-[var(--c-accent)] pb-1 font-sans text-sm font-semibold text-[var(--c-accent)] transition hover:text-[#2f5fd9] lg:self-end"
+            className="inline-flex shrink-0 items-center gap-2 self-start border-b border-[var(--c-accent)] pb-1 font-sans text-sm font-semibold text-[var(--c-accent)] transition hover:text-[#8a5252] lg:self-end"
           >
             What is CRM?
             <ArrowUpRight className="size-4" strokeWidth={1.75} aria-hidden />
@@ -146,7 +146,7 @@ export default function CrmPackages() {
                   onClick={() => setActiveId(pkg.id)}
                   className={`relative flex flex-1 flex-col items-start border-b border-[var(--c-border)] cursor-pointer px-7 py-7 text-left transition last:border-b-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--c-accent)] ${
                     selected
-                      ? "bg-[var(--c-ink)] text-white shadow-[inset_0_0_0_1px_rgba(59,111,240,0.35)]"
+                      ? "bg-[var(--c-ink)] text-white shadow-[inset_0_0_0_1px_rgba(164, 100, 100,0.35)]"
                       : "bg-transparent text-[var(--c-ink)] hover:bg-white"
                   }`}
                 >

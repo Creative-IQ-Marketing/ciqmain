@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import logoLight from "../../assets/brand/logo-light.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -39,60 +40,71 @@ export function SmoothScroll() {
 }
 
 /**
- * Blend-mode cursor. Any element with data-cursor="Label" turns it into a
- * signal disc with that label; links and buttons swell it.
+ * A rose point with a lagging hairline orbit. The orbit swells over links,
+ * tightens on press, and steps aside over [data-cursor="hide"] areas (the
+ * hero, where the stars themselves answer the pointer).
  */
 export function Cursor() {
-  const ref = useRef(null);
-  const [label, setLabel] = useState("");
+  const dot = useRef(null);
+  const ring = useRef(null);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el || window.matchMedia("(pointer: coarse)").matches) return undefined;
-    const xTo = gsap.quickTo(el, "x", { duration: 0.45, ease: "power3" });
-    const yTo = gsap.quickTo(el, "y", { duration: 0.45, ease: "power3" });
-
-    gsap.set(el, { autoAlpha: 0 });
+    const d = dot.current;
+    const r = ring.current;
+    if (!d || !r || window.matchMedia("(pointer: coarse)").matches) return undefined;
+    const dx = gsap.quickTo(d, "x", { duration: 0.08 });
+    const dy = gsap.quickTo(d, "y", { duration: 0.08 });
+    const rx = gsap.quickTo(r, "x", { duration: 0.5, ease: "power3" });
+    const ry = gsap.quickTo(r, "y", { duration: 0.5, ease: "power3" });
     let seen = false;
+
     const move = (e) => {
       if (!seen) {
         seen = true;
-        gsap.set(el, { x: e.clientX, y: e.clientY });
-        gsap.to(el, { autoAlpha: 1, duration: 0.3 });
+        gsap.set([d, r], { x: e.clientX, y: e.clientY });
+        gsap.to([d, r], { opacity: 1, duration: 0.4 });
       }
-      xTo(e.clientX);
-      yTo(e.clientY);
+      dx(e.clientX);
+      dy(e.clientY);
+      rx(e.clientX);
+      ry(e.clientY);
     };
     const over = (e) => {
-      const labelled = e.target.closest?.("[data-cursor]");
-      if (labelled) {
-        el.dataset.state = "label";
-        setLabel(labelled.dataset.cursor);
+      if (e.target.closest?.('[data-cursor="hide"]') && !e.target.closest?.("a, button")) {
+        r.dataset.state = "hide";
         return;
       }
-      const link = e.target.closest?.("a, button, [role='button'], input, select, textarea, label");
-      el.dataset.state = link ? "link" : "";
+      const link = e.target.closest?.("a, button, [role='button'], select, label, input[type='checkbox']");
+      r.dataset.state = link ? "link" : "";
     };
-    const leave = () => gsap.to(el, { autoAlpha: 0, duration: 0.2 });
-    const enter = () => gsap.to(el, { autoAlpha: 1, duration: 0.2 });
+    const down = () => (r.dataset.down = "1");
+    const up = () => (r.dataset.down = "");
+    const leave = () => gsap.to([d, r], { opacity: 0, duration: 0.2 });
+    const enter = () => seen && gsap.to([d, r], { opacity: 1, duration: 0.2 });
 
     window.addEventListener("pointermove", move, { passive: true });
     document.addEventListener("pointerover", over, { passive: true });
+    window.addEventListener("pointerdown", down);
+    window.addEventListener("pointerup", up);
     document.documentElement.addEventListener("pointerleave", leave);
     document.documentElement.addEventListener("pointerenter", enter);
     return () => {
       window.removeEventListener("pointermove", move);
       document.removeEventListener("pointerover", over);
+      window.removeEventListener("pointerdown", down);
+      window.removeEventListener("pointerup", up);
       document.documentElement.removeEventListener("pointerleave", leave);
       document.documentElement.removeEventListener("pointerenter", enter);
     };
   }, []);
 
   return (
-    <div ref={ref} className="s-cursor" aria-hidden>
-      <div className="s-cursor__dot" />
-      <span className="s-cursor__label">{label}</span>
-    </div>
+    <>
+      <div ref={ring} className="s-cursor-ring" aria-hidden>
+        <div className="s-cursor-ring__inner" />
+      </div>
+      <div ref={dot} className="s-cursor-dot" aria-hidden />
+    </>
   );
 }
 
@@ -214,9 +226,7 @@ export function RouteCurtain() {
       style={{ clipPath: "inset(0% 0% 100% 0%)" }}
       aria-hidden
     >
-      <span className="s-display text-[clamp(3rem,10vw,9rem)] text-white">
-        C<span className="s-serif">i</span>Q
-      </span>
+      <img src={logoLight} alt="" className="h-[clamp(7rem,16vw,12rem)] w-auto brightness-0" />
     </div>
   );
 }

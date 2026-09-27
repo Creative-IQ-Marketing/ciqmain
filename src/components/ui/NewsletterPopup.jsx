@@ -70,10 +70,10 @@ export default function NewsletterPopup() {
             </button>
 
             <div className="border-b border-slate-100 px-8 pb-6 pt-10">
-              <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-[#3B6FF0]/10">
-                <Mail className="h-5 w-5 text-[#3B6FF0]" />
+              <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-[#a46464]/10">
+                <Mail className="h-5 w-5 text-[#a46464]" />
               </div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3B6FF0]">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#a46464]">
                 Newsletter
               </p>
               <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-900">
@@ -97,7 +97,7 @@ export default function NewsletterPopup() {
                   <button
                     type="button"
                     onClick={handleClose}
-                    className="mt-5 text-sm font-medium text-[#3B6FF0] hover:underline"
+                    className="mt-5 text-sm font-medium text-[#a46464] hover:underline"
                   >
                     Close
                   </button>
@@ -115,7 +115,7 @@ export default function NewsletterPopup() {
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="you@company.com"
                       required
-                      className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#3B6FF0] focus:ring-2 focus:ring-[#3B6FF0]/10"
+                      className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#a46464] focus:ring-2 focus:ring-[#a46464]/10"
                     />
                   </div>
                   {error && (
@@ -124,7 +124,7 @@ export default function NewsletterPopup() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="h-12 w-full rounded-xl bg-[#3B6FF0] text-sm font-semibold text-white transition hover:bg-[#2f5ad4] disabled:opacity-60"
+                    className="h-12 w-full rounded-xl bg-[#a46464] text-sm font-semibold text-white transition hover:bg-[#8a5252] disabled:opacity-60"
                   >
                     {loading ? "Subscribing…" : "Subscribe"}
                   </button>
