@@ -160,7 +160,7 @@ export default function AboutVilmaPage() {
             </p>
           </div>
 
-          <h1 data-cover-name className="s-container mt-auto pb-8 leading-[0.82]">
+          <h1 data-cover-name className="s-container mt-auto pb-[calc(var(--site-mobile-banner-height)+1.5rem)] leading-[0.82] lg:pb-8">
             <span className="s-word-mask">
               <span className="s-word s-display block text-[clamp(5rem,19vw,19rem)] text-[var(--s-paper)]">Vilma</span>
             </span>

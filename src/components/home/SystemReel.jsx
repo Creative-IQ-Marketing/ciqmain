@@ -60,6 +60,34 @@ const STAGES = [
   },
 ];
 
+/** Card leans toward the pointer in 3D. */
+function useTilt() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || window.matchMedia("(pointer: coarse), (prefers-reduced-motion: reduce)").matches) return undefined;
+    const rx = gsap.quickTo(el, "rotationX", { duration: 0.8, ease: "power3" });
+    const ry = gsap.quickTo(el, "rotationY", { duration: 0.8, ease: "power3" });
+    gsap.set(el, { transformPerspective: 1100 });
+    const move = (e) => {
+      const r = el.getBoundingClientRect();
+      ry(((e.clientX - r.left) / r.width - 0.5) * 9);
+      rx(-((e.clientY - r.top) / r.height - 0.5) * 7);
+    };
+    const leave = () => {
+      rx(0);
+      ry(0);
+    };
+    el.addEventListener("pointermove", move);
+    el.addEventListener("pointerleave", leave);
+    return () => {
+      el.removeEventListener("pointermove", move);
+      el.removeEventListener("pointerleave", leave);
+    };
+  }, []);
+  return ref;
+}
+
 function StageVideo({ src, poster }) {
   const ref = useRef(null);
   useEffect(() => {
@@ -90,6 +118,15 @@ function StageVideo({ src, poster }) {
       className="h-full w-full scale-[1.15] object-cover"
       data-parallax
     />
+  );
+}
+
+function TiltButton({ children, ...props }) {
+  const ref = useTilt();
+  return (
+    <button ref={ref} type="button" {...props}>
+      {children}
+    </button>
   );
 }
 
@@ -186,14 +223,15 @@ export default function SystemReel() {
             data-stage
             className="s-container relative shrink-0 lg:flex lg:h-full lg:w-[76vw] lg:items-center lg:gap-[3.5vw] lg:px-[3vw] xl:w-[70vw]"
           >
-            <button
-              type="button"
+            <TiltButton
               onClick={() => go(s.contactValue)}
               className="group relative block aspect-[4/3] w-full overflow-hidden rounded-[20px] sm:aspect-[16/10] lg:aspect-auto lg:h-[64vh] lg:w-[48%] lg:shrink-0"
               aria-label={`Start with ${s.title}`}
             >
-              <div data-clip className="absolute inset-0 overflow-hidden" style={{ clipPath: "inset(0% 0% 0% 0% round 20px)" }}>
+              <div data-clip className="s-stage-media absolute inset-0 overflow-hidden" style={{ clipPath: "inset(0% 0% 0% 0% round 20px)" }}>
                 <StageVideo src={s.video} poster={s.poster} />
+                <div className="s-stage-media__tint" />
+                <div className="s-stage-media__sheen" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
               </div>
               <span className="s-label absolute left-5 top-5 text-white/80">Stage {String(i + 1).padStart(2, "0")} / 04</span>
@@ -204,7 +242,7 @@ export default function SystemReel() {
                   </span>
                 ))}
               </span>
-            </button>
+            </TiltButton>
 
             <div className="mt-8 lg:mt-0 lg:flex-1">
               <p className="s-mono text-[clamp(5rem,12vw,13rem)] leading-[0.8] text-transparent [-webkit-text-stroke:1px_rgba(241,240,235,0.18)]">

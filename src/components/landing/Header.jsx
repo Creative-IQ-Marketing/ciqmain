@@ -12,6 +12,7 @@ import { SITE_TOP_BANNER } from "../../constants/siteBanner";
 import { warmRoute } from "../../utils/prefetchAssets";
 import { Magnetic } from "../signal/primitives";
 import logoLight from "../../assets/brand/logo-light.webp";
+import { sound, installSoundHooks } from "../signal/sound";
 
 const NAV = [
   { label: "Home", href: "/" },
@@ -57,6 +58,12 @@ export default function Header() {
   const navigate = useNavigate();
   const location = useLocation();
   const time = useSanAntonioTime();
+  const [soundOn, setSoundOn] = useState(false);
+
+  useEffect(() => {
+    setSoundOn(sound.enabled);
+    return installSoundHooks();
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -163,6 +170,27 @@ export default function Header() {
 
       <header className={`fixed inset-x-0 z-[70] ${top} ${slide}`}>
         <div className="s-container flex h-[var(--header-bar-height)] items-center justify-end gap-2">
+          <button
+            type="button"
+            onClick={() => {
+              sound.set(!soundOn);
+              setSoundOn(!soundOn);
+            }}
+            aria-pressed={soundOn}
+            aria-label={soundOn ? "Turn interface sound off" : "Turn interface sound on"}
+            className="s-label hidden h-10 items-center gap-2 px-3 text-[10px] text-[var(--s-paper-dim)] transition hover:text-[var(--s-paper)] md:inline-flex"
+          >
+            <span className="flex h-3 items-end gap-[2px]" aria-hidden>
+              {[5, 9, 6, 11].map((h, i) => (
+                <span
+                  key={i}
+                  className={`w-[2px] bg-current ${soundOn ? "animate-[s-eq_0.9s_ease-in-out_infinite]" : ""}`}
+                  style={{ height: soundOn ? h : 2, animationDelay: `${i * 0.12}s` }}
+                />
+              ))}
+            </span>
+            Sound {soundOn ? "on" : "off"}
+          </button>
           <a
             href="/book"
             onClick={(e) => {
