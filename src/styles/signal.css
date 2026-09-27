@@ -360,11 +360,6 @@ html.lenis body {
   letter-spacing: -0.045em;
 }
 
-@keyframes s-eq {
-  0%, 100% { transform: scaleY(0.4); }
-  50% { transform: scaleY(1); }
-}
-
 /* ── Stage media: one graded set — rose duotone, colour on hover ── */
 .s-stage-media {
   position: relative;

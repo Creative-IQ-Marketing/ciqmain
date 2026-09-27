@@ -12,7 +12,6 @@ import { SITE_TOP_BANNER } from "../../constants/siteBanner";
 import { warmRoute } from "../../utils/prefetchAssets";
 import { Magnetic } from "../signal/primitives";
 import logoLight from "../../assets/brand/logo-light.webp";
-import { sound, installSoundHooks } from "../signal/sound";
 
 const NAV = [
   { label: "Home", href: "/" },
@@ -58,12 +57,7 @@ export default function Header() {
   const navigate = useNavigate();
   const location = useLocation();
   const time = useSanAntonioTime();
-  const [soundOn, setSoundOn] = useState(false);
 
-  useEffect(() => {
-    setSoundOn(sound.enabled);
-    return installSoundHooks();
-  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -145,6 +139,11 @@ export default function Header() {
       scrollToHashFromHref(href, location.pathname, navigate);
       return;
     }
+    if (href === location.pathname) {
+      if (window.__lenis) window.__lenis.scrollTo(0, { duration: 1.6 });
+      else window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
     warmRoute(href);
     navigate(href);
   };
@@ -181,36 +180,15 @@ export default function Header() {
         </div>
       </div>
 
-      <header className={`fixed inset-x-0 z-[70] ${top} ${slide}`}>
+      <header className={`pointer-events-none fixed inset-x-0 z-[70] ${top} ${slide}`}>
         <div className="s-container flex h-[var(--header-bar-height)] items-center justify-end gap-2">
-          <button
-            type="button"
-            onClick={() => {
-              sound.set(!soundOn);
-              setSoundOn(!soundOn);
-            }}
-            aria-pressed={soundOn}
-            aria-label={soundOn ? "Turn interface sound off" : "Turn interface sound on"}
-            className="s-label hidden h-10 items-center gap-2 px-3 text-[10px] text-[var(--s-paper-dim)] transition hover:text-[var(--s-paper)] md:inline-flex"
-          >
-            <span className="flex h-3 items-end gap-[2px]" aria-hidden>
-              {[5, 9, 6, 11].map((h, i) => (
-                <span
-                  key={i}
-                  className={`w-[2px] bg-current ${soundOn ? "animate-[s-eq_0.9s_ease-in-out_infinite]" : ""}`}
-                  style={{ height: soundOn ? h : 2, animationDelay: `${i * 0.12}s` }}
-                />
-              ))}
-            </span>
-            Sound {soundOn ? "on" : "off"}
-          </button>
           <a
             href="/book"
             onClick={(e) => {
               trackButtonClick("Book a call", "header_cta", "Header");
               handleNav(e, "/book");
             }}
-            className={`hidden h-10 items-center rounded-full bg-[var(--s-signal-deep)] px-5 text-[13px] font-semibold text-white transition hover:bg-[var(--s-signal)] sm:inline-flex ${open ? "opacity-0" : ""}`}
+            className={`pointer-events-auto hidden h-10 items-center rounded-full bg-[var(--s-signal-deep)] px-5 text-[13px] font-semibold text-white transition hover:bg-[var(--s-signal)] sm:inline-flex ${open ? "pointer-events-none opacity-0" : ""}`}
           >
             Book a call
           </a>
@@ -221,7 +199,7 @@ export default function Header() {
               aria-expanded={open}
               aria-controls="site-menu"
               aria-label={open ? "Close menu" : "Open menu"}
-              className="group flex h-10 items-center gap-3 rounded-full bg-[var(--s-paper)] pl-4 pr-3 text-[13px] font-semibold text-[var(--s-ink)] shadow-[0_8px_30px_-10px_rgba(0,0,0,0.4)]"
+              className="pointer-events-auto group flex h-10 items-center gap-3 rounded-full bg-[var(--s-paper)] pl-4 pr-3 text-[13px] font-semibold text-[var(--s-ink)] shadow-[0_8px_30px_-10px_rgba(0,0,0,0.4)]"
             >
               <span className="s-btn__roll">
                 <span className={open ? "-translate-y-full" : ""}>Menu</span>

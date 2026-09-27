@@ -123,7 +123,7 @@ export default function Proof() {
                 <span data-num={s.value} data-dec={s.decimals}>
                   {s.value.toFixed(s.decimals)}
                 </span>
-                <span className="s-serif mt-[0.08em] text-[0.5em] text-[var(--s-signal)]">{s.suffix}</span>
+                <span className="ml-1 mt-[0.06em] text-[0.42em] font-semibold tracking-normal text-[var(--s-signal)]">{s.suffix}</span>
               </p>
               <p className="mt-5 text-[15px] font-semibold text-[var(--s-paper)]">{s.label}</p>
               <p className="s-mono mt-1 text-[11px] text-[var(--s-paper-ghost)]">{s.note}</p>
@@ -143,9 +143,9 @@ export default function Proof() {
               key={t.n}
               className="flex w-[82vw] shrink-0 flex-col justify-between rounded-[22px] border border-[var(--s-line)] bg-[var(--s-ink-2)] p-7 sm:w-[30rem] lg:p-9"
             >
-              <p className="s-serif text-[4rem] leading-[0.5] text-[var(--s-signal)]" aria-hidden>
-                &ldquo;
-              </p>
+              <svg width="34" height="26" viewBox="0 0 34 26" fill="var(--s-signal)" aria-hidden>
+                <path d="M0 26V15.6C0 6.9 4.6 1.7 13.2 0l1.6 3.4C9.9 4.9 7.6 7.8 7.4 12H14v14H0Zm19.2 0V15.6C19.2 6.9 23.8 1.7 32.4 0L34 3.4c-4.9 1.5-7.2 4.4-7.4 8.6h6.6v14h-14Z" />
+              </svg>
               <blockquote className="mt-4 text-[clamp(1.25rem,1.9vw,1.7rem)] font-medium leading-[1.2] tracking-[-0.03em] text-[var(--s-paper)]">
                 {t.q}
               </blockquote>
