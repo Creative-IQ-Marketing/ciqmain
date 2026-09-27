@@ -72,11 +72,11 @@ export default function HeroSignal() {
     <section
       ref={root}
       className="s-dark relative flex h-[100svh] min-h-[640px] flex-col overflow-hidden"
-      aria-label="CreativeIQ — built to rank, designed to convert"
+      aria-label="CreativeIQ — built to rank, made to convert"
     >
       <div
         className="pointer-events-none absolute right-[-10%] top-[5%] h-[70vmax] w-[70vmax] rounded-full opacity-50 blur-[140px]"
-        style={{ background: "radial-gradient(circle, rgba(164,100,100,0.22), transparent 62%)" }}
+        style={{ background: "radial-gradient(circle, rgba(59, 111, 240,0.22), transparent 62%)" }}
         aria-hidden
       />
       <div className="absolute inset-0" data-cursor="hide">
@@ -88,19 +88,6 @@ export default function HeroSignal() {
         aria-hidden
       />
       <div data-hero-copy className="pointer-events-none relative z-10 flex flex-1 flex-col pt-[calc(var(--hero-header-offset)+1.5rem)]">
-        <div className="s-container flex items-start justify-between" data-hero-fade>
-          <p className="s-label text-[var(--s-paper-ghost)]">
-            AI-era growth studio
-            <br />
-            <span className="text-[var(--s-paper-dim)]">San Antonio, TX — 29.42°N 98.49°W</span>
-          </p>
-          <p className="s-label hidden text-right text-[var(--s-paper-ghost)] md:block">
-            SEO · GEO · Social
-            <br />
-            Web · CRM · Content
-          </p>
-        </div>
-
         <div className="s-container mt-auto grid items-end gap-8 pb-8 lg:grid-cols-[1fr_auto] lg:pb-12">
           <div>
             <h1 className="s-display text-[clamp(3.2rem,8.4vw,10.5rem)] text-[var(--s-paper)]">
@@ -113,8 +100,8 @@ export default function HeroSignal() {
               </span>
             </h1>
             <p data-hero-fade className="mt-6 max-w-[34rem] text-[clamp(1rem,1.3vw,1.15rem)] leading-relaxed text-[var(--s-paper-dim)]">
-              Your customers stopped scrolling results. They ask machines who to trust.
-              We build the SEO, sites, content and CRM that make the answer <em className="s-serif text-[var(--s-paper)] text-[1.15em]">you</em>.
+              Responsive websites, complete CRM systems, SEO and social — built by one team
+              and wired together, so attention turns into <em className="s-serif text-[var(--s-paper)] text-[1.15em]">booked</em> business.
             </p>
             <div data-hero-fade className="pointer-events-auto mt-8 flex flex-wrap gap-3">
               <SignalButton
@@ -133,9 +120,9 @@ export default function HeroSignal() {
             </div>
           </div>
           <div data-hero-fade className="hidden max-w-[15rem] text-right lg:block">
-            <p className="s-label text-[var(--s-paper-ghost)]">Found on</p>
+            <p className="s-label text-[var(--s-paper-ghost)]">One team for</p>
             <p className="s-didone mt-2 text-[1.35rem] leading-snug text-[var(--s-paper-dim)]">
-              Google, ChatGPT, Gemini <span className="s-serif text-[var(--s-signal)]">&amp;</span> Perplexity
+              Web, CRM, SEO <span className="s-serif text-[var(--s-signal)]">&amp;</span> Social
             </p>
           </div>
         </div>

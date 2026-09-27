@@ -14,11 +14,11 @@
   --s-paper-ghost: rgba(241, 240, 235, 0.36);
   --s-line: rgba(241, 240, 235, 0.1);
   --s-line-strong: rgba(241, 240, 235, 0.2);
-  /* Rose sampled from the logo ring (#a46464), lifted for contrast on ink. */
-  --s-signal: #c98b87;
-  --s-signal-hot: #e6b7b1;
-  --s-signal-deep: #a46464;
-  --s-signal-glow: rgba(201, 139, 135, 0.3);
+  /* CreativeIQ brand blue (#3b6ff0), lifted a step for contrast on ink. */
+  --s-signal: #5b86ff;
+  --s-signal-hot: #8eabff;
+  --s-signal-deep: #3b6ff0;
+  --s-signal-glow: rgba(91, 134, 255, 0.3);
 
   --f-display: "Inter Tight", system-ui, sans-serif;
   --f-serif: "Bodoni Moda", "Instrument Serif", Georgia, serif;
@@ -43,8 +43,8 @@ html.lenis body {
 }
 
 ::selection {
-  background: var(--s-signal);
-  color: var(--s-ink);
+  background: var(--s-signal-deep);
+  color: #fff;
 }
 
 .s-dark {
@@ -153,7 +153,7 @@ html.lenis body {
   width: 36px;
   height: 36px;
   margin: -18px 0 0 -18px;
-  border: 1px solid rgba(201, 139, 135, 0.55);
+  border: 1px solid rgba(91, 134, 255, 0.55);
 }
 .s-cursor-ring__inner {
   position: absolute;
@@ -166,7 +166,7 @@ html.lenis body {
 }
 .s-cursor-ring[data-state="link"] .s-cursor-ring__inner {
   transform: scale(1.55);
-  background-color: rgba(201, 139, 135, 0.1);
+  background-color: rgba(91, 134, 255, 0.1);
 }
 .s-cursor-ring[data-state="hide"] .s-cursor-ring__inner {
   transform: scale(0);
@@ -178,7 +178,7 @@ html.lenis body {
   border: 0;
 }
 .s-cursor-ring__inner {
-  border: 1px solid rgba(201, 139, 135, 0.55);
+  border: 1px solid rgba(91, 134, 255, 0.55);
 }
 @media (hover: none), (pointer: coarse) {
   .s-cursor-dot,
@@ -218,8 +218,8 @@ html.lenis body {
   transform: translateY(0);
 }
 .s-btn--signal {
-  background: var(--s-signal);
-  color: var(--s-ink);
+  background: var(--s-signal-deep);
+  color: #fff;
 }
 .s-btn--signal::before {
   background: var(--s-paper);
@@ -377,7 +377,7 @@ html.lenis body {
 .s-stage-media__tint {
   position: absolute;
   inset: 0;
-  background: linear-gradient(160deg, rgba(164, 100, 100, 0.55), rgba(6, 7, 10, 0.2) 60%);
+  background: linear-gradient(160deg, rgba(59, 111, 240, 0.55), rgba(6, 7, 10, 0.2) 60%);
   mix-blend-mode: color;
   transition: opacity 0.9s var(--ease-signal);
 }

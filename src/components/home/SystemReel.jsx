@@ -21,29 +21,19 @@ const STAGES = [
   {
     id: "sem",
     verb: "Found",
-    title: "Search Engine Marketing",
-    body: "Technical SEO, AI-search readiness and paid search wired to analytics — so buyers already looking can find you, and machines can cite you.",
-    tags: ["Technical SEO", "GEO / AI search", "Schema", "Google Ads"],
+    title: "SEO & Search Marketing",
+    body: "Technical SEO, local search, Google Business and paid search wired to analytics — so the buyers already looking find you first, on Google and beyond.",
+    tags: ["Technical SEO", "Local SEO", "Google Business", "Google Ads"],
     contactValue: "bundle-launch",
     video: semVideo,
     poster: seoPoster,
   },
   {
-    id: "content",
-    verb: "Understood",
-    title: "Content Marketing",
-    body: "Editorial, video, email and long-form that teach buyers and give AI models something worth quoting. Stories with a commercial spine.",
-    tags: ["Video", "Editorial", "Email", "Long-form"],
-    contactValue: "video-production",
-    video: contentVideo,
-    poster: contentPoster,
-  },
-  {
     id: "smm",
     verb: "Chosen",
-    title: "Social Media Marketing",
-    body: "A consistent presence and paid amplification on the platforms your audience already lives on — aimed at pipeline, never vanity.",
-    tags: ["Organic", "Paid social", "Reels", "Community"],
+    title: "Social Media & Content",
+    body: "A consistent presence, video and content across the platforms your audience already lives on — aimed at pipeline, never vanity.",
+    tags: ["Organic social", "Paid social", "Reels & video", "Content"],
     contactValue: "social-starter",
     video: smmVideo,
     poster: socialPoster,
@@ -51,12 +41,23 @@ const STAGES = [
   {
     id: "web",
     verb: "Converted",
-    title: "Web & CRM Systems",
-    body: "Fast conversion sites with clear offers, plus the CRM and automation that turn a visit into a booked call without anyone chasing it.",
-    tags: ["Web design", "Development", "CRM", "Automation"],
+    title: "Responsive Websites",
+    body: "Fast, fully responsive sites designed and coded around a clear offer — they look right on every screen and turn visitors into enquiries.",
+    tags: ["Design", "Development", "Mobile-first", "Landing pages"],
     contactValue: "bundle-launch",
     video: webVideo,
     poster: webPoster,
+  },
+  {
+    id: "crm",
+    verb: "Kept",
+    title: "Complete CRM Systems",
+    body: "A full CRM set up end to end — pipelines, booking, follow-up, email and SMS automation — so every lead is tracked and nobody slips through.",
+    tags: ["CRM setup", "Pipelines", "Automations", "Booking"],
+    contactValue: "crm-pro",
+    video: contentVideo,
+    poster: contentPoster,
+    stillOnly: true,
   },
 ];
 
@@ -192,7 +193,7 @@ export default function SystemReel() {
   return (
     <section ref={root} id="services" className="s-dark relative overflow-hidden lg:h-[100svh]">
       <div className="s-container flex items-end justify-between gap-6 pt-20 lg:absolute lg:inset-x-0 lg:top-0 lg:z-10 lg:pt-[calc(var(--hero-header-offset)+1rem)]">
-        <Eyebrow index="02">The system — four stages, one stack</Eyebrow>
+        <Eyebrow index="02">How we grow you — four stages, one team</Eyebrow>
         <div className="hidden h-px w-56 bg-[var(--s-line)] lg:block">
           <div ref={bar} className="h-full origin-left scale-x-0 bg-[var(--s-signal)]" />
         </div>
@@ -204,12 +205,12 @@ export default function SystemReel() {
       >
         <div className="s-container shrink-0 lg:w-[40vw] lg:pl-[max(2.75rem,calc((100vw-1480px)/2+2.75rem))] lg:pr-0">
           <h2 className="s-display text-[clamp(3rem,7vw,8rem)] text-[var(--s-paper)]">
-            From noise
+            First click
             <br />
-            to <span className="s-serif text-[var(--s-signal)]">answer.</span>
+            to <span className="s-serif text-[var(--s-signal)]">closed deal.</span>
           </h2>
           <p className="mt-6 max-w-sm text-[1.05rem] leading-relaxed text-[var(--s-paper-dim)]">
-            Search, content, social and web run as a single system. Each stage feeds the next.
+            SEO, social, websites and CRM run as one system. Each stage feeds the next.
             Click any stage to start there.
           </p>
           <div className="mt-8">
@@ -229,7 +230,11 @@ export default function SystemReel() {
               aria-label={`Start with ${s.title}`}
             >
               <div data-clip className="s-stage-media absolute inset-0 overflow-hidden" style={{ clipPath: "inset(0% 0% 0% 0% round 20px)" }}>
-                <StageVideo src={s.video} poster={s.poster} />
+                {s.stillOnly ? (
+                  <img src={s.poster} alt="" loading="lazy" decoding="async" className="h-full w-full scale-[1.15] object-cover" data-parallax />
+                ) : (
+                  <StageVideo src={s.video} poster={s.poster} />
+                )}
                 <div className="s-stage-media__tint" />
                 <div className="s-stage-media__sheen" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />

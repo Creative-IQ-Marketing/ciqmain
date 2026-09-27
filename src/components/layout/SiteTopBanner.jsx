@@ -69,7 +69,7 @@ export default function SiteTopBanner({ onNavigate }) {
             <a
               href={cta.href}
               onClick={handleCta}
-              className="site-banner-cta shrink-0 rounded-full bg-[var(--c-accent)] px-3.5 py-2 font-sans text-[11px] font-semibold text-white transition hover:bg-[#8a5252]"
+              className="site-banner-cta shrink-0 rounded-full bg-[var(--c-accent)] px-3.5 py-2 font-sans text-[11px] font-semibold text-white transition hover:bg-[#2f5fd9]"
             >
               {cta.mobileLabel}
             </a>

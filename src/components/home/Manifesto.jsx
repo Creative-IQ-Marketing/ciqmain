@@ -7,9 +7,18 @@ import { Eyebrow } from "../signal/primitives";
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const TEXT =
-  "Search changed. Your buyers now ask ChatGPT, Gemini and Google who to hire — and the machine answers with one name. Most businesses are invisible to it. We engineer the signals that make that name *yours.*";
+  "Most businesses run on a website that doesn't convert, a CRM nobody updates and marketing that doesn't talk to either. We build it as *one* *system* — so every visit, lead and follow-up actually lands.";
 
-const SURFACES = ["Google", "ChatGPT", "Gemini", "Perplexity", "Maps", "Instagram", "TikTok", "YouTube"];
+const SURFACES = [
+  "Responsive websites",
+  "Complete CRM",
+  "SEO",
+  "Social media",
+  "Content & video",
+  "Automation",
+  "Google Business",
+  "Email campaigns",
+];
 
 export default function Manifesto() {
   const root = useRef(null);
@@ -38,7 +47,7 @@ export default function Manifesto() {
   return (
     <section ref={root} className="s-dark relative overflow-hidden py-[clamp(6rem,14vw,12rem)]">
       <div className="s-container">
-        <Eyebrow index="01">The shift</Eyebrow>
+        <Eyebrow index="01">The problem we fix</Eyebrow>
         <p
           data-lw-wrap
           className="mt-10 max-w-[18ch] text-[clamp(2rem,5.4vw,5.6rem)] font-semibold leading-[1.02] tracking-[-0.045em] text-[var(--s-paper)] lg:max-w-[22ch]"
@@ -70,7 +79,7 @@ export default function Manifesto() {
             ))}
           </div>
         </div>
-        <p className="s-label mt-4 text-[var(--s-paper-ghost)]">Every surface where you get chosen — or skipped.</p>
+        <p className="s-label mt-4 text-[var(--s-paper-ghost)]">Everything your growth runs on — under one roof.</p>
       </div>
     </section>
   );

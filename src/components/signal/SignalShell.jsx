@@ -109,10 +109,10 @@ export function Cursor() {
 }
 
 const BOOT_LINES = [
-  "crawl  creativeiqmarketing.com",
-  "parse  schema · entities · intent",
-  "rank   local + ai surfaces",
-  "resolve answer → CreativeIQ",
+  "design   responsive web",
+  "connect  crm · pipelines · automations",
+  "grow     seo · social · content",
+  "launch   CreativeIQ",
 ];
 
 /** First-visit boot sequence: an index counter that splits open onto the page. */
@@ -187,7 +187,7 @@ export function Preloader() {
       </div>
       <div className="s-boot-bottom absolute inset-x-0 bottom-0 flex h-1/2 items-end">
         <div className="s-container flex items-end justify-between pb-6">
-          <span className="s-label text-[var(--s-paper-ghost)]">Indexing signal</span>
+          <span className="s-label text-[var(--s-paper-ghost)]">Loading</span>
           <span
             ref={count}
             className="s-display text-[clamp(5rem,18vw,15rem)] tabular-nums leading-[0.8]"

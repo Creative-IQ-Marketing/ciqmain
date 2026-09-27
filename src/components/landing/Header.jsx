@@ -81,17 +81,33 @@ export default function Header() {
     const el = overlay.current;
     if (!el) return undefined;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    tl.current = gsap
-      .timeline({ paused: true })
-      .set(el, { visibility: "visible" })
-      .fromTo(
-        el,
-        { clipPath: "circle(0% at calc(100% - 3rem) 2.5rem)" },
-        { clipPath: "circle(150% at calc(100% - 3rem) 2.5rem)", duration: reduce ? 0 : 1, ease: "expo.inOut" },
-      )
-      .from(el.querySelectorAll("[data-menu-word]"), { yPercent: 110, stagger: 0.05, duration: reduce ? 0 : 0.9, ease: "expo.out" }, "-=0.45")
-      .from(el.querySelectorAll("[data-menu-fade]"), { autoAlpha: 0, y: 16, stagger: 0.04, duration: reduce ? 0 : 0.6 }, "-=0.7");
-    return () => tl.current?.kill();
+    // Context + revert so a remount never inherits half-applied "from" states.
+    const ctx = gsap.context(() => {
+      tl.current = gsap
+        .timeline({ paused: true })
+        .set(el, { visibility: "visible" })
+        .fromTo(
+          el,
+          { clipPath: "circle(0% at calc(100% - 3rem) 2.5rem)" },
+          { clipPath: "circle(150% at calc(100% - 3rem) 2.5rem)", duration: reduce ? 0 : 1, ease: "expo.inOut" },
+        )
+        .fromTo(
+          el.querySelectorAll("[data-menu-word]"),
+          { yPercent: 110 },
+          { yPercent: 0, stagger: 0.05, duration: reduce ? 0 : 0.9, ease: "expo.out", immediateRender: false },
+          "-=0.45",
+        )
+        .fromTo(
+          el.querySelectorAll("[data-menu-fade]"),
+          { autoAlpha: 0, y: 16 },
+          { autoAlpha: 1, y: 0, stagger: 0.04, duration: reduce ? 0 : 0.6, immediateRender: false },
+          "-=0.7",
+        );
+    }, el);
+    return () => {
+      ctx.revert();
+      tl.current = null;
+    };
   }, []);
 
   useEffect(() => {
@@ -143,7 +159,7 @@ export default function Header() {
       <SiteTopBanner onNavigate={handleNav} />
 
       <div
-        className={`pointer-events-none fixed inset-x-0 z-[60] ${top} ${slide}`}
+        className={`pointer-events-none fixed inset-x-0 z-[68] ${top} ${slide}`}
       >
         <div
           className={`absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[rgba(6,7,10,0.85)] to-transparent transition-opacity duration-500 ${scrolled && !open ? "opacity-100" : "opacity-0"}`}
@@ -161,9 +177,6 @@ export default function Header() {
               Creative<span className="s-didone text-[1.3rem] text-[var(--s-signal)]">IQ</span>
             </span>
           </a>
-          <span className="s-label hidden text-[10px] text-[var(--s-paper-ghost)] lg:inline">
-            San Antonio {time} — Accepting projects
-          </span>
           <span className="w-[9.5rem] sm:w-[16rem]" />
         </div>
       </div>
@@ -197,7 +210,7 @@ export default function Header() {
               trackButtonClick("Book a call", "header_cta", "Header");
               handleNav(e, "/book");
             }}
-            className={`hidden h-10 items-center rounded-full bg-[var(--s-signal)] px-5 text-[13px] font-semibold text-[var(--s-ink)] transition hover:bg-[var(--s-signal-hot)] sm:inline-flex ${open ? "opacity-0" : ""}`}
+            className={`hidden h-10 items-center rounded-full bg-[var(--s-signal-deep)] px-5 text-[13px] font-semibold text-white transition hover:bg-[var(--s-signal)] sm:inline-flex ${open ? "opacity-0" : ""}`}
           >
             Book a call
           </a>
@@ -282,7 +295,7 @@ export default function Header() {
               </a>
             </div>
             <div data-menu-fade>
-              <p className="s-label text-[var(--s-paper-ghost)]">Follow the signal</p>
+              <p className="s-label text-[var(--s-paper-ghost)]">Follow us</p>
               <ul className="mt-3 grid grid-cols-2 gap-y-1">
                 {SOCIALS.map(([l, h]) => (
                   <li key={l}>

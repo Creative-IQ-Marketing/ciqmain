@@ -83,7 +83,7 @@ export default function HeroArcGallery({ reducedMotion = false }) {
         className="pointer-events-none absolute inset-x-[12%] bottom-0 h-24 rounded-[100%] opacity-40 blur-2xl"
         style={{
           background:
-            "radial-gradient(ellipse at center, rgba(164, 100, 100,0.35), transparent 70%)",
+            "radial-gradient(ellipse at center, rgba(59, 111, 240,0.35), transparent 70%)",
         }}
         aria-hidden
       />
@@ -125,7 +125,7 @@ export default function HeroArcGallery({ reducedMotion = false }) {
                   zIndex: Math.round(10 + depth.z / 40),
                   pointerEvents: isActive ? "auto" : "none",
                   boxShadow: near
-                    ? "0 28px 60px -18px rgba(15,15,15,0.5), 0 0 0 1px rgba(164, 100, 100,0.35)"
+                    ? "0 28px 60px -18px rgba(15,15,15,0.5), 0 0 0 1px rgba(59, 111, 240,0.35)"
                     : "var(--shadow-frame)",
                 }}
                 aria-label={frame.label}

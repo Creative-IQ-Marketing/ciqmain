@@ -9,9 +9,9 @@ import vilma from "../../assets/vilma/vilma-bw-work-xl.webp";
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const PRINCIPLES = [
-  ["AI-era expertise", "Built for discovery in 2026 — Google, ChatGPT, Gemini, Perplexity and the technical signals they reward."],
+  ["Websites that work", "Responsive, fast and built around a clear offer — on every screen your customers use."],
+  ["Complete CRM", "Pipelines, booking and automated follow-up set up end to end, so no lead is ever lost."],
   ["Full-stack execution", "Web, SEO, CRM, content and social under one roof, so strategy never fractures across vendors."],
-  ["Measured, plainly", "Traffic lifts, retention and shipped systems — reported every month in language owners use."],
   ["Local and nationwide", "San Antonio rooted, national reach. Same discipline for a single location or a multi-market team."],
 ];
 
@@ -75,9 +75,9 @@ export default function Founder() {
             <div>
               <Eyebrow index="04" className="!text-[var(--s-paper-dim)]">Founder & CEO</Eyebrow>
               <p className="mt-4 max-w-xl text-[clamp(1.2rem,2vw,1.7rem)] font-medium leading-[1.25] tracking-[-0.025em] text-[var(--s-paper)]">
-                AI strategist, speaker and growth consultant — building marketing systems that earn trust from customers
-                <span className="s-serif text-[var(--s-signal-hot)]"> and </span>
-                the machines that recommend them.
+                Growth strategist, speaker and consultant — building the websites, CRMs and marketing systems
+                <span className="s-serif text-[var(--s-signal-hot)]"> that earn trust </span>
+                and bring in business.
               </p>
             </div>
             <div className="pointer-events-auto">
@@ -99,7 +99,7 @@ export default function Founder() {
             <h2 className="s-display text-[clamp(2.6rem,5vw,5rem)] text-[var(--s-paper)]">
               Your growth partner
               <br />
-              in the <span className="s-serif text-[var(--s-signal)]">AI era.</span>
+              from <span className="s-serif text-[var(--s-signal)]">start to finish.</span>
             </h2>
             <div className="mt-8">
               <SignalButton to="/about/creativeiq" variant="ghost">
@@ -112,7 +112,7 @@ export default function Founder() {
               <li
                 key={t}
                 data-principle
-                className="group grid grid-cols-[3rem_1fr] gap-4 border-t border-[var(--s-line)] py-7 transition-colors duration-500 last:border-b hover:bg-[rgba(201,139,135,0.05)] sm:grid-cols-[4rem_1fr_1.3fr] sm:gap-6"
+                className="group grid grid-cols-[3rem_1fr] gap-4 border-t border-[var(--s-line)] py-7 transition-colors duration-500 last:border-b hover:bg-[rgba(91, 134, 255,0.05)] sm:grid-cols-[4rem_1fr_1.3fr] sm:gap-6"
               >
                 <span className="s-mono pt-1 text-[12px] text-[var(--s-signal)]">0{i + 1}</span>
                 <p className="text-[clamp(1.3rem,2vw,1.75rem)] font-semibold tracking-[-0.035em] text-[var(--s-paper)] transition-transform duration-500 group-hover:translate-x-2">

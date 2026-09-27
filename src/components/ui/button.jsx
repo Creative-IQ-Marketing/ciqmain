@@ -9,11 +9,11 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "rounded-[var(--radius-pill)] bg-[var(--c-accent)] text-white hover:bg-[#8a5252]",
+          "rounded-[var(--radius-pill)] bg-[var(--c-accent)] text-white hover:bg-[#2f5fd9]",
         secondary:
           "rounded-[var(--radius-pill)] border border-[var(--c-border-strong)] bg-white text-[var(--c-ink)] hover:border-[var(--c-ink)]/40",
         accent:
-          "rounded-[var(--radius-pill)] bg-[var(--c-accent)] text-white hover:bg-[#8a5252]",
+          "rounded-[var(--radius-pill)] bg-[var(--c-accent)] text-white hover:bg-[#2f5fd9]",
         ghost:
           "rounded-[var(--radius-pill)] text-[var(--c-ink)] hover:bg-black/[0.04]",
         link: "rounded-none font-medium text-[var(--c-accent)] underline-offset-4 hover:underline",

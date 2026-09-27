@@ -103,7 +103,7 @@ export default function PageHeader({
     >
       <div
         className="pointer-events-none absolute right-[-12%] top-[-10%] h-[60vmax] w-[60vmax] rounded-full opacity-60 blur-[130px]"
-        style={{ background: "radial-gradient(circle, rgba(164,100,100,0.2), transparent 62%)" }}
+        style={{ background: "radial-gradient(circle, rgba(59, 111, 240,0.2), transparent 62%)" }}
         aria-hidden
       />
       <div

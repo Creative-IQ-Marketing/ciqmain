@@ -60,9 +60,9 @@ export default function Footer() {
       <div className="s-container border-t border-[var(--s-line)] pt-[clamp(5rem,10vw,9rem)]">
         <div data-footer-cta className="grid gap-10 lg:grid-cols-[1.3fr_0.7fr] lg:items-end">
           <p className="s-display text-[clamp(3rem,8vw,8.5rem)] text-[var(--s-paper)]">
-            Let&rsquo;s make the
+            Let&rsquo;s build
             <br />
-            answer <span className="s-serif text-[var(--s-signal)]">you.</span>
+            what&rsquo;s <span className="s-serif text-[var(--s-signal)]">next.</span>
           </p>
           <div className="flex flex-wrap gap-3 lg:justify-end">
             <SignalButton to="/book" onClick={() => trackButtonClick("Book a call", "footer_cta", "Footer")}>
