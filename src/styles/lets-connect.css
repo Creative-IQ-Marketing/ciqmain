@@ -6,8 +6,8 @@
   --lc-bone-dim: #c9c2b4;
   --lc-muted: #8b93a1;
   --lc-line: rgba(236, 231, 220, 0.12);
-  --lc-font-sans: "Manrope", "Plus Jakarta Sans", system-ui, sans-serif;
-  --lc-font-display: "Syne", "Plus Jakarta Sans", system-ui, sans-serif;
+  --lc-font-sans: "Manrope", "Inter Tight", system-ui, sans-serif;
+  --lc-font-display: "Syne", "Inter Tight", system-ui, sans-serif;
 
   min-height: 100dvh;
   overflow-x: hidden;

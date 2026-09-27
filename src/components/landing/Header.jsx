@@ -1,96 +1,116 @@
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
-import { ChevronDown, Menu, Phone, X } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
-import mainLogo from "../../assets/mainLogo.webp";
-import { PHONE_TEL } from "../../utils/contact";
+import gsap from "gsap";
+import { PHONE_DISPLAY, PHONE_TEL, EMAIL } from "../../utils/contact";
 import { trackButtonClick } from "../../services/analytics";
 import { SERVICES_NAV } from "../../data/servicesNav";
 import { ABOUT_NAV } from "../../data/aboutNav";
 import { TOOLS_NAV } from "../../data/toolsNav";
-import {
-  scrollToHashFromHref,
-  scrollToSection,
-} from "../../utils/scrollToSection";
+import { scrollToHashFromHref } from "../../utils/scrollToSection";
 import SiteTopBanner from "../layout/SiteTopBanner";
-import NavMegaMenu from "../layout/NavMegaMenu";
-import MobileNavSheet from "../layout/MobileNavSheet";
 import { SITE_TOP_BANNER } from "../../constants/siteBanner";
 import { warmRoute } from "../../utils/prefetchAssets";
-
-const ease = [0.22, 1, 0.36, 1];
+import { Magnetic } from "../signal/primitives";
 
 const NAV = [
   { label: "Home", href: "/" },
-  ABOUT_NAV,
+  { ...ABOUT_NAV, label: "About" },
   SERVICES_NAV,
+  TOOLS_NAV,
   { label: "Book a call", href: "/book" },
   { label: "Contact", href: "/contact" },
-  TOOLS_NAV,
 ];
 
+const SOCIALS = [
+  ["Instagram", "https://www.instagram.com/creativeiq.digitalmarketing/"],
+  ["TikTok", "https://www.tiktok.com/@creativeiq.marketing"],
+  ["YouTube", "https://www.youtube.com/@CreativeIQdigitalmarketing"],
+  ["LinkedIn", "https://www.linkedin.com/company/creativeiqdigitalmarketing"],
+  ["Facebook", "https://www.facebook.com/CreativeIQDigitalmarketing"],
+];
+
+function useSanAntonioTime() {
+  const [t, setT] = useState("");
+  useEffect(() => {
+    const fmt = () =>
+      new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/Chicago",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      }).format(new Date());
+    setT(fmt());
+    const id = setInterval(() => setT(fmt()), 20000);
+    return () => clearInterval(id);
+  }, []);
+  return t;
+}
+
 export default function Header() {
-  const [visible, setVisible] = useState(true);
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [openMenuId, setOpenMenuId] = useState(null);
-  const lastScroll = useRef(0);
-  const hideTimer = useRef(null);
-  const menuTimer = useRef(null);
+  const [hidden, setHidden] = useState(false);
+  const overlay = useRef(null);
+  const tl = useRef(null);
+  const last = useRef(0);
   const navigate = useNavigate();
   const location = useLocation();
+  const time = useSanAntonioTime();
 
   useEffect(() => {
     const onScroll = () => {
       const y = window.scrollY;
-      setScrolled(y > 12);
-      if (y <= 40) {
-        setVisible(true);
-        clearTimeout(hideTimer.current);
-      } else if (y > lastScroll.current) {
-        setVisible(false);
-        clearTimeout(hideTimer.current);
-      } else if (y < lastScroll.current) {
-        setVisible(true);
-        clearTimeout(hideTimer.current);
-        hideTimer.current = setTimeout(() => {
-          if (window.scrollY > 40) setVisible(false);
-        }, 3200);
-      }
-      lastScroll.current = y;
+      setHidden(y > 160 && y > last.current + 2);
+      if (y < last.current - 2 || y < 160) setHidden(false);
+      last.current = y;
     };
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      clearTimeout(hideTimer.current);
-      clearTimeout(menuTimer.current);
-    };
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
+    const el = overlay.current;
+    if (!el) return undefined;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    tl.current = gsap
+      .timeline({ paused: true })
+      .set(el, { visibility: "visible" })
+      .fromTo(
+        el,
+        { clipPath: "circle(0% at calc(100% - 3rem) 2.5rem)" },
+        { clipPath: "circle(150% at calc(100% - 3rem) 2.5rem)", duration: reduce ? 0 : 1, ease: "expo.inOut" },
+      )
+      .from(el.querySelectorAll("[data-menu-word]"), { yPercent: 110, stagger: 0.05, duration: reduce ? 0 : 0.9, ease: "expo.out" }, "-=0.45")
+      .from(el.querySelectorAll("[data-menu-fade]"), { autoAlpha: 0, y: 16, stagger: 0.04, duration: reduce ? 0 : 0.6 }, "-=0.7");
+    return () => tl.current?.kill();
+  }, []);
+
+  useEffect(() => {
+    if (!tl.current) return;
+    if (open) {
+      window.__lenis?.stop();
+      document.body.style.overflow = "hidden";
+      tl.current.timeScale(1).play();
+    } else {
+      window.__lenis?.start();
+      document.body.style.overflow = "";
+      tl.current.timeScale(1.6).reverse();
+    }
+  }, [open]);
+
+  useEffect(() => {
     setOpen(false);
-    setOpenMenuId(null);
   }, [location.pathname]);
 
   useEffect(() => {
-    if (!open) return undefined;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [open]);
-
-  const closeMobile = () => {
-    setOpen(false);
-  };
+    const onKey = (e) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   const handleNav = (e, href) => {
-    e.preventDefault();
+    e?.preventDefault?.();
     trackButtonClick(href, "nav_link", "Header");
-    closeMobile();
-    setOpenMenuId(null);
-
+    setOpen(false);
     if (/^https?:\/\//i.test(href)) {
       window.open(href, "_blank", "noopener,noreferrer");
       return;
@@ -99,169 +119,150 @@ export default function Header() {
       scrollToHashFromHref(href, location.pathname, navigate);
       return;
     }
-    if (href.startsWith("/")) {
-      warmRoute(href);
-      navigate(href);
-      return;
-    }
-    const id = href.replace("#", "");
-    if (location.pathname !== "/") {
-      navigate("/");
-      window.setTimeout(() => scrollToSection(id, 80), 350);
-      return;
-    }
-    scrollToSection(id, 80);
+    warmRoute(href);
+    navigate(href);
   };
 
-  const openMenu = (id) => {
-    clearTimeout(menuTimer.current);
-    setOpenMenuId(id);
-    const item = NAV.find((n) => n.id === id);
-    if (item?.href) warmRoute(item.href);
-  };
-  const closeMenu = () => {
-    menuTimer.current = setTimeout(() => setOpenMenuId(null), 120);
-  };
-
-  const headerNavTopClass = SITE_TOP_BANNER.enabled
+  const top = SITE_TOP_BANNER.enabled
     ? "top-[var(--header-nav-top)] lg:top-[var(--header-nav-top-with-banner)]"
     : "top-[var(--header-nav-top)]";
+  const slide = `transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] ${hidden && !open ? "-translate-y-[140%]" : ""}`;
 
   return (
     <>
       <SiteTopBanner onNavigate={handleNav} />
 
-      <motion.header
-        initial={{ y: -80 }}
-        animate={{ y: visible ? 0 : -110 }}
-        transition={{ duration: 0.4, ease }}
-        className={`fixed inset-x-0 z-50 ${headerNavTopClass}`}
-      >
-        <div className="mx-auto max-w-[1400px] px-3 pt-2 sm:px-4 lg:px-6">
-          <div
-            className={`flex h-14 items-center gap-3 rounded-[var(--radius-pill)] border px-3 transition-all duration-300 sm:h-[3.6rem] sm:px-4 ${
-              scrolled
-                ? "border-black/[0.08] bg-white shadow-[0_12px_40px_-18px_rgba(15,15,15,0.28)]"
-                : "border-transparent bg-white/90"
-            }`}
+      {/* Blend layer: always legible over light or dark pages. */}
+      <div className={`pointer-events-none fixed inset-x-0 z-[60] mix-blend-difference ${top} ${slide}`}>
+        <div className="s-container flex h-[var(--header-bar-height)] items-center justify-between text-white">
+          <a
+            href="/"
+            onClick={(e) => handleNav(e, "/")}
+            className="pointer-events-auto flex items-baseline gap-2 text-[1.35rem] font-bold tracking-[-0.05em]"
+            aria-label="CreativeIQ home"
           >
-            <a
-              href="/"
-              onClick={(e) => handleNav(e, "/")}
-              className="flex shrink-0 items-center gap-2.5 pl-1"
-            >
-              <span className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-[var(--c-ink)] sm:h-10 sm:w-10">
-                <img
-                  src={mainLogo}
-                  alt="CreativeIQ"
-                  width={40}
-                  height={40}
-                  className="h-6 w-6 object-contain brightness-0 invert sm:h-7 sm:w-7"
-                  decoding="async"
-                  fetchPriority="low"
-                />
-              </span>
-              <span className="hidden font-sans text-[1.05rem] font-bold tracking-[-0.03em] text-[var(--c-ink)] sm:inline">
-                Creative<span className="text-[var(--c-accent)]">IQ</span>
-              </span>
-            </a>
+            C<span className="s-serif -mx-[0.1em] text-[1.5rem] font-normal">i</span>Q
+            <span className="s-label hidden text-[10px] font-normal tracking-[0.14em] opacity-60 sm:inline">
+              CreativeIQ Marketing
+            </span>
+          </a>
+          <span className="s-label hidden text-[10px] opacity-60 lg:inline">
+            SATX {time} — Accepting projects
+          </span>
+          <span className="w-[9.5rem] sm:w-[16rem]" />
+        </div>
+      </div>
 
-            <nav className="ml-2 hidden flex-1 items-center justify-center gap-0.5 md:flex">
-              {NAV.map((item) => {
-                if (!item.children) {
-                  return (
-                    <a
-                      key={item.label}
-                      href={item.href}
-                      onClick={(e) => handleNav(e, item.href)}
-                      onMouseEnter={() => warmRoute(item.href)}
-                      onFocus={() => warmRoute(item.href)}
-                      className="rounded-full px-3.5 py-2 font-sans text-[13px] font-medium text-[var(--c-ink-soft)] transition hover:bg-black/[0.04] hover:text-[var(--c-ink)] lg:px-4 lg:text-[14px]"
-                    >
-                      {item.label}
-                    </a>
-                  );
-                }
-                const isOpen = openMenuId === item.id;
-                const linkTone = item.accent
-                  ? "text-[var(--c-accent)] hover:bg-[var(--c-accent)]/8 hover:text-[#2f5fd9]"
-                  : "text-[var(--c-ink-soft)] hover:bg-black/[0.04] hover:text-[var(--c-ink)]";
-                return (
-                  <div
-                    key={item.label}
-                    className="relative"
-                    onMouseEnter={() => openMenu(item.id)}
-                    onMouseLeave={closeMenu}
-                  >
-                    <a
-                      href={item.href}
-                      onClick={(e) => handleNav(e, item.href)}
-                      className={`inline-flex items-center gap-1 rounded-full px-3.5 py-2 font-sans text-[13px] font-semibold transition lg:px-4 lg:text-[14px] ${linkTone}`}
-                      aria-expanded={isOpen}
-                    >
-                      {item.label}
-                      <ChevronDown
-                        size={13}
-                        className={`transition-transform ${isOpen ? "rotate-180" : ""}`}
-                      />
-                    </a>
-                    <NavMegaMenu
-                      open={isOpen}
-                      item={item}
-                      onNavigate={handleNav}
-                      onMouseEnter={() => openMenu(item.id)}
-                      onMouseLeave={closeMenu}
-                    />
-                  </div>
-                );
-              })}
-            </nav>
-
-            <div className="ml-auto hidden items-center gap-2 md:flex">
-              <a
-                href={`tel:${PHONE_TEL}`}
-                onClick={() =>
-                  trackButtonClick("Call CTA", "header_call", "Header")
-                }
-                className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 font-sans text-[13px] font-medium text-[var(--c-text-muted)] transition hover:bg-black/[0.04] hover:text-[var(--c-ink)]"
-              >
-                <Phone size={14} strokeWidth={1.75} aria-hidden />
-                Call us
-              </a>
-              <a
-                href="/book"
-                onClick={(e) => {
-                  trackButtonClick("Book a call", "header_cta", "Header");
-                  handleNav(e, "/book");
-                }}
-                className="rounded-full bg-[var(--c-cta)] px-5 py-2.5 font-sans text-[13px] font-semibold text-white transition hover:bg-[var(--c-cta-hover)]"
-              >
-                Book a call
-              </a>
-            </div>
-
+      <header className={`fixed inset-x-0 z-[70] ${top} ${slide}`}>
+        <div className="s-container flex h-[var(--header-bar-height)] items-center justify-end gap-2">
+          <a
+            href="/book"
+            onClick={(e) => {
+              trackButtonClick("Book a call", "header_cta", "Header");
+              handleNav(e, "/book");
+            }}
+            className={`hidden h-10 items-center rounded-full bg-[var(--s-signal)] px-5 text-[13px] font-semibold text-white transition hover:bg-[var(--s-signal-hot)] sm:inline-flex ${open ? "opacity-0" : ""}`}
+          >
+            Book a call
+          </a>
+          <Magnetic strength={0.3}>
             <button
               type="button"
-              onClick={() => {
-                if (open) closeMobile();
-                else setOpen(true);
-              }}
-              className="ml-auto flex h-10 w-10 items-center justify-center rounded-full text-[var(--c-ink)] transition hover:bg-black/[0.05] md:hidden"
-              aria-label={open ? "Close menu" : "Open menu"}
+              onClick={() => setOpen((o) => !o)}
               aria-expanded={open}
+              aria-controls="site-menu"
+              aria-label={open ? "Close menu" : "Open menu"}
+              className="group flex h-10 items-center gap-3 rounded-full bg-[var(--s-paper)] pl-4 pr-3 text-[13px] font-semibold text-[var(--s-ink)] shadow-[0_8px_30px_-10px_rgba(0,0,0,0.4)]"
             >
-              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              <span className="s-btn__roll">
+                <span className={open ? "-translate-y-full" : ""}>Menu</span>
+                <span className={open ? "-translate-y-full" : ""}>Close</span>
+              </span>
+              <span className="relative block h-3 w-4">
+                <span className={`absolute left-0 top-[2px] h-[1.5px] w-full bg-current transition duration-500 ${open ? "top-[5px] rotate-45" : ""}`} />
+                <span className={`absolute left-0 top-[8px] h-[1.5px] w-full bg-current transition duration-500 ${open ? "top-[5px] -rotate-45" : ""}`} />
+              </span>
             </button>
-          </div>
+          </Magnetic>
         </div>
-      </motion.header>
+      </header>
 
-      <MobileNavSheet
-        open={open}
-        nav={NAV}
-        onClose={closeMobile}
-        onNavigate={handleNav}
-      />
+      <div
+        id="site-menu"
+        ref={overlay}
+        className="s-dark invisible fixed inset-0 z-[65] overflow-y-auto"
+        data-lenis-prevent
+        aria-hidden={!open}
+      >
+        <div className="s-container grid min-h-full gap-12 pb-10 pt-28 lg:grid-cols-[1.4fr_0.6fr] lg:pt-32">
+          <nav aria-label="Main">
+            <ul>
+              {NAV.map((item, i) => (
+                <li key={item.label} className="border-b border-[var(--s-line)] py-3 lg:py-4">
+                  <div className="flex items-baseline gap-5">
+                    <span className="s-mono w-6 text-[11px] text-[var(--s-signal)]">0{i + 1}</span>
+                    <a
+                      href={item.href}
+                      onClick={(e) => handleNav(e, item.href)}
+                      tabIndex={open ? 0 : -1}
+                      className="group block overflow-hidden"
+                    >
+                      <span
+                        data-menu-word
+                        className="s-display block text-[clamp(2.6rem,7.5vw,6.5rem)] leading-[0.95] text-[var(--s-paper)] transition-colors duration-300 group-hover:text-[var(--s-signal)]"
+                      >
+                        {item.label}
+                      </span>
+                    </a>
+                  </div>
+                  {item.children ? (
+                    <div data-menu-fade className="mt-2 flex flex-wrap gap-x-5 gap-y-1 pl-11">
+                      {item.children.map((c) => (
+                        <a
+                          key={c.href}
+                          href={c.href}
+                          tabIndex={open ? 0 : -1}
+                          onClick={(e) => handleNav(e, c.href)}
+                          className="s-mono text-[12px] text-[var(--s-paper-dim)] transition hover:text-[var(--s-paper)]"
+                        >
+                          ↳ {c.label}
+                        </a>
+                      ))}
+                    </div>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <aside className="flex flex-col justify-end gap-10 lg:pb-4">
+            <div data-menu-fade>
+              <p className="s-label text-[var(--s-paper-ghost)]">Talk to a human</p>
+              <a href={`tel:${PHONE_TEL}`} tabIndex={open ? 0 : -1} className="mt-3 block text-2xl font-semibold tracking-tight">
+                {PHONE_DISPLAY}
+              </a>
+              <a href={`mailto:${EMAIL}`} tabIndex={open ? 0 : -1} className="mt-1 block text-[var(--s-paper-dim)] hover:text-[var(--s-paper)]">
+                {EMAIL}
+              </a>
+            </div>
+            <div data-menu-fade>
+              <p className="s-label text-[var(--s-paper-ghost)]">Follow the signal</p>
+              <ul className="mt-3 grid grid-cols-2 gap-y-1">
+                {SOCIALS.map(([l, h]) => (
+                  <li key={l}>
+                    <a href={h} target="_blank" rel="noopener noreferrer" tabIndex={open ? 0 : -1} className="text-[var(--s-paper-dim)] hover:text-[var(--s-paper)]">
+                      {l} ↗
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <p data-menu-fade className="s-label text-[var(--s-paper-ghost)]">
+              San Antonio, TX · {time} CT
+            </p>
+          </aside>
+        </div>
+      </div>
     </>
   );
 }
