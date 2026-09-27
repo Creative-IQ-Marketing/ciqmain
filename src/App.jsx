@@ -51,7 +51,7 @@ const NewsletterPopup = lazy(() => import("./components/ui/NewsletterPopup"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
 function RouteFallback() {
-  return <div className="min-h-[40vh] bg-white" aria-hidden />;
+  return <div className="min-h-[100svh] bg-[var(--s-ink)]" aria-hidden />;
 }
 
 function Layout() {
@@ -105,7 +105,7 @@ function Layout() {
   return (
     <NewsletterProvider>
       <div
-        className={`min-h-screen ${isHome ? "bg-[var(--s-ink)]" : "bg-white"}${
+        className={`min-h-screen bg-[var(--s-ink)]${
           bannerPad
             ? " pb-[calc(var(--site-mobile-banner-height)+env(safe-area-inset-bottom,0px))] lg:pb-0"
             : ""
@@ -117,9 +117,11 @@ function Layout() {
         <Cursor />
         <Grain />
         <Header />
-        <Suspense fallback={<RouteFallback />}>
-          <Outlet />
-        </Suspense>
+        <div className={isHome ? undefined : "s-inner"}>
+          <Suspense fallback={<RouteFallback />}>
+            <Outlet />
+          </Suspense>
+        </div>
         <Suspense fallback={null}>
           <Footer />
         </Suspense>

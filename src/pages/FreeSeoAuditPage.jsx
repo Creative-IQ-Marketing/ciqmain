@@ -7,6 +7,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import PageHeader from "../components/layout/PageHeader";
 import SEO from "../components/SEO";
 import GuideInlineCTA from "../components/ui/GuideInlineCTA";
 import { Input } from "../components/ui/input";
@@ -307,23 +308,22 @@ export default function FreeSeoAuditPage() {
       />
 
       <main className="bg-white text-[var(--c-ink)]">
-        <section className="border-b border-[var(--c-border)] pt-[calc(var(--hero-header-offset)+1.5rem)] pb-12 sm:pb-14">
+        <PageHeader
+          eyebrow="Free AI SEO audit"
+          title="Audit my site."
+          titleAccent="Free, in minutes."
+          description="See how Google and AI platforms read your website — technical signals, mobile experience and commercial readiness."
+        />
+        <span className="sr-only">Free AI SEO Audit Tool from CreativeIQ Marketing</span>
+        <section className="border-b border-[var(--c-border)] pt-4 pb-12 sm:pb-14">
           <div className="mx-auto grid max-w-[var(--container-max)] gap-10 px-[var(--container-pad)] lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-14 lg:items-start">
             <div className="max-w-xl">
-              <p className="mb-3 font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--c-accent)]">
-                Free AI SEO audit
+              <p className="font-sans text-[clamp(1.4rem,2.2vw,1.9rem)] font-bold leading-[1.15] tracking-[-0.035em] text-[var(--c-ink)]">
+                Technical foundations fail before copy does.
               </p>
-              <h1 className="font-sans text-[clamp(2rem,4.5vw,3.25rem)] font-extrabold leading-[1.05] tracking-[-0.04em] text-balance">
-                Audit My Site
-                <span className="sr-only">
-                  {" "}
-                  Free AI SEO Audit Tool from CreativeIQ Marketing
-                </span>
-              </h1>
-              <p className="mt-4 font-sans text-base leading-relaxed text-[var(--c-text-secondary)]">
-                Technical foundations fail before copy does. This audit covers
-                signals, mobile experience, and commercial readiness — then
-                emails your report.
+              <p className="mt-3 font-sans text-base leading-relaxed text-[var(--c-text-secondary)]">
+                This audit covers signals, mobile experience, and commercial
+                readiness — then emails your report.
               </p>
 
               <ul className="mt-8 space-y-5">

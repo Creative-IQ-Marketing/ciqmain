@@ -335,3 +335,27 @@ html.lenis body {
     animation: none !important;
   }
 }
+
+/* ── Inner pages: dark hero → warm paper document → dark footer ── */
+.s-inner {
+  --c-base: var(--s-paper);
+  --c-surface: #faf9f6;
+  --c-surface-2: #e9e7e0;
+  --c-cream: #ebe9e2;
+  --c-border: rgba(6, 7, 10, 0.09);
+  --c-border-strong: rgba(6, 7, 10, 0.16);
+  --c-cta: var(--s-ink);
+  --c-cta-hover: #1d2029;
+  background: var(--s-paper);
+  color: var(--s-ink);
+}
+.s-inner main.bg-white,
+.s-inner section.bg-white {
+  background-color: transparent;
+}
+.s-inner .bg-white {
+  background-color: #faf9f6;
+}
+.s-inner h2 {
+  letter-spacing: -0.045em;
+}
