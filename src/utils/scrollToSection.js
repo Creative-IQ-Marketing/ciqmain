@@ -5,7 +5,11 @@ export function scrollToSection(id, offset = HEADER_SCROLL_OFFSET) {
   if (!el) return false;
 
   const top = el.getBoundingClientRect().top + window.scrollY - offset;
-  window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+  if (window.__lenis) {
+    window.__lenis.scrollTo(Math.max(0, top), { duration: 1.4 });
+  } else {
+    window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+  }
   return true;
 }
 

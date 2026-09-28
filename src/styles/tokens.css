@@ -29,9 +29,9 @@
   --c-footer: #0f0f0f;
 
   /* ── Typography ──────────────────────────────────────────── */
-  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
-  --font-hero: "Plus Jakarta Sans", system-ui, sans-serif;
-  --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-display: "Inter Tight", system-ui, sans-serif;
+  --font-hero: "Inter Tight", system-ui, sans-serif;
+  --font-body: "Inter Tight", system-ui, sans-serif;
   --font-hand: "Caveat", "Segoe Script", cursive;
 
   --size-hero: clamp(2.25rem, 7.5vw, 4.75rem);

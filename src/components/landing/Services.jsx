@@ -88,7 +88,7 @@ const Services = () => {
       <style>{`
         .f-disp { font-family: 'Bricolage Grotesque', sans-serif; }
         .f-body { font-family: 'Inter', sans-serif; }
-        .svc-card:hover { box-shadow: 0 16px 48px rgba(59,111,240,0.12), 0 2px 8px rgba(0,0,0,0.06); }
+        .svc-card:hover { box-shadow: 0 16px 48px rgba(59, 111, 240,0.12), 0 2px 8px rgba(0,0,0,0.06); }
       `}</style>
 
       <div
@@ -106,7 +106,7 @@ const Services = () => {
               style={{
                 fontSize: 11,
                 fontWeight: 500,
-                color: "#3B6FF0",
+                color: "#3b6ff0",
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
                 marginBottom: 14,
@@ -136,7 +136,7 @@ const Services = () => {
               >
                 Our
                 <br />
-                <span style={{ color: "#3B6FF0" }}>Services</span>
+                <span style={{ color: "#3b6ff0" }}>Services</span>
               </h2>
               <motion.a
                 href="/services"
@@ -188,7 +188,7 @@ const Services = () => {
                     transition: "border-color 0.25s ease",
                   }}
                   onHoverStart={(e) => {
-                    e.currentTarget.style.borderTopColor = "#3B6FF0";
+                    e.currentTarget.style.borderTopColor = "#3b6ff0";
                   }}
                   onHoverEnd={(e) => {
                     e.currentTarget.style.borderTopColor = "transparent";
@@ -206,13 +206,13 @@ const Services = () => {
                         width: 44,
                         height: 44,
                         borderRadius: 10,
-                        background: "rgba(59,111,240,0.08)",
+                        background: "rgba(59, 111, 240,0.08)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                       }}
                     >
-                      <Icon size={20} color="#3B6FF0" />
+                      <Icon size={20} color="#3b6ff0" />
                     </div>
                     <span
                       className="f-disp"
@@ -264,12 +264,12 @@ const Services = () => {
                       style={{
                         fontSize: 12,
                         fontWeight: 500,
-                        color: "#3B6FF0",
+                        color: "#3b6ff0",
                       }}
                     >
                       Learn more
                     </span>
-                    <ArrowUpRight size={13} color="#3B6FF0" />
+                    <ArrowUpRight size={13} color="#3b6ff0" />
                   </div>
                 </motion.div>
               </StaggerItem>

@@ -78,7 +78,7 @@ export default function GuideDownload() {
             className="absolute -inset-8 rounded-full opacity-60 blur-3xl"
             style={{
               background:
-                "radial-gradient(circle, rgba(59,111,240,0.18), transparent 68%)",
+                "radial-gradient(circle, rgba(59, 111, 240,0.18), transparent 68%)",
             }}
             aria-hidden
           />

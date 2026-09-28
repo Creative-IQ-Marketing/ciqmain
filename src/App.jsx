@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import { Routes, Route, Outlet, useLocation } from "react-router-dom";
 import Header from "./components/landing/Header";
-import Hero from "./components/landing/Hero";
+import HeroSignal from "./components/home/HeroSignal";
 import SEO from "./components/SEO";
 import StructuredData from "./components/StructuredData";
 import { NewsletterProvider } from "./context/NewsletterContext";
@@ -11,20 +11,22 @@ import {
   SITE_TOP_BANNER,
 } from "./constants/siteBanner";
 import { ACTIVE_EVENT } from "./data/activeEvent";
-import ScrollProgress from "./components/layout/ScrollProgress";
+import {
+  SmoothScroll,
+  Cursor,
+  Preloader,
+  RouteCurtain,
+  Grain,
+} from "./components/signal/SignalShell";
 import { scrollToSection } from "./utils/scrollToSection";
 import { warmRoute } from "./utils/prefetchAssets";
 
-const Clients = lazy(() => import("./components/landing/Clients"));
-const About = lazy(() => import("./components/landing/About"));
-const ServicesShowcase = lazy(
-  () => import("./components/landing/ServicesShowcase"),
-);
-const Stats = lazy(() => import("./components/landing/Stats"));
-const Testimonials = lazy(() => import("./components/landing/Testimonials"));
-const Contact = lazy(() => import("./components/landing/Contact"));
+const Manifesto = lazy(() => import("./components/home/Manifesto"));
+const SystemReel = lazy(() => import("./components/home/SystemReel"));
+const Proof = lazy(() => import("./components/home/Proof"));
+const Founder = lazy(() => import("./components/home/Founder"));
+const HomeContact = lazy(() => import("./components/home/HomeContact"));
 const Footer = lazy(() => import("./components/landing/Footer"));
-const VilmaIntro = lazy(() => import("./components/landing/VilmaIntro"));
 const ServicesPage = lazy(() => import("./pages/ServicesPage"));
 const ContactPage = lazy(() => import("./pages/ContactPage"));
 const BookPage = lazy(() => import("./pages/BookPage"));
@@ -49,7 +51,7 @@ const NewsletterPopup = lazy(() => import("./components/ui/NewsletterPopup"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
 function RouteFallback() {
-  return <div className="min-h-[40vh] bg-white" aria-hidden />;
+  return <div className="min-h-[100svh] bg-[var(--s-ink)]" aria-hidden />;
 }
 
 function Layout() {
@@ -66,6 +68,8 @@ function Layout() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
   }, [pathname]);
+
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const onBanner = (e) => setBannerPad(Boolean(e.detail?.visible));
@@ -101,17 +105,23 @@ function Layout() {
   return (
     <NewsletterProvider>
       <div
-        className={`min-h-screen bg-white${
+        className={`min-h-screen bg-[var(--s-ink)]${
           bannerPad
             ? " pb-[calc(var(--site-mobile-banner-height)+env(safe-area-inset-bottom,0px))] lg:pb-0"
             : ""
         }`}
       >
-        <ScrollProgress />
+        <SmoothScroll />
+        <Preloader />
+        <RouteCurtain />
+        <Cursor />
+        <Grain />
         <Header />
-        <Suspense fallback={<RouteFallback />}>
-          <Outlet />
-        </Suspense>
+        <div className={isHome ? undefined : "s-inner"}>
+          <Suspense fallback={<RouteFallback />}>
+            <Outlet />
+          </Suspense>
+        </div>
         <Suspense fallback={null}>
           <Footer />
         </Suspense>
@@ -144,15 +154,13 @@ function HomePage() {
         canonical="https://creativeiqmarketing.com/"
       />
       <StructuredData />
-      <Hero />
-      <Suspense fallback={null}>
-        <Clients />
-        <VilmaIntro />
-        <ServicesShowcase />
-        <Stats />
-        <Testimonials />
-        <About />
-        <Contact />
+      <HeroSignal />
+      <Suspense fallback={<div className="h-screen bg-[var(--s-ink)]" />}>
+        <Manifesto />
+        <SystemReel />
+        <Proof />
+        <Founder />
+        <HomeContact />
       </Suspense>
     </>
   );

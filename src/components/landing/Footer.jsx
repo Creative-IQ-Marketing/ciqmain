@@ -1,45 +1,20 @@
-import { Link } from "react-router-dom";
-import {
-  Facebook,
-  Instagram,
-  Linkedin,
-  Mail,
-  Music2,
-  Phone,
-  Youtube,
-} from "lucide-react";
-import mainLogo from "../../assets/mainLogo.webp";
+import { useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import { trackButtonClick } from "../../services/analytics";
 import { EMAIL, PHONE_DISPLAY, PHONE_TEL } from "../../utils/contact";
 import { SERVICES_NAV } from "../../data/servicesNav";
-import footerVoid from "../../assets/sections/section-footer-void.webp";
+import { SignalButton } from "../signal/primitives";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const SOCIALS = [
-  {
-    Icon: Facebook,
-    label: "Facebook",
-    href: "https://www.facebook.com/CreativeIQDigitalmarketing",
-  },
-  {
-    Icon: Instagram,
-    label: "Instagram",
-    href: "https://www.instagram.com/creativeiq.digitalmarketing/",
-  },
-  {
-    Icon: Music2,
-    label: "TikTok",
-    href: "https://www.tiktok.com/@creativeiq.marketing",
-  },
-  {
-    Icon: Youtube,
-    label: "YouTube",
-    href: "https://www.youtube.com/@CreativeIQdigitalmarketing",
-  },
-  {
-    Icon: Linkedin,
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/company/creativeiqdigitalmarketing",
-  },
+  ["Facebook", "https://www.facebook.com/CreativeIQDigitalmarketing"],
+  ["Instagram", "https://www.instagram.com/creativeiq.digitalmarketing/"],
+  ["TikTok", "https://www.tiktok.com/@creativeiq.marketing"],
+  ["YouTube", "https://www.youtube.com/@CreativeIQdigitalmarketing"],
+  ["LinkedIn", "https://www.linkedin.com/company/creativeiqdigitalmarketing"],
 ];
 
 const NAV = [
@@ -47,200 +22,141 @@ const NAV = [
   { label: "About", href: "/about/creativeiq" },
   { label: "Services", href: "/services" },
   { label: "SEO Audit by CIQ", href: "/free-ai-seo-audit" },
-  {
-    label: "Events by CIQ",
-    href: "https://events.creativeiqmarketing.com",
-    external: true,
-  },
+  { label: "Events by CIQ", href: "https://events.creativeiqmarketing.com", external: true },
   { label: "Book a call", href: "/book" },
   { label: "Contact", href: "/contact" },
+  { label: "Newsletter", href: "/newsletter" },
 ];
 
 export default function Footer() {
+  const root = useRef(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.from("[data-mark] > span", {
+          yPercent: 100,
+          stagger: 0.06,
+          ease: "expo.out",
+          duration: 1.4,
+          scrollTrigger: { trigger: "[data-mark]", start: "top 95%", once: true },
+        });
+        gsap.fromTo(
+          "[data-footer-cta]",
+          { yPercent: 30, autoAlpha: 0.2 },
+          { yPercent: 0, autoAlpha: 1, ease: "none", scrollTrigger: { trigger: root.current, start: "top bottom", end: "top 30%", scrub: true } },
+        );
+      });
+      return () => mm.revert();
+    },
+    { scope: root },
+  );
+
+  const link = "text-[var(--s-paper-dim)] transition hover:text-[var(--s-paper)]";
+
   return (
-    <footer className="bg-[var(--c-base)]">
-      <div className="relative overflow-hidden border-t border-[var(--c-border)]">
-        <img
-          src={footerVoid}
-          alt=""
-          aria-hidden
-          className="absolute inset-0 size-full object-cover opacity-90"
-          loading="lazy"
-          decoding="async"
-        />
-        <div className="absolute inset-0 bg-[var(--c-ink)]/75" />
-        <div className="relative mx-auto flex max-w-[var(--container-max)] flex-col items-start justify-between gap-10 px-[var(--container-pad)] py-20 sm:py-24 md:flex-row md:items-end lg:py-28">
-          <div className="max-w-2xl">
-            <p className="font-sans text-[clamp(2.4rem,6vw,5rem)] font-extrabold leading-[0.95] tracking-[-0.045em] text-white text-balance">
-              Ready to build systems that convert?
+    <footer ref={root} className="s-dark relative overflow-hidden">
+      <div className="s-container border-t border-[var(--s-line)] pt-[clamp(5rem,10vw,9rem)]">
+        <div data-footer-cta className="grid gap-10 lg:grid-cols-[1.3fr_0.7fr] lg:items-end">
+          <p className="s-display text-[clamp(3rem,8vw,8.5rem)] text-[var(--s-paper)]">
+            Let&rsquo;s build
+            <br />
+            what&rsquo;s <span className="s-serif text-[var(--s-signal)]">next.</span>
+          </p>
+          <div className="flex flex-wrap gap-3 lg:justify-end">
+            <SignalButton to="/book" onClick={() => trackButtonClick("Book a call", "footer_cta", "Footer")}>
+              Book a call
+            </SignalButton>
+            <SignalButton to="/contact" variant="ghost" onClick={() => trackButtonClick("Start a project", "footer_cta", "Footer")}>
+              Start a project
+            </SignalButton>
+          </div>
+        </div>
+
+        <div className="mt-24 grid gap-10 border-t border-[var(--s-line)] pt-10 text-[15px] sm:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <p className="s-label mb-4 text-[var(--s-paper-ghost)]">Studio</p>
+            <p className="max-w-xs leading-relaxed text-[var(--s-paper-dim)]">
+              Performance-first growth systems: SEO, web, content and CRM built to rank and convert. San Antonio, TX —
+              international clients welcome.
             </p>
           </div>
-          <div className="flex flex-wrap gap-3">
-            <Link
-              to="/book"
-              onClick={() =>
-                trackButtonClick("Book a call", "footer_cta", "Footer")
-              }
-              className="inline-flex items-center justify-center rounded-[var(--radius-pill)] bg-white px-8 py-3.5 font-sans text-[15px] font-semibold text-[var(--c-ink)] transition hover:bg-white/90"
-            >
-              Book a call
-            </Link>
-            <Link
-              to="/contact"
-              onClick={() =>
-                trackButtonClick("Start a project", "footer_cta", "Footer")
-              }
-              className="inline-flex items-center justify-center rounded-[var(--radius-pill)] border border-white/30 bg-transparent px-8 py-3.5 font-sans text-[15px] font-medium text-white transition hover:border-white"
-            >
-              Start a project
-            </Link>
+          <nav>
+            <p className="s-label mb-4 text-[var(--s-paper-ghost)]">Navigate</p>
+            <ul className="space-y-2">
+              {NAV.map((n) => (
+                <li key={n.label}>
+                  <a
+                    href={n.href}
+                    className={link}
+                    onClick={() => trackButtonClick(n.label, "footer_nav", "Footer")}
+                    {...(n.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  >
+                    {n.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <nav>
+            <p className="s-label mb-4 text-[var(--s-paper-ghost)]">Services</p>
+            <ul className="space-y-2">
+              {SERVICES_NAV.children?.map((c) => (
+                <li key={c.href}>
+                  <a href={c.href} className={link} onClick={() => trackButtonClick(c.label, "footer_nav", "Footer")}>
+                    {c.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <div>
+            <p className="s-label mb-4 text-[var(--s-paper-ghost)]">Contact</p>
+            <a href={`tel:${PHONE_TEL}`} className={`block ${link}`}>
+              {PHONE_DISPLAY}
+            </a>
+            <a href={`mailto:${EMAIL}`} className={`block break-all ${link}`}>
+              {EMAIL}
+            </a>
+            <ul className="mt-5 flex flex-wrap gap-x-4 gap-y-1">
+              {SOCIALS.map(([l, h]) => (
+                <li key={l}>
+                  <a href={h} target="_blank" rel="noopener noreferrer" aria-label={l} className={`s-mono text-[12px] ${link}`}>
+                    {l} ↗
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
 
-      <div className="bg-[var(--c-footer)] text-white">
-        <div className="mx-auto max-w-[var(--container-max)] px-[var(--container-pad)] py-14 lg:py-16">
-          <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.35fr_1fr_1fr_1.1fr]">
-            <div>
-              <a href="/" className="inline-flex items-center gap-2.5">
-                <img
-                  src={mainLogo}
-                  alt="CreativeIQ"
-                  className="h-9 w-9 object-contain brightness-0 invert"
-                />
-                <span className="font-sans text-xl font-bold tracking-[-0.03em]">
-                  Creative<span className="text-[#6B9AFF]">IQ</span>
-                </span>
-              </a>
-              <p className="mt-4 max-w-xs font-sans text-sm leading-relaxed text-white/55">
-                Performance-first growth systems: SEO, web, content, and CRM
-                built to rank and convert.
-              </p>
-              <div className="mt-6 flex gap-2">
-                {SOCIALS.map(({ Icon, label, href }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    aria-label={label}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white/70 transition hover:border-white/20 hover:bg-white/[0.08] hover:text-white"
-                  >
-                    <Icon size={16} strokeWidth={1.75} />
-                  </a>
-                ))}
-              </div>
-            </div>
+      <p
+        data-mark
+        aria-hidden
+        className="s-display mt-16 flex select-none justify-center overflow-hidden whitespace-nowrap px-2 pb-[0.06em] text-[17vw] leading-[0.9] tracking-[-0.07em] text-[var(--s-paper)]"
+      >
+        {"Creative".split("").map((c, i) => (
+          <span key={i} className="inline-block">
+            {c}
+          </span>
+        ))}
+        <span className="s-serif inline-block text-[var(--s-signal)]">IQ</span>
+      </p>
 
-            <nav className="font-sans text-sm">
-              <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/40">
-                Navigate
-              </p>
-              <ul className="space-y-2.5">
-                {NAV.map((item) => (
-                  <li key={item.label}>
-                    <a
-                      href={item.href}
-                      onClick={() =>
-                        trackButtonClick(item.label, "footer_nav", "Footer")
-                      }
-                      {...(item.external
-                        ? { target: "_blank", rel: "noopener noreferrer" }
-                        : {})}
-                      className="text-white/65 transition hover:text-white"
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
-                <li>
-                  <a
-                    href="/newsletter"
-                    className="text-white/65 transition hover:text-white"
-                  >
-                    Newsletter
-                  </a>
-                </li>
-              </ul>
-            </nav>
-
-            <nav className="font-sans text-sm">
-              <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/40">
-                Services
-              </p>
-              <ul className="space-y-2.5">
-                {SERVICES_NAV.children?.map((child) => (
-                  <li key={child.href}>
-                    <a
-                      href={child.href}
-                      onClick={() =>
-                        trackButtonClick(child.label, "footer_nav", "Footer")
-                      }
-                      className="text-white/65 transition hover:text-white"
-                    >
-                      {child.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-
-            <div className="font-sans text-sm">
-              <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/40">
-                Contact
-              </p>
-              <ul className="space-y-3">
-                <li>
-                  <a
-                    href={`tel:${PHONE_TEL}`}
-                    className="inline-flex items-center gap-2.5 text-white/65 transition hover:text-white"
-                  >
-                    <Phone
-                      size={15}
-                      strokeWidth={1.75}
-                      className="text-[#6B9AFF]"
-                    />
-                    {PHONE_DISPLAY}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={`mailto:${EMAIL}`}
-                    className="inline-flex items-center gap-2.5 break-all text-white/65 transition hover:text-white"
-                  >
-                    <Mail
-                      size={15}
-                      strokeWidth={1.75}
-                      className="shrink-0 text-[#6B9AFF]"
-                    />
-                    {EMAIL}
-                  </a>
-                </li>
-              </ul>
-              <p className="mt-4 text-white/45">
-                International clients welcome
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-8 font-sans text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between">
-            <p>
-              {new Date().getFullYear()} CreativeIQ Marketing. All rights
-              reserved.
-            </p>
-            <div className="flex flex-wrap gap-5">
-              <a href="/terms" className="transition hover:text-white/80">
-                Terms
-              </a>
-              <a href="/privacy" className="transition hover:text-white/80">
-                Privacy
-              </a>
-              <a
-                href="/newsletter/unsubscribed"
-                className="hidden transition hover:text-white/80"
-              >
-                Unsubscribe
-              </a>
-            </div>
-          </div>
+      <div className="s-container flex flex-col gap-3 border-t border-[var(--s-line)] py-6 text-[12px] text-[var(--s-paper-ghost)] sm:flex-row sm:justify-between">
+        <p className="s-mono">© {new Date().getFullYear()} CreativeIQ Marketing. All rights reserved.</p>
+        <div className="s-mono flex gap-5">
+          <a href="/terms" className="hover:text-[var(--s-paper)]">Terms</a>
+          <a href="/privacy" className="hover:text-[var(--s-paper)]">Privacy</a>
+          <button
+            type="button"
+            className="hover:text-[var(--s-paper)]"
+            onClick={() => (window.__lenis ? window.__lenis.scrollTo(0, { duration: 2 }) : window.scrollTo({ top: 0, behavior: "smooth" }))}
+          >
+            Back to top ↑
+          </button>
         </div>
       </div>
     </footer>
