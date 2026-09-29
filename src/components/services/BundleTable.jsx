@@ -9,106 +9,13 @@ import {
 } from "../ui/accordion";
 import PlanRail from "./PlanRail";
 
-const TIERS = [
-  { id: 0, name: "Launch", full: "CIQ Launch", monthly: "$1,198/mo" },
-  {
-    id: 1,
-    name: "Growth",
-    full: "CIQ Growth",
-    monthly: "$1,999/mo",
-    popular: true,
-  },
-  { id: 2, name: "Authority", full: "CIQ Authority", monthly: "$2,999/mo" },
-  { id: 3, name: "Dominance", full: "CIQ Dominance", monthly: "$4,997+/mo" },
-];
+import {
+  BUNDLE_COMPARE_ROWS,
+  BUNDLE_COMPARE_TIERS,
+} from "../../data/growthBundles";
 
-const ROWS = [
-  {
-    group: "Website",
-    label: "Coded website pages",
-    values: ["1 page", "2–3 pages", "4–6 pages", "7–10+ pages"],
-  },
-  {
-    group: "Website",
-    label: "Additional pages",
-    values: ["+$999", "+$999", "+$999", "+$999"],
-  },
-  {
-    group: "SEO",
-    label: "SEO tier included",
-    values: ["SEO Growth", "SEO Growth", "SEO Authority", "SEO Dominance"],
-  },
-  {
-    group: "SEO",
-    label: "Indexing + speed + mobile",
-    values: [true, true, true, true],
-  },
-  {
-    group: "SEO",
-    label: "Core Web Vitals",
-    values: [false, true, true, true],
-  },
-  {
-    group: "SEO",
-    label: "Schema + AEO / AI search",
-    values: [false, false, true, true],
-  },
-  {
-    group: "Social",
-    label: "Social package",
-    values: ["Starter", "Classic", "Refined", "Elite"],
-  },
-  {
-    group: "Social",
-    label: "Posts / month",
-    values: ["8", "12–18", "12–18", "27"],
-  },
-  {
-    group: "CRM",
-    label: "CRM tier",
-    values: ["DIY Starter", "CRM Pro", "CRM Pro", "CRM Dominance"],
-  },
-  {
-    group: "CRM",
-    label: "Lead capture + pipeline",
-    values: [true, true, true, true],
-  },
-  {
-    group: "CRM",
-    label: "Funnels + booking automation",
-    values: [false, true, true, true],
-  },
-  {
-    group: "CRM",
-    label: "AI chat + review system",
-    values: [false, false, true, true],
-  },
-  {
-    group: "CRM",
-    label: "AI agents + membership portal",
-    values: [false, false, false, true],
-  },
-  {
-    group: "Ads & scale",
-    label: "Google + Meta ads management",
-    values: [false, false, false, true],
-  },
-  {
-    group: "Ads & scale",
-    label: "Retargeting + revenue tracking",
-    values: [false, false, false, true],
-  },
-  {
-    group: "Value",
-    label: "Individual value",
-    values: ["$1,332/mo", "$2,294/mo", "$3,497/mo", "$6,728+/mo"],
-  },
-  {
-    group: "Value",
-    label: "You save",
-    values: ["$154/mo", "$295/mo", "$498/mo", "$1,731+/mo"],
-  },
-];
+const TIERS = BUNDLE_COMPARE_TIERS;
+const ROWS = BUNDLE_COMPARE_ROWS;
 
 function CellValue({ value }) {
   if (value === true) {
@@ -289,7 +196,7 @@ export default function BundleTable() {
                     <Fragment key={group}>
                       <tr className="bg-[var(--c-surface-2)]/80">
                         <td
-                          colSpan={5}
+                          colSpan={TIERS.length + 1}
                           className="px-5 py-2.5 font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--c-accent)]"
                         >
                           {group}

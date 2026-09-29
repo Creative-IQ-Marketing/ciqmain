@@ -1,49 +1,37 @@
-import { useState } from "react";
-import FadeUp from "../primitives/FadeUp";
+import { trackButtonClick } from "../../services/analytics";
+import { Button } from "../ui/button";
+
+export const CALENDAR_URL = "https://calendar.app.google/nj8St5kEvr9bGtEY8";
 
 export default function Booking() {
-  const [iframeLoaded, setIframeLoaded] = useState(false);
-
   return (
-    <FadeUp
-      as="section"
+    <section
       id="booking"
-      className="relative overflow-hidden bg-[var(--c-base)] px-5 pb-16 pt-[calc(var(--hero-header-offset)+1.75rem)] sm:px-6 sm:pb-20 lg:px-10 lg:pb-24"
+      className="bg-white px-[var(--container-pad)] pb-20 pt-2 sm:pb-24"
     >
-      <div className="relative z-10 mx-auto max-w-[1320px]">
-        <div className="mb-10 max-w-2xl sm:mb-12">
-          <h1 className="font-sans text-[clamp(2rem,4vw,3.25rem)] font-extrabold tracking-[-0.035em] text-[var(--c-ink)]">
-            Schedule your{" "}
-            <span className="text-[var(--c-accent)]">strategy call</span>
-          </h1>
-          <p className="mt-5 max-w-xl font-sans text-base leading-relaxed text-[var(--c-text-secondary)]">
-            Pick a time that works. We will discuss your goals and map a plan
-            across SEO, web, content, and systems.
+      <div className="mx-auto grid max-w-[var(--container-max)] items-end gap-8 rounded-[var(--radius-card)] border border-[var(--c-border)] bg-[var(--c-surface)] p-8 sm:p-12 lg:grid-cols-[1.15fr_auto] lg:p-14">
+        <div>
+          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--c-text-muted)]">
+            Google Calendar
+          </p>
+          <h2 className="mt-3 font-sans text-[clamp(1.8rem,3.5vw,2.8rem)] font-extrabold tracking-[-0.04em] text-[var(--c-ink)]">
+            Pick a time.
+          </h2>
+          <p className="mt-4 max-w-xl font-sans text-base leading-relaxed text-[var(--c-text-secondary)]">
+            The calendar opens in Google. Choose a slot for a strategy call — goals, SEO, web, content, and the system that fits.
           </p>
         </div>
-
-        <div className="relative mx-auto overflow-hidden border border-[var(--c-border)] bg-white">
-          {!iframeLoaded && (
-            <div className="absolute inset-0 z-20 flex min-h-[600px] flex-col items-center justify-center bg-white">
-              <div className="h-9 w-9 animate-spin rounded-full border-2 border-[#e5e5e5] border-t-[var(--c-accent)]" />
-              <p className="mt-4 font-sans text-sm text-[var(--c-text-muted)]">
-                Loading calendar…
-              </p>
-            </div>
-          )}
-
-          <div className="min-h-[800px] w-full bg-white md:min-h-[700px]">
-            <iframe
-              src="https://link.creativeiq.marketing/widget/booking/ZeUt9pxYewU5fAJonRj2"
-              className="h-full min-h-[800px] w-full border-0"
-              scrolling="auto"
-              id="ghl-booking-widget"
-              title="Book a strategy call"
-              onLoad={() => setIframeLoaded(true)}
-            />
-          </div>
-        </div>
+        <Button asChild size="lg">
+          <a
+            href={CALENDAR_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackButtonClick("Open calendar", "booking_cta", "Book")}
+          >
+            Open the calendar
+          </a>
+        </Button>
       </div>
-    </FadeUp>
+    </section>
   );
 }

@@ -24,11 +24,11 @@ export default function ServicesHero() {
 
       <div className="relative mx-auto max-w-[var(--container-max)] px-[var(--container-pad)]">
         <h1 className="max-w-3xl font-sans text-[clamp(2.15rem,5vw,3.5rem)] font-extrabold leading-[1.05] tracking-[-0.04em] text-[var(--c-ink)] text-balance">
-          Services built as{" "}
-          <span className="text-[var(--c-accent)]">systems</span>
+          Build it{" "}
+          <span className="text-[var(--c-accent)]">piece by piece.</span>
         </h1>
         <p className="mt-4 max-w-xl font-sans text-base leading-relaxed text-[var(--c-text-secondary)]">
-          Choose a lane. Compare what you need.
+          SEO, social, CRM, and consulting, sold on their own. The three growth bundles have their own page, and sit again at the bottom of this one.
         </p>
       </div>
     </section>

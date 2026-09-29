@@ -1,10 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import SEO from "../components/SEO";
-import PageHeader, {
-  PageCtaPrimary,
-  PageCtaSecondary,
-} from "../components/layout/PageHeader";
+import PageHeader, { PageCtaPrimary } from "../components/layout/PageHeader";
 import { Button } from "../components/ui/button";
 import vilmaBw from "../assets/vilma/vilma-bw-work.webp";
 import vilmaCreative from "../assets/vilma/vilma-creative.webp";
@@ -52,10 +49,9 @@ export default function AboutVilmaPage() {
         titleAccent="builds trust systems"
         description="Founder and CEO of CreativeIQ. AI digital marketing strategist, speaker, and growth consultant with over a decade building scalable marketing ecosystems."
       >
-        <PageCtaPrimary to="/contact">Work with Vilma</PageCtaPrimary>
-        <PageCtaSecondary to="/about/creativeiq">
+        <PageCtaPrimary to="/about/creativeiq">
           About CreativeIQ
-        </PageCtaSecondary>
+        </PageCtaPrimary>
       </PageHeader>
 
       <section className="border-b border-[var(--c-border)]">

@@ -11,7 +11,10 @@ export function getContactAnchorId(pathname) {
   const path =
     pathname ??
     (typeof window !== "undefined" ? window.location.pathname : "/");
-  return path.startsWith("/services") ? "services-contact" : "contact";
+  if (path.startsWith("/services") || path.startsWith("/bundles")) {
+    return "services-contact";
+  }
+  return "contact";
 }
 
 export function resolveFormInterest(searchParams, hash) {

@@ -2,15 +2,20 @@
 
 > AI-powered digital marketing agency based in San Antonio, Texas. Specializing in AI-ready SEO, websites, CRM automation, and social media systems that convert.
 
-## Services
-- Website & SEO systems: technical SEO, on-page, local SEO, AI/GEO readiness
-- Social content packages: strategy, posting, captions, cross-platform formatting
-- Consulting: growth strategy, neuromarketing, AI ecosystems
-- CRM automation: GoHighLevel setup, workflows, lead nurturing
+## Bundles
+- Launch — $1,198/mo: one-page site, SEO setup, Social Starter, CRM starter
+- Growth — $1,999/mo: multi-page site, SEO Growth, Classic social, CRM Pro
+- Authority — $2,999/mo: larger site, SEO Authority, Refined social, CRM with AI chat and reviews
+- Bundles page: https://creativeiqmarketing.com/bundles
+
+## À la carte services
+- SEO, social content, consulting, and CRM sold separately
+- Services page: https://creativeiqmarketing.com/services
 
 ## Tools & Resources
 - Free AI SEO Audit Tool: https://creativeiqmarketing.com/free-ai-seo-audit
-- Services Overview: https://creativeiqmarketing.com/services
+- Growth bundles: https://creativeiqmarketing.com/bundles
+- À la carte services: https://creativeiqmarketing.com/services
 - Book a strategy call: https://creativeiqmarketing.com/book
 
 ## Contact

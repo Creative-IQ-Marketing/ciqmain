@@ -103,7 +103,7 @@ export default function GrowthInfra() {
         <div className="grid items-end gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-12">
           <div className="max-w-2xl">
             <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--c-accent)]">
-              SEO growth systems
+              SEO, on its own
             </p>
             <h2 className="mt-3 font-sans text-[clamp(1.85rem,3.5vw,2.85rem)] font-extrabold leading-[1.02] tracking-[-0.04em] text-balance">
               Built for search.{" "}

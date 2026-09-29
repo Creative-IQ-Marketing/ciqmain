@@ -91,7 +91,7 @@ export function PageCtaPrimary({ to, onClick, children, className = "" }) {
   const cls = `inline-flex items-center justify-center rounded-[var(--radius-pill)] bg-[var(--c-cta)] px-7 py-3 font-sans text-[15px] font-semibold text-white transition hover:bg-[var(--c-cta-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)] ${className}`;
   if (to) {
     return (
-      <Link to={to} className={cls}>
+      <Link to={to} onClick={onClick} className={cls}>
         {children}
       </Link>
     );
@@ -107,7 +107,7 @@ export function PageCtaSecondary({ to, onClick, children, className = "" }) {
   const cls = `inline-flex items-center justify-center rounded-[var(--radius-pill)] border border-[var(--c-border-strong)] bg-white px-7 py-3 font-sans text-[15px] font-medium text-[var(--c-ink)] transition hover:border-[var(--c-ink)]/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)] ${className}`;
   if (to) {
     return (
-      <Link to={to} className={cls}>
+      <Link to={to} onClick={onClick} className={cls}>
         {children}
       </Link>
     );

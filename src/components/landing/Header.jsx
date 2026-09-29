@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import mainLogo from "../../assets/mainLogo.webp";
 import { PHONE_TEL } from "../../utils/contact";
 import { trackButtonClick } from "../../services/analytics";
-import { SERVICES_NAV } from "../../data/servicesNav";
+import { BUNDLES_NAV, SERVICES_NAV } from "../../data/servicesNav";
 import { ABOUT_NAV } from "../../data/aboutNav";
 import { TOOLS_NAV } from "../../data/toolsNav";
 import {
@@ -23,6 +23,7 @@ const ease = [0.22, 1, 0.36, 1];
 const NAV = [
   { label: "Home", href: "/" },
   ABOUT_NAV,
+  BUNDLES_NAV,
   SERVICES_NAV,
   { label: "Book a call", href: "/book" },
   { label: "Contact", href: "/contact" },

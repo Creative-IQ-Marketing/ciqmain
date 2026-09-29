@@ -15,6 +15,7 @@ import ScrollProgress from "./components/layout/ScrollProgress";
 import { scrollToSection } from "./utils/scrollToSection";
 import { warmRoute } from "./utils/prefetchAssets";
 
+const HomeBundles = lazy(() => import("./components/home/HomeBundles"));
 const Clients = lazy(() => import("./components/landing/Clients"));
 const About = lazy(() => import("./components/landing/About"));
 const ServicesShowcase = lazy(
@@ -26,6 +27,7 @@ const Contact = lazy(() => import("./components/landing/Contact"));
 const Footer = lazy(() => import("./components/landing/Footer"));
 const VilmaIntro = lazy(() => import("./components/landing/VilmaIntro"));
 const ServicesPage = lazy(() => import("./pages/ServicesPage"));
+const BundlesPage = lazy(() => import("./pages/BundlesPage"));
 const ContactPage = lazy(() => import("./pages/ContactPage"));
 const BookPage = lazy(() => import("./pages/BookPage"));
 const FreeSeoAuditPage = lazy(() => import("./pages/FreeSeoAuditPage"));
@@ -75,6 +77,7 @@ function Layout() {
 
   useEffect(() => {
     const routes = [
+      "/bundles",
       "/services",
       "/about/vilma",
       "/about/creativeiq",
@@ -146,6 +149,7 @@ function HomePage() {
       <StructuredData />
       <Hero />
       <Suspense fallback={null}>
+        <HomeBundles />
         <Clients />
         <VilmaIntro />
         <ServicesShowcase />
@@ -172,6 +176,7 @@ function App() {
           <Route path="/book" element={<BookPage />} />
           <Route path="/free-ai-seo-audit" element={<FreeSeoAuditPage />} />
           <Route path="/ai-seo-guide" element={<AiSeoGuidePage />} />
+          <Route path="/bundles" element={<BundlesPage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/services/what-is-crm" element={<WhatIsCrmPage />} />
           <Route path="/about/creativeiq" element={<AboutCiqPage />} />
