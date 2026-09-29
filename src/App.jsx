@@ -33,7 +33,9 @@ const BookPage = lazy(() => import("./pages/BookPage"));
 const FreeSeoAuditPage = lazy(() => import("./pages/FreeSeoAuditPage"));
 const AiSeoGuidePage = lazy(() => import("./pages/AiSeoGuidePage"));
 const EventRsvpPage = lazy(() => import("./pages/EventRsvpPage"));
-const BusinessUnpluggedPage = lazy(() => import("./pages/BusinessUnpluggedPage"));
+const BusinessUnpluggedPage = lazy(
+  () => import("./pages/BusinessUnpluggedPage"),
+);
 const NewsletterPage = lazy(() => import("./pages/NewsletterPage"));
 const PaymentFormPage = lazy(() => import("./pages/PaymentFormPage"));
 const UnsubscribedPage = lazy(() => import("./pages/UnsubscribedPage"));
@@ -59,7 +61,11 @@ function Layout() {
   const [bannerPad, setBannerPad] = useState(() => {
     if (!SITE_TOP_BANNER.enabled) return false;
     try {
-      return sessionStorage.getItem(`ciq_site_banner_dismissed_${ACTIVE_EVENT?.id || "default"}`) !== "1";
+      return (
+        sessionStorage.getItem(
+          `ciq_site_banner_dismissed_${ACTIVE_EVENT?.id || "default"}`,
+        ) !== "1"
+      );
     } catch {
       return true;
     }
@@ -149,12 +155,12 @@ function HomePage() {
       <StructuredData />
       <Hero />
       <Suspense fallback={null}>
-        <HomeBundles />
         <Clients />
-        <VilmaIntro />
         <ServicesShowcase />
+        <HomeBundles />
         <Stats />
         <Testimonials />
+        <VilmaIntro />
         <About />
         <Contact />
       </Suspense>
@@ -186,7 +192,10 @@ function App() {
             element={<SocialMediaFreeTrialPage />}
           />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/newsletter/unsubscribed" element={<UnsubscribedPage />} />
+          <Route
+            path="/newsletter/unsubscribed"
+            element={<UnsubscribedPage />}
+          />
           <Route path="/terms" element={<TermsAndConditionsPage />} />
           <Route path="/privacy" element={<PrivacyPolicyPage />} />
           <Route path="*" element={<NotFoundPage />} />
