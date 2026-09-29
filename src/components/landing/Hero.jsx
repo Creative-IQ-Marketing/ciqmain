@@ -134,14 +134,6 @@ export default function Hero() {
               Audit my site
             </Link>
           </Button>
-          <Button asChild variant="ghost">
-            <Link
-              to="/#home-bundles"
-              onClick={() => trackButtonClick("Three bundles", "hero_cta", "Hero")}
-            >
-              The three bundles
-            </Link>
-          </Button>
         </div>
 
         <Suspense fallback={null}>

@@ -6,10 +6,10 @@ export default function HomeBundles() {
     <BundleOffers
       variant="home"
       id="home-bundles"
-      eyebrow="The three systems"
-      title="Three bundles."
-      titleAccent="One loop."
-      lede="Get found, capture the lead, nurture it, and prove the work. Launch, Growth, and Authority are how we sell that loop — website, SEO, social, and CRM in one system."
+      eyebrow="Find your system"
+      title="Pick the"
+      titleAccent="right system."
+      lede="Get found, capture the lead, nurture it, and prove the work. Launch, Growth, and Authority — website, SEO, social, and CRM in one loop."
     />
   );
 }
