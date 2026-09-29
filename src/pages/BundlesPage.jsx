@@ -102,10 +102,10 @@ export default function BundlesPage() {
 
       <BundleRows
         showScaleNote
-        eyebrow="Launch · Growth · Authority"
-        title="Pick a"
-        titleAccent="system."
-        lede="Each one includes the website, the SEO, the social, and the CRM for that stage. If you only need a single piece, the à la carte menu is on the services page."
+        eyebrow="Find your system"
+        title="Pick the"
+        titleAccent="right system."
+        lede="Each system includes the website, the SEO, the social, and the CRM for that stage. À la carte pricing stays on the services page."
       />
       <BundleTable />
       <ServicesContact />

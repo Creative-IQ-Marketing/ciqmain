@@ -1,238 +1,255 @@
-import { useRef } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { Check, Star } from "lucide-react";
 import { Link } from "react-router-dom";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-import { GROWTH_LOOP, MAIN_BUNDLES } from "../../data/growthBundles";
+import { MAIN_BUNDLES } from "../../data/growthBundles";
 import { scrollToContactForm } from "../../utils/formInterest";
 import { trackButtonClick } from "../../services/analytics";
 
-gsap.registerPlugin(ScrollTrigger, useGSAP);
+function BundleCard({ bundle, featured, index, reduceMotion, ink }) {
+  const start = () => {
+    trackButtonClick(bundle.name, "bundle_card", ink ? "Home bundles" : "Bundles");
+    scrollToContactForm(bundle.interest, `bundle:${bundle.interest}`);
+  };
+
+  return (
+    <motion.article
+      id={bundle.id}
+      initial={reduceMotion ? false : { opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.55, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      whileHover={reduceMotion ? undefined : { y: -6 }}
+      className={`relative flex h-full flex-col scroll-mt-32 rounded-[1.75rem] p-7 sm:p-8 ${
+        featured
+          ? "bg-[var(--s-signal-deep)] text-white shadow-[0_28px_60px_-24px_rgba(59,111,240,0.55)]"
+          : ink
+            ? "border border-[var(--s-line)] bg-[var(--s-ink-2)] text-[var(--s-paper)] shadow-[0_18px_40px_-28px_rgba(0,0,0,0.45)]"
+            : "border border-[var(--c-border)] bg-white text-[var(--s-ink)] shadow-[0_18px_40px_-28px_rgba(15,15,15,0.18)]"
+      }`}
+    >
+      {featured ? (
+        <motion.span
+          className="absolute right-5 top-5 flex size-10 items-center justify-center rounded-full bg-[var(--s-paper)] text-[var(--s-signal-deep)] shadow-[0_10px_24px_-8px_rgba(241,240,235,0.45)]"
+          animate={reduceMotion ? undefined : { scale: [1, 1.06, 1] }}
+          transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+          aria-label="Most chosen"
+        >
+          <Star className="size-4 fill-current" aria-hidden />
+        </motion.span>
+      ) : null}
+
+      <p
+        className={`s-label ${
+          featured
+            ? "text-white/60"
+            : ink
+              ? "text-[var(--s-paper-ghost)]"
+              : "text-[var(--c-text-muted)]"
+        }`}
+      >
+        {bundle.stage}
+      </p>
+      <h3
+        className={`mt-3 s-display text-[clamp(1.9rem,3vw,2.35rem)] leading-none ${
+          featured ? "text-white" : ink ? "text-[var(--s-paper)]" : "text-[var(--s-ink)]"
+        }`}
+      >
+        {bundle.name}
+      </h3>
+      <p className="mt-4 flex items-baseline gap-1.5">
+        <span
+          className={`font-semibold tabular-nums tracking-[-0.03em] text-[1.7rem] ${
+            featured ? "text-white" : "text-[var(--s-signal)]"
+          }`}
+        >
+          {bundle.monthly}
+        </span>
+        <span
+          className={`text-sm ${
+            featured
+              ? "text-white/60"
+              : ink
+                ? "text-[var(--s-paper-dim)]"
+                : "text-[var(--c-text-muted)]"
+          }`}
+        >
+          /month
+        </span>
+      </p>
+      {bundle.structure ? (
+        <p
+          className={`mt-1 text-xs ${
+            featured
+              ? "text-white/50"
+              : ink
+                ? "text-[var(--s-paper-ghost)]"
+                : "text-[var(--c-text-muted)]"
+          }`}
+        >
+          {bundle.structure}
+        </p>
+      ) : null}
+      <p
+        className={`mt-4 text-sm leading-relaxed ${
+          featured
+            ? "text-white/75"
+            : ink
+              ? "text-[var(--s-paper-dim)]"
+              : "text-[var(--c-text-secondary)]"
+        }`}
+      >
+        {bundle.outcome}
+      </p>
+
+      <ul className="mt-7 flex-1 space-y-3.5">
+        {bundle.preview.map((item) => (
+          <li key={item} className="flex items-start gap-3">
+            <span
+              className={`mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full ${
+                featured
+                  ? "bg-white/20 text-white"
+                  : "bg-[rgba(91,134,255,0.15)] text-[var(--s-signal)]"
+              }`}
+            >
+              <Check className="size-3" strokeWidth={2.75} aria-hidden />
+            </span>
+            <span
+              className={`text-sm leading-snug ${
+                featured
+                  ? "text-white/90"
+                  : ink
+                    ? "text-[var(--s-paper)]"
+                    : "text-[var(--s-ink)]"
+              }`}
+            >
+              {item}
+            </span>
+          </li>
+        ))}
+      </ul>
+
+      <p className="mt-5 text-xs font-semibold tabular-nums text-[var(--s-signal-hot)]">
+        {bundle.savings}
+      </p>
+
+      <button
+        type="button"
+        onClick={start}
+        className={`mt-6 inline-flex h-12 w-full items-center justify-center rounded-full text-sm font-semibold transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--s-signal)] focus-visible:ring-offset-2 active:scale-[0.98] ${
+          featured
+            ? "bg-[var(--s-paper)] text-[var(--s-ink)] hover:bg-white"
+            : ink
+              ? "bg-[var(--s-signal-deep)] text-white hover:bg-[var(--s-signal)]"
+              : "bg-[var(--s-signal-deep)] text-white hover:bg-[var(--s-signal)]"
+        } ${ink ? "focus-visible:ring-offset-[var(--s-ink)]" : "focus-visible:ring-offset-[var(--c-cream,#f7f6f1)]"}`}
+      >
+        Start {bundle.name}
+      </button>
+    </motion.article>
+  );
+}
 
 /**
- * The three growth systems as editorial rows.
+ * Soft three-card plan UI for Launch / Growth / Authority.
  * tone "ink" sits on the dark homepage. tone "paper" sits on inner pages.
  */
 export default function BundleRows({
   tone = "paper",
   id = "bundles",
-  eyebrow = "Growth systems",
-  title = "Three bundles.",
-  titleAccent = "One loop.",
-  lede = "Get found, capture the lead, nurture it, and prove the work. Sold as three systems — website, SEO, social, and CRM wired together.",
+  eyebrow = "Find your system",
+  title = "Pick the",
+  titleAccent = "right system.",
+  lede = "Website, SEO, social, and CRM wired as one loop. Three systems — priced to start.",
   compact = false,
   showLoop = true,
   showScaleNote = true,
 }) {
-  const root = useRef(null);
+  const reduceMotion = useReducedMotion();
   const ink = tone === "ink";
-
-  useGSAP(
-    () => {
-      const mm = gsap.matchMedia();
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        gsap.from(root.current.querySelectorAll("[data-bundle-row]"), {
-          y: 24,
-          autoAlpha: 0,
-          stagger: 0.08,
-          duration: 0.9,
-          ease: "expo.out",
-          scrollTrigger: { trigger: root.current, start: "top 78%", once: true },
-        });
-      });
-      return () => mm.revert();
-    },
-    { scope: root },
-  );
-
-  const start = (bundle) => {
-    trackButtonClick(bundle.name, "bundle_row", ink ? "Home bundles" : "Bundles");
-    scrollToContactForm(bundle.interest, `bundle:${bundle.interest}`);
-  };
+  void showLoop;
 
   return (
     <section
-      ref={root}
       id={id}
       className={`scroll-mt-28 ${
         ink
           ? "s-dark border-t border-[var(--s-line)]"
-          : "border-t border-[var(--c-border)] bg-[var(--c-surface)]"
+          : "border-t border-[var(--c-border)] bg-[var(--c-cream,#f7f6f1)]"
       } ${compact ? "py-16 sm:py-20" : "py-[clamp(4.5rem,9vw,8rem)]"}`}
     >
       <div className="s-container">
-        <div className="max-w-4xl">
-          <div>
-            <p
-              className={`s-label flex items-center gap-3 ${
-                ink ? "text-[var(--s-paper-ghost)]" : "text-[var(--c-text-muted)]"
-              }`}
-            >
-              <span className="text-[var(--s-signal)]">CIQ</span>
-              <span className="h-px w-8 bg-current opacity-50" />
-              {eyebrow}
-            </p>
-            <h2
-              className={`s-display mt-5 text-[clamp(2.6rem,6vw,5.4rem)] text-balance ${
-                ink ? "text-[var(--s-paper)]" : "text-[var(--s-ink)]"
-              }`}
-            >
-              {title}{" "}
-              <span className="s-serif font-normal tracking-[-0.03em] text-[var(--s-signal)]">
-                {titleAccent}
-              </span>
-            </h2>
-          </div>
+        <div className="mx-auto max-w-2xl text-center">
           <p
-            className={`mt-6 max-w-xl text-[1.05rem] leading-relaxed ${
-              ink ? "text-[var(--s-paper-dim)] lg:pb-2" : "text-[var(--c-text-secondary)] lg:pb-2"
+            className={`s-label ${
+              ink ? "text-[var(--s-paper-ghost)]" : "text-[var(--c-text-muted)]"
+            }`}
+          >
+            {eyebrow}
+          </p>
+          <h2
+            className={`s-display mt-4 text-[clamp(2.4rem,5.5vw,4rem)] text-balance ${
+              ink ? "text-[var(--s-paper)]" : "text-[var(--s-ink)]"
+            }`}
+          >
+            {title}{" "}
+            <span className="relative inline-block s-serif font-normal tracking-[-0.03em] text-[var(--s-signal)]">
+              {titleAccent}
+              <span
+                className="absolute inset-x-0 -bottom-1 h-[0.18em] rounded-full bg-[var(--s-signal)]/30"
+                aria-hidden
+              />
+            </span>
+          </h2>
+          <p
+            className={`mx-auto mt-5 max-w-lg text-[1.05rem] leading-relaxed ${
+              ink ? "text-[var(--s-paper-dim)]" : "text-[var(--c-text-secondary)]"
             }`}
           >
             {lede}
           </p>
-        </div>
-
-        {showLoop ? (
-          <ol
-            className={`mt-10 grid gap-px overflow-hidden rounded-2xl border sm:grid-cols-2 lg:mt-14 lg:grid-cols-4 ${
+          <div
+            className={`mt-7 inline-flex items-center rounded-full px-4 py-2 ${
               ink
-                ? "border-[var(--s-line)] bg-[var(--s-line)]"
-                : "border-[var(--c-border)] bg-[var(--c-border)]"
+                ? "border border-[var(--s-line)] bg-[var(--s-ink-2)]"
+                : "border border-[var(--c-border)] bg-white shadow-[0_10px_30px_-20px_rgba(15,15,15,0.35)]"
             }`}
           >
-            {GROWTH_LOOP.map((step, i) => (
-              <li
-                key={step.id}
-                className={`px-5 py-4 ${ink ? "bg-[var(--s-ink-2)]" : "bg-[#faf9f6]"}`}
-              >
-                <p className="s-mono text-[11px] text-[var(--s-signal)]">0{i + 1}</p>
-                <p
-                  className={`mt-2 font-semibold tracking-[-0.02em] ${
-                    ink ? "text-[var(--s-paper)]" : "text-[var(--s-ink)]"
-                  }`}
-                >
-                  {step.label}
-                </p>
-                <p
-                  className={`mt-1 text-sm leading-snug ${
-                    ink ? "text-[var(--s-paper-dim)]" : "text-[var(--c-text-secondary)]"
-                  }`}
-                >
-                  {step.detail}
-                </p>
-              </li>
-            ))}
-          </ol>
-        ) : null}
+            <span
+              className={`text-sm font-semibold ${
+                ink ? "text-[var(--s-paper)]" : "text-[var(--s-ink)]"
+              }`}
+            >
+              Billed monthly
+            </span>
+            <span
+              className={`mx-3 h-4 w-px ${ink ? "bg-[var(--s-line)]" : "bg-[var(--c-border)]"}`}
+              aria-hidden
+            />
+            <span
+              className={`text-sm ${
+                ink ? "text-[var(--s-paper-dim)]" : "text-[var(--c-text-muted)]"
+              }`}
+            >
+              USD · ad spend separate
+            </span>
+          </div>
+        </div>
 
-        <div className={showLoop ? "mt-6 lg:mt-10" : "mt-10"}>
-          {MAIN_BUNDLES.map((bundle) => {
-            const featured = bundle.id === "growth";
-            return (
-              <article
-                key={bundle.id}
-                id={compact ? undefined : bundle.id}
-                data-bundle-row
-                className={`scroll-mt-32 grid gap-6 border-t py-8 sm:py-10 lg:grid-cols-[3.5rem_minmax(0,1fr)_12.5rem] lg:items-start lg:gap-8 ${
-                  ink ? "border-[var(--s-line)]" : "border-[var(--c-border)]"
-                } ${
-                  featured
-                    ? ink
-                      ? "bg-[linear-gradient(90deg,rgba(91,134,255,0.14),transparent_55%)]"
-                      : "bg-[linear-gradient(90deg,rgba(59,111,240,0.08),transparent_50%)]"
-                    : ""
-                }`}
-              >
-                <p className="s-mono text-[13px] text-[var(--s-signal)]">{bundle.index}</p>
-
-                <div className="min-w-0 max-w-full">
-                  <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                    <h3
-                      className={`s-display text-[clamp(2rem,4vw,3.4rem)] leading-none ${
-                        ink ? "text-[var(--s-paper)]" : "text-[var(--s-ink)]"
-                      }`}
-                    >
-                      {bundle.name}
-                    </h3>
-                    <span
-                      className={`s-serif text-[1.35rem] ${
-                        ink ? "text-[var(--s-paper-dim)]" : "text-[var(--c-text-secondary)]"
-                      }`}
-                    >
-                      {bundle.stage}
-                    </span>
-                    {bundle.badge ? (
-                      <span className="s-label rounded-full bg-[var(--s-signal-deep)] px-2.5 py-1 text-white">
-                        {bundle.badge}
-                      </span>
-                    ) : null}
-                  </div>
-                  <p
-                    className={`mt-3 max-w-xl text-[15px] leading-relaxed ${
-                      ink ? "text-[var(--s-paper-dim)]" : "text-[var(--c-text-secondary)]"
-                    }`}
-                  >
-                    {bundle.outcome}
-                  </p>
-                  <ul className="mt-4 max-w-xl space-y-1.5">
-                    {bundle.preview.map((item) => (
-                      <li
-                        key={item}
-                        className={`text-sm ${
-                          ink ? "text-[var(--s-paper)]" : "text-[var(--s-ink)]"
-                        }`}
-                      >
-                        <span className="mr-2 text-[var(--s-signal)]" aria-hidden>
-                          —
-                        </span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="flex min-w-0 flex-wrap items-end justify-between gap-4 lg:block lg:text-right">
-                  <div>
-                    <p
-                      className={`s-display text-[clamp(2rem,3vw,2.8rem)] leading-none tabular-nums ${
-                        ink ? "text-[var(--s-paper)]" : "text-[var(--s-ink)]"
-                      }`}
-                    >
-                      {bundle.monthly}
-                    </p>
-                    <p
-                      className={`s-label mt-2 ${
-                        ink ? "text-[var(--s-paper-ghost)]" : "text-[var(--c-text-muted)]"
-                      }`}
-                    >
-                      / month
-                      {bundle.structure ? ` · ${bundle.structure}` : ""}
-                    </p>
-                    <p className="mt-1 text-xs tabular-nums text-[var(--s-signal)]">
-                      {bundle.savings}
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => start(bundle)}
-                    className={`mt-0 inline-flex h-11 items-center rounded-full px-5 text-sm font-semibold transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--s-signal)] focus-visible:ring-offset-2 active:scale-[0.98] lg:mt-5 ${
-                      featured
-                        ? "bg-[var(--s-signal-deep)] text-white hover:bg-[var(--s-signal)]"
-                        : ink
-                          ? "text-[var(--s-paper)] shadow-[inset_0_0_0_1px_var(--s-line-strong)] hover:bg-[var(--s-paper)] hover:text-[var(--s-ink)]"
-                          : "text-[var(--s-ink)] shadow-[inset_0_0_0_1px_var(--c-border-strong)] hover:bg-[var(--s-ink)] hover:text-[var(--s-paper)]"
-                    } ${ink ? "focus-visible:ring-offset-[var(--s-ink)]" : "focus-visible:ring-offset-[var(--c-surface)]"}`}
-                  >
-                    Start {bundle.name}
-                  </button>
-                </div>
-              </article>
-            );
-          })}
+        <div className="mt-12 grid gap-5 md:grid-cols-3 md:items-stretch lg:gap-6">
+          {MAIN_BUNDLES.map((bundle, i) => (
+            <BundleCard
+              key={bundle.id}
+              bundle={bundle}
+              featured={bundle.id === "growth"}
+              index={i}
+              reduceMotion={reduceMotion}
+              ink={ink}
+            />
+          ))}
         </div>
 
         <div
-          className={`mt-8 flex flex-col gap-4 border-t pt-6 sm:flex-row sm:items-end sm:justify-between ${
+          className={`mt-10 flex flex-col items-center gap-4 border-t pt-6 text-center sm:flex-row sm:items-end sm:justify-between sm:text-left ${
             ink ? "border-[var(--s-line)]" : "border-[var(--c-border)]"
           }`}
         >
@@ -246,12 +263,12 @@ export default function BundleRows({
               ? " Need ads, AI agents, and a full content engine? Ask about Dominance — from $4,997/mo."
               : ""}
           </p>
-          <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm font-semibold">
             {ink ? (
               <Link
                 to="/bundles"
                 className="text-[var(--s-paper)] underline decoration-[var(--s-line-strong)] underline-offset-4 hover:text-[var(--s-signal)]"
-                onClick={() => trackButtonClick("Compare bundles", "bundle_row", "Home bundles")}
+                onClick={() => trackButtonClick("Compare bundles", "bundle_card", "Home bundles")}
               >
                 Compare the three
               </Link>
@@ -266,7 +283,7 @@ export default function BundleRows({
               onClick={() =>
                 trackButtonClick(
                   compact ? "Full bundles" : "À la carte",
-                  "bundle_row",
+                  "bundle_card",
                   ink ? "Home bundles" : "Services",
                 )
               }
