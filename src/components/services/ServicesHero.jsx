@@ -4,10 +4,10 @@ import PageHeader from "../layout/PageHeader";
 export default function ServicesHero() {
   return (
     <PageHeader
-      eyebrow="Services"
-      title="Services built as"
-      titleAccent="systems."
-      description="Choose a lane. Compare what you need. Every package plugs into the same growth stack — search, social, web and CRM."
+      eyebrow="À la carte"
+      title="Build it"
+      titleAccent="piece by piece."
+      description="SEO, social, CRM, and consulting, sold on their own. The three growth bundles — Launch, Growth, and Authority — have their own page, and sit again at the bottom of this one."
     />
   );
 }

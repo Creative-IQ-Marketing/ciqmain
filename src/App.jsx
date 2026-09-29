@@ -21,6 +21,7 @@ import {
 import { scrollToSection } from "./utils/scrollToSection";
 import { warmRoute } from "./utils/prefetchAssets";
 
+const HomeBundles = lazy(() => import("./components/home/HomeBundles"));
 const Manifesto = lazy(() => import("./components/home/Manifesto"));
 const SystemReel = lazy(() => import("./components/home/SystemReel"));
 const Proof = lazy(() => import("./components/home/Proof"));
@@ -28,6 +29,7 @@ const Founder = lazy(() => import("./components/home/Founder"));
 const HomeContact = lazy(() => import("./components/home/HomeContact"));
 const Footer = lazy(() => import("./components/landing/Footer"));
 const ServicesPage = lazy(() => import("./pages/ServicesPage"));
+const BundlesPage = lazy(() => import("./pages/BundlesPage"));
 const ContactPage = lazy(() => import("./pages/ContactPage"));
 const BookPage = lazy(() => import("./pages/BookPage"));
 const FreeSeoAuditPage = lazy(() => import("./pages/FreeSeoAuditPage"));
@@ -79,6 +81,7 @@ function Layout() {
 
   useEffect(() => {
     const routes = [
+      "/bundles",
       "/services",
       "/about/vilma",
       "/about/creativeiq",
@@ -156,6 +159,7 @@ function HomePage() {
       <StructuredData />
       <HeroSignal />
       <Suspense fallback={<div className="h-screen bg-[var(--s-ink)]" />}>
+        <HomeBundles />
         <Manifesto />
         <SystemReel />
         <Proof />
@@ -180,6 +184,7 @@ function App() {
           <Route path="/book" element={<BookPage />} />
           <Route path="/free-ai-seo-audit" element={<FreeSeoAuditPage />} />
           <Route path="/ai-seo-guide" element={<AiSeoGuidePage />} />
+          <Route path="/bundles" element={<BundlesPage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/services/what-is-crm" element={<WhatIsCrmPage />} />
           <Route path="/about/creativeiq" element={<AboutCiqPage />} />

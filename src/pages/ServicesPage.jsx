@@ -5,8 +5,7 @@ import SEO from "../components/SEO";
 import { publishFormInterest, SECTION_INTEREST_MAP } from "../utils/formInterest";
 import ServicesHero from "../components/services/ServicesHero";
 import ServicesLaneSwitch from "../components/services/ServicesLaneSwitch";
-import BundlePricing from "../components/services/BundlePricing";
-import BundleTable from "../components/services/BundleTable";
+import BundleRows from "../components/services/BundleRows";
 import SocialMediaPackages from "../components/services/SocialMediaPackages";
 import ConsultingSection from "../components/services/ConsultingSection";
 import HighLevelOffers from "../components/services/HighLevelOffers";
@@ -17,12 +16,12 @@ import CrmPackages from "../components/services/CrmPackages";
 export const SERVICE_LANES = [
   {
     id: "website-seo",
-    label: "Growth systems",
+    label: "SEO",
     aliases: ["website-seo", "bundles", "growth-infra", "high-level"],
   },
   {
     id: "content-creation",
-    label: "Social packages",
+    label: "Social",
     aliases: ["content-creation"],
   },
   {
@@ -82,7 +81,12 @@ export default function ServicesPage() {
   useEffect(() => {
     if (!hash) return;
     const id = hash.replace("#", "");
-    if (id === "services-contact" || id === "contact") return;
+    if (id === "bundles" || id === "launch" || id === "growth" || id === "authority" || id === "comparison-table") {
+      const nextHash = id === "bundles" ? "" : `#${id}`;
+      navigate(`/bundles${nextHash}`, { replace: true });
+      return;
+    }
+    if (id === "services-contact" || id === "contact" || id === "bundle-closer") return;
     const next = resolveLane(id);
     setLane(next);
     const interest = SECTION_INTEREST_MAP[next];
@@ -95,7 +99,7 @@ export default function ServicesPage() {
         ?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 120);
     return () => window.clearTimeout(timer);
-  }, [hash]);
+  }, [hash, navigate]);
 
   useEffect(() => {
     const id = window.setTimeout(() => {
@@ -142,7 +146,7 @@ export default function ServicesPage() {
           name: "How much do digital marketing services cost?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "CreativeIQ offers tiered packages from $97/mo CRM starter and $569/mo social starter through full CIQ Dominance systems. Contact us for a custom quote.",
+            text: "CreativeIQ leads with three growth systems — Launch at $1,198/mo, Growth at $1,999/mo, and Authority at $2,999/mo — plus à la carte SEO, social, CRM, and consulting. Dominance, with ads and AI agents, starts at $4,997/mo.",
           },
         },
         {
@@ -183,9 +187,9 @@ export default function ServicesPage() {
   return (
     <main>
       <SEO
-        title="Digital Marketing Services | SEO, Social, CRM | CreativeIQ"
-        description="Choose a growth lane: website & SEO systems, social content packages, consulting, or CRM automation. Clear tiers for brands ready to scale."
-        keywords="digital marketing services, SEO services San Antonio, social media packages, CRM automation GoHighLevel, marketing consulting, CreativeIQ services"
+        title="À La Carte Services | SEO, Social, CRM | CreativeIQ"
+        description="Buy SEO, social, CRM, or consulting on their own. The three CIQ growth bundles — Launch, Growth, and Authority — are on their own page, and repeated at the bottom of this one."
+        keywords="digital marketing services, SEO services San Antonio, social media packages, CRM automation, marketing consulting, CreativeIQ à la carte"
         canonical="https://creativeiqmarketing.com/services"
       />
 
@@ -208,10 +212,6 @@ export default function ServicesPage() {
               {...panelMotion}
             >
               <div id="website-seo">
-                <div id="bundles">
-                  <BundlePricing />
-                </div>
-                <BundleTable />
                 <div id="growth-infra">
                   <GrowthInfra />
                 </div>
@@ -261,6 +261,16 @@ export default function ServicesPage() {
           ) : null}
         </AnimatePresence>
       </div>
+
+      <BundleRows
+        id="bundle-closer"
+        compact
+        showLoop={false}
+        eyebrow="The whole loop"
+        title="Rather not piece it"
+        titleAccent="together?"
+        lede="Launch, Growth, and Authority are the three systems we lead with. Same website, SEO, social, and CRM — one monthly number."
+      />
 
       <ServicesContact />
     </main>

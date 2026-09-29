@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { PHONE_DISPLAY, PHONE_TEL, EMAIL } from "../../utils/contact";
 import { trackButtonClick } from "../../services/analytics";
-import { SERVICES_NAV } from "../../data/servicesNav";
+import { BUNDLES_NAV, SERVICES_NAV } from "../../data/servicesNav";
 import { ABOUT_NAV } from "../../data/aboutNav";
 import { TOOLS_NAV } from "../../data/toolsNav";
 import { scrollToHashFromHref } from "../../utils/scrollToSection";
@@ -16,7 +16,8 @@ import logoLight from "../../assets/brand/logo-light.webp";
 const NAV = [
   { label: "Home", href: "/" },
   { ...ABOUT_NAV, label: "About" },
-  SERVICES_NAV,
+  BUNDLES_NAV,
+  { ...SERVICES_NAV, label: "Services" },
   TOOLS_NAV,
   { label: "Book a call", href: "/book" },
   { label: "Contact", href: "/contact" },

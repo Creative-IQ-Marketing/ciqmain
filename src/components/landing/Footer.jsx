@@ -20,6 +20,7 @@ const SOCIALS = [
 const NAV = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about/creativeiq" },
+  { label: "Bundles", href: "/bundles" },
   { label: "Services", href: "/services" },
   { label: "SEO Audit by CIQ", href: "/free-ai-seo-audit" },
   { label: "Events by CIQ", href: "https://events.creativeiqmarketing.com", external: true },

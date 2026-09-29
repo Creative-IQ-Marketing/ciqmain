@@ -343,10 +343,7 @@ export default function AboutVilmaPage() {
           Resilience and responsibility shape how Vilma leads CreativeIQ. That standard shows up in every engagement.
         </p>
         <div className="mt-10 flex flex-wrap justify-center gap-3">
-          <SignalButton to="/contact" onClick={() => trackButtonClick("Work with Vilma", "vilma_cta", "AboutVilma")}>
-            Work with Vilma
-          </SignalButton>
-          <SignalButton to="/about/creativeiq" variant="ghost">
+          <SignalButton to="/about/creativeiq" onClick={() => trackButtonClick("About CreativeIQ", "vilma_cta", "AboutVilma")}>
             About CreativeIQ
           </SignalButton>
         </div>

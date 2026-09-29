@@ -5,6 +5,7 @@ import { useGSAP } from "@gsap/react";
 import LogoCosmos from "./LogoCosmos";
 import { SignalButton } from "../signal/primitives";
 import { trackButtonClick } from "../../services/analytics";
+import { scrollToSection } from "../../utils/scrollToSection";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -128,8 +129,19 @@ export default function HeroSignal() {
         </div>
 
         <div className="s-container flex items-center justify-between border-t border-[var(--s-line)] py-4" data-hero-fade>
-          <span className="s-label text-[var(--s-paper-ghost)]">Scroll to enter</span>
-          <span className="s-label text-[var(--s-paper-ghost)]">↓</span>
+          <button
+            type="button"
+            className="pointer-events-auto s-label text-[var(--s-paper-ghost)] transition hover:text-[var(--s-paper)]"
+            onClick={() => {
+              trackButtonClick("Three bundles", "hero_scroll", "Hero");
+              scrollToSection("home-bundles");
+            }}
+          >
+            The three bundles
+          </button>
+          <span className="s-label text-[var(--s-paper-ghost)]" aria-hidden>
+            ↓
+          </span>
         </div>
       </div>
     </section>

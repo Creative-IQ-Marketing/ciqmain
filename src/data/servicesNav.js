@@ -1,11 +1,23 @@
+export const BUNDLES_NAV = {
+  id: "bundles",
+  label: "Bundles",
+  href: "/bundles",
+  overviewLabel: "All three systems",
+  children: [
+    { label: "Launch", href: "/bundles#launch" },
+    { label: "Growth", href: "/bundles#growth" },
+    { label: "Authority", href: "/bundles#authority" },
+  ],
+};
+
 export const SERVICE_SECTIONS = [
   {
     id: "website-seo",
-    label: "Growth systems",
+    label: "SEO",
   },
   {
     id: "content-creation",
-    label: "Social packages",
+    label: "Social",
   },
   {
     id: "consulting",
