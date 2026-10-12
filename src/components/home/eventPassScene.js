@@ -223,7 +223,8 @@ export function createEventPassScene(canvas, { passes, reducedMotion = false }) 
   const strapTex = lanyardTexture();
   strapTex.repeat.set(1, 3.2);
   const strapMat = new MeshStandardMaterial({ map: strapTex, roughness: 0.75 });
-  disposables.push(bodyGeo, printGeo, slotGeo, clipGeo, ringGeo, strapGeo, metal, slotMat, strapTex, strapMat);
+  const pastStrapMat = new MeshStandardMaterial({ color: "#44474e", roughness: 0.85 });
+  disposables.push(pastStrapMat, bodyGeo, printGeo, slotGeo, clipGeo, ringGeo, strapGeo, metal, slotMat, strapTex, strapMat);
 
   const root = new Group();
   scene.add(root);
@@ -275,11 +276,9 @@ export function createEventPassScene(canvas, { passes, reducedMotion = false }) 
     ring.position.y = 0.06;
     group.add(clip, ring);
 
-    if (pass.featured) {
-      const strap = new Mesh(strapGeo, strapMat);
-      strap.position.y = 0.1 + 2.1;
-      group.add(strap);
-    }
+    const strap = new Mesh(strapGeo, pass.featured ? strapMat : pastStrapMat);
+    strap.position.y = 0.1 + 2.1;
+    group.add(strap);
 
     disposables.push(bodyMat, printMat, backMat, backMat.map);
 
@@ -323,7 +322,7 @@ export function createEventPassScene(canvas, { passes, reducedMotion = false }) 
       const k = index; // 0 = featured, 1.. = past
       // stacked → fanned
       // Desktop: canvas bleeds to the viewport edge, so lead from its left side.
-      const lead = compact ? -0.3 : -halfWidth * 0.5;
+      const lead = compact ? -0.3 : halfWidth * 0.04;
       const stackX = lead + 0.04 * k;
       const fanX = lead + spreadX * k;
       group.position.x = MathUtils.lerp(stackX, fanX, p);
@@ -337,6 +336,7 @@ export function createEventPassScene(canvas, { passes, reducedMotion = false }) 
       group.rotation.z = (k === 0 ? 0 : MathUtils.lerp(0.02 * k, 0.05 * k, p)) + sway * 0.6;
     }
     root.rotation.y = current.px * 0.06;
+    root.scale.setScalar(compact ? 1 : 0.86);
   }
 
   function resize() {
