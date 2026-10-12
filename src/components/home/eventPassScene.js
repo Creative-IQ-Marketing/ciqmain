@@ -315,7 +315,7 @@ export function createEventPassScene(canvas, { passes, reducedMotion = false }) 
 
   function layout() {
     const p = MathUtils.smootherstep(current.progress, 0, 1);
-    const spreadX = compact ? 0.42 : 0.42;
+    const spreadX = compact ? 0.42 : 0.7;
     const spreadZ = compact ? 0.5 : 0.75;
     const t = time;
     for (const it of items) {
@@ -323,15 +323,15 @@ export function createEventPassScene(canvas, { passes, reducedMotion = false }) 
       const k = index; // 0 = featured, 1.. = past
       // stacked → fanned
       // Desktop: canvas bleeds to the viewport edge, so lead from its left side.
-      const lead = compact ? -0.3 : -halfWidth * 0.54;
+      const lead = compact ? -0.3 : -halfWidth * 0.5;
       const stackX = lead + 0.04 * k;
       const fanX = lead + spreadX * k;
       group.position.x = MathUtils.lerp(stackX, fanX, p);
-      group.position.y = (compact ? 0.74 : 0.2) + (k === 0 ? 0 : MathUtils.lerp(-0.02 * k, -0.18 * k, p));
+      group.position.y = (compact ? 0.74 : 0.46) + (k === 0 ? 0 : MathUtils.lerp(-0.02 * k, -0.18 * k, p));
       group.position.z = MathUtils.lerp(-0.05 * k, k === 0 ? 0.35 : -spreadZ * k, p);
 
       const sway = reducedMotion ? 0 : Math.sin(t * 0.9 + seed) * 0.018;
-      const baseY = k === 0 ? MathUtils.lerp(-0.62, -0.16, p) : MathUtils.lerp(-0.3, -0.48, p);
+      const baseY = k === 0 ? MathUtils.lerp(-0.62, -0.1, p) : MathUtils.lerp(-0.2, -0.24, p);
       group.rotation.y = baseY + current.px * 0.22 + sway;
       group.rotation.x = current.py * 0.1 + (k === 0 ? 0.02 : 0);
       group.rotation.z = (k === 0 ? 0 : MathUtils.lerp(0.02 * k, 0.05 * k, p)) + sway * 0.6;

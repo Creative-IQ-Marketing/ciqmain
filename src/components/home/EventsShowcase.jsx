@@ -40,7 +40,7 @@ function useIsDesktop() {
 export default function EventsShowcase() {
   const { upcoming, past } = useMemo(() => splitEvents(), []);
   const next = upcoming[0] || null;
-  const recent = past.slice(0, 3);
+  const recent = past.slice(0, 2);
   const reduce = useReducedMotion();
   const desktop = useIsDesktop();
 
@@ -274,7 +274,7 @@ function PassStage({ passes, progress, reduce, fallback }) {
   return (
     <div
       ref={boxRef}
-      className="relative mx-auto aspect-[1/1] w-full max-w-[28rem] sm:aspect-[5/4] sm:max-w-none lg:pointer-events-none lg:w-auto lg:absolute lg:bottom-[-9rem] lg:left-[40%] lg:right-0 lg:top-0 lg:z-20 lg:aspect-auto lg:max-w-none"
+      className="relative mx-auto aspect-[1/1] w-full max-w-[28rem] sm:aspect-[5/4] sm:max-w-none lg:pointer-events-none lg:w-auto lg:absolute lg:bottom-[-9rem] lg:left-[34%] lg:right-0 lg:top-0 lg:z-20 lg:aspect-auto lg:max-w-none"
     >
       {failed ? (
         fallback ? (
