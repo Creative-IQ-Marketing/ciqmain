@@ -25,3 +25,10 @@ dist-ssr
 .github
 
 .env
+
+# Generated from GHL at build (scripts/fetch-blog.mjs)
+public/blog-data
+public/blog
+
+# Local Netlify folder
+.netlify

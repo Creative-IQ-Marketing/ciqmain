@@ -25,8 +25,12 @@ export default function SEO({
       return {
         canonicalUrl:
           canonical || window.location.origin + window.location.pathname,
-        ogImageUrl: window.location.origin + ogImage,
-        ogImageSecureUrl: window.location.origin + ogImage,
+        ogImageUrl: /^https?:\/\//.test(ogImage)
+          ? ogImage
+          : window.location.origin + ogImage,
+        ogImageSecureUrl: /^https?:\/\//.test(ogImage)
+          ? ogImage
+          : window.location.origin + ogImage,
         currentUrl: window.location.href,
         hostname: window.location.hostname,
       };

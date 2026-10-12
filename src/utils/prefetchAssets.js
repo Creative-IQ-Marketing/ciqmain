@@ -28,7 +28,10 @@ export function preloadImage(url, { priority = "low" } = {}) {
 /** Warm likely next-route assets on idle / hover */
 export function warmRoute(path) {
   if (typeof window === "undefined") return;
-  if (path.startsWith("/services")) {
+  if (path.startsWith("/blog")) {
+    import("../pages/BlogIndexPage");
+    import("../pages/BlogPostPage");
+  } else if (path.startsWith("/services")) {
     import("../pages/ServicesPage");
     import("../assets/generated/services-hero-systems.webp").then((m) =>
       prefetchImage(m.default),

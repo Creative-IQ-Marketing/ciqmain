@@ -1,0 +1,278 @@
+/* ============================================================
+   CreativeIQ Blog — article typography.
+   One stylesheet for both the prerendered (no-JS) article and the React one.
+   Maps the email-campaign building blocks onto editor markup:
+     kicker  "01 — Discovery"     → <p class="kicker"> or <h5>/<h6>
+     callout "Where it breaks"     → <blockquote>
+     divider                        → <hr>
+   ============================================================ */
+
+.ciq-prose {
+  --prose-text: #2b2b2b;
+  font-size: 1.0625rem;
+  line-height: 1.78;
+  color: var(--prose-text);
+  overflow-wrap: break-word;
+}
+
+@media (min-width: 640px) {
+  .ciq-prose {
+    font-size: 1.125rem;
+  }
+}
+
+.ciq-prose > :first-child {
+  margin-top: 0;
+}
+
+.ciq-prose p,
+.ciq-prose > div {
+  margin: 1.1em 0;
+}
+
+.ciq-prose h2,
+.ciq-prose h3,
+.ciq-prose h4 {
+  color: var(--c-ink);
+  scroll-margin-top: calc(var(--hero-header-offset) + 1.5rem);
+  text-wrap: balance;
+}
+
+.ciq-prose h2 {
+  margin: 2.6em 0 0.6em;
+  font-size: clamp(1.5rem, 1.2rem + 1.1vw, 1.95rem);
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+}
+
+.ciq-prose h3 {
+  margin: 2.1em 0 0.5em;
+  font-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.4rem);
+  font-weight: 750;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.ciq-prose h4 {
+  margin: 1.8em 0 0.4em;
+  font-size: 1.08em;
+  font-weight: 700;
+}
+
+/* Email kicker label */
+.ciq-prose .kicker,
+.ciq-prose h5,
+.ciq-prose h6 {
+  margin: 2.8em 0 0.5em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+}
+
+.ciq-prose .kicker + h2,
+.ciq-prose .kicker + h3,
+.ciq-prose h5 + h2,
+.ciq-prose h6 + h2,
+.ciq-prose h5 + h3,
+.ciq-prose h6 + h3 {
+  margin-top: 0;
+}
+
+.ciq-prose strong {
+  font-weight: 700;
+  color: var(--c-ink);
+}
+
+.ciq-prose a {
+  color: var(--c-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color var(--dur-fast) ease;
+}
+
+.ciq-prose a:hover {
+  color: var(--c-ink);
+}
+
+.ciq-prose ul,
+.ciq-prose ol {
+  margin: 1.2em 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ciq-prose li {
+  position: relative;
+  margin: 0.45em 0;
+  padding-left: 1.6em;
+}
+
+.ciq-prose ul > li::before {
+  content: "";
+  position: absolute;
+  left: 0.35em;
+  top: 0.72em;
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--c-accent);
+}
+
+.ciq-prose ol {
+  counter-reset: ciq-ol;
+}
+
+.ciq-prose ol > li {
+  counter-increment: ciq-ol;
+  padding-left: 2.1em;
+}
+
+.ciq-prose ol > li::before {
+  content: counter(ciq-ol, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0.18em;
+  font-size: 0.78em;
+  font-weight: 800;
+  color: var(--c-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.ciq-prose li > p {
+  margin: 0;
+}
+
+/* Callout — same left-rule card the rest of the site uses */
+.ciq-prose blockquote {
+  margin: 2em 0;
+  padding: 1.25em 1.5em;
+  border-left: 3px solid var(--c-accent);
+  border-radius: 0 var(--radius-control) var(--radius-control) 0;
+  background: var(--c-surface-2);
+  color: var(--c-ink-soft);
+}
+
+.ciq-prose blockquote > :first-child {
+  margin-top: 0;
+}
+
+.ciq-prose blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+/* Section break: three accent dots */
+.ciq-prose hr {
+  width: 54px;
+  height: 6px;
+  margin: 3.2em auto;
+  border: 0;
+  background: radial-gradient(circle, var(--c-accent) 2.5px, transparent 3px) center / 18px 6px
+    repeat-x;
+  opacity: 0.85;
+}
+
+.ciq-prose mark {
+  padding: 0 0.2em;
+  border-radius: 4px;
+  background: var(--c-accent-dim);
+  color: var(--c-ink);
+}
+
+.ciq-prose img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 2.2em 0;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-card);
+}
+
+.ciq-prose video,
+.ciq-prose iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  margin: 2.2em 0;
+  border: 0;
+  border-radius: var(--radius-card);
+  background: var(--c-ink);
+}
+
+.ciq-prose figure {
+  margin: 2.2em 0;
+}
+
+.ciq-prose figure img {
+  margin: 0;
+}
+
+.ciq-prose figcaption {
+  margin-top: 0.7em;
+  font-size: 0.85em;
+  color: var(--c-text-muted);
+}
+
+.ciq-prose table {
+  width: 100%;
+  margin: 2em 0;
+  border-collapse: collapse;
+  font-size: 0.92em;
+}
+
+.ciq-prose th {
+  padding: 0.7em 0.8em;
+  border-bottom: 1px solid var(--c-border-strong);
+  font-size: 0.75em;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-align: left;
+  text-transform: uppercase;
+  color: var(--c-text-muted);
+}
+
+.ciq-prose td {
+  padding: 0.75em 0.8em;
+  border-bottom: 1px solid var(--c-border);
+  vertical-align: top;
+}
+
+.ciq-prose code {
+  padding: 0.12em 0.35em;
+  border-radius: 6px;
+  background: var(--c-surface-2);
+  font-size: 0.88em;
+}
+
+/* Prerendered article — visible to crawlers and before JS boots */
+.blog-static {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: calc(var(--hero-header-offset) + 2rem) var(--container-pad) 4rem;
+}
+
+.blog-static h1 {
+  margin: 0 0 1rem;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  color: var(--c-ink);
+}
+
+.blog-static .blog-static-meta {
+  margin: 0 0 2.5rem;
+  color: var(--c-text-muted);
+  font-size: 0.9rem;
+}
+
+.blog-static ul.blog-static-list {
+  padding: 0;
+  list-style: none;
+}
+
+.blog-static ul.blog-static-list li {
+  margin: 0 0 1.5rem;
+}

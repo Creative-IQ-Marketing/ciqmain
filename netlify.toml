@@ -3,6 +3,13 @@
   publish = "dist"
   functions = "netlify/functions"
 
+# Blog images live in GHL media storage; resize + WebP through Netlify Image CDN.
+[images]
+  remote_images = [
+    "https://storage\\.googleapis\\.com/msgsndr/.*",
+    "https://assets\\.cdn\\.filesafe\\.space/.*",
+  ]
+
 # SPA route rewrites live in public/_redirects (explicit paths only).
 # Do not add /* → /index.html 200 here — that causes Soft 404s in GSC.
 

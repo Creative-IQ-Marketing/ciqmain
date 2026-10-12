@@ -51,6 +51,8 @@ const AboutVilmaPage = lazy(() => import("./pages/AboutVilmaPage"));
 const WhatIsCrmPage = lazy(() => import("./pages/WhatIsCrmPage"));
 const NewsletterPopup = lazy(() => import("./components/ui/NewsletterPopup"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
+const BlogIndexPage = lazy(() => import("./pages/BlogIndexPage"));
+const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
 
 function RouteFallback() {
   return <div className="min-h-[40vh] bg-white" aria-hidden />;
@@ -91,6 +93,7 @@ function Layout() {
       "/ai-seo-guide",
       "/contact",
       "/book",
+      "/blog",
     ];
     const idle =
       typeof window.requestIdleCallback === "function"
@@ -192,6 +195,8 @@ function App() {
             element={<SocialMediaFreeTrialPage />}
           />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/blog" element={<BlogIndexPage />} />
+          <Route path="/blog/:slug" element={<BlogPostPage />} />
           <Route
             path="/newsletter/unsubscribed"
             element={<UnsubscribedPage />}

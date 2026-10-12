@@ -1,4 +1,4 @@
-import { writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
@@ -13,6 +13,13 @@ const publicDir = join(root, "public");
 const today = new Date().toISOString().slice(0, 10);
 const sitemapPages = SEO_PAGES.filter((page) => page.sitemap !== false);
 
+// Blog posts come from GHL via scripts/fetch-blog.mjs (runs first in prebuild).
+const blogIndexPath = join(publicDir, "blog-data", "index.json");
+const blogPosts = existsSync(blogIndexPath)
+  ? JSON.parse(readFileSync(blogIndexPath, "utf8")).posts
+  : [];
+const latestPost = blogPosts[0]?.updatedAt?.slice(0, 10) || today;
+
 const sitemapEntries = sitemapPages.map(
   (page) => `  <url>
     <loc>${toCanonical(page.path)}</loc>
@@ -22,6 +29,23 @@ const sitemapEntries = sitemapPages.map(
   </url>`,
 );
 
+if (blogPosts.length) {
+  sitemapEntries.push(`  <url>
+    <loc>${SITE_URL}/blog</loc>
+    <lastmod>${latestPost}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>`);
+  for (const post of blogPosts) {
+    sitemapEntries.push(`  <url>
+    <loc>${SITE_URL}/blog/${post.slug}</loc>
+    <lastmod>${(post.updatedAt || post.publishedAt).slice(0, 10)}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>`);
+  }
+}
+
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${sitemapEntries.join("\n")}
@@ -30,7 +54,14 @@ ${sitemapEntries.join("\n")}
 
 writeFileSync(join(publicDir, "sitemap.xml"), sitemap, "utf8");
 
-const imageEntries = IMAGE_SITEMAP.map((entry) => {
+const blogImageEntries = blogPosts
+  .filter((post) => post.image)
+  .map((post) => ({
+    path: `/blog/${post.slug}`,
+    images: [{ loc: post.image, title: post.imageAlt || post.title }],
+  }));
+
+const imageEntries = [...IMAGE_SITEMAP, ...blogImageEntries].map((entry) => {
   const images = entry.images
     .map(
       (image) => `    <image:image>
@@ -108,8 +139,23 @@ Sitemap: ${SITE_URL}/sitemap-images.xml
 
 writeFileSync(join(publicDir, "robots.txt"), robots, "utf8");
 
+// llms.txt — keep a generated "Blog" section current.
+const llmsPath = join(publicDir, "llms.txt");
+if (existsSync(llmsPath) && blogPosts.length) {
+  const llms = readFileSync(llmsPath, "utf8").replace(/\n## Blog\n[\s\S]*?(?=\n## |$)/, "\n");
+  const section = `## Blog
+- Index: ${SITE_URL}/blog
+- RSS: ${SITE_URL}/blog/rss.xml
+${blogPosts.map((p) => `- [${p.title.replace(/[[\]]/g, "")}](${SITE_URL}/blog/${p.slug}): ${p.description}`).join("\n")}
+`;
+  const next = llms.includes("\n## About")
+    ? llms.replace("\n## About", `\n${section}\n## About`)
+    : `${llms.trimEnd()}\n\n${section}`;
+  writeFileSync(llmsPath, next.replace(/\n{3,}/g, "\n\n"), "utf8");
+}
+
 console.log(
-  `SEO files: ${sitemapPages.length} URLs, image sitemap, sitemap index`,
+  `SEO files: ${sitemapEntries.length} URLs (${blogPosts.length} blog posts), image sitemap, sitemap index`,
 );
 
 function escapeXml(value) {

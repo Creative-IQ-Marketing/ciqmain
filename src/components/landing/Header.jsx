@@ -26,6 +26,7 @@ const NAV = [
   BUNDLES_NAV,
   SERVICES_NAV,
   { label: "Book a call", href: "/book" },
+  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
   TOOLS_NAV,
 ];

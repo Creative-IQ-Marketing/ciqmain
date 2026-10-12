@@ -54,6 +54,7 @@ const NAV = [
     external: true,
   },
   { label: "Book a call", href: "/book" },
+  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 
