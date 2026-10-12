@@ -33,7 +33,6 @@
 - https://creativeiqmarketing.com/contact
 - https://creativeiqmarketing.com/book
 
-
 ## Blog
 - Index: https://creativeiqmarketing.com/blog
 - RSS: https://creativeiqmarketing.com/blog/rss.xml

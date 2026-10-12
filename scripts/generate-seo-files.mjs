@@ -142,7 +142,7 @@ writeFileSync(join(publicDir, "robots.txt"), robots, "utf8");
 // llms.txt — keep a generated "Blog" section current.
 const llmsPath = join(publicDir, "llms.txt");
 if (existsSync(llmsPath) && blogPosts.length) {
-  const llms = readFileSync(llmsPath, "utf8").replace(/\n## Blog\n[\s\S]*?(?=\n## |$)/, "\n");
+  const llms = readFileSync(llmsPath, "utf8").replace(/\r\n/g, "\n").replace(/\n## Blog\n[\s\S]*?(?=\n## |$)/, "\n");
   const section = `## Blog
 - Index: ${SITE_URL}/blog
 - RSS: ${SITE_URL}/blog/rss.xml
