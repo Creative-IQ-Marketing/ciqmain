@@ -147,6 +147,24 @@ function backTexture(pass, maxAniso) {
   return tex;
 }
 
+/** Desaturate + dim (pixel loop — canvas filters are unreliable in Safari). */
+function grayscaleTexture(src) {
+  const img = src.image;
+  const c = document.createElement("canvas");
+  c.width = img.width;
+  c.height = img.height;
+  const g = c.getContext("2d");
+  g.drawImage(img, 0, 0);
+  const d = g.getImageData(0, 0, c.width, c.height);
+  const px = d.data;
+  for (let i = 0; i < px.length; i += 4) {
+    const y = (0.2126 * px[i] + 0.7152 * px[i + 1] + 0.0722 * px[i + 2]) * 0.62;
+    px[i] = px[i + 1] = px[i + 2] = y;
+  }
+  g.putImageData(d, 0, 0);
+  return new CanvasTexture(c);
+}
+
 function lanyardTexture() {
   const c = document.createElement("canvas");
   c.width = 128;
@@ -217,7 +235,7 @@ export function createEventPassScene(canvas, { passes, reducedMotion = false }) 
     group.add(card);
 
     const bodyMat = new MeshPhysicalMaterial({
-      color: pass.featured ? ACCENT : "#16181d",
+      color: pass.featured ? ACCENT : "#1b1c20",
       roughness: 0.32,
       metalness: 0.1,
       clearcoat: 1,
@@ -266,10 +284,15 @@ export function createEventPassScene(canvas, { passes, reducedMotion = false }) 
     disposables.push(bodyMat, printMat, backMat, backMat.map);
 
     const tex = loader.load(pass.flyer, (t) => {
-      coverCrop(t, PRINT_W / PRINT_H);
-      t.needsUpdate = true;
-      printMat.map = t;
+      // Past events: drained of colour, so only the upcoming badge reads as live.
+      const map = pass.featured ? t : grayscaleTexture(t);
+      map.colorSpace = SRGBColorSpace;
+      map.anisotropy = maxAniso;
+      coverCrop(map, PRINT_W / PRINT_H);
+      map.needsUpdate = true;
+      printMat.map = map;
       printMat.needsUpdate = true;
+      if (map !== t) disposables.push(map);
       invalidate();
     });
     tex.colorSpace = SRGBColorSpace;

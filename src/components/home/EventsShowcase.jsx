@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useMotionValueEvent, useReducedMotion, useScroll } from "framer-motion";
-import { ArrowUpRight, CalendarPlus, MapPin, Ticket } from "lucide-react";
+import { ArrowUpRight, CalendarPlus } from "lucide-react";
 import {
   daysUntil,
   eventDateParts,
@@ -98,20 +98,19 @@ export default function EventsShowcase() {
                   className="mt-10"
                 >
                   <h3 className="text-xs font-semibold uppercase tracking-[var(--tracking-label)] text-white/45">
-                    Recent
+                    Past events
                   </h3>
                   <ul className="mt-3 divide-y divide-white/10 border-y border-white/10">
                     {recent.map((e) => {
                       const d = eventDateParts(e.date);
                       return (
                         <li key={e.id} className="flex items-baseline gap-4 py-3 text-sm">
-                          <span className="w-14 shrink-0 font-semibold tabular-nums text-white/45">
+                          <span className="w-14 shrink-0 font-medium tabular-nums text-white/35">
                             {d.month} {d.day}
                           </span>
-                          <span className="min-w-0 flex-1 truncate font-semibold text-white/85">
+                          <span className="min-w-0 flex-1 truncate font-medium text-white/50">
                             {e.name}
                           </span>
-                          <span className="hidden truncate text-white/45 sm:block">{e.venue}</span>
                         </li>
                       );
                     })}
@@ -146,7 +145,7 @@ function NextEvent({ event }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.7, delay: 0.08, ease }}
-      className="mt-8"
+      className="mt-10"
       aria-label={`Next event: ${event.name}`}
     >
       <p className="flex items-center gap-2 text-[0.8125rem] font-semibold text-white/70">
@@ -157,66 +156,31 @@ function NextEvent({ event }) {
         Next up · {when}
       </p>
 
-      <div className="mt-5 flex items-start gap-5">
+      <div className="mt-5 flex items-center gap-5">
         <div className="flex w-[4.5rem] shrink-0 flex-col items-center rounded-[var(--radius-control)] border border-white/15 bg-white/[0.04] py-2.5">
           <span className="text-[0.7rem] font-bold uppercase tracking-[0.16em] text-[var(--c-accent)]">
             {d.month}
           </span>
           <span className="text-[2rem] font-extrabold leading-none tracking-[-0.04em]">{d.day}</span>
-          <span className="mt-1 text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-white/45">
-            {d.weekday.slice(0, 3)}
-          </span>
         </div>
         <div className="min-w-0">
           <h3 className="text-[clamp(1.5rem,2.4vw,1.9rem)] font-extrabold leading-tight tracking-[-0.03em]">
             {event.name}
           </h3>
-          <p className="mt-1 text-sm text-white/55">
-            {event.kind} · Hosted by {event.host}
-          </p>
-          <p className="mt-3 max-w-md text-[0.95rem] leading-relaxed text-white/70">{event.blurb}</p>
+          <p className="mt-1 text-sm text-white/55">{event.host}</p>
         </div>
       </div>
 
-      <dl className="mt-6 grid gap-x-6 gap-y-3 text-sm sm:grid-cols-2">
-        <div className="flex gap-2.5">
-          <dt className="sr-only">When</dt>
-          <CalendarPlus className="mt-0.5 h-4 w-4 shrink-0 text-[var(--c-accent)]" aria-hidden />
-          <dd className="text-white/80">
-            {d.weekday}, {d.long.replace(`, ${d.year}`, "")}
-            <br />
-            <span className="text-white/50">{event.time}</span>
-          </dd>
-        </div>
-        <div className="flex gap-2.5">
-          <dt className="sr-only">Where</dt>
-          <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[var(--c-accent)]" aria-hidden />
-          <dd className="text-white/80">
-            {event.venue}
-            <br />
-            <span className="text-white/50">{event.address.split(",")[0]}</span>
-          </dd>
-        </div>
-      </dl>
+      <p className="mt-6 text-[0.95rem] leading-relaxed text-white/80">
+        {d.weekday} · {event.time}
+        <br />
+        {event.venue} · {event.address.split(",")[0]}
+      </p>
+      <p className="mt-3 text-sm text-white/50">
+        {event.entry} · Live music by Austin Ausley
+      </p>
 
-      {event.highlights?.length ? (
-        <ul className="mt-5 flex flex-wrap gap-2" aria-label="Highlights">
-          <li className="inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] bg-[var(--c-accent)]/15 px-3 py-1 text-xs font-semibold text-white">
-            <Ticket className="h-3.5 w-3.5 text-[var(--c-accent)]" aria-hidden />
-            {event.entry}
-          </li>
-          {event.highlights.map((h) => (
-            <li
-              key={h}
-              className="rounded-[var(--radius-pill)] border border-white/12 px-3 py-1 text-xs font-medium text-white/70"
-            >
-              {h}
-            </li>
-          ))}
-        </ul>
-      ) : null}
-
-      <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+      <div className="mt-8 flex flex-col gap-3 sm:flex-row">
         <a
           href={event.rsvpUrl}
           target="_blank"
