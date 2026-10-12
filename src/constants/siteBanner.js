@@ -1,20 +1,19 @@
-import { ACTIVE_EVENT, getEventRsvpUrl } from "../data/activeEvent";
-
 /**
- * Site-wide top banner — mirrors ACTIVE_EVENT.
- * Set ACTIVE_EVENT banner off by disabling here if needed.
+ * Site-wide top banner — Let's Connect (Key Partner Network), Nov 18.
+ * RSVP lives on its own site; the car show page (/carshow) is untouched.
  */
 export const SITE_TOP_BANNER = {
   enabled: true,
-  eventName: ACTIVE_EVENT.banner.eventName,
-  mobileSubline: ACTIVE_EVENT.banner.mobileSubline,
-  desktopMessage: ACTIVE_EVENT.banner.desktopMessage,
+  eventName: "Let's Connect",
+  mobileSubline: "Nov 18 · KPN · $5",
+  desktopMessage:
+    "You're invited — Let's Connect by Key Partner Network · Nov 18 · 6:30–9:30 PM · Live music by Austin Ausley",
   cta: {
-    label: ACTIVE_EVENT.banner.ctaLabel,
-    mobileLabel: ACTIVE_EVENT.banner.ctaMobileLabel,
-    href: getEventRsvpUrl(),
-    trackingLabel: ACTIVE_EVENT.banner.trackingLabel,
-    trackingId: ACTIVE_EVENT.banner.trackingId,
+    label: "RSVP Now",
+    mobileLabel: "RSVP",
+    href: "https://lets-connect.creativeiqmarketing.com/",
+    trackingLabel: "Lets Connect Banner",
+    trackingId: "top_banner_cta",
   },
 };
 
