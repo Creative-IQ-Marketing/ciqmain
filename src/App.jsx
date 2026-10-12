@@ -16,6 +16,7 @@ import { scrollToSection } from "./utils/scrollToSection";
 import { warmRoute } from "./utils/prefetchAssets";
 
 const HomeBundles = lazy(() => import("./components/home/HomeBundles"));
+const EventsShowcase = lazy(() => import("./components/home/EventsShowcase"));
 const Clients = lazy(() => import("./components/landing/Clients"));
 const About = lazy(() => import("./components/landing/About"));
 const ServicesShowcase = lazy(
@@ -158,6 +159,7 @@ function HomePage() {
       <StructuredData />
       <Hero />
       <Suspense fallback={null}>
+        <EventsShowcase />
         <Clients />
         <ServicesShowcase />
         <HomeBundles />
