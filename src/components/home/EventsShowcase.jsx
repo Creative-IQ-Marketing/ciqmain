@@ -1,5 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { motion, useMotionValueEvent, useReducedMotion, useScroll } from "framer-motion";
+import {
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+} from "framer-motion";
 import { ArrowUpRight, CalendarPlus } from "lucide-react";
 import {
   daysUntil,
@@ -11,9 +16,13 @@ import { trackButtonClick } from "../../services/analytics";
 
 const ease = [0.22, 1, 0.36, 1];
 
+const MathClamp = (v) => Math.max(-1, Math.min(1, v));
+
 function useIsDesktop() {
   const [desktop, setDesktop] = useState(
-    () => typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches,
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia("(min-width: 1024px)").matches,
   );
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 1024px)");
@@ -38,7 +47,7 @@ export default function EventsShowcase() {
   const wrapRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: wrapRef,
-    offset: desktop ? ["start start", "end end"] : ["start 85%", "end 40%"],
+    offset: desktop ? ["start 80%", "end 25%"] : ["start 85%", "end 40%"],
   });
 
   const passes = useMemo(
@@ -56,10 +65,10 @@ export default function EventsShowcase() {
     <section
       id="events"
       aria-labelledby="events-heading"
-      className="relative scroll-mt-20 bg-[var(--c-footer)] text-white"
+      className="relative z-10 scroll-mt-20 bg-[var(--c-footer)] text-white"
     >
-      <div ref={wrapRef} className="relative lg:h-[210vh]">
-        <div className="relative overflow-hidden lg:sticky lg:top-0 lg:h-[100svh]">
+      <div ref={wrapRef} className="relative">
+        <div className="relative">
           <div
             className="pointer-events-none absolute inset-0"
             style={{
@@ -69,7 +78,7 @@ export default function EventsShowcase() {
             aria-hidden
           />
 
-          <div className="relative mx-auto grid h-full max-w-[var(--container-max)] lg:static gap-8 px-[var(--container-pad)] pb-14 pt-16 lg:grid-cols-12 lg:items-center lg:gap-10 lg:py-0">
+          <div className="relative mx-auto grid max-w-[var(--container-max)] gap-8 px-[var(--container-pad)] pb-14 pt-16 lg:static lg:min-h-[41rem] lg:grid-cols-12 lg:items-center lg:gap-10 lg:py-20">
             <div className="order-2 lg:order-1 lg:col-span-5">
               <motion.div
                 initial={{ opacity: 0, y: 18 }}
@@ -77,46 +86,12 @@ export default function EventsShowcase() {
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.7, ease }}
               >
-                <p className="text-sm font-medium text-white/50">Events by CIQ</p>
-                <h2
-                  id="events-heading"
-                  className="mt-3 text-[clamp(1.9rem,3.6vw,3rem)] font-extrabold leading-[1.06] tracking-[-0.04em] text-balance"
-                >
-                  Business is built
-                  <span className="text-[var(--c-accent)]"> in the room.</span>
-                </h2>
+                <p className="text-sm font-medium text-white/50">
+                  Events by CIQ
+                </p>
               </motion.div>
 
               {next ? <NextEvent event={next} /> : <NoUpcoming />}
-
-              {recent.length ? (
-                <motion.div
-                  initial={{ opacity: 0, y: 14 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ duration: 0.7, delay: 0.15, ease }}
-                  className="mt-10"
-                >
-                  <h3 className="text-xs font-semibold uppercase tracking-[var(--tracking-label)] text-white/45">
-                    Past events
-                  </h3>
-                  <ul className="mt-3 divide-y divide-white/10 border-y border-white/10">
-                    {recent.map((e) => {
-                      const d = eventDateParts(e.date);
-                      return (
-                        <li key={e.id} className="flex items-baseline gap-4 py-3 text-sm">
-                          <span className="w-14 shrink-0 font-medium tabular-nums text-white/35">
-                            {d.month} {d.day}
-                          </span>
-                          <span className="min-w-0 flex-1 truncate font-medium text-white/50">
-                            {e.name}
-                          </span>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </motion.div>
-              ) : null}
             </div>
 
             <div className="order-1 -mt-16 lg:static lg:order-2 lg:col-span-7 lg:mt-0 lg:h-full">
@@ -137,7 +112,8 @@ export default function EventsShowcase() {
 function NextEvent({ event }) {
   const d = eventDateParts(event.date);
   const days = daysUntil(event.date);
-  const when = days === 0 ? "Tonight" : days === 1 ? "Tomorrow" : `In ${days} days`;
+  const when =
+    days === 0 ? "Tonight" : days === 1 ? "Tomorrow" : `In ${days} days`;
 
   return (
     <motion.article
@@ -161,7 +137,9 @@ function NextEvent({ event }) {
           <span className="text-[0.7rem] font-bold uppercase tracking-[0.16em] text-[var(--c-accent)]">
             {d.month}
           </span>
-          <span className="text-[2rem] font-extrabold leading-none tracking-[-0.04em]">{d.day}</span>
+          <span className="text-[2rem] font-extrabold leading-none tracking-[-0.04em]">
+            {d.day}
+          </span>
         </div>
         <div className="min-w-0">
           <h3 className="text-[clamp(1.5rem,2.4vw,1.9rem)] font-extrabold leading-tight tracking-[-0.03em]">
@@ -185,7 +163,9 @@ function NextEvent({ event }) {
           href={event.rsvpUrl}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => trackButtonClick(`RSVP ${event.name}`, "home_events", "Events")}
+          onClick={() =>
+            trackButtonClick(`RSVP ${event.name}`, "home_events", "Events")
+          }
           className="inline-flex min-h-12 items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--c-accent)] px-6 text-[0.95rem] font-semibold text-white transition hover:bg-white hover:text-[var(--c-ink)]"
         >
           RSVP now <ArrowUpRight className="h-4 w-4" aria-hidden />
@@ -194,7 +174,9 @@ function NextEvent({ event }) {
           href={googleCalendarUrl(event)}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => trackButtonClick("Add to calendar", "home_events", "Events")}
+          onClick={() =>
+            trackButtonClick("Add to calendar", "home_events", "Events")
+          }
           className="inline-flex min-h-12 items-center justify-center gap-2 rounded-[var(--radius-pill)] border border-white/20 px-6 text-[0.95rem] font-semibold text-white transition hover:border-white/60"
         >
           <CalendarPlus className="h-4 w-4" aria-hidden /> Add to calendar
@@ -232,6 +214,18 @@ function PassStage({ passes, progress, reduce, fallback }) {
   useEffect(() => {
     const box = boxRef.current;
     if (!box) return undefined;
+    const host = box.closest("section") || box;
+    const onMove = (e) => {
+      if (e.pointerType !== "mouse") return;
+      const r = box.getBoundingClientRect();
+      sceneRef.current?.setPointer(
+        MathClamp(((e.clientX - r.left) / r.width) * 2 - 1),
+        MathClamp(((e.clientY - r.top) / r.height) * 2 - 1),
+      );
+    };
+    const onLeave = () => sceneRef.current?.setPointer(0, 0);
+    host.addEventListener("pointermove", onMove);
+    host.addEventListener("pointerleave", onLeave);
     let disposed = false;
     let visIO;
 
@@ -249,7 +243,9 @@ function PassStage({ passes, progress, reduce, fallback }) {
           sceneRef.current = scene;
           scene.setProgress(reduce ? 1 : progress.get());
           setReady(true);
-          visIO = new IntersectionObserver(([e]) => scene.setVisible(e.isIntersecting));
+          visIO = new IntersectionObserver(([e]) =>
+            scene.setVisible(e.isIntersecting),
+          );
           visIO.observe(box);
         } catch (err) {
           console.warn("[events] 3D unavailable, showing flyer", err);
@@ -262,6 +258,8 @@ function PassStage({ passes, progress, reduce, fallback }) {
 
     return () => {
       disposed = true;
+      host.removeEventListener("pointermove", onMove);
+      host.removeEventListener("pointerleave", onLeave);
       loadIO.disconnect();
       visIO?.disconnect();
       sceneRef.current?.dispose();
@@ -273,21 +271,10 @@ function PassStage({ passes, progress, reduce, fallback }) {
     if (!reduce) sceneRef.current?.setProgress(v);
   });
 
-  function onPointerMove(e) {
-    if (e.pointerType !== "mouse") return;
-    const r = e.currentTarget.getBoundingClientRect();
-    sceneRef.current?.setPointer(
-      ((e.clientX - r.left) / r.width) * 2 - 1,
-      ((e.clientY - r.top) / r.height) * 2 - 1,
-    );
-  }
-
   return (
     <div
       ref={boxRef}
-      onPointerMove={onPointerMove}
-      onPointerLeave={() => sceneRef.current?.setPointer(0, 0)}
-      className="relative mx-auto aspect-[1/1] w-full max-w-[28rem] sm:aspect-[5/4] sm:max-w-none lg:absolute lg:inset-y-0 lg:left-[40%] lg:right-0 lg:aspect-auto lg:max-w-none"
+      className="relative mx-auto aspect-[1/1] w-full max-w-[28rem] sm:aspect-[5/4] sm:max-w-none lg:pointer-events-none lg:w-auto lg:absolute lg:bottom-[-9rem] lg:left-[40%] lg:right-0 lg:top-0 lg:z-20 lg:aspect-auto lg:max-w-none"
     >
       {failed ? (
         fallback ? (
@@ -305,7 +292,9 @@ function PassStage({ passes, progress, reduce, fallback }) {
           aria-hidden
         />
       )}
-      {fallback && !failed ? <span className="sr-only">{fallback.flyerAlt}</span> : null}
+      {fallback && !failed ? (
+        <span className="sr-only">{fallback.flyerAlt}</span>
+      ) : null}
     </div>
   );
 }
