@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
+import { faqItemsForPage } from "../data/faqs";
 import GuideInlineCTA from "../components/ui/GuideInlineCTA";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
@@ -38,23 +39,11 @@ const BENEFITS = [
   },
 ];
 
-const FAQS = [
-  {
-    question: "What do I need to submit?",
-    answer:
-      "Your name, email, and the website URL. The request takes less than a minute.",
-  },
-  {
-    question: "Why confirm before the report is finished?",
-    answer:
-      "We accept the request first, then process asynchronously so you are not waiting on the page.",
-  },
-  {
-    question: "How many free reports can I request?",
-    answer:
-      "Two free reports per email each month. Need more? Contact us for ongoing access.",
-  },
-];
+const FAQS = faqItemsForPage("/free-ai-seo-audit").map(({ q, a, link }) => ({
+  question: q,
+  answer: a,
+  link,
+}));
 
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -161,18 +150,6 @@ export default function FreeSeoAuditPage() {
           name: "CreativeIQ Marketing",
           url: "https://creativeiqmarketing.com",
         },
-      },
-      faq: {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        mainEntity: FAQS.map(({ question, answer }) => ({
-          "@type": "Question",
-          name: question,
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: answer,
-          },
-        })),
       },
       breadcrumb: {
         "@context": "https://schema.org",
@@ -452,7 +429,7 @@ export default function FreeSeoAuditPage() {
               Frequently asked
             </h2>
             <div className="mt-8 space-y-6">
-              {FAQS.map(({ question, answer }) => (
+              {FAQS.map(({ question, answer, link }) => (
                 <article key={question}>
                   <h3 className="font-sans text-base font-semibold tracking-[-0.02em] text-[var(--c-ink)]">
                     {question}
@@ -460,6 +437,14 @@ export default function FreeSeoAuditPage() {
                   <p className="mt-2 font-sans text-sm leading-relaxed text-[var(--c-text-secondary)]">
                     {answer}
                   </p>
+                  {link ? (
+                    <Link
+                      to={link.href}
+                      className="mt-2 inline-flex items-center gap-1 font-sans text-sm font-semibold text-[var(--c-accent)] underline-offset-4 hover:underline"
+                    >
+                      {link.label} <ArrowRight className="size-3.5" aria-hidden />
+                    </Link>
+                  ) : null}
                 </article>
               ))}
             </div>

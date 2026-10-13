@@ -5,6 +5,8 @@ import PageHeader, { PageCtaPrimary, PageCtaSecondary } from "../components/layo
 import BundleOffers from "../components/services/BundleOffers";
 import BundleTable from "../components/services/BundleTable";
 import ServicesContact from "../components/services/ServicesContact";
+import ServiceFaq from "../components/services/ServiceFaq";
+import { faqGroupsForPage } from "../data/faqs";
 import { scrollToSection } from "../utils/scrollToSection";
 import { trackButtonClick } from "../services/analytics";
 
@@ -23,7 +25,7 @@ export default function BundlesPage() {
       <SEO
         title="Growth Bundles | Launch, Growth, Authority | CreativeIQ"
         description="Three CreativeIQ growth systems: Launch at $1,198/mo, Growth at $1,999/mo, and Authority at $2,999/mo. Website, SEO, social, and CRM in one loop."
-        keywords="CIQ Launch, CIQ Growth, CIQ Authority, marketing bundles, SEO social CRM package, CreativeIQ pricing"
+        keywords="CIQ Launch, CIQ Growth, CIQ Authority, marketing bundles, SEO social CRM package, CreativeIQ pricing, AEO bundle, AI search optimization package"
         canonical="https://creativeiqmarketing.com/bundles"
       />
       <PageHeader
@@ -52,6 +54,13 @@ export default function BundlesPage() {
         lede="Each system includes the website, the SEO, the social, and the CRM for that stage. À la carte pricing stays on the services page."
       />
       <BundleTable />
+      <ServiceFaq
+        groups={faqGroupsForPage("/bundles")}
+        eyebrow="Bundles FAQ"
+        heading="Before you"
+        headingAccent="pick a system."
+        lede="What's in each bundle, what it saves, and where AI search fits."
+      />
       <ServicesContact />
     </main>
   );

@@ -1,6 +1,8 @@
 import { ArrowUpRight, Check } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
+import ServiceFaq from "../components/services/ServiceFaq";
+import { faqGroupsForPage } from "../data/faqs";
 import PageHeader, {
   PageCtaPrimary,
   PageCtaSecondary,
@@ -100,6 +102,14 @@ export default function SocialMediaFreeTrialPage() {
           </aside>
         </div>
       </section>
+
+      <ServiceFaq
+        groups={faqGroupsForPage("/social-media-free-trial")}
+        eyebrow="Trial FAQ"
+        heading="The free trial,"
+        headingAccent="explained."
+        lede="What you get, what it costs afterward, and how to walk away."
+      />
     </main>
   );
 }

@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { FAQ_GROUPS, LLMS_FAQ_PICKS } from "../src/data/faqs.js";
 import {
   IMAGE_SITEMAP,
   SEO_PAGES,
@@ -139,19 +140,34 @@ Sitemap: ${SITE_URL}/sitemap-images.xml
 
 writeFileSync(join(publicDir, "robots.txt"), robots, "utf8");
 
-// llms.txt — keep a generated "Blog" section current.
+// llms.txt — generated "Frequently asked questions" section (AI answer engines).
+function llmsFaqSection() {
+  const lines = LLMS_FAQ_PICKS.map(([group, i]) => FAQ_GROUPS[group]?.items[i])
+    .filter(Boolean)
+    .map((item) => `### ${item.q}\n${item.a}`);
+  return `## Frequently asked questions\n${lines.join("\n\n")}\n\nMore answers: ${SITE_URL}/services#faq · ${SITE_URL}/bundles#faq\n`;
+}
+
+// llms.txt — keep the generated "Blog" and "Frequently asked questions" sections current.
 const llmsPath = join(publicDir, "llms.txt");
-if (existsSync(llmsPath) && blogPosts.length) {
-  const llms = readFileSync(llmsPath, "utf8").replace(/\r\n/g, "\n").replace(/\n## Blog\n[\s\S]*?(?=\n## |$)/g, "\n");
-  const section = `## Blog
+if (existsSync(llmsPath)) {
+  let llms = readFileSync(llmsPath, "utf8")
+    .replace(/\r\n/g, "\n")
+    .replace(/\n## Blog\n[\s\S]*?(?=\n## |$)/g, "\n")
+    .replace(/\n## Frequently asked questions\n[\s\S]*?(?=\n## |$)/g, "\n");
+  const sections = [llmsFaqSection()];
+  if (blogPosts.length) {
+    sections.push(`## Blog
 - Index: ${SITE_URL}/blog
 - RSS: ${SITE_URL}/blog/rss.xml
 ${blogPosts.map((p) => `- [${p.title.replace(/[[\]]/g, "")}](${SITE_URL}/blog/${p.slug}): ${p.description}`).join("\n")}
-`;
-  const next = llms.includes("\n## About")
-    ? llms.replace("\n## About", `\n${section}\n## About`)
-    : `${llms.trimEnd()}\n\n${section}`;
-  writeFileSync(llmsPath, next.replace(/\n{3,}/g, "\n\n"), "utf8");
+`);
+  }
+  const block = sections.join("\n");
+  llms = llms.includes("\n## About")
+    ? llms.replace("\n## About", `\n${block}\n## About`)
+    : `${llms.trimEnd()}\n\n${block}`;
+  writeFileSync(llmsPath, llms.replace(/\n{3,}/g, "\n\n"), "utf8");
 }
 
 console.log(

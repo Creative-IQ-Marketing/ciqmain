@@ -7,6 +7,8 @@ import PageHeader, {
 } from "../components/layout/PageHeader";
 import GHLValueTable from "../components/landing/GHLValueTable";
 import { Button } from "../components/ui/button";
+import ServiceFaq from "../components/services/ServiceFaq";
+import { faqGroupsForPage } from "../data/faqs";
 
 const PILLARS = [
   {
@@ -127,6 +129,14 @@ export default function WhatIsCrmPage() {
           </Button>
         </div>
       </section>
+
+      <ServiceFaq
+        groups={faqGroupsForPage("/services/what-is-crm")}
+        eyebrow="CRM FAQ"
+        heading="CRM,"
+        headingAccent="in plain English."
+        lede="Short answers to what a CRM is, what it costs here, and why it matters if you already pay for traffic."
+      />
     </main>
   );
 }

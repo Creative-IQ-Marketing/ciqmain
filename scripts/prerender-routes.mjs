@@ -14,6 +14,7 @@ import {
   toCanonical,
 } from "./seo-catalog.mjs";
 import { escapeAttr, setLink, setMeta } from "./html-seo.mjs";
+import { faqItemsForPage } from "../src/data/faqs.js";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const distDir = join(root, "dist");
@@ -84,6 +85,24 @@ function pageJsonLd(page) {
         telephone: PHONE_TEL,
         email: EMAIL,
       },
+    });
+  }
+
+  // FAQPage — same data as the visible FAQ section (src/data/faqs.js).
+  const faqItems = faqItemsForPage(page.path);
+  if (faqItems.length) {
+    graph.push({
+      "@type": "FAQPage",
+      "@id": `${url}#faq`,
+      url,
+      isPartOf: { "@id": `${url}#webpage` },
+      about: { "@id": `${SITE_URL}/#organization` },
+      inLanguage: "en-US",
+      mainEntity: faqItems.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: { "@type": "Answer", text: item.a },
+      })),
     });
   }
 

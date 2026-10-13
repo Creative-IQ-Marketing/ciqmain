@@ -11,6 +11,8 @@ import ConsultingSection from "../components/services/ConsultingSection";
 import HighLevelOffers from "../components/services/HighLevelOffers";
 import GrowthInfra from "../components/services/GrowthInfra";
 import ServicesContact from "../components/services/ServicesContact";
+import ServiceFaq from "../components/services/ServiceFaq";
+import { faqGroupsForPage } from "../data/faqs";
 import CrmPackages from "../components/services/CrmPackages";
 
 export const SERVICE_LANES = [
@@ -129,37 +131,7 @@ export default function ServicesPage() {
         },
       ],
     };
-    const faq = {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "What digital marketing services does CreativeIQ offer?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "CreativeIQ offers website & SEO, social media content creation, CRM automation, and strategic consulting for businesses worldwide.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "How much do digital marketing services cost?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "CreativeIQ offers tiered packages from $97/mo CRM starter and $569/mo social starter through full CIQ Dominance systems. Contact us for a custom quote.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Does CreativeIQ offer a social media free trial?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Yes. CreativeIQ offers a 30-day free trial on the Social Starter package — consistent posting across up to 2 platforms with no long-term commitment.",
-          },
-        },
-      ],
-    };
-    const schemas = [breadcrumb, faq];
+    const schemas = [breadcrumb];
     const scripts = schemas.map((schema, i) => {
       const script = document.createElement("script");
       script.type = "application/ld+json";
@@ -189,7 +161,7 @@ export default function ServicesPage() {
       <SEO
         title="À La Carte Services | SEO, Social, CRM | CreativeIQ"
         description="Buy SEO, social, CRM, or consulting on their own. The three CIQ growth bundles — Launch, Growth, and Authority — are on their own page, and repeated at the bottom of this one."
-        keywords="digital marketing services, SEO services San Antonio, social media packages, CRM automation GoHighLevel, marketing consulting, CreativeIQ services"
+        keywords="digital marketing services, SEO services San Antonio, answer engine optimization, AEO, AI search optimization, social media packages, CRM automation GoHighLevel, marketing consulting, CreativeIQ services, marketing FAQ"
         canonical="https://creativeiqmarketing.com/services"
       />
 
@@ -270,6 +242,13 @@ export default function ServicesPage() {
         title="Rather not piece it"
         titleAccent="together?"
         lede="Launch, Growth, and Authority are the three systems we lead with. Same website, SEO, social, and CRM — one monthly number."
+      />
+      <ServiceFaq
+        groups={faqGroupsForPage("/services")}
+        eyebrow="Services FAQ"
+        heading="Every service,"
+        headingAccent="answered."
+        lede="Straight answers on SEO and AI search, social, CRM, consulting, and pricing — the same questions buyers and AI assistants ask about us."
       />
       <ServicesContact />
     </main>

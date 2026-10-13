@@ -33,6 +33,30 @@
 - https://creativeiqmarketing.com/contact
 - https://creativeiqmarketing.com/book
 
+## Frequently asked questions
+### What does SEO include at CreativeIQ?
+CreativeIQ's SEO comes in four tiers — Foundation ($299/mo), Growth ($499/mo), Authority ($799/mo), and Dominance ($999+/mo). Foundation fixes sitemaps, indexing, crawl errors, and speed. Growth adds Core Web Vitals and crawl-budget work. Authority adds schema and AI-search answers, and Dominance adds ongoing technical audits and entity mapping.
+
+### What is answer engine optimization (AEO)?
+Answer engine optimization (AEO) is structuring your website so search features and AI assistants — Google's AI summaries, ChatGPT, Gemini, Perplexity — can lift a clear answer from your pages and cite you. It relies on question-and-answer content, schema markup such as FAQPage and Service, and consistent business details. CreativeIQ includes AEO in SEO Authority and in the Authority bundle.
+
+### How do I know if my website is ready for AI search?
+Run the free CreativeIQ AI SEO audit. It reads your page title, meta description, headings, image alt text, links, sitemap, and robots.txt, then adds mobile-friendliness, page speed, and structured-data checks. The report is emailed to you, and each email can request two free reports per month.
+
+### Is there a free trial for social media management?
+Yes. CreativeIQ offers a 30-day free trial of the Social Starter package — professional posting, captions, and cross-platform formatting on up to 2 platforms. You can cancel anytime during the trial with no obligation, and it continues at $569/mo only if you choose to keep going.
+
+### What does CreativeIQ's CRM include and what does it cost?
+CreativeIQ's CRM comes in three plans: DIY CRM Starter ($97/mo) for lead capture, missed-call text-back, and a basic pipeline; CRM Pro ($397/mo) adding workflow automation, deal tracking, funnels, and review requests; and CRM Elite ($497/mo) adding AI agents, AI chat, drip campaigns, and client portals.
+
+### What are the CreativeIQ growth bundles?
+The CreativeIQ growth bundles are three all-in-one systems combining website, SEO, social, and CRM: Launch at $1,198/mo, Growth at $1,999/mo, and Authority at $2,999/mo. Each is priced below buying the same services separately.
+
+### Which bundle includes AEO and AI-search optimization?
+The Authority bundle ($2,999/mo) includes advanced SEO with schema, AEO, and technical optimization, so your pages are structured for both Google and AI assistants. Growth includes Core Web Vitals and crawl fixes; Launch covers indexing, speed, and mobile.
+
+More answers: https://creativeiqmarketing.com/services#faq · https://creativeiqmarketing.com/bundles#faq
+
 ## Blog
 - Index: https://creativeiqmarketing.com/blog
 - RSS: https://creativeiqmarketing.com/blog/rss.xml

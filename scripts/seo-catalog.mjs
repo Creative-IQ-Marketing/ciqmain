@@ -80,7 +80,7 @@ export const SEO_PAGES = [
     description:
       "Three CreativeIQ growth systems: Launch at $1,198/mo, Growth at $1,999/mo, and Authority at $2,999/mo. Website, SEO, social, and CRM in one loop.",
     keywords:
-      "CIQ Launch, CIQ Growth, CIQ Authority, marketing bundles, SEO social CRM package, CreativeIQ pricing",
+      "CIQ Launch, CIQ Growth, CIQ Authority, marketing bundles, SEO social CRM package, CreativeIQ pricing, AEO bundle, AI search optimization package",
     pageType: "website",
     priority: "0.95",
     changefreq: "weekly",
@@ -94,7 +94,7 @@ export const SEO_PAGES = [
     description:
       "Buy SEO, social, CRM, or consulting on their own. The three CIQ growth bundles live on their own page and again at the bottom of this one.",
     keywords:
-      "digital marketing services, SEO services San Antonio, social media packages, CRM automation GoHighLevel, marketing consulting, CreativeIQ services",
+      "digital marketing services, SEO services San Antonio, answer engine optimization, AEO, AI search optimization, social media packages, CRM automation GoHighLevel, marketing consulting, CreativeIQ services, marketing FAQ",
     pageType: "website",
     priority: "0.9",
     changefreq: "weekly",
