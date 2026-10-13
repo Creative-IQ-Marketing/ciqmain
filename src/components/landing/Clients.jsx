@@ -46,13 +46,15 @@ export default function Clients() {
 
   useGSAP(
     () => {
+      if (!clients.length) return undefined;
       const mm = gsap.matchMedia();
       mm.add("(prefers-reduced-motion: no-preference) and (min-width: 768px)", () => {
         const track = trackRef.current;
         if (!track) return;
         const tween = gsap.to(track, {
           xPercent: -50,
-          duration: 38,
+          // ~3.4s per logo (was ~1.6s): slow enough to read each name.
+          duration: clients.length * 3.4,
           ease: "none",
           repeat: -1,
         });
@@ -67,7 +69,7 @@ export default function Clients() {
       });
       return () => mm.revert();
     },
-    { scope: sectionRef },
+    { scope: sectionRef, dependencies: [clients.length], revertOnUpdate: true },
   );
 
   return (
