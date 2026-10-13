@@ -7,6 +7,16 @@ gsap.registerPlugin(useGSAP);
 
 const logoModules = import.meta.glob("../../assets/transparent/*.webp");
 
+// Descriptive alt text for named clients (others fall back to a numbered label).
+const CLIENT_NAMES = {
+  25: "DEBS — Diversified Employee Benefit Services",
+  26: "San Antonio Dominion Rotary",
+  27: "TX Arborist",
+  28: "Tricounty Interior Services",
+  29: "Key Partner Network",
+  30: "Blackstone",
+};
+
 export default function Clients() {
   const trackRef = useRef(null);
   const sectionRef = useRef(null);
@@ -17,10 +27,13 @@ export default function Clients() {
     Promise.all(
       Object.entries(logoModules).map(async ([path, loader], index) => {
         const mod = await loader();
+        const num = Number(path.match(/\((\d+)\)\.webp$/)?.[1]);
         return {
           id: index + 1,
           src: mod.default,
-          alt: `CreativeIQ client partner logo ${index + 1}`,
+          alt: CLIENT_NAMES[num]
+            ? `${CLIENT_NAMES[num]} logo`
+            : `CreativeIQ client partner logo ${index + 1}`,
         };
       }),
     ).then((list) => {
