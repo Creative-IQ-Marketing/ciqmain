@@ -18,7 +18,7 @@ import CrmPackages from "../components/services/CrmPackages";
 export const SERVICE_LANES = [
   {
     id: "website-seo",
-    label: "SEO",
+    label: "AEO",
     aliases: ["website-seo", "bundles", "growth-infra", "high-level"],
   },
   {

@@ -25,6 +25,7 @@ const ServicesShowcase = lazy(
 const Stats = lazy(() => import("./components/landing/Stats"));
 const Testimonials = lazy(() => import("./components/landing/Testimonials"));
 const Contact = lazy(() => import("./components/landing/Contact"));
+const GuideStrip = lazy(() => import("./components/landing/GuideStrip"));
 const Footer = lazy(() => import("./components/landing/Footer"));
 const VilmaIntro = lazy(() => import("./components/landing/VilmaIntro"));
 const ServicesPage = lazy(() => import("./pages/ServicesPage"));
@@ -126,6 +127,7 @@ function Layout() {
           <Outlet />
         </Suspense>
         <Suspense fallback={null}>
+          <GuideStrip />
           <Footer />
         </Suspense>
         {NEWSLETTER_POPUP_ENABLED ? (

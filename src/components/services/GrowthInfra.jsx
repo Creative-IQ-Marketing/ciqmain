@@ -103,15 +103,16 @@ export default function GrowthInfra() {
         <div className="grid items-end gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-12">
           <div className="max-w-2xl">
             <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--c-accent)]">
-              SEO, on its own
+              Source, Search, Refine
             </p>
             <h2 className="mt-3 font-sans text-[clamp(1.85rem,3.5vw,2.85rem)] font-extrabold leading-[1.02] tracking-[-0.04em] text-balance">
-              Built for search.{" "}
-              <span className="text-[var(--c-accent)]">Structured for AI.</span>
+              Found by search.{" "}
+              <span className="text-[var(--c-accent)]">Understood by AI.</span>
             </h2>
             <p className="mt-4 font-sans text-base leading-relaxed text-white/65 lg:text-lg">
-              From technical visibility to full search and AI ecosystem control.
-              Website infrastructure starts at $799 for one SEO-coded page.
+              A website that search engines can read and AI can recommend,
+              thoughtfully built from the ground up. Beginning at $799 for a
+              single, fully optimized page.
             </p>
           </div>
           <div className="hidden overflow-hidden rounded-[var(--radius-card)] border border-white/10 lg:block">

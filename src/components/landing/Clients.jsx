@@ -7,8 +7,6 @@ gsap.registerPlugin(useGSAP);
 
 const logoModules = import.meta.glob("../../assets/transparent/*.webp");
 
-// Logo number (from the file name) -> client name + website. Only verified
-// sites are linked; logos without one render as plain images.
 const CLIENTS = {
   1: { name: "United Construct, Clean, Restore" },
   2: { name: "Love Your Life" },
@@ -19,25 +17,49 @@ const CLIENTS = {
   8: { name: "N Zone Sports Centex", href: "https://nzonesports.com/centex" },
   9: { name: "Go Play Sports" },
   10: { name: "Morales Padia Law", href: "https://moralespadialaw.com" },
-  11: { name: "Tricounty Interior Services", href: "https://tricountyinterior.com" },
+  11: {
+    name: "Tricounty Interior Services",
+    href: "https://tricountyinterior.com",
+  },
   12: { name: "JR Real Estate" },
   13: { name: "Lone Star Capital Bank" },
-  14: { name: "Clear Integrity Group", href: "https://www.clearintegritygroup.com" },
+  14: {
+    name: "Clear Integrity Group",
+    href: "https://www.clearintegritygroup.com",
+  },
   15: { name: "TEAMability Two-Step Gala", href: "https://teamability.org" },
-  16: { name: "FYZICAL Therapy & Balance Centers", href: "https://www.fyzical.com" },
+  16: {
+    name: "FYZICAL Therapy & Balance Centers",
+    href: "https://www.fyzical.com",
+  },
   17: { name: "FF" },
   18: { name: "ABC Healthcare Revenue Consulting & Auditing" },
-  19: { name: "Evolve Human Optimization Labs", href: "https://www.evolvehumanlabs.com" },
+  19: {
+    name: "Evolve Human Optimization Labs",
+    href: "https://www.evolvehumanlabs.com",
+  },
   20: { name: "TEAMability", href: "https://teamability.org" },
   21: { name: "Viago" },
   22: { name: "META Consultants" },
-  23: { name: "Cosmetic Dentistry of San Antonio", href: "https://cosmeticdentistryofsa.com" },
+  23: {
+    name: "Cosmetic Dentistry of San Antonio",
+    href: "https://cosmeticdentistryofsa.com",
+  },
   24: { name: "South Texas Business Partnership" },
-  25: { name: "DEBS — Diversified Employee Benefit Services", href: "https://debsinsurance.com" },
-  26: { name: "San Antonio Dominion Rotary", href: "https://dominionrotarysatx.com" },
+  25: {
+    name: "DEBS — Diversified Employee Benefit Services",
+    href: "https://debsinsurance.com",
+  },
+  26: {
+    name: "San Antonio Dominion Rotary",
+    href: "https://dominionrotarysatx.com",
+  },
   27: { name: "TX Arborist", href: "https://tx-arborist.com" },
   29: { name: "Key Partner Network" },
-  30: { name: "Blackstone Claim Services", href: "https://blackstoneclaimservices.com" },
+  30: {
+    name: "Blackstone Claim Services",
+    href: "https://blackstoneclaimservices.com",
+  },
 };
 
 function ClientLogo({ client, className }) {
@@ -80,7 +102,9 @@ export default function Clients() {
           src: mod.default,
           name: info?.name,
           href: info?.href,
-          alt: info ? `${info.name} logo` : `CreativeIQ client partner logo ${index + 1}`,
+          alt: info
+            ? `${info.name} logo`
+            : `CreativeIQ client partner logo ${index + 1}`,
         };
       }),
     ).then((list) => {
@@ -95,25 +119,28 @@ export default function Clients() {
     () => {
       if (!clients.length) return undefined;
       const mm = gsap.matchMedia();
-      mm.add("(prefers-reduced-motion: no-preference) and (min-width: 768px)", () => {
-        const track = trackRef.current;
-        if (!track) return;
-        const tween = gsap.to(track, {
-          xPercent: -50,
-          // ~3.4s per logo (was ~1.6s): slow enough to read each name.
-          duration: clients.length * 3.4,
-          ease: "none",
-          repeat: -1,
-        });
-        const pause = () => tween.pause();
-        const play = () => tween.play();
-        sectionRef.current?.addEventListener("mouseenter", pause);
-        sectionRef.current?.addEventListener("mouseleave", play);
-        return () => {
-          sectionRef.current?.removeEventListener("mouseenter", pause);
-          sectionRef.current?.removeEventListener("mouseleave", play);
-        };
-      });
+      mm.add(
+        "(prefers-reduced-motion: no-preference) and (min-width: 768px)",
+        () => {
+          const track = trackRef.current;
+          if (!track) return;
+          const tween = gsap.to(track, {
+            xPercent: -50,
+            // ~3.4s per logo (was ~1.6s): slow enough to read each name.
+            duration: clients.length * 3.4,
+            ease: "none",
+            repeat: -1,
+          });
+          const pause = () => tween.pause();
+          const play = () => tween.play();
+          sectionRef.current?.addEventListener("mouseenter", pause);
+          sectionRef.current?.addEventListener("mouseleave", play);
+          return () => {
+            sectionRef.current?.removeEventListener("mouseenter", pause);
+            sectionRef.current?.removeEventListener("mouseleave", play);
+          };
+        },
+      );
       return () => mm.revert();
     },
     { scope: sectionRef, dependencies: [clients.length], revertOnUpdate: true },
@@ -128,17 +155,21 @@ export default function Clients() {
     >
       <div className="mx-auto mb-8 flex max-w-[var(--container-max)] items-end justify-between gap-6 px-[var(--container-pad)]">
         <p className="font-sans text-sm font-medium text-[var(--c-text-muted)]">
-          Trusted by operators across healthcare, law, real estate, and professional services
+          Trusted by operators across healthcare, law, real estate, and
+          professional services
         </p>
         <span className="hidden font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--c-accent)] sm:block">
-          {clients.length}+ partners
+          {clients.length}+ brands
         </span>
       </div>
 
       <div className="relative hidden overflow-hidden md:block">
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-white to-transparent lg:w-40" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-white to-transparent lg:w-40" />
-        <div ref={trackRef} className="flex w-max items-center gap-16 px-10 will-change-transform">
+        <div
+          ref={trackRef}
+          className="flex w-max items-center gap-16 px-10 will-change-transform"
+        >
           {[...clients, ...clients].map((client, index) => (
             <ClientLogo
               key={`${client.id}-${index}`}

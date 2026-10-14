@@ -23,8 +23,9 @@ const SERVICES = [
     title: "Search Engine Marketing",
     contactValue: "bundle-launch",
     summary:
-      "Technical SEO, AI search readiness, and paid search wired to analytics so buyers already looking for you can find and choose you.",
+      "Technical SEO, AEO (answer engine optimization) so ChatGPT, Perplexity, and Gemini cite you, and paid search wired to analytics so buyers already looking for you can find and choose you.",
     proof: "Rank + recommend",
+    learnMore: { label: "Learn about AI SEO & AEO", to: "/ai-seo-guide" },
     Icon: Search,
   },
   {
@@ -35,6 +36,7 @@ const SERVICES = [
     summary:
       "Consistent presence and paid amplification across the platforms your audience already uses, aimed at pipeline rather than vanity.",
     proof: "Presence that converts",
+    learnMore: { label: "See social media plans", to: "/social-media-free-trial" },
     Icon: Share2,
   },
   {
@@ -45,6 +47,7 @@ const SERVICES = [
     summary:
       "Editorial calendars, video, email, and long-form that educate buyers and move them from curiosity to a conversation.",
     proof: "Stories with commercial spine",
+    learnMore: { label: "Read the blog", to: "/blog" },
     Icon: FileText,
   },
   {
@@ -55,6 +58,7 @@ const SERVICES = [
     summary:
       "Fast conversion sites with clear offers, clean UX, and the performance foundation SEO and ads need to pay off.",
     proof: "Sites built to close",
+    learnMore: { label: "What is a CRM?", to: "/services/what-is-crm" },
     Icon: LayoutTemplate,
   },
 ];
@@ -165,17 +169,22 @@ export default function ServicesShowcase() {
                 {current.summary}
               </p>
             </div>
+            <Link
+              to={current.learnMore.to}
+              className="mt-6 inline-flex items-center gap-1.5 font-sans text-sm font-semibold text-[var(--c-accent)] hover:underline"
+            >
+              {current.learnMore.label}
+              <ArrowUpRight size={15} aria-hidden />
+            </Link>
           </div>
         </Reveal>
 
         {/* Mobile */}
         <div className="space-y-3 lg:hidden">
           {SERVICES.map((service) => (
-            <button
+            <div
               key={service.id}
-              type="button"
-              onClick={() => goToContact(service.contactValue)}
-              className="flex w-full flex-col gap-3 rounded-[var(--radius-card)] border border-[var(--c-border)] bg-white p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)]"
+              className="flex w-full flex-col gap-3 rounded-[var(--radius-card)] border border-[var(--c-border)] bg-white p-5 text-left"
             >
               <div className="flex items-center justify-between">
                 <span className="font-sans text-xs font-semibold text-[var(--c-accent)]">
@@ -193,7 +202,23 @@ export default function ServicesShowcase() {
               <p className="font-sans text-sm leading-relaxed text-[var(--c-text-secondary)]">
                 {service.summary}
               </p>
-            </button>
+              <div className="flex flex-wrap gap-x-5 gap-y-2">
+                <Link
+                  to={service.learnMore.to}
+                  className="inline-flex items-center gap-1.5 font-sans text-sm font-semibold text-[var(--c-accent)]"
+                >
+                  {service.learnMore.label}
+                  <ArrowUpRight size={15} aria-hidden />
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => goToContact(service.contactValue)}
+                  className="font-sans text-sm font-semibold text-[var(--c-ink)]"
+                >
+                  Get started
+                </button>
+              </div>
+            </div>
           ))}
         </div>
 

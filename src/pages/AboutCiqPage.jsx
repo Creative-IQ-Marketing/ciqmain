@@ -46,9 +46,9 @@ export default function AboutCiqPage() {
       />
 
       <PageHeader
-        title="Trust is the new"
-        titleAccent="ranking factor"
-        description="We do not chase trends. We build marketing systems that earn confidence from people and the AI platforms shaping discovery."
+        title="Be the business"
+        titleAccent="people (and Google) trust most."
+        description="We don't chase fads. We build marketing that makes customers, Google, and AI tools like ChatGPT believe in your business."
       >
         <PageCtaPrimary to="/services">See our systems</PageCtaPrimary>
         <PageCtaSecondary to="/about/vilma">Meet Vilma</PageCtaSecondary>
@@ -78,12 +78,11 @@ export default function AboutCiqPage() {
               The philosophy
             </p>
             <h2 className="mt-4 font-sans text-[clamp(1.6rem,3vw,2.35rem)] font-extrabold leading-[1.08] tracking-[-0.035em] text-balance">
-              The goal is not simply to rank on Google.
+              Showing up on Google isn&rsquo;t enough.
             </h2>
             <p className="mt-5 font-sans text-base leading-relaxed text-white/70">
-              It is to become the business that AI platforms, search engines,
-              voice assistants, and future technologies recognize as the most
-              credible, authoritative, and trustworthy answer.
+              We want you to be the business that Google, ChatGPT, Siri, and Alexa
+              point to when someone asks, &lsquo;Who should I trust?&rsquo;
             </p>
             <p className="mt-4 font-sans text-base leading-relaxed text-white/70">
               Businesses no longer compete solely for clicks. They compete for
