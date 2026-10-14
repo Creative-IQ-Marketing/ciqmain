@@ -28,7 +28,7 @@ export default function ServicesHero() {
           <span className="text-[var(--c-accent)]">what matters.</span>
         </h1>
         <p className="mt-4 max-w-xl font-sans text-base leading-relaxed text-[var(--c-text-secondary)]">
-          AEO, social media, CRM consulting, and web, sold on their own. The three growth bundles have their own page, and sit again at the bottom of this one.
+          SEO and AEO, social media, CRM consulting, and web, sold on their own. The three growth bundles have their own page, and sit again at the bottom of this one.
         </p>
       </div>
     </section>

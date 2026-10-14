@@ -28,8 +28,8 @@ export const FAQ_GROUPS = {
       },
       {
         q: "What is answer engine optimization (AEO)?",
-        a: "Answer engine optimization (AEO) is structuring your website so search features and AI assistants — Google's AI summaries, ChatGPT, Gemini, Perplexity — can lift a clear answer from your pages and cite you. It relies on question-and-answer content, schema markup such as FAQPage and Service, and consistent business details. CreativeIQ includes AEO in SEO Authority and in the Authority bundle.",
-        link: { label: "See SEO Authority", href: "/services#growth-infra" },
+        a: "Answer engine optimization (AEO) is structuring your website so search features and AI assistants — Google's AI summaries, ChatGPT, Gemini, Perplexity — can lift a clear answer from your pages and cite you. It relies on question-and-answer content, schema markup such as FAQPage and Service, and consistent business details. CreativeIQ includes AEO in AEO Authority and in the Authority bundle.",
+        link: { label: "See AEO Authority", href: "/services#growth-infra" },
       },
       {
         q: "How is AEO different from traditional SEO?",
@@ -263,8 +263,8 @@ export const FAQ_GROUPS = {
       },
       {
         q: "Will the audit tell me if I'm ready for AI search?",
-        a: "It checks the signals AI assistants lean on — clear page titles and descriptions, heading structure, and structured data — and flags what's missing. It's a starting point; our SEO Authority tier turns the findings into schema and answer-ready content.",
-        link: { label: "See SEO Authority", href: "/services#growth-infra" },
+        a: "It checks the signals AI assistants lean on — clear page titles and descriptions, heading structure, and structured data — and flags what's missing. It's a starting point; our AEO Authority tier turns the findings into schema and answer-ready content.",
+        link: { label: "See AEO Authority", href: "/services#growth-infra" },
       },
     ],
   },

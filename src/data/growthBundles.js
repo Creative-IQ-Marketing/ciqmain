@@ -54,13 +54,13 @@ export const MAIN_BUNDLES = [
     structure: null,
     preview: [
       "2–3 coded website pages",
-      "SEO Growth and Core Web Vitals",
+      "AEO Growth and Core Web Vitals",
       "The Classic — 12+ posts",
       "CRM Pro: funnels, booking, automation",
     ],
     features: [
       "2–3 fully coded website pages",
-      "SEO Growth, crawl and index fixes, Core Web Vitals",
+      "AEO Growth, crawl and index fixes, Core Web Vitals",
       "The Classic social system — 12–18 posts plus a production day",
       "CRM funnels, booking, and automation",
       "Lead tracking and tagging",
@@ -83,7 +83,7 @@ export const MAIN_BUNDLES = [
     structure: null,
     preview: [
       "4–6 coded website pages",
-      "SEO Authority — schema and AI search",
+      "AEO Authority — schema and AI search",
       "The Refined social system",
       "CRM automation, AI chat, reviews",
     ],
@@ -120,7 +120,7 @@ export const BUNDLE_COMPARE_ROWS = [
   {
     group: "SEO",
     label: "SEO tier included",
-    values: ["SEO Growth", "SEO Growth", "SEO Authority"],
+    values: ["AEO Growth", "AEO Growth", "AEO Authority"],
   },
   {
     group: "SEO",

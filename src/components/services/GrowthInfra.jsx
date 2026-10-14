@@ -15,9 +15,9 @@ const TIERS = [
   {
     id: "foundation",
     number: "01",
-    name: "SEO Foundation",
+    name: "AEO Foundation",
     interest: "seo-foundation",
-    subtitle: "Technical visibility setup",
+    subtitle: "Technical SEO visibility setup",
     bestFor: "Sites that are not properly indexed or structured",
     price: "Starting at $299/mo",
     goal: "Get your website readable, crawlable, and visible on Google.",
@@ -34,9 +34,9 @@ const TIERS = [
   {
     id: "growth",
     number: "02",
-    name: "SEO Growth",
+    name: "AEO Growth",
     interest: "seo-growth",
-    subtitle: "Search optimization + performance",
+    subtitle: "SEO optimization + performance",
     bestFor: "Businesses ready to improve rankings and site health",
     price: "Starting at $499/mo",
     goal: "Improve rankings, site health, and performance signals Google uses.",
@@ -52,9 +52,9 @@ const TIERS = [
   {
     id: "authority",
     number: "03",
-    name: "SEO Authority",
+    name: "AEO Authority",
     interest: "seo-authority",
-    subtitle: "Structured data + AI search",
+    subtitle: "SEO + structured data for AI search",
     bestFor: "Brands that want Google and AI platforms to understand them",
     price: "Starting at $799/mo",
     goal: "Position for Google and AI tools like ChatGPT, Gemini, and Claude.",
@@ -71,9 +71,9 @@ const TIERS = [
   {
     id: "dominance",
     number: "04",
-    name: "SEO Dominance",
+    name: "AEO Dominance",
     interest: "seo-dominance",
-    subtitle: "Full search + AI ecosystem",
+    subtitle: "Full SEO + AI ecosystem",
     bestFor: "Businesses competing at the highest level in their market",
     price: "Starting at $999+/mo",
     goal: "Long-term search dominance, AI visibility, and competitive edge.",
@@ -110,8 +110,8 @@ export default function GrowthInfra() {
               <span className="text-[var(--c-accent)]">Understood by AI.</span>
             </h2>
             <p className="mt-4 font-sans text-base leading-relaxed text-white/65 lg:text-lg">
-              A website that search engines can read and AI can recommend,
-              thoughtfully built from the ground up. Beginning at $799 for a
+              SEO and AEO working hand in hand: a website that search engines
+              can read and AI can recommend, thoughtfully built from the ground up. Beginning at $799 for a
               single, fully optimized page.
             </p>
           </div>
