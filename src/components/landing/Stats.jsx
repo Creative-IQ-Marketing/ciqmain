@@ -10,8 +10,6 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const STATS = [
   { value: 120, suffix: "+", label: "Clients served", decimals: 0 },
-  { value: 3.4, suffix: "x", label: "Avg. traffic growth", decimals: 1 },
-  { value: 98, suffix: "%", label: "Client retention", decimals: 0 },
   { value: 50, suffix: "+", label: "Custom systems", decimals: 0 },
 ];
 
@@ -83,7 +81,7 @@ export default function Stats() {
 
         <div
           ref={countRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+          className="grid max-w-3xl grid-cols-1 sm:grid-cols-2"
         >
           {STATS.map((stat) => (
             <StatBlock key={stat.label} {...stat} inView={inView} />

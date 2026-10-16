@@ -32,3 +32,5 @@ public/blog
 
 # Local Netlify folder
 .netlify
+
+_audit/

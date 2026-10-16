@@ -20,6 +20,7 @@ import {
   PHONE_DISPLAY,
   PHONE_SMS,
   PHONE_TEL,
+  TEXT_DISPLAY,
 } from "../utils/contact";
 
 export default function ContactPage() {
@@ -76,7 +77,7 @@ export default function ContactPage() {
     {
       label: "Text",
       href: PHONE_SMS,
-      text: "Message us",
+      text: TEXT_DISPLAY,
       icon: MessageSquare,
     },
   ];

@@ -15,12 +15,8 @@ const POINTS = [
     body: "Built for discovery in 2026: Google, ChatGPT, Gemini, Perplexity, and the technical signals they reward.",
   },
   {
-    title: "Full-stack execution",
-    body: "Web, SEO, CRM, content, and social stay under one roof so strategy never fractures across vendors.",
-  },
-  {
-    title: "Local and nationwide",
-    body: "San Antonio rooted, national reach. Local operators and multi-market teams get the same discipline.",
+    title: "Everything in one place",
+    body: "Your website, Google presence, CRM, content, and social media are all handled by one team, so nothing falls through the cracks.",
   },
 ];
 
@@ -40,7 +36,7 @@ export default function About() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-black/20" />
           <p className="absolute bottom-8 left-8 max-w-xs font-sans text-sm text-white/85 lg:bottom-12 lg:left-12">
-            Based in San Antonio. Building systems that travel.
+            Based in San Antonio.
           </p>
         </div>
 
@@ -59,7 +55,7 @@ export default function About() {
               <div
                 key={p.title}
                 data-reveal-item
-                className="border-t border-[var(--c-border)] py-5"
+                className="border-t border-[var(--c-border)] py-5 last:sm:col-span-2"
               >
                 <p className="font-sans text-[15px] font-semibold text-[var(--c-ink)]">
                   {p.title}

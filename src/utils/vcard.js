@@ -82,7 +82,8 @@ export async function downloadVCard() {
       "N:CreativeIQ;;;;",
       "ORG:CreativeIQ",
       "TITLE:AI Driven Digital Marketing Agency",
-      "TEL;TYPE=WORK,VOICE:+18303556028",
+      "TEL;TYPE=WORK,VOICE,PREF:+12108380177",
+      "TEL;TYPE=CELL,MSG:+18303556028",
       "EMAIL;TYPE=WORK,INTERNET:CiQ@creativeiq.marketing",
       "URL:https://creativeiqmarketing.com",
     ];
@@ -127,7 +128,7 @@ export function saveAndCall() {
 
   if (/Mobi|Android/i.test(navigator.userAgent)) {
     setTimeout(() => {
-      window.location.href = "tel:+18303556028";
+      window.location.href = "tel:+12108380177";
     }, 700);
   }
 }

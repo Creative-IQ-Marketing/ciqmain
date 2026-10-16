@@ -58,7 +58,9 @@ export default function Testimonials() {
       setCurrentIndex(nextIndex);
       return;
     }
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (reduce) {
       setCurrentIndex(nextIndex);
       return;
@@ -90,8 +92,8 @@ export default function Testimonials() {
     >
       <div className="mx-auto max-w-[var(--container-max)] px-[var(--container-pad)] py-12 sm:py-14">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-6 sm:mb-10">
-          <h2 className="max-w-md font-sans text-[clamp(1.85rem,3.5vw,2.75rem)] font-extrabold leading-[1.05] tracking-[-0.04em] text-[var(--c-ink)]">
-            What clients say
+          <h2 className="max-w-md text-sm font-sans text-[clamp(1.85rem,3.5vw,2.75rem)] font-extrabold leading-[1.05] tracking-[-0.04em] text-[var(--c-ink)]">
+            Testimonials &amp; kind words
           </h2>
           <div className="flex items-center gap-3">
             <button

@@ -4,15 +4,23 @@ import {
   PHONE_DISPLAY,
   PHONE_SMS,
   PHONE_TEL,
+  TEXT_DISPLAY,
 } from "../../utils/contact";
 import ContactForm from "./ContactForm";
 import GuideInlineCTA from "../ui/GuideInlineCTA";
+import AppointmentBand from "./AppointmentBand";
 
 const COPY = {
   home: {
-    title: "Tell us what you're building",
-    description:
-      "Share goals and constraints. We map the right system for where you are, not a generic package pitch.",
+    title: "Let's schedule an appointment",
+    description: "In this appointment we will:",
+    points: [
+      "Review all the gaps in your digital ecosystem",
+      "Create a digital foundation you can follow on your own, at your own pace",
+      "Teach you all the tools",
+      "Give you 3 months of access to our CRM, at no cost to you",
+      "Review your social media and how you build relationships on digital platforms",
+    ],
     analyticsContext: "HomeContact",
     formId: "home-contact-interest",
   },
@@ -36,15 +44,30 @@ export default function ContactSection({
       id={sectionId}
       className="relative scroll-mt-32 overflow-hidden border-t border-[var(--c-border)] bg-[var(--c-base)]"
     >
+      {copy.points && (
+        <AppointmentBand
+          title={copy.title}
+          intro={copy.description}
+          points={copy.points}
+        />
+      )}
       <div className="relative z-10 mx-auto max-w-[var(--container-max)] px-[var(--container-pad)] py-12 sm:py-14 lg:py-16">
         <div className="grid items-start gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <div>
-            <h2 className="mb-4 font-sans text-[clamp(1.9rem,3.5vw,2.85rem)] font-extrabold leading-[1.05] tracking-[-0.04em] text-[var(--c-ink)] text-balance">
-              {copy.title}
-            </h2>
-            <p className="mb-8 max-w-[42ch] font-sans text-base leading-relaxed text-[var(--c-text-secondary)]">
-              {copy.description}
-            </p>
+            {copy.points ? (
+              <h3 className="mb-6 font-sans text-xl font-bold tracking-[-0.02em] text-[var(--c-ink)]">
+                Or reach us directly
+              </h3>
+            ) : (
+              <>
+                <h2 className="mb-4 font-sans text-[clamp(1.9rem,3.5vw,2.85rem)] font-extrabold leading-[1.05] tracking-[-0.04em] text-[var(--c-ink)] text-balance">
+                  {copy.title}
+                </h2>
+                <p className="mb-8 max-w-[42ch] font-sans text-base leading-relaxed text-[var(--c-text-secondary)]">
+                  {copy.description}
+                </p>
+              </>
+            )}
 
             <div className="space-y-4 font-sans text-sm text-[var(--c-text-muted)]">
               <a
@@ -63,7 +86,7 @@ export default function ContactSection({
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--c-surface-2)] text-[var(--c-accent)] transition group-hover:bg-[var(--c-accent-dim)]">
                   <MessageSquare size={16} strokeWidth={1.75} aria-hidden />
                 </span>
-                Text us
+                Text {TEXT_DISPLAY}
               </a>
               <a
                 href={`mailto:${EMAIL}`}

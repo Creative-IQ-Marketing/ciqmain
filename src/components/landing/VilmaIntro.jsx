@@ -9,6 +9,13 @@ import vilmaCreativeSm from "../../assets/vilma/vilma-creative-sm.webp";
 import vilmaWorkSm from "../../assets/vilma/vilma-bw-work-sm.webp";
 import { trackButtonClick } from "../../services/analytics";
 
+const HIGHLIGHTS = [
+  "Founder & CEO of CreativeIQ, 10+ years in digital marketing",
+  "Mentors students at Hallmark University, Harmony Public Schools & Texas A&M",
+  "Active in Key Partner Network & South Texas Business Partnership",
+  "Former NCAA collegiate soccer player",
+];
+
 const PORTRAITS_SM = [
   {
     src: vilmaCreativeSm,
@@ -91,9 +98,19 @@ export default function VilmaIntro() {
             Vilma Tovar
           </p>
           <p className="mt-1.5 font-sans text-[13px] leading-snug text-[var(--c-text-secondary)]">
-            AI strategist and growth consultant building systems that earn
-            trust.
+            Chair of Dominion Rotary Club, student mentor, and speaker on AI
+            and entrepreneurship across San Antonio.
           </p>
+          <ul className="mt-2 space-y-1 font-sans text-[12px] leading-snug text-[var(--c-text-muted)]">
+            {HIGHLIGHTS.map((item) => (
+              <li key={item} className="flex gap-1.5">
+                <span className="text-[var(--c-accent)]" aria-hidden>
+                  •
+                </span>
+                {item}
+              </li>
+            ))}
+          </ul>
           <Link
             to="/about/vilma"
             onClick={() =>
@@ -132,9 +149,19 @@ export default function VilmaIntro() {
               Led by Vilma Tovar
             </h2>
             <p className="mt-2.5 font-sans text-sm leading-relaxed text-[var(--c-text-secondary)]">
-              AI strategist, speaker, and growth consultant building marketing
-              systems that earn trust from customers and intelligent platforms.
+              Chair of Dominion Rotary Club, student mentor, and speaker on AI,
+              entrepreneurship, and leadership across San Antonio.
             </p>
+            <ul className="mt-3 space-y-1.5 font-sans text-[13px] leading-snug text-[var(--c-text-muted)]">
+              {HIGHLIGHTS.map((item) => (
+                <li key={item} className="flex gap-2">
+                  <span className="text-[var(--c-accent)]" aria-hidden>
+                    •
+                  </span>
+                  {item}
+                </li>
+              ))}
+            </ul>
             <Link
               to="/about/vilma"
               onClick={() =>

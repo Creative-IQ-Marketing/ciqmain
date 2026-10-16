@@ -4,13 +4,14 @@ import {
   Instagram,
   Linkedin,
   Mail,
+  MessageSquare,
   Music2,
   Phone,
   Youtube,
 } from "lucide-react";
 import mainLogo from "../../assets/mainLogo.webp";
 import { trackButtonClick } from "../../services/analytics";
-import { EMAIL, PHONE_DISPLAY, PHONE_TEL } from "../../utils/contact";
+import { EMAIL, PHONE_DISPLAY, PHONE_SMS, PHONE_TEL, TEXT_DISPLAY } from "../../utils/contact";
 import { SERVICES_NAV } from "../../data/servicesNav";
 import footerVoid from "../../assets/sections/section-footer-void.webp";
 
@@ -40,6 +41,15 @@ const SOCIALS = [
     label: "LinkedIn",
     href: "https://www.linkedin.com/company/creativeiqdigitalmarketing",
   },
+];
+
+// TODO: swap CRM + Aura hrefs for their real links once Vilma sends them
+const FOOTER_ACTIONS = [
+  { label: "Start a project", href: "/contact" },
+  { label: "Make a payment", href: "/paymentform" },
+  { label: "Text Vilma", href: PHONE_SMS },
+  { label: "3 month CRM access", href: "/book" },
+  { label: "Aura the digital avatar", href: "/contact" },
 ];
 
 const NAV = [
@@ -77,7 +87,7 @@ export default function Footer() {
               Ready to build systems that convert?
             </p>
           </div>
-          <div className="flex flex-wrap gap-3">
+          <div className="flex max-w-xl flex-wrap gap-3 md:justify-end">
             <Link
               to="/book"
               onClick={() =>
@@ -87,15 +97,16 @@ export default function Footer() {
             >
               Book a call
             </Link>
-            <Link
-              to="/contact"
-              onClick={() =>
-                trackButtonClick("Start a project", "footer_cta", "Footer")
-              }
-              className="inline-flex items-center justify-center rounded-[var(--radius-pill)] border border-white/30 bg-transparent px-8 py-3.5 font-sans text-[15px] font-medium text-white transition hover:border-white"
-            >
-              Start a project
-            </Link>
+            {FOOTER_ACTIONS.map(({ label, href }) => (
+              <a
+                key={label}
+                href={href}
+                onClick={() => trackButtonClick(label, "footer_cta", "Footer")}
+                className="inline-flex items-center justify-center rounded-[var(--radius-pill)] border border-white/30 bg-transparent px-6 py-3.5 font-sans text-[15px] font-medium text-white transition hover:border-white"
+              >
+                {label}
+              </a>
+            ))}
           </div>
         </div>
       </div>
@@ -201,6 +212,19 @@ export default function Footer() {
                       className="text-[#6B9AFF]"
                     />
                     {PHONE_DISPLAY}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={PHONE_SMS}
+                    className="inline-flex items-center gap-2.5 text-white/65 transition hover:text-white"
+                  >
+                    <MessageSquare
+                      size={15}
+                      strokeWidth={1.75}
+                      className="text-[#6B9AFF]"
+                    />
+                    Text {TEXT_DISPLAY}
                   </a>
                 </li>
                 <li>
