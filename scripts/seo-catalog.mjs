@@ -263,6 +263,21 @@ export const SEO_PAGES = [
     noindex: true,
     sitemap: false,
   },
+  {
+    path: "/search",
+    title: "Search | CreativeIQ",
+    description:
+      "Search the CreativeIQ website for services, guides and blog posts.",
+    keywords: "CreativeIQ site search",
+    pageType: "website",
+    priority: "0.1",
+    changefreq: "yearly",
+    breadcrumbs: crumbs(["Search", "/search"]),
+    schemaType: "WebPage",
+    ogImageAlt: "Search CreativeIQ",
+    noindex: true,
+    sitemap: false,
+  },
 ];
 
 export const IMAGE_SITEMAP = [
