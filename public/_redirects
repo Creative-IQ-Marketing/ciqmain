@@ -31,6 +31,7 @@ https://creativeiq.marketing/*  https://creativeiqmarketing.com/:splat  301!
 /showandshine                    /carshow                        301
 /carshow/                        /carshow                        301
 /paymentform/                    /paymentform                    301
+/search/                         /search                         301
 
 # Known SPA routes → prerendered route shells (HTTP 200)
 # Do NOT use /* /index.html 200 (soft 404s in GSC).
@@ -49,3 +50,6 @@ https://creativeiq.marketing/*  https://creativeiqmarketing.com/:splat  301!
 /privacy                         /privacy/index.html    200
 /carshow                         /carshow/index.html    200
 /paymentform                     /paymentform/index.html    200
+
+# Site search (client-rendered, noindex) — serve the app shell
+/search                          /index.html    200
