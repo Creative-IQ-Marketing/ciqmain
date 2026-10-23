@@ -52,6 +52,7 @@ const AboutCiqPage = lazy(() => import("./pages/AboutCiqPage"));
 const AboutVilmaPage = lazy(() => import("./pages/AboutVilmaPage"));
 const WhatIsCrmPage = lazy(() => import("./pages/WhatIsCrmPage"));
 const NewsletterPopup = lazy(() => import("./components/ui/NewsletterPopup"));
+const SearchPage = lazy(() => import("./pages/SearchPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 const BlogIndexPage = lazy(() => import("./pages/BlogIndexPage"));
 const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
@@ -199,6 +200,7 @@ function App() {
             element={<SocialMediaFreeTrialPage />}
           />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/search" element={<SearchPage />} />
           <Route path="/blog" element={<BlogIndexPage />} />
           <Route path="/blog/:slug" element={<BlogPostPage />} />
           <Route

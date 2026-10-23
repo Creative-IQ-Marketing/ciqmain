@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronDown, Menu, Phone, X } from "lucide-react";
+import { ChevronDown, Menu, Phone, Search, X } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import mainLogo from "../../assets/mainLogo.webp";
 import { PHONE_TEL } from "../../utils/contact";
@@ -221,6 +221,14 @@ export default function Header() {
 
             <div className="ml-auto hidden items-center gap-2 md:flex">
               <a
+                href="/search"
+                onClick={(e) => handleNav(e, "/search")}
+                aria-label="Search the site"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full text-[var(--c-text-muted)] transition hover:bg-black/[0.04] hover:text-[var(--c-ink)]"
+              >
+                <Search size={16} strokeWidth={1.75} aria-hidden />
+              </a>
+              <a
                 href={`tel:${PHONE_TEL}`}
                 onClick={() =>
                   trackButtonClick("Call CTA", "header_call", "Header")
@@ -242,13 +250,21 @@ export default function Header() {
               </a>
             </div>
 
+            <a
+              href="/search"
+              onClick={(e) => handleNav(e, "/search")}
+              aria-label="Search the site"
+              className="ml-auto flex h-10 w-10 items-center justify-center rounded-full text-[var(--c-ink)] transition hover:bg-black/[0.05] md:hidden"
+            >
+              <Search className="h-5 w-5" aria-hidden />
+            </a>
             <button
               type="button"
               onClick={() => {
                 if (open) closeMobile();
                 else setOpen(true);
               }}
-              className="ml-auto flex h-10 w-10 items-center justify-center rounded-full text-[var(--c-ink)] transition hover:bg-black/[0.05] md:hidden"
+              className="flex h-10 w-10 items-center justify-center rounded-full text-[var(--c-ink)] transition hover:bg-black/[0.05] md:hidden"
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
             >
