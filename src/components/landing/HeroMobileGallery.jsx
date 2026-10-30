@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { m as motion, useReducedMotion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { HERO_ARC_FRAMES } from "../../data/heroArcFrames";
 import { executeHeroFrameAction } from "../../utils/heroFrameAction";

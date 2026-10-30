@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { Link, useSearchParams } from "react-router-dom";
 import { Mail } from "lucide-react";
 import { unsubscribeEmailFromNewsletter } from "../services/ghl";

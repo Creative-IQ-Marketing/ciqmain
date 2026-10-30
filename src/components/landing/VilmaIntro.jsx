@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion, useReducedMotion } from "framer-motion";
+import { m as motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Reveal from "../primitives/Reveal";
 import vilmaCreative from "../../assets/vilma/vilma-creative.webp";

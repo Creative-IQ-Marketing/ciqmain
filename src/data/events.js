@@ -1,7 +1,7 @@
-import letsConnectNov from "../assets/events/lets-connect-nov.jpg";
-import letsConnectAug from "../assets/events/lets-connect.jpg";
-import carShow from "../assets/events/show-and-shine.jpg";
-import businessUnplugged from "../assets/events/business-unplugged.jpg";
+import letsConnectNov from "../assets/events/lets-connect-nov.webp";
+import letsConnectAug from "../assets/events/lets-connect.webp";
+import carShow from "../assets/events/show-and-shine.webp";
+import businessUnplugged from "../assets/events/business-unplugged.webp";
 
 /**
  * CIQ events — single source of truth for the homepage Events section.

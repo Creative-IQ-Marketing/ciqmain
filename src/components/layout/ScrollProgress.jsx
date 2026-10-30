@@ -1,4 +1,4 @@
-import { motion, useScroll, useSpring } from "framer-motion";
+import { m as motion, useScroll, useSpring } from "framer-motion";
 
 /** Thin accent bar at the very top of the page that tracks scroll depth. */
 export default function ScrollProgress() {

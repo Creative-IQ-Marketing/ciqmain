@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
-import { motion, useReducedMotion } from "framer-motion";
+import { m as motion, useReducedMotion } from "framer-motion";
 import { Calendar, Check, MessageSquare } from "lucide-react";
 import vilmaWide from "../../assets/vilma/vilma-phone-wide.webp";
 import vilmaTall from "../../assets/vilma/vilma-phone-tall.webp";
+import vilmaWide1280 from "../../assets/vilma/vilma-phone-wide-1280.webp";
+import vilmaTall560 from "../../assets/vilma/vilma-phone-tall-560.webp";
 import { PHONE_SMS } from "../../utils/contact";
 import { trackButtonClick } from "../../services/analytics";
 import { Button } from "../ui/button";
@@ -26,9 +28,15 @@ export default function AppointmentBand({ title, intro, points }) {
         viewport={{ once: true }}
         transition={{ duration: 1.6, ease: EASE }}
       >
-        <source media="(min-width: 1024px)" srcSet={vilmaWide} />
+        <source
+          media="(min-width: 1024px)"
+          srcSet={`${vilmaWide1280} 1280w, ${vilmaWide} 1920w`}
+          sizes="118vw"
+        />
         <img
           src={vilmaTall}
+          srcSet={`${vilmaTall560} 560w, ${vilmaTall} 800w`}
+          sizes="100vw"
           alt="Vilma Tovar, founder of CreativeIQ, on her phone"
           width={800}
           height={1000}

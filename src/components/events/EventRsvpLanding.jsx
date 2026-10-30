@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { ACTIVE_EVENT, getEventRsvpUrl } from "../../data/activeEvent";
 import ciqLogo from "../../assets/mainLogo.webp";
 import EventRsvpForm from "./EventRsvpForm";

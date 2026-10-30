@@ -1,6 +1,6 @@
 ﻿import { useRef } from "react";
 import {
-  motion,
+  m as motion,
   useReducedMotion,
   useScroll,
   useTransform,

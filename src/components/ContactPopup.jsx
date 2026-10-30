@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m as motion, AnimatePresence } from "framer-motion";
 import { X, Phone, Mail, ArrowRight, Clock } from "lucide-react";
 
 const ContactPopup = () => {

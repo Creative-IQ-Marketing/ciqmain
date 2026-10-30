@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, useTransform } from "framer-motion";
+import { m as motion, useTransform } from "framer-motion";
 import { useScrollProgress } from "../../hooks/useScrollProgress";
 
 /**

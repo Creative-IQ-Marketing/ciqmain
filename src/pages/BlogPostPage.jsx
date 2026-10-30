@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { m as motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { ArrowLeft, ArrowRight, Check, Link2 } from "lucide-react";
 import SEO from "../components/SEO";
 import NotFoundPage from "./NotFoundPage";

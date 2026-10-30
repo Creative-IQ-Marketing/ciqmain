@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { m as motion, useReducedMotion } from "framer-motion";
 import { Check, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import { MAIN_BUNDLES } from "../../data/growthBundles";

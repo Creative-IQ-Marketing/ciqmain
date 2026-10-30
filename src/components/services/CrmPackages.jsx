@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
+import { m as motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Check, ChevronDown } from "lucide-react";
 import { scrollToServicesContact } from "../../utils/formInterest";
 import { Button } from "../ui/button";

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, m as motion, useReducedMotion } from "framer-motion";
 import { useLocation, useNavigate } from "react-router-dom";
 import SEO from "../components/SEO";
 import { publishFormInterest, SECTION_INTEREST_MAP } from "../utils/formInterest";

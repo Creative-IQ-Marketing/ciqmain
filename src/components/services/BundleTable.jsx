@@ -1,5 +1,5 @@
 import { useMemo, useState, Fragment } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { m as motion, useReducedMotion } from "framer-motion";
 import { Check } from "lucide-react";
 import {
   Accordion,

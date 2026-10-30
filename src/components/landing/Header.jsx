@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { ChevronDown, Menu, Phone, Search, X } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import mainLogo from "../../assets/mainLogo.webp";

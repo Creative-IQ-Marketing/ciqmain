@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m as motion } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";

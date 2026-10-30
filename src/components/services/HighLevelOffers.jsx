@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { m as motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
 import { scrollToServicesContact } from "../../utils/formInterest";
 import { Button } from "../ui/button";

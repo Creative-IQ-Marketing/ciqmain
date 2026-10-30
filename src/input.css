@@ -1,4 +1,8 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+
+/* Scan only app code; auto-detection also picks up content/, public/ and docs. */
+@source "./";
+@source "../index.html";
 
 @theme {
   --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;

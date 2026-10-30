@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m as motion } from "framer-motion";
 import { Mail, X } from "lucide-react";
 import { useState } from "react";
 import { useNewsletter } from "../../context/NewsletterContext";

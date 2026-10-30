@@ -1,4 +1,4 @@
-import flyerImg from "../assets/events/show-and-shine.jpg";
+import flyerImg from "../assets/events/show-and-shine.webp";
 
 export const ACTIVE_EVENT = {
   id: "carshow",

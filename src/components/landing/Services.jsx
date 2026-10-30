@@ -8,7 +8,7 @@ import {
   Code,
   ArrowUpRight,
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { trackButtonClick } from "../../services/analytics";
 import { normalizeFormInterest } from "../../data/serviceFormOptions";

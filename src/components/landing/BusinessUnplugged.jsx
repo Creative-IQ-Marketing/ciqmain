@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import flyerImg from "../../assets/rsvp.webp";
 import BusinessUnpluggedForm from "./BusinessUnpluggedForm";

@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 
 const EASE = [0.16, 1, 0.3, 1];
 

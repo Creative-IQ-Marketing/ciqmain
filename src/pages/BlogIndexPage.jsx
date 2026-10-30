@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { m as motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Search, X } from "lucide-react";
 import SEO from "../components/SEO";
 import {
