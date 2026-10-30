@@ -38,7 +38,7 @@
 CreativeIQ's SEO comes in four tiers — Foundation ($299/mo), Growth ($499/mo), Authority ($799/mo), and Dominance ($999+/mo). Foundation fixes sitemaps, indexing, crawl errors, and speed. Growth adds Core Web Vitals and crawl-budget work. Authority adds schema and AI-search answers, and Dominance adds ongoing technical audits and entity mapping.
 
 ### What is answer engine optimization (AEO)?
-Answer engine optimization (AEO) is structuring your website so search features and AI assistants — Google's AI summaries, ChatGPT, Gemini, Perplexity — can lift a clear answer from your pages and cite you. It relies on question-and-answer content, schema markup such as FAQPage and Service, and consistent business details. CreativeIQ includes AEO in SEO Authority and in the Authority bundle.
+Answer engine optimization (AEO) is structuring your website so search features and AI assistants — Google's AI summaries, ChatGPT, Gemini, Perplexity — can lift a clear answer from your pages and cite you. It relies on question-and-answer content, schema markup such as FAQPage and Service, and consistent business details. CreativeIQ includes AEO in AEO Authority and in the Authority bundle.
 
 ### How do I know if my website is ready for AI search?
 Run the free CreativeIQ AI SEO audit. It reads your page title, meta description, headings, image alt text, links, sitemap, and robots.txt, then adds mobile-friendliness, page speed, and structured-data checks. The report is emailed to you, and each email can request two free reports per month.
@@ -60,6 +60,8 @@ More answers: https://creativeiqmarketing.com/services#faq · https://creativeiq
 ## Blog
 - Index: https://creativeiqmarketing.com/blog
 - RSS: https://creativeiqmarketing.com/blog/rss.xml
+- [What Is a Digital Marketing Ecosystem? Why Your Marketing Needs to Work Together](https://creativeiqmarketing.com/blog/social-media-series-102): A digital marketing ecosystem connects your website, SEO, content, social media, and CRM so each one strengthens the others. Learn how it works and why it…
+- [Why Isn't My Social Media Working? (And Why Posting More Won't Fix It)](https://creativeiqmarketing.com/blog/social-media-series-201): Posting daily but getting no leads? Learn why social media alone doesn't convert, and what to connect it to so your content actually brings in customers.
 - [Missed Call – Text Back System: How It Works and Why It’s Boosting Conversions in 2025](https://creativeiqmarketing.com/blog/missed-call-text-back-how-it-works): Discover how the Missed Call – Text Back System works and why it’s driving up to 60% more conversations and 40% more appointments in 2025. Learn how…
 - ["Missed calls" and "lost customers." The solution is the "Missed Call – Text Back System.](https://creativeiqmarketing.com/blog/impact-of-missed-calls-missed-call-text-back-system): Discover how missed calls can cost you up to 30% of customers and how a Missed Call – Text Back System stops that lead leakage in seconds.
 - [From Clicks to Clients: The PPC Strategy That Turns Attention Into Revenue](https://creativeiqmarketing.com/blog/from-clicks-to-clients-ppc-strategy): Turn clicks into clients with a complete PPC strategy: ads that attract, landing pages that convince, and follow-up that converts. Creative IQ — San…
