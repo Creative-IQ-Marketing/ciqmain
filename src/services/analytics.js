@@ -133,6 +133,23 @@ export const trackCTAClick = (ctaName, ctaType, ctaText = "") => {
   });
 };
 
+// Track the AI SEO Growth Guide funnel: gate_open -> gate_submit -> download.
+// `generate_lead` is the GA4 recommended lead event, so it can be marked as a
+// key event without extra mapping.
+export const trackGuideEvent = (step, source = "", extra = {}) => {
+  trackEvent(`guide_${step}`, {
+    guide_name: "ai_seo_growth_guide",
+    source,
+    ...extra,
+  });
+  if (step === "lead_captured") {
+    trackEvent("generate_lead", {
+      lead_type: "ai_seo_growth_guide",
+      source,
+    });
+  }
+};
+
 // Initialize analytics
 export const initializeAnalytics = () => {
   if (typeof window === "undefined") return;

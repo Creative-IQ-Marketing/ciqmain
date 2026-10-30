@@ -5,6 +5,7 @@ import Hero from "./components/landing/Hero";
 import SEO from "./components/SEO";
 import StructuredData from "./components/StructuredData";
 import { NewsletterProvider } from "./context/NewsletterContext";
+import { GuideGateProvider } from "./context/GuideGateContext";
 import { initializeAnalytics } from "./services/analytics";
 import {
   NEWSLETTER_POPUP_ENABLED,
@@ -115,6 +116,7 @@ function Layout() {
 
   return (
     <NewsletterProvider>
+      <GuideGateProvider>
       <div
         className={`min-h-screen bg-white${
           bannerPad
@@ -137,6 +139,7 @@ function Layout() {
           </Suspense>
         ) : null}
       </div>
+      </GuideGateProvider>
     </NewsletterProvider>
   );
 }

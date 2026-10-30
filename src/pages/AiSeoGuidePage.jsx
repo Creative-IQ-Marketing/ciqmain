@@ -7,7 +7,7 @@ import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import { submitAiSeoGuideLead } from "../services/ghl";
 import { requestSeoGuideEmail } from "../services/seoGuideTool";
-import { trackButtonClick, trackFormSubmission } from "../services/analytics";
+import { trackFormSubmission, trackGuideEvent } from "../services/analytics";
 import guideCover from "../assets/hero/guide-cover-2026.webp";
 
 const GUIDE_PDF = "/ciq-ai-seo-growth-guide.pdf";
@@ -24,7 +24,7 @@ function isValidEmail(email) {
 }
 
 function downloadGuide() {
-  trackButtonClick("Download SEO Guide", "guide_success_download", "AiSeoGuidePage");
+  trackGuideEvent("download", "guide_page");
   const a = document.createElement("a");
   a.href = GUIDE_PDF;
   a.download = "CIQ-AI-SEO-Growth-Guide.pdf";
@@ -78,6 +78,7 @@ export default function AiSeoGuidePage() {
 
       if (guideEmailOk) {
         trackFormSubmission("ai_seo_guide");
+        trackGuideEvent("lead_captured", "guide_page");
         setSuccess(true);
       } else {
         setError("We couldn't email the guide right now. Please try again.");

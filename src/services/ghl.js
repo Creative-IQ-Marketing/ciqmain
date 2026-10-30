@@ -190,7 +190,12 @@ export async function upsertSeoAuditLead({
   return { success: true, contact: data.contact || data };
 }
 
-export async function submitAiSeoGuideLead({ firstName, email }) {
+export async function submitAiSeoGuideLead({
+  firstName,
+  email,
+  source = "ai_seo_growth_guide",
+  pagePath = "",
+}) {
   const cleanEmail = normalizeEmail(email);
   if (!cleanEmail) {
     throw new Error("A valid email is required.");
@@ -204,10 +209,12 @@ export async function submitAiSeoGuideLead({ firstName, email }) {
     locationId: GHL_LOCATION_ID,
     tags: ["ai_seo_guide", "ai_seo_guide_lead", "ciqmain_website"],
     customFields: [
-      { key: "source", field_value: "ai_seo_growth_guide" },
+      { key: "source", field_value: source },
       {
         key: "message",
-        field_value: "AI SEO Growth Guide request — send PDF to inbox",
+        field_value: pagePath
+          ? `AI SEO Growth Guide download (${source}) on ${pagePath}`
+          : "AI SEO Growth Guide request — send PDF to inbox",
       },
     ],
   };

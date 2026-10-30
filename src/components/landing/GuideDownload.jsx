@@ -1,5 +1,5 @@
 import { Download } from "lucide-react";
-import { trackButtonClick } from "../../services/analytics";
+import { useGuideGate } from "../../context/GuideGateContext";
 import { Button } from "../ui/button";
 import Reveal from "../primitives/Reveal";
 import guideCover from "../../assets/hero/guide-cover-2026.webp";
@@ -13,16 +13,6 @@ function warmCache() {
   );
 }
 
-function triggerDownload() {
-  trackButtonClick("Download SEO Guide", "guide_download_cta", "GuideDownload");
-  const a = document.createElement("a");
-  a.href = "/ciq-ai-seo-growth-guide.pdf";
-  a.download = "CIQ-AI-SEO-Growth-Guide.pdf";
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-}
-
 const CHAPTERS = [
   { n: "01", t: "AI-ready on-page architecture" },
   { n: "02", t: "Technical SEO that moves rankings" },
@@ -31,6 +21,8 @@ const CHAPTERS = [
 ];
 
 export default function GuideDownload() {
+  const { openGuideGate } = useGuideGate();
+  const triggerDownload = () => openGuideGate("guide_download_cta");
   return (
     <section
       id="guide-download"
@@ -68,7 +60,7 @@ export default function GuideDownload() {
               Download PDF
             </Button>
             <span className="font-sans text-xs tracking-[0.02em] text-[var(--c-text-muted)]">
-              Free. No sign-up.
+              Free. Just your name and email.
             </span>
           </div>
         </Reveal>

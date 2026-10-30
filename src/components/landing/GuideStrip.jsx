@@ -1,11 +1,12 @@
 import { Download } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
-import { trackButtonClick } from "../../services/analytics";
+import { useGuideGate } from "../../context/GuideGateContext";
 import { Button } from "../ui/button";
 import guideCover from "../../assets/hero/guide-cover-2026.webp";
 
 export default function GuideStrip() {
   const { pathname } = useLocation();
+  const { openGuideGate } = useGuideGate();
   if (pathname === "/ai-seo-guide") return null;
 
   return (
@@ -29,7 +30,7 @@ export default function GuideStrip() {
           </h2>
           <p className="mt-1 max-w-xl font-sans text-sm leading-relaxed text-[var(--c-text-secondary)]">
             How to rank on Google and get cited by ChatGPT, Perplexity, and
-            Gemini. Free, no sign-up.{" "}
+            Gemini. Free — just your name and email.{" "}
             <Link
               to="/ai-seo-guide"
               className="font-semibold text-[var(--c-accent)] hover:underline"
@@ -38,17 +39,9 @@ export default function GuideStrip() {
             </Link>
           </p>
         </div>
-        <Button asChild>
-          <a
-            href="/ciq-ai-seo-growth-guide.pdf"
-            download="CIQ-AI-SEO-Growth-Guide.pdf"
-            onClick={() =>
-              trackButtonClick("Download SEO Guide", "guide_strip", "GuideStrip")
-            }
-          >
-            <Download size={15} strokeWidth={1.75} aria-hidden />
-            Download the book
-          </a>
+        <Button type="button" onClick={() => openGuideGate("guide_strip")}>
+          <Download size={15} strokeWidth={1.75} aria-hidden />
+          Download the book
         </Button>
       </div>
     </section>
