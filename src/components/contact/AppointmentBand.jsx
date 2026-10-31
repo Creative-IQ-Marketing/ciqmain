@@ -96,12 +96,12 @@ export default function AppointmentBand({ title, intro, points }) {
             <a
               href={PHONE_SMS}
               onClick={() =>
-                trackButtonClick("Text Vilma", "appointment_band", "HomeContact")
+                trackButtonClick("Text CIQ's team", "appointment_band", "HomeContact")
               }
               className="inline-flex items-center justify-center gap-2 font-sans text-[15px] font-semibold text-[var(--c-accent)] transition hover:text-[#2f5ad4]"
             >
               <MessageSquare size={15} strokeWidth={1.75} aria-hidden />
-              Text Vilma
+              Text CIQ&apos;s team
             </a>
           </div>
         </motion.div>

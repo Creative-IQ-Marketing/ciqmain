@@ -332,12 +332,21 @@ function buildTag(name, attrs) {
   return `<${name}${attrStr}>`;
 }
 
+// Retired number still sitting in older GHL posts. The sign-off line goes with it.
+const RETIRED_PHONE = /(?:\+?1[\s.-]*)?\(?804\)?[\s.-]*651[\s.-]*2531/g;
+const RETIRED_PHONE_LINE = new RegExp(
+  `<br\\s*/?>\\s*📱\\s*(?:<strong>Phone:</strong>\\s*)?(?:<strong>)?${RETIRED_PHONE.source}(?:</strong>)?`,
+  "g",
+);
+
 /**
  * Turn GHL editor HTML (or email HTML pasted into it) into clean, styled-by-us
  * article markup. Also returns a table of contents.
  */
 export function sanitizeArticle(input = "") {
   let html = String(input)
+    .replace(RETIRED_PHONE_LINE, "")
+    .replace(RETIRED_PHONE, "")
     .replace(/<!--[\s\S]*?-->/g, "")
     .replace(/<(script|style|noscript|head|title|xml|o:p)[^>]*>[\s\S]*?<\/\1>/gi, "")
     .replace(/<\/?(html|body|meta|link)[^>]*>/gi, "");

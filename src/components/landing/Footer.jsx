@@ -1,53 +1,17 @@
 import { Link } from "react-router-dom";
-import {
-  Facebook,
-  Instagram,
-  Linkedin,
-  Mail,
-  MessageSquare,
-  Music2,
-  Phone,
-  Youtube,
-} from "lucide-react";
+import { Mail, MessageSquare, Phone } from "lucide-react";
 import mainLogo from "../../assets/mainLogo.webp";
 import { trackButtonClick } from "../../services/analytics";
 import { EMAIL, PHONE_DISPLAY, PHONE_SMS, PHONE_TEL, TEXT_DISPLAY } from "../../utils/contact";
 import { SERVICES_NAV } from "../../data/servicesNav";
+import { SOCIALS } from "../../data/socials";
 import footerVoid from "../../assets/sections/section-footer-void.webp";
-
-const SOCIALS = [
-  {
-    Icon: Facebook,
-    label: "Facebook",
-    href: "https://www.facebook.com/CreativeIQDigitalmarketing",
-  },
-  {
-    Icon: Instagram,
-    label: "Instagram",
-    href: "https://www.instagram.com/creativeiq.digitalmarketing/",
-  },
-  {
-    Icon: Music2,
-    label: "TikTok",
-    href: "https://www.tiktok.com/@creativeiq.marketing",
-  },
-  {
-    Icon: Youtube,
-    label: "YouTube",
-    href: "https://www.youtube.com/@CreativeIQdigitalmarketing",
-  },
-  {
-    Icon: Linkedin,
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/company/creativeiqdigitalmarketing",
-  },
-];
 
 // TODO: swap CRM + Aura hrefs for their real links once Vilma sends them
 const FOOTER_ACTIONS = [
   { label: "Start a project", href: "/contact" },
   { label: "Make a payment", href: "/paymentform" },
-  { label: "Text Vilma", href: PHONE_SMS },
+  { label: "Text CIQ's team", href: PHONE_SMS },
   { label: "3 month CRM access", href: "/book" },
   { label: "Aura the digital avatar", href: "/contact" },
 ];

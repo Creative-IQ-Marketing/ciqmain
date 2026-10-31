@@ -1,6 +1,7 @@
 import { AnimatePresence, m as motion } from "framer-motion";
 import { ChevronDown, X } from "lucide-react";
 import { useState } from "react";
+import { SOCIALS } from "../../data/socials";
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -153,6 +154,20 @@ export default function MobileNavSheet({
               >
                 {ctaLabel}
               </a>
+              <div className="mt-4 flex justify-center gap-2 px-4">
+                {SOCIALS.map(({ Icon, label, href }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-full text-[var(--c-text-muted)] transition hover:bg-black/[0.04] hover:text-[var(--c-ink)]"
+                  >
+                    <Icon size={18} strokeWidth={1.75} aria-hidden />
+                  </a>
+                ))}
+              </div>
             </nav>
           </motion.div>
         </motion.div>

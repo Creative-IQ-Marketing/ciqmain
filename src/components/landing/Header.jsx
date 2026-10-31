@@ -7,6 +7,7 @@ import { PHONE_TEL } from "../../utils/contact";
 import { trackButtonClick } from "../../services/analytics";
 import { BUNDLES_NAV, SERVICES_NAV } from "../../data/servicesNav";
 import { ABOUT_NAV } from "../../data/aboutNav";
+import { SOCIALS } from "../../data/socials";
 import { TOOLS_NAV } from "../../data/toolsNav";
 import {
   scrollToHashFromHref,
@@ -25,7 +26,7 @@ const NAV = [
   ABOUT_NAV,
   BUNDLES_NAV,
   SERVICES_NAV,
-  { label: "Book a call", href: "/book" },
+  { label: "Book a call", href: "/book", className: "hidden min-[1366px]:inline-block" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
   TOOLS_NAV,
@@ -178,7 +179,7 @@ export default function Header() {
                       onClick={(e) => handleNav(e, item.href)}
                       onMouseEnter={() => warmRoute(item.href)}
                       onFocus={() => warmRoute(item.href)}
-                      className="rounded-full px-3.5 py-2 font-sans text-[13px] font-medium text-[var(--c-ink-soft)] transition hover:bg-black/[0.04] hover:text-[var(--c-ink)] lg:px-4 lg:text-[14px]"
+                      className={`rounded-full px-3.5 py-2 font-sans text-[13px] font-medium min-[1100px]:whitespace-nowrap text-[var(--c-ink-soft)] transition hover:bg-black/[0.04] hover:text-[var(--c-ink)] lg:px-4 lg:text-[14px] ${item.className ?? ""}`}
                     >
                       {item.label}
                     </a>
@@ -220,6 +221,23 @@ export default function Header() {
             </nav>
 
             <div className="ml-auto hidden items-center gap-2 md:flex">
+              <div className="hidden items-center xl:flex">
+                {SOCIALS.map(({ Icon, label, href }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    onClick={() =>
+                      trackButtonClick(label, "header_social", "Header")
+                    }
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--c-text-muted)] transition hover:bg-black/[0.04] hover:text-[var(--c-ink)]"
+                  >
+                    <Icon size={15} strokeWidth={1.75} aria-hidden />
+                  </a>
+                ))}
+              </div>
               <a
                 href="/search"
                 onClick={(e) => handleNav(e, "/search")}
@@ -233,10 +251,11 @@ export default function Header() {
                 onClick={() =>
                   trackButtonClick("Call CTA", "header_call", "Header")
                 }
+                aria-label="Call us"
                 className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 font-sans text-[13px] font-medium text-[var(--c-text-muted)] transition hover:bg-black/[0.04] hover:text-[var(--c-ink)]"
               >
                 <Phone size={14} strokeWidth={1.75} aria-hidden />
-                Call us
+                <span className="hidden min-[1366px]:inline">Call us</span>
               </a>
               <a
                 href="/book"
@@ -244,7 +263,7 @@ export default function Header() {
                   trackButtonClick("Book a call", "header_cta", "Header");
                   handleNav(e, "/book");
                 }}
-                className="rounded-full bg-[var(--c-cta)] px-5 py-2.5 font-sans text-[13px] font-semibold text-white transition hover:bg-[var(--c-cta-hover)]"
+                className="rounded-full bg-[var(--c-cta)] px-5 py-2.5 font-sans text-[13px] font-semibold min-[1100px]:whitespace-nowrap text-white transition hover:bg-[var(--c-cta-hover)]"
               >
                 Book a call
               </a>
