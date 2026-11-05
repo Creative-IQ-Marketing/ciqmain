@@ -43,13 +43,15 @@ const RESULTS = [
     stat: "$1.55",
     unit: "per lead",
     label: "Land sales company",
-    detail: "919 leads on $1,426.60 of ad spend, with Spanish-language lead ads.",
+    detail:
+      "919 leads on $1,426.60 of ad spend, with Spanish-language lead ads.",
   },
   {
     stat: "$14,725",
     unit: "in closed sales",
     label: "Local service business",
-    detail: "36 leads at $42.92 each on $1,545.17 of ad spend. Sales reported by the client.",
+    detail:
+      "36 leads at $42.92 each on $1,545.17 of ad spend. Sales reported by the client.",
   },
   {
     stat: "$3.47",
@@ -93,7 +95,9 @@ function Section({ eyebrow, title, intro, children }) {
         <div className="lg:col-span-5">
           <p className={EYEBROW}>{eyebrow}</p>
           <h2 className={H2}>{title}</h2>
-          {intro ? <div className={`mt-5 max-w-md ${BODY}`}>{intro}</div> : null}
+          {intro ? (
+            <div className={`mt-5 max-w-md ${BODY}`}>{intro}</div>
+          ) : null}
         </div>
         <div className="lg:col-span-7">{children}</div>
       </div>
@@ -130,16 +134,16 @@ function PartnershipCard() {
           className="absolute bottom-3 left-[11px] top-3 w-px origin-top bg-[var(--c-border-strong)]"
           initial={false}
           animate={{ scaleY: show ? 1 : 0 }}
-          transition={
-            reduce ? { duration: 0 } : { duration: 1.1, ease: EASE }
-          }
+          transition={reduce ? { duration: 0 } : { duration: 1.1, ease: EASE }}
         />
         {STEPS.map((step, i) => (
           <li key={step.n} className="relative pl-11">
             <motion.span
               aria-hidden
               className={`absolute left-0 top-0.5 flex size-6 items-center justify-center rounded-full ring-4 ring-[var(--c-surface-2)] ${
-                step.tone === "ink" ? "bg-[var(--c-ink)]" : "bg-[var(--c-accent)]"
+                step.tone === "ink"
+                  ? "bg-[var(--c-ink)]"
+                  : "bg-[var(--c-accent)]"
               }`}
               initial={false}
               animate={{ scale: show ? 1 : 0, opacity: show ? 1 : 0 }}
@@ -195,8 +199,8 @@ export default function LocalAdsLabPage() {
             </h1>
             <p className={`mt-6 max-w-xl text-base ${BODY}`}>
               CreativeIQ has teamed up with Local Ads Lab, a San Antonio Meta
-              ads agency, so local businesses get one team for attention and
-              one for conversion.
+              ads agency, so local businesses get one team for attention and one
+              for conversion.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Button asChild>
@@ -330,7 +334,7 @@ export default function LocalAdsLabPage() {
                   )
                 }
               >
-                Talk to CreativeIQ
+                Schedule a call
               </Link>
             </Button>
           </div>
@@ -344,8 +348,8 @@ export default function LocalAdsLabPage() {
                 Start with us and we&apos;ll bring in the ad team.
               </h3>
               <p className={`mt-2 max-w-md ${BODY}`}>
-                Tell us about your business. We&apos;ll plan the whole path
-                from ad to customer, with Local Ads Lab running the campaigns.
+                Tell us about your business. We&apos;ll plan the whole path from
+                ad to customer, with Local Ads Lab running the campaigns.
               </p>
               <a
                 href={LAL_COACHING_URL}
