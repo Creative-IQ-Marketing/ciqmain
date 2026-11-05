@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 
 const HeroArcGallery = lazy(() => import("./HeroArcGallery"));
 const HeroMobileGallery = lazy(() => import("./HeroMobileGallery"));
+const HeroVideoModal = lazy(() => import("./HeroVideoModal"));
 
 const ROTATING_PHRASES = [
   "Does your business appear?",
@@ -32,6 +33,11 @@ function usePrefersReducedMotion() {
 
 export default function Hero() {
   const reducedMotion = usePrefersReducedMotion();
+  const [playing, setPlaying] = useState(null);
+  const playVideo = (frame) => {
+    trackButtonClick(frame.label, "hero_video", "Hero");
+    setPlaying(frame);
+  };
   const [typedText, setTypedText] = useState(
     reducedMotion ? ROTATING_PHRASES[0] : ROTATING_PHRASES[0],
   );
@@ -137,15 +143,20 @@ export default function Hero() {
         </div>
 
         <Suspense fallback={null}>
-          <HeroMobileGallery reducedMotion={reducedMotion} />
+          <HeroMobileGallery reducedMotion={reducedMotion} onPlay={playVideo} />
         </Suspense>
       </div>
 
       <div className="mt-auto">
         <Suspense fallback={null}>
-          <HeroArcGallery reducedMotion={reducedMotion} />
+          <HeroArcGallery reducedMotion={reducedMotion} onPlay={playVideo} />
         </Suspense>
       </div>
+      {playing ? (
+        <Suspense fallback={null}>
+          <HeroVideoModal frame={playing} onClose={() => setPlaying(null)} />
+        </Suspense>
+      ) : null}
     </section>
   );
 }

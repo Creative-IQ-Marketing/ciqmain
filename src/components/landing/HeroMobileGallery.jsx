@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { HERO_ARC_FRAMES } from "../../data/heroArcFrames";
 import { executeHeroFrameAction } from "../../utils/heroFrameAction";
 import HeroFrameMedia from "./HeroFrameMedia";
+import useHeroVideosReady from "../../hooks/useHeroVideosReady";
 
 function GalleryTile({
   frame,
@@ -13,6 +14,7 @@ function GalleryTile({
   reduce,
   priority = false,
   allowVideo = false,
+  videoDelay = 0,
 }) {
   return (
     <motion.button
@@ -33,6 +35,7 @@ function GalleryTile({
         frame={frame}
         eager={priority}
         allowVideo={allowVideo}
+        delay={videoDelay}
         width={400}
         height={533}
       />
@@ -44,10 +47,15 @@ function GalleryTile({
   );
 }
 
-export default function HeroMobileGallery({ reducedMotion = false }) {
+export default function HeroMobileGallery({ reducedMotion = false, onPlay }) {
   const navigate = useNavigate();
   const framerReduced = useReducedMotion();
   const reduce = reducedMotion || framerReduced;
+  const videosReady = useHeroVideosReady("(max-width: 1023px)");
+  const select = (f) =>
+    f.youtubeId
+      ? onPlay?.(f)
+      : executeHeroFrameAction(f, navigate, "hero_mobile_frame");
   const featured = HERO_ARC_FRAMES[0];
   const grid = HERO_ARC_FRAMES.slice(1, 5);
 
@@ -60,11 +68,9 @@ export default function HeroMobileGallery({ reducedMotion = false }) {
             className="col-span-2"
             aspectClass="aspect-[16/9]"
             delay={0.04}
-            onSelect={(f) =>
-              executeHeroFrameAction(f, navigate, "hero_mobile_frame")
-            }
+            onSelect={select}
             reduce={reduce}
-            allowVideo
+            allowVideo={videosReady}
           />
           {grid.map((frame, index) => (
             <GalleryTile
@@ -72,10 +78,10 @@ export default function HeroMobileGallery({ reducedMotion = false }) {
               frame={frame}
               aspectClass="aspect-[3/4]"
               delay={0.08 + index * 0.04}
-              onSelect={(f) =>
-                executeHeroFrameAction(f, navigate, "hero_mobile_frame")
-              }
+              onSelect={select}
               reduce={reduce}
+              allowVideo={videosReady}
+              videoDelay={500 + index * 400}
             />
           ))}
         </div>

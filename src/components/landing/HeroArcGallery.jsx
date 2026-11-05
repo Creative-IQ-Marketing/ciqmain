@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { HERO_ARC_FRAMES } from "../../data/heroArcFrames";
 import { executeHeroFrameAction } from "../../utils/heroFrameAction";
 import HeroFrameMedia from "./HeroFrameMedia";
+import useHeroVideosReady from "../../hooks/useHeroVideosReady";
 
 const CARD_W = 196;
 const CARD_H = 262;
@@ -32,12 +33,13 @@ function arcTransform(rel) {
   return `translateX(${x}px) translateY(${p.y}px) translateZ(${p.z}px) rotateY(${p.rotY}deg) rotateX(${p.rotX}deg)`;
 }
 
-export default function HeroArcGallery({ reducedMotion = false }) {
+export default function HeroArcGallery({ reducedMotion = false, onPlay }) {
   const navigate = useNavigate();
   const [paused, setPaused] = useState(false);
   const [scroll, setScroll] = useState(0);
   const tiltRef = useRef({ x: 0, y: 0 });
   const stageRef = useRef(null);
+  const videosReady = useHeroVideosReady("(min-width: 1024px)");
 
   useEffect(() => {
     if (reducedMotion) return undefined;
@@ -113,7 +115,11 @@ export default function HeroArcGallery({ reducedMotion = false }) {
               <button
                 key={`${cycle}-${frame.id}`}
                 type="button"
-                onClick={() => isActive && executeHeroFrameAction(frame, navigate)}
+                onClick={() => {
+                  if (!isActive) return;
+                  if (frame.youtubeId) onPlay?.(frame);
+                  else executeHeroFrameAction(frame, navigate);
+                }}
                 tabIndex={isActive ? 0 : -1}
                 aria-hidden={!isActive}
                 className="absolute left-0 top-0 cursor-pointer overflow-hidden border-0 bg-[#0a0a0a] p-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)] [backface-visibility:hidden] [transform-origin:center_center] [transform-style:preserve-3d] will-change-transform"
@@ -132,7 +138,8 @@ export default function HeroArcGallery({ reducedMotion = false }) {
               >
                 <HeroFrameMedia
                   frame={frame}
-                  allowVideo={near}
+                  allowVideo={videosReady && isActive}
+                  delay={Math.round(Math.abs(rel) * 350)}
                   width={CARD_W}
                   height={CARD_H}
                 />
