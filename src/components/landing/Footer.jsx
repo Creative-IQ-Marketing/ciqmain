@@ -19,6 +19,7 @@ const FOOTER_ACTIONS = [
 const NAV = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about/creativeiq" },
+  { label: "Local Ads Lab", href: "/partners/local-ads-lab" },
   { label: "Bundles", href: "/bundles" },
   { label: "Services", href: "/services" },
   { label: "SEO Audit by CIQ", href: "/free-ai-seo-audit" },

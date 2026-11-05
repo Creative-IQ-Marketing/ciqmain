@@ -15,6 +15,7 @@ https://creativeiq.marketing/*  https://creativeiqmarketing.com/:splat  301!
 /services/what-is-crm/           /services/what-is-crm           301
 /about/creativeiq/               /about/creativeiq               301
 /about/vilma/                    /about/vilma                    301
+/partners/local-ads-lab/         /partners/local-ads-lab         301
 /social-media-free-trial/        /social-media-free-trial        301
 /contact/                        /contact                        301
 /newsletter/                     /newsletter                     301
@@ -41,6 +42,7 @@ https://creativeiq.marketing/*  https://creativeiqmarketing.com/:splat  301!
 /services/what-is-crm            /services/what-is-crm/index.html    200
 /about/creativeiq                /about/creativeiq/index.html    200
 /about/vilma                     /about/vilma/index.html    200
+/partners/local-ads-lab          /partners/local-ads-lab/index.html    200
 /social-media-free-trial         /social-media-free-trial/index.html    200
 /contact                         /contact/index.html    200
 /newsletter                      /newsletter/index.html    200

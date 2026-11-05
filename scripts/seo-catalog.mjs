@@ -149,6 +149,20 @@ export const SEO_PAGES = [
     ogImageAlt: "Vilma Tovar, founder and CEO of CreativeIQ Marketing",
   },
   {
+    path: "/partners/local-ads-lab",
+    title: "Local Ads Lab | CreativeIQ's Meta Ads Partner in San Antonio",
+    description:
+      "CreativeIQ partners with Local Ads Lab, a San Antonio Meta ads agency. They run the Facebook and Instagram ads. We build the website, SEO, and CRM that turn those clicks into customers.",
+    keywords:
+      "Local Ads Lab, Facebook ads agency San Antonio, Meta ads San Antonio, CreativeIQ partner, paid social San Antonio",
+    pageType: "website",
+    priority: "0.7",
+    changefreq: "monthly",
+    breadcrumbs: crumbs(["About", "/about/creativeiq"], ["Local Ads Lab", "/partners/local-ads-lab"]),
+    schemaType: "WebPage",
+    ogImageAlt: "CreativeIQ and Local Ads Lab, partners for local business growth",
+  },
+  {
     path: "/social-media-free-trial",
     title: "30-Day Social Media Free Trial | CreativeIQ",
     description: "Try CreativeIQ's Social Starter package free for 30 days.",

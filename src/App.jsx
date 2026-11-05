@@ -49,6 +49,7 @@ const SocialMediaFreeTrialPage = lazy(
 );
 const AboutCiqPage = lazy(() => import("./pages/AboutCiqPage"));
 const AboutVilmaPage = lazy(() => import("./pages/AboutVilmaPage"));
+const LocalAdsLabPage = lazy(() => import("./pages/LocalAdsLabPage"));
 const WhatIsCrmPage = lazy(() => import("./pages/WhatIsCrmPage"));
 const NewsletterPopup = lazy(() => import("./components/ui/NewsletterPopup"));
 const SearchPage = lazy(() => import("./pages/SearchPage"));
@@ -195,6 +196,7 @@ function App() {
           <Route path="/services/what-is-crm" element={<WhatIsCrmPage />} />
           <Route path="/about/creativeiq" element={<AboutCiqPage />} />
           <Route path="/about/vilma" element={<AboutVilmaPage />} />
+          <Route path="/partners/local-ads-lab" element={<LocalAdsLabPage />} />
           <Route
             path="/social-media-free-trial"
             element={<SocialMediaFreeTrialPage />}

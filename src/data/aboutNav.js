@@ -15,5 +15,10 @@ export const ABOUT_NAV = {
       description: "Founder & CEO. Strategist, speaker, mentor.",
       href: "/about/vilma",
     },
+    {
+      label: "Local Ads Lab",
+      description: "Our Meta ads partner in San Antonio.",
+      href: "/partners/local-ads-lab",
+    },
   ],
 };
