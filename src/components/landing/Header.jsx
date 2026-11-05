@@ -3,7 +3,7 @@ import { m as motion } from "framer-motion";
 import { ChevronDown, Menu, Phone, Search, X } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import mainLogo from "../../assets/mainLogo.webp";
-import { PHONE_TEL } from "../../utils/contact";
+import { PHONE_DISPLAY, PHONE_TEL } from "../../utils/contact";
 import { trackButtonClick } from "../../services/analytics";
 import { BUNDLES_NAV, SERVICES_NAV } from "../../data/servicesNav";
 import { ABOUT_NAV } from "../../data/aboutNav";
@@ -21,12 +21,13 @@ import { warmRoute } from "../../utils/prefetchAssets";
 
 const ease = [0.22, 1, 0.36, 1];
 
+// The logo already links home and the "Book a call" button is on the right,
+// so the desktop bar skips both; the mobile sheet keeps Home.
 const NAV = [
   { label: "Home", href: "/" },
   ABOUT_NAV,
   BUNDLES_NAV,
   SERVICES_NAV,
-  { label: "Book a call", href: "/book", className: "hidden min-[1366px]:inline-block" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
   TOOLS_NAV,
@@ -140,26 +141,26 @@ export default function Header() {
         transition={{ duration: 0.4, ease }}
         className={`fixed inset-x-0 z-50 ${headerNavTopClass}`}
       >
-        <div className="mx-auto max-w-[1400px] px-3 pt-2 sm:px-4 lg:px-6">
-          <div
-            className={`flex h-14 items-center gap-3 rounded-[var(--radius-pill)] border px-3 transition-all duration-300 sm:h-[3.6rem] sm:px-4 ${
-              scrolled
-                ? "border-black/[0.08] bg-white shadow-[0_12px_40px_-18px_rgba(15,15,15,0.28)]"
-                : "border-transparent bg-white/90"
-            }`}
-          >
+        <div
+          className={`border-b backdrop-blur-xl transition-colors duration-300 ${
+            scrolled
+              ? "border-black/[0.07] bg-white/90"
+              : "border-transparent bg-white/70"
+          }`}
+        >
+          <div className="mx-auto flex h-16 max-w-[var(--container-max)] items-center gap-6 px-[var(--container-pad)]">
             <a
               href="/"
               onClick={(e) => handleNav(e, "/")}
-              className="flex shrink-0 items-center gap-2.5 pl-1"
+              className="flex shrink-0 items-center gap-2.5 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)] focus-visible:ring-offset-2"
             >
-              <span className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-[var(--c-ink)] sm:h-10 sm:w-10">
+              <span className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-[var(--c-ink)]">
                 <img
                   src={mainLogo}
                   alt="CreativeIQ"
                   width={40}
                   height={40}
-                  className="h-6 w-6 object-contain brightness-0 invert sm:h-7 sm:w-7"
+                  className="h-6 w-6 object-contain brightness-0 invert"
                   decoding="async"
                   fetchPriority="low"
                 />
@@ -169,8 +170,13 @@ export default function Header() {
               </span>
             </a>
 
-            <nav className="ml-2 hidden flex-1 items-center justify-center gap-0.5 md:flex">
-              {NAV.map((item) => {
+            <nav className="hidden flex-1 items-center justify-center gap-1 md:flex" aria-label="Primary">
+              {NAV.filter((n) => n.href !== "/").map((item) => {
+                const isActive =
+                  item.href === "/"
+                    ? false
+                    : location.pathname === item.href ||
+                      location.pathname.startsWith(`${item.href}/`);
                 if (!item.children) {
                   return (
                     <a
@@ -179,7 +185,12 @@ export default function Header() {
                       onClick={(e) => handleNav(e, item.href)}
                       onMouseEnter={() => warmRoute(item.href)}
                       onFocus={() => warmRoute(item.href)}
-                      className={`rounded-full px-3.5 py-2 font-sans text-[13px] font-medium min-[1100px]:whitespace-nowrap text-[var(--c-ink-soft)] transition hover:bg-black/[0.04] hover:text-[var(--c-ink)] lg:px-4 lg:text-[14px] ${item.className ?? ""}`}
+                      aria-current={isActive ? "page" : undefined}
+                      className={`rounded-full px-3.5 py-2 font-sans text-[14px] font-medium whitespace-nowrap transition hover:bg-black/[0.04] hover:text-[var(--c-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)] ${
+                        isActive
+                          ? "bg-black/[0.05] text-[var(--c-ink)]"
+                          : "text-[var(--c-text-secondary)]"
+                      }`}
                     >
                       {item.label}
                     </a>
@@ -188,7 +199,9 @@ export default function Header() {
                 const isOpen = openMenuId === item.id;
                 const linkTone = item.accent
                   ? "text-[var(--c-accent)] hover:bg-[var(--c-accent)]/8 hover:text-[#2f5fd9]"
-                  : "text-[var(--c-ink-soft)] hover:bg-black/[0.04] hover:text-[var(--c-ink)]";
+                  : isActive
+                    ? "bg-black/[0.05] text-[var(--c-ink)]"
+                    : "text-[var(--c-text-secondary)] hover:bg-black/[0.04] hover:text-[var(--c-ink)]";
                 return (
                   <div
                     key={item.label}
@@ -199,7 +212,7 @@ export default function Header() {
                     <a
                       href={item.href}
                       onClick={(e) => handleNav(e, item.href)}
-                      className={`inline-flex items-center gap-1 rounded-full px-3.5 py-2 font-sans text-[13px] font-semibold transition lg:px-4 lg:text-[14px] ${linkTone}`}
+                      className={`inline-flex items-center gap-1 rounded-full px-3.5 py-2 font-sans text-[14px] font-medium whitespace-nowrap transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)] ${linkTone}`}
                       aria-expanded={isOpen}
                     >
                       {item.label}
@@ -220,8 +233,8 @@ export default function Header() {
               })}
             </nav>
 
-            <div className="ml-auto hidden items-center gap-2 md:flex">
-              <div className="hidden items-center xl:flex">
+            <div className="ml-auto hidden items-center gap-1 md:flex">
+              <div className="hidden items-center min-[1180px]:flex">
                 {SOCIALS.map(({ Icon, label, href }) => (
                   <a
                     key={label}
@@ -232,30 +245,23 @@ export default function Header() {
                     onClick={() =>
                       trackButtonClick(label, "header_social", "Header")
                     }
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--c-text-muted)] transition hover:bg-black/[0.04] hover:text-[var(--c-ink)]"
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--c-text-muted)] transition hover:bg-black/[0.04] hover:text-[var(--c-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)]"
                   >
-                    <Icon size={15} strokeWidth={1.75} aria-hidden />
+                    <Icon size={14} strokeWidth={1.75} aria-hidden />
                   </a>
                 ))}
+                <span className="mx-3 h-5 w-px bg-black/10" aria-hidden />
               </div>
-              <a
-                href="/search"
-                onClick={(e) => handleNav(e, "/search")}
-                aria-label="Search the site"
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full text-[var(--c-text-muted)] transition hover:bg-black/[0.04] hover:text-[var(--c-ink)]"
-              >
-                <Search size={16} strokeWidth={1.75} aria-hidden />
-              </a>
               <a
                 href={`tel:${PHONE_TEL}`}
                 onClick={() =>
                   trackButtonClick("Call CTA", "header_call", "Header")
                 }
                 aria-label="Call us"
-                className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 font-sans text-[13px] font-medium text-[var(--c-text-muted)] transition hover:bg-black/[0.04] hover:text-[var(--c-ink)]"
+                className="inline-flex h-10 items-center gap-2 rounded-full px-3 font-sans text-[14px] font-medium tabular-nums text-[var(--c-text-secondary)] transition hover:bg-black/[0.04] hover:text-[var(--c-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)]"
               >
-                <Phone size={14} strokeWidth={1.75} aria-hidden />
-                <span className="hidden min-[1366px]:inline">Call us</span>
+                <Phone size={15} strokeWidth={1.75} aria-hidden />
+                <span className="hidden min-[1366px]:inline">{PHONE_DISPLAY.replace("+1 ", "")}</span>
               </a>
               <a
                 href="/book"
@@ -263,7 +269,7 @@ export default function Header() {
                   trackButtonClick("Book a call", "header_cta", "Header");
                   handleNav(e, "/book");
                 }}
-                className="rounded-full bg-[var(--c-cta)] px-5 py-2.5 font-sans text-[13px] font-semibold min-[1100px]:whitespace-nowrap text-white transition hover:bg-[var(--c-cta-hover)]"
+                className="ml-2 inline-flex h-10 items-center whitespace-nowrap rounded-full bg-[var(--c-accent)] px-5 font-sans text-[14px] font-semibold text-white transition hover:bg-[#2f5fd9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-accent)] focus-visible:ring-offset-2"
               >
                 Book a call
               </a>
