@@ -1,3 +1,4 @@
+import NotifyMeButton from "../ui/NotifyMeButton";
 import heroSystems from "../../assets/generated/services-hero-systems.webp";
 
 /**
@@ -30,6 +31,7 @@ export default function ServicesHero() {
         <p className="mt-4 max-w-xl font-sans text-base leading-relaxed text-[var(--c-text-secondary)]">
           SEO and AEO, social media, CRM consulting, and web, sold on their own. The three growth bundles have their own page, and sit again at the bottom of this one.
         </p>
+        <NotifyMeButton source="services_hero" className="mt-6" />
       </div>
     </section>
   );

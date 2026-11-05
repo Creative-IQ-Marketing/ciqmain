@@ -4,13 +4,18 @@ const NewsletterContext = createContext(null);
 
 export function NewsletterProvider({ children }) {
   const [open, setOpen] = useState(false);
+  const [source, setSource] = useState("newsletter_popup");
 
-  const openNewsletter = useCallback(() => setOpen(true), []);
+  // onClick={openNewsletter} passes an event, so only keep string sources.
+  const openNewsletter = useCallback((from) => {
+    setSource(typeof from === "string" ? from : "newsletter_popup");
+    setOpen(true);
+  }, []);
   const closeNewsletter = useCallback(() => setOpen(false), []);
 
   return (
     <NewsletterContext.Provider
-      value={{ open, openNewsletter, closeNewsletter }}
+      value={{ open, source, openNewsletter, closeNewsletter }}
     >
       {children}
     </NewsletterContext.Provider>

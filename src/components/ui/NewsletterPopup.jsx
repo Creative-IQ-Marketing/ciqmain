@@ -6,7 +6,7 @@ import { subscribeContactToNewsletter } from "../../services/ghl";
 import { trackButtonClick } from "../../services/analytics";
 
 export default function NewsletterPopup() {
-  const { open, closeNewsletter } = useNewsletter();
+  const { open, source, closeNewsletter } = useNewsletter();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
@@ -19,10 +19,10 @@ export default function NewsletterPopup() {
     setLoading(true);
     try {
       await subscribeContactToNewsletter(email, {
-        source: "newsletter_popup",
+        source,
         pagePath: window.location.pathname,
       });
-      trackButtonClick("Newsletter Subscribe", "newsletter_popup", "NewsletterPopup");
+      trackButtonClick("Newsletter Subscribe", source, "NewsletterPopup");
       setSubscribed(true);
       setEmail("");
     } catch {
@@ -77,11 +77,11 @@ export default function NewsletterPopup() {
                 Newsletter
               </p>
               <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-900">
-                Growth insights, weekly.
+                Specials, discounts, and blogs.
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                Sharp strategy, channel signals, and practical execution ideas —
-                one concise email per week.
+                Leave your email and we'll let you know about new offers,
+                discounts, and what we publish. No spam.
               </p>
             </div>
 

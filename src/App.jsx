@@ -7,10 +7,7 @@ import StructuredData from "./components/StructuredData";
 import { NewsletterProvider } from "./context/NewsletterContext";
 import { GuideGateProvider } from "./context/GuideGateContext";
 import { initializeAnalytics } from "./services/analytics";
-import {
-  NEWSLETTER_POPUP_ENABLED,
-  SITE_TOP_BANNER,
-} from "./constants/siteBanner";
+import { SITE_TOP_BANNER } from "./constants/siteBanner";
 import { ACTIVE_EVENT } from "./data/activeEvent";
 import ScrollProgress from "./components/layout/ScrollProgress";
 import { scrollToSection } from "./utils/scrollToSection";
@@ -27,6 +24,7 @@ const Stats = lazy(() => import("./components/landing/Stats"));
 const Testimonials = lazy(() => import("./components/landing/Testimonials"));
 const Contact = lazy(() => import("./components/landing/Contact"));
 const GuideStrip = lazy(() => import("./components/landing/GuideStrip"));
+const NotifyStrip = lazy(() => import("./components/landing/NotifyStrip"));
 const Footer = lazy(() => import("./components/landing/Footer"));
 const VilmaIntro = lazy(() => import("./components/landing/VilmaIntro"));
 const ServicesPage = lazy(() => import("./pages/ServicesPage"));
@@ -130,14 +128,13 @@ function Layout() {
           <Outlet />
         </Suspense>
         <Suspense fallback={null}>
+          <NotifyStrip />
           <GuideStrip />
           <Footer />
         </Suspense>
-        {NEWSLETTER_POPUP_ENABLED ? (
-          <Suspense fallback={null}>
-            <NewsletterPopup />
-          </Suspense>
-        ) : null}
+        <Suspense fallback={null}>
+          <NewsletterPopup />
+        </Suspense>
       </div>
       </GuideGateProvider>
     </NewsletterProvider>
